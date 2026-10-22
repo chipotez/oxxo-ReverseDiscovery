@@ -1,0 +1,6 @@
+**
+!dist/
+!dist/**
+!infra/
+!infra/Caddyfile
+!infra/Containerfile

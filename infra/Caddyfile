@@ -1,0 +1,29 @@
+{
+ admin off
+ auto_https off
+ persist_config off
+}
+:8080 {
+ root * /koodaria
+ encode zstd gzip
+ @health path /healthz
+ handle @health {
+  respond "ok" 200
+ }
+ handle {
+  file_server
+ }
+ header {
+  Content-Security-Policy "default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'"
+  X-Content-Type-Options "nosniff"
+  X-Frame-Options "DENY"
+  Referrer-Policy "strict-origin-when-cross-origin"
+  Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+  Cache-Control "no-cache"
+  -Server
+ }
+ log {
+  output stdout
+  format json
+ }
+}

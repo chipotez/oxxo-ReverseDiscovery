@@ -1,0 +1,11 @@
+# Trusted, already patched runtime present on yard-hostinger. Override explicitly elsewhere.
+ARG BASE_IMAGE=5e2c5b4f65129fb9467fd15a9754d93cdede8590b79a1b5e9f35a5008b91dff8
+FROM ${BASE_IMAGE}
+USER 0
+COPY dist/ /koodaria/
+COPY infra/Caddyfile /etc/koodaria/Caddyfile
+USER 1000:1000
+EXPOSE 8080
+HEALTHCHECK --interval=30s --timeout=3s --retries=3 CMD curl --fail --silent http://127.0.0.1:8080/healthz || exit 1
+ENTRYPOINT ["/usr/bin/caddy"]
+CMD ["run", "--config", "/etc/koodaria/Caddyfile", "--adapter", "caddyfile"]

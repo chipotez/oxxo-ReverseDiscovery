@@ -1,0 +1,24 @@
+{
+  "verified_at_utc": "2026-10-22T17:37:42.806177+00:00",
+  "container": "koodaria-public-home-v1-review",
+  "image": "89fad2f149a5613e8cac17f612dc1c492cb5a534218054c9761f3fdc01975dfa",
+  "health": "healthy",
+  "user": "uid=1000(mip) gid=1000(1000) groups=1000(1000)",
+  "network": "none",
+  "published_ports": "",
+  "root_readonly": "true",
+  "routes": {
+    "/": "200",
+    "/healthz": "200",
+    "/assets/styles.css": "200",
+    "/assets/app.js": "200",
+    "/assets/favicon.svg": "200",
+    "/assets/tabler-LICENSE.txt": "200",
+    "/enterprise": "404",
+    "/login": "404",
+    "/workspace": "404"
+  },
+  "lab_status": "themike-portal-ui Up 38 minutes (healthy)\nthemike-site Up 38 minutes (healthy)\nthemike-postgres Up 38 minutes (healthy)\nthemike-keycloak Up 38 minutes\nthemike-portal-auth Up 37 minutes\nkoodaria-public-home-v1-review Up About a minute (healthy)",
+  "previous_revision": "exited",
+  "all_assets_match_local_build": true
+}

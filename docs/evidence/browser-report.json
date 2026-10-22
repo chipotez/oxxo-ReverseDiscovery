@@ -1,0 +1,45 @@
+{
+  "url": "http://127.0.0.1:4173",
+  "viewports": [
+    {
+      "width": 1440,
+      "height": 1000,
+      "overflow": false,
+      "axe_violations": []
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "overflow": false,
+      "axe_violations": []
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "overflow": false,
+      "axe_violations": []
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "overflow": false,
+      "axe_violations": []
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "overflow": false,
+      "axe_violations": []
+    },
+    {
+      "width": 320,
+      "height": 740,
+      "overflow": false,
+      "axe_violations": []
+    }
+  ],
+  "console_errors": [],
+  "failed_requests": [],
+  "no_js_fallback": "12 cards and navigation visible",
+  "reflow_640_and_reduced_motion": "passed"
+}
