@@ -66,8 +66,8 @@
   border-radius: 8px;
 }
 .login-submit:disabled {
-  background: var(--copper);
-  color: #0b171c;
+  background: var(--accent);
+  color: #fff;
   cursor: not-allowed;
   transform: none;
 }
@@ -87,9 +87,9 @@
   color: var(--mineral);
   text-decoration: underline;
   text-underline-offset: 5px;
-  text-decoration-color: var(--sand);
+  text-decoration-color: var(--line-soft);
 }
-.login-card-back:hover { text-decoration-color: var(--copper); }
+.login-card-back:hover { text-decoration-color: var(--accent); }
 .login-footer {
   display: flex;
   align-items: center;

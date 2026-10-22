@@ -22,7 +22,7 @@ No hay AAAA público observado. No se necesitó un token de Hostinger para esta 
 
 ## Integración y seguridad
 
-Se reutiliza el gateway `themike-site`, ahora con imagen `localhost/themike-site:koodaria-centered-login-20261022`. Su base es el runtime parcheado original, fijado por ID. La Home está en `/srv/koodaria`, separada de la landing del laboratorio en `/srv`. No requiere backend nuevo, redes o puertos adicionales. El contenedor de desarrollo permanece aislado y no forma parte del tráfico de producción.
+Se reutiliza el gateway `themike-site`, ahora con imagen `localhost/themike-site:koodaria-green-palette-20261022`. Su base es el runtime parcheado original, fijado por ID. La Home está en `/srv/koodaria`, separada de la landing del laboratorio en `/srv`. No requiere backend nuevo, redes o puertos adicionales. El contenedor de desarrollo permanece aislado y no forma parte del tráfico de producción.
 
 Los fragmentos de configuración están en `infra/edge/`. Se ensamblaron con el Caddyfile original conservando las rutas del laboratorio. La imagen fue validada antes de actualizar el Quadlet activo y su copia de fuente. Se reinició brevemente el gateway porque su API administrativa está desactivada. Se conservaron volúmenes, identidades, redes, puertos y políticas de reinicio.
 
@@ -129,3 +129,9 @@ Pruebas: siete comprobaciones estructurales y navegación desde el Login de Home
 Se adaptó la composición de la referencia proporcionada por el usuario al logo, tipografía y paleta de Koodaria: formulario de una columna centrada, fondo limpio, título centrado y enlace de cierre arriba a la derecha. Se retiraron el bloque lateral y la tarjeta exterior. La pantalla sigue siendo visual, con campos deshabilitados y aviso de disponibilidad; no se añaden proveedores de identidad o enlaces de registro inexistentes.
 
 Pruebas estructurales, accesibilidad local y revisión publicada a cinco tamaños, incluido el cierre hacia la Home. Evidencia: `evidence/centered-login-report.json`. Imagen activa: `localhost/themike-site:koodaria-centered-login-20261022`, contexto `/home/mip/apps/koodaria-centered-login`; respaldo de Quadlets para rollback en `/root/remediation-20261022/koodaria-centered-login`.
+
+## Paleta verde
+
+A petición del usuario se sustituyeron los acentos cobre y marrones por variantes minerales y salvia en Home y login. Se actualizaron botones, estados hover y foco, títulos, subrayados, fondos, punto del logo y favicon. Los tokens de color se denominan ahora `--accent`, `--accent-ink` y `--line-soft`. Los botones principales usan blanco sobre verde bosque; se comprobaron contraste y accesibilidad en ambas páginas a tamaños de escritorio y móvil. Evidencia: `evidence/green-palette-report.json`.
+
+Imagen activa: `localhost/themike-site:koodaria-green-palette-20261022`, contexto `/home/mip/apps/koodaria-green-palette`; respaldo de Quadlets para rollback en `/root/remediation-20261022/koodaria-green-palette`.

@@ -1,0 +1,30 @@
+[
+  {
+    "route": "/",
+    "width": 1440,
+    "height": 900,
+    "accent": "#2f6557",
+    "axe_violations": []
+  },
+  {
+    "route": "/",
+    "width": 390,
+    "height": 844,
+    "accent": "#2f6557",
+    "axe_violations": []
+  },
+  {
+    "route": "/login/",
+    "width": 1440,
+    "height": 900,
+    "accent": "#2f6557",
+    "axe_violations": []
+  },
+  {
+    "route": "/login/",
+    "width": 390,
+    "height": 844,
+    "accent": "#2f6557",
+    "axe_violations": []
+  }
+]
