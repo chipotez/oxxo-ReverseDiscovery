@@ -2,3 +2,11 @@ dist/
 __pycache__/
 .artifacts/
 koodaria-v2-standalone.zip
+
+.secrets/
+
+.env
+
+.env.*
+
+!.env.example
