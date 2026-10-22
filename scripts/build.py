@@ -15,7 +15,7 @@ def icon(name):
     if not re.fullmatch(r'[a-z0-9-]+', name):
         raise ValueError('Invalid icon name')
     svg = (ROOT / 'src/assets/icons' / (name + '.svg')).read_text()
-    svg = svg.replace('stroke-width="2"', 'stroke-width="1.75"')
+    svg = svg.replace('stroke-width="2"', 'stroke-width="1.4"')
     return svg.replace('<svg ', '<svg aria-hidden="true" focusable="false" ', 1)
 
 def link(label, target, cls=''):
@@ -24,9 +24,9 @@ def link(label, target, cls=''):
 def card(item, kind):
     topics = ''.join(f'<li>{text(topic)}</li>' for topic in item['topics'])
     return f'''<article class="competency-card">
-      <div class="card-top"><span class="icon-tile">{icon(item['icon'])}</span><span class="level">{text(item['level'])}</span></div>
-      <p class="card-kind">{text(kind)}</p><h3>{text(item['title'])}</h3><p>{text(item['description'])}</p>
-      <details><summary>Ver enfoque {icon('arrow-up-right')}</summary><div class="detail-body"><p>Aspectos que explora esta competencia:</p><ul>{topics}</ul></div></details>
+      <div class="card-heading"><span class="icon-tile">{icon(item['icon'])}</span><div><h3>{text(item['title'])}</h3><span class="level">{text(item['level'])}</span></div></div>
+      <p>{text(item['description'])}</p>
+      <details><summary>Enfoque {icon('chevron-down')}</summary><div class="detail-body"><ul>{topics}</ul></div></details>
     </article>'''
 
 def catalog(groups):

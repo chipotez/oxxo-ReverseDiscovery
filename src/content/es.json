@@ -1,24 +1,231 @@
 {
-  "navigation": [["Inicio", "inicio"], ["Competencias", "competencias"], ["Tecnologías", "tecnologias"], ["Entornos", "entornos"], ["Enterprise", "enterprise"]],
-  "catalog": [
-    {"id":"modulos", "label":"Módulos destacados", "kind":"Área de competencia", "items":[
-      {"title":"Administración Linux", "icon":"terminal-2", "description":"Comprende el sistema. Opera servicios, permisos y procesos con decisiones fundamentadas.", "level":"Fundamentos", "topics":["Sistema de archivos y permisos", "Servicios y procesos", "Diagnóstico y registros"]},
-      {"title":"Automatización con Ansible", "icon":"settings-automation", "description":"Convierte tareas operativas en configuraciones claras, repetibles y mantenibles.", "level":"Intermedio", "topics":["Inventarios y variables", "Playbooks y roles", "Idempotencia y validación"]},
-      {"title":"Arquitectura Cloud", "icon":"cloud", "description":"Relaciona redes, identidad y servicios para tomar mejores decisiones de arquitectura.", "level":"Fundamentos", "topics":["Modelos de servicio", "Redes e identidad", "Disponibilidad y costes"]},
-      {"title":"Contenedores y Docker", "icon":"brand-docker", "description":"Explora el ciclo de una aplicación: imagen, configuración, red y persistencia.", "level":"Intermedio", "topics":["Construcción de imágenes", "Redes y volúmenes", "Ejecución con mínimos privilegios"]},
-      {"title":"Kubernetes", "icon":"hexagons", "description":"Conecta las piezas de una plataforma y comprende cómo operan sus cargas de trabajo.", "level":"Intermedio", "topics":["Pods y controladores", "Servicios y configuración", "Estado y diagnóstico"]},
-      {"title":"Observabilidad", "icon":"chart-line", "description":"Transforma métricas, registros y trazas en señales útiles para investigar un servicio.", "level":"Intermedio", "topics":["Señales y contexto", "Hipótesis de diagnóstico", "Alertas orientadas a servicios"]}
-    ]},
-    {"id":"rutas", "label":"Rutas de desarrollo", "kind":"Propuesta de recorrido", "items":[
-      {"title":"Sistemas y operación", "icon":"server", "description":"Una progresión desde Linux y redes hasta diagnóstico y automatización operativa.", "level":"Progresivo", "topics":["Fundamentos Linux", "Redes y servicios", "Automatización operativa"]},
-      {"title":"Ingeniería de plataformas", "icon":"stack-2", "description":"Relaciona contenedores, orquestación y observabilidad en un mismo contexto técnico.", "level":"Progresivo", "topics":["Empaquetado de aplicaciones", "Orquestación", "Operación observable"]},
-      {"title":"Fundamentos Cloud", "icon":"cloud", "description":"Construye un criterio de diseño que conecte servicios, seguridad y arquitectura.", "level":"Fundamentos", "topics":["Modelos cloud", "Identidad y redes", "Decisiones de arquitectura"]}
-    ]},
-    {"id":"especializaciones", "label":"Especializaciones", "kind":"Enfoque de especialización", "items":[
-      {"title":"Automatización de infraestructura", "icon":"settings-automation", "description":"Diseño de configuraciones repetibles, revisión de cambios y consistencia entre entornos.", "level":"Profundización", "topics":["Configuración declarativa", "Validación de cambios", "Estandarización operativa"]},
-      {"title":"Arquitectura de contenedores", "icon":"hexagons", "description":"Patrones para empaquetar, desplegar y operar aplicaciones sobre plataformas modernas.", "level":"Profundización", "topics":["Diseño de imágenes", "Patrones de despliegue", "Límites y persistencia"]},
-      {"title":"Operaciones y observabilidad", "icon":"chart-line", "description":"Métodos para investigar fallos y convertir evidencia técnica en decisiones de operación.", "level":"Profundización", "topics":["Correlación de señales", "Investigación de incidentes", "Confiabilidad de servicios"]}
-    ]}
+  "navigation": [
+    [
+      "Inicio",
+      "inicio"
+    ],
+    [
+      "Competencias",
+      "competencias"
+    ],
+    [
+      "Tecnologías",
+      "tecnologias"
+    ],
+    [
+      "Entornos",
+      "entornos"
+    ],
+    [
+      "Enterprise",
+      "enterprise"
+    ]
   ],
-  "technologies": [["AWS","cloud","Servicios cloud"],["Azure","cloud","Infraestructura cloud"],["GCP","cloud","Plataformas cloud"],["Linux","terminal-2","Sistemas operativos"],["Contenedores","brand-docker","Empaquetado y ejecución"],["Kubernetes","hexagons","Orquestación"],["Ansible","settings-automation","Automatización"],["Observabilidad","chart-line","Señales y diagnóstico"],["Seguridad","shield-lock","Identidad y protección"],["Arquitectura tecnológica","topology-star-3","Diseño de sistemas"]]
+  "catalog": [
+    {
+      "id": "modulos",
+      "label": "Módulos destacados",
+      "kind": "Área de competencia",
+      "items": [
+        {
+          "title": "Administración Linux",
+          "icon": "terminal-2",
+          "description": "Archivos, permisos, procesos y servicios. Aprende qué revisar cuando algo no funciona.",
+          "level": "Fundamentos",
+          "topics": [
+            "Sistema de archivos y permisos",
+            "Servicios y procesos",
+            "Diagnóstico y registros"
+          ]
+        },
+        {
+          "title": "Automatización con Ansible",
+          "icon": "settings-automation",
+          "description": "Prepara tareas que puedas repetir en varios servidores sin configurar cada uno a mano.",
+          "level": "Intermedio",
+          "topics": [
+            "Inventarios y variables",
+            "Playbooks y roles",
+            "Idempotencia y validación"
+          ]
+        },
+        {
+          "title": "Arquitectura Cloud",
+          "icon": "cloud",
+          "description": "Conoce cómo se conectan las redes, los usuarios y los servicios de una aplicación en la nube.",
+          "level": "Fundamentos",
+          "topics": [
+            "Modelos de servicio",
+            "Redes e identidad",
+            "Disponibilidad y costes"
+          ]
+        },
+        {
+          "title": "Contenedores y Docker",
+          "icon": "brand-docker",
+          "description": "Prepara una aplicación para ejecutarla en otro entorno, con su configuración y sus datos.",
+          "level": "Intermedio",
+          "topics": [
+            "Construcción de imágenes",
+            "Redes y volúmenes",
+            "Ejecución con mínimos privilegios"
+          ]
+        },
+        {
+          "title": "Kubernetes",
+          "icon": "hexagons",
+          "description": "Aprende cómo se despliegan las aplicaciones y cómo revisar su estado cuando fallan.",
+          "level": "Intermedio",
+          "topics": [
+            "Pods y controladores",
+            "Servicios y configuración",
+            "Estado y diagnóstico"
+          ]
+        },
+        {
+          "title": "Observabilidad",
+          "icon": "chart-line",
+          "description": "Lee métricas, registros y trazas para averiguar qué le está pasando a un servicio.",
+          "level": "Intermedio",
+          "topics": [
+            "Señales y contexto",
+            "Hipótesis de diagnóstico",
+            "Alertas orientadas a servicios"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rutas",
+      "label": "Rutas de desarrollo",
+      "kind": "Propuesta de recorrido",
+      "items": [
+        {
+          "title": "Sistemas y operación",
+          "icon": "server",
+          "description": "Empieza por Linux y redes. Después, revisa servicios, investiga fallos y automatiza tareas.",
+          "level": "Progresivo",
+          "topics": [
+            "Fundamentos Linux",
+            "Redes y servicios",
+            "Automatización operativa"
+          ]
+        },
+        {
+          "title": "Ingeniería de plataformas",
+          "icon": "stack-2",
+          "description": "Sigue el recorrido de una aplicación: empaquetarla, desplegarla y comprobar que funciona.",
+          "level": "Progresivo",
+          "topics": [
+            "Empaquetado de aplicaciones",
+            "Orquestación",
+            "Operación observable"
+          ]
+        },
+        {
+          "title": "Fundamentos Cloud",
+          "icon": "cloud",
+          "description": "Conoce los servicios cloud y aprende a comparar sus opciones de red, acceso y almacenamiento.",
+          "level": "Fundamentos",
+          "topics": [
+            "Modelos cloud",
+            "Identidad y redes",
+            "Decisiones de arquitectura"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "especializaciones",
+      "label": "Especializaciones",
+      "kind": "Enfoque de especialización",
+      "items": [
+        {
+          "title": "Automatización de infraestructura",
+          "icon": "settings-automation",
+          "description": "Mantén la misma configuración en varios entornos y comprueba cada cambio antes de aplicarlo.",
+          "level": "Profundización",
+          "topics": [
+            "Configuración declarativa",
+            "Validación de cambios",
+            "Estandarización operativa"
+          ]
+        },
+        {
+          "title": "Arquitectura de contenedores",
+          "icon": "hexagons",
+          "description": "Revisa cómo preparar imágenes, guardar datos y desplegar aplicaciones con contenedores.",
+          "level": "Profundización",
+          "topics": [
+            "Diseño de imágenes",
+            "Patrones de despliegue",
+            "Límites y persistencia"
+          ]
+        },
+        {
+          "title": "Operaciones y observabilidad",
+          "icon": "chart-line",
+          "description": "Investiga fallos a partir de registros y métricas, y comprueba si la solución funcionó.",
+          "level": "Profundización",
+          "topics": [
+            "Correlación de señales",
+            "Investigación de incidentes",
+            "Confiabilidad de servicios"
+          ]
+        }
+      ]
+    }
+  ],
+  "technologies": [
+    [
+      "AWS",
+      "cloud",
+      "Servicios cloud"
+    ],
+    [
+      "Azure",
+      "cloud",
+      "Infraestructura cloud"
+    ],
+    [
+      "GCP",
+      "cloud",
+      "Plataformas cloud"
+    ],
+    [
+      "Linux",
+      "terminal-2",
+      "Sistemas operativos"
+    ],
+    [
+      "Contenedores",
+      "brand-docker",
+      "Empaquetado y ejecución"
+    ],
+    [
+      "Kubernetes",
+      "hexagons",
+      "Orquestación"
+    ],
+    [
+      "Ansible",
+      "settings-automation",
+      "Automatización"
+    ],
+    [
+      "Observabilidad",
+      "chart-line",
+      "Señales y diagnóstico"
+    ],
+    [
+      "Seguridad",
+      "shield-lock",
+      "Identidad y protección"
+    ],
+    [
+      "Arquitectura tecnológica",
+      "topology-star-3",
+      "Diseño de sistemas"
+    ]
+  ]
 }

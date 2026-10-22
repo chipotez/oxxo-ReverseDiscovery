@@ -22,7 +22,7 @@ No hay AAAA público observado. No se necesitó un token de Hostinger para esta 
 
 ## Integración y seguridad
 
-Se reutiliza el gateway `themike-site`, ahora con imagen `localhost/themike-site:koodaria-without-05-06-20261022`. Su base es el runtime parcheado original, fijado por ID. La Home está en `/srv/koodaria`, separada de la landing del laboratorio en `/srv`. No requiere backend nuevo, redes o puertos adicionales. El contenedor de desarrollo permanece aislado y no forma parte del tráfico de producción.
+Se reutiliza el gateway `themike-site`, ahora con imagen `localhost/themike-site:koodaria-readable-20261022`. Su base es el runtime parcheado original, fijado por ID. La Home está en `/srv/koodaria`, separada de la landing del laboratorio en `/srv`. No requiere backend nuevo, redes o puertos adicionales. El contenedor de desarrollo permanece aislado y no forma parte del tráfico de producción.
 
 Los fragmentos de configuración están en `infra/edge/`. Se ensamblaron con el Caddyfile original conservando las rutas del laboratorio. La imagen fue validada antes de actualizar el Quadlet activo y su copia de fuente. Se reinició brevemente el gateway porque su API administrativa está desactivada. Se conservaron volúmenes, identidades, redes, puertos y políticas de reinicio.
 
@@ -77,3 +77,13 @@ Las rutas futuras `/enterprise`, `/login` y `/workspace` continúan devolviendo 
 ## Actualización de contenido: retirar secciones 05 y 06
 
 Se retiraron Desafíos técnicos y Recursos a petición del usuario, incluidos los enlaces de navegación y footer hacia esas secciones. Las secciones Inicio y 01–04 se mantienen. Imagen activa: `localhost/themike-site:koodaria-without-05-06-20261022`; contexto: `/home/mip/apps/koodaria-without-05-06`. Para revertir solo este cambio, restaurar `quadlet.before` y `source-quadlet.before` de `/root/remediation-20261022/koodaria-remove-05-06` a sus destinos habituales, recargar systemd de usuario y reiniciar el gateway. La imagen HTTPS anterior queda retenida.
+
+## Revisión de lectura y contenido
+
+Nueva imagen activa: `localhost/themike-site:koodaria-readable-20261022`, contexto `/home/mip/apps/koodaria-readable-20261022`. Se aligeraron los pesos de letra, se aumentaron los textos de lectura y se eliminaron la numeración de secciones y las etiquetas repetidas de las tarjetas. Los títulos se colocaron junto a iconos de 32–34 px, con trazo 1.4. Se simplificaron los textos, la presentación de Enterprise y el footer. El enlace empresarial dice «Para empresas» porque aún no existe un login de Koodaria.
+
+El terminal utiliza una animación finita y local de escritura; no ejecuta comandos ni realiza conexiones. Admite pausa, continuación y repetición. Con movimiento reducido o JavaScript desactivado muestra el ejemplo completo. El lector de pantalla recibe el texto completo, sin anunciar cada carácter. Se corrigió además la visibilidad del enlace de salto bajo movimiento reducido.
+
+Pruebas: seis comprobaciones estructurales, navegador a 320/390/768/1024/1280/1440 px y pruebas de animación. Evidencia de navegador: `evidence/readability-browser-report.json`. `tests/terminal_qa.py` permite repetir las pruebas de animación con Playwright. Se comprobaron los archivos desplegados contra `dist/` y el funcionamiento del laboratorio.
+
+Rollback de esta revisión: restaurar `quadlet.before` y `source-quadlet.before` desde `/root/remediation-20261022/koodaria-readable`, recargar systemd de usuario y reiniciar `themike-site.service`. La revisión previa conserva HTTPS y el contenido anterior sin secciones 05/06. No se modificaron DNS, certificados o rutas del gateway.

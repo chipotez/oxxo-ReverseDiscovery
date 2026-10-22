@@ -21,7 +21,7 @@ Abrir **http://127.0.0.1:4173**. El servidor escucha únicamente en loopback; de
 - `scripts/build.py`: componentes de catálogo, tarjetas, iconos y enlaces; escape HTML y generación determinista.
 - `src/assets/styles.css`: tokens Mineral Intelligence, componentes y adaptaciones responsive.
 - `src/assets/app.js`: módulos nativos del navegador, pestañas accesibles y menú móvil; sin APIs ni lógica de negocio.
-- `src/assets/icons/`: SVG locales oficiales de Tabler con trazo de 1.75; licencia MIT en `docs/tabler-LICENSE.txt`, también distribuida en assets.
+- `src/assets/icons/`: SVG locales oficiales de Tabler con trazo de 1.4; licencia MIT en `docs/tabler-LICENSE.txt`, también distribuida en assets.
 - `infra/`: configuración exclusiva del servicio nuevo; no reemplaza el proxy global.
 - `tests/`: validación estructural y pruebas opcionales de navegador.
 - `docs/`: inspección técnica, decisiones, despliegue, rollback y resultados.
@@ -32,7 +32,7 @@ Se usa la tipografía del sistema; no hay descarga de fuentes. Los nombres de te
 
 Las pestañas cambian entre módulos, rutas y especializaciones; admiten flechas, Home/End y foco visible. Las tarjetas despliegan sus temas. Los enlaces del footer seleccionan un grupo existente. El menú móvil admite Escape, cierra al navegar y comunica su estado. La navegación funciona sin JavaScript, mostrando entonces todos los grupos.
 
-El terminal es una composición ilustrativa expresamente identificada. Enterprise es una sección informativa con un flujo futuro; `/enterprise`, `/login` y `/workspace` devuelven 404. No hay formularios ni credenciales. El canal de contacto aún debe confirmarse.
+El terminal es una demostración animada, sin ejecución real. Puede pausarse o repetirse y respeta la preferencia de movimiento reducido. Enterprise es una sección informativa con un flujo futuro; `/enterprise`, `/login` y `/workspace` devuelven 404. No hay formularios ni credenciales. El canal de contacto aún debe confirmarse.
 
 ## Vista de la implementación
 

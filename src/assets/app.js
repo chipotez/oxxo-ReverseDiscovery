@@ -69,3 +69,86 @@ function revealAnchorDetails() {
 }
 window.addEventListener('hashchange', revealAnchorDetails);
 revealAnchorDetails();
+
+// Local, finite demonstration: never opens a shell or sends a network request.
+const terminal = document.querySelector('.terminal');
+if (terminal) {
+  const screen = terminal.querySelector('.terminal-screen');
+  const commands = [...terminal.querySelectorAll('[data-terminal-command]')];
+  const output = terminal.querySelector('[data-terminal-output]');
+  const control = terminal.querySelector('.terminal-control');
+  const motion = matchMedia('(prefers-reduced-motion: reduce)');
+  const original = commands.map(command => command.textContent);
+  const accessibleText = document.createElement('p');
+  accessibleText.className = 'sr-only';
+  accessibleText.textContent = screen.textContent;
+  terminal.append(accessibleText);
+  screen.setAttribute('aria-hidden', 'true');
+  let timer;
+  let started = false;
+  let paused = false;
+  let finished = false;
+  let line = 0;
+  let character = 0;
+  const complete = () => {
+    clearTimeout(timer);
+    commands.forEach((command, i) => { command.textContent = original[i]; });
+    output.classList.remove('awaiting-output');
+    terminal.classList.remove('is-typing');
+    finished = true;
+    paused = false;
+    control.textContent = 'Repetir animación';
+  };
+  const step = () => {
+    if (paused || finished) return;
+    const current = commands[line];
+    current.textContent = original[line].slice(0, ++character);
+    if (character < original[line].length) {
+      timer = setTimeout(step, 42);
+    } else if (line === 0) {
+      timer = setTimeout(() => {
+        output.classList.remove('awaiting-output');
+        line = 1;
+        character = 0;
+        timer = setTimeout(step, 600);
+      }, 450);
+    } else {
+      complete();
+    }
+  };
+  const start = () => {
+    clearTimeout(timer);
+    line = 0;
+    character = 0;
+    paused = false;
+    finished = false;
+    started = true;
+    commands.forEach(command => { command.textContent = ''; });
+    output.classList.add('awaiting-output');
+    terminal.classList.add('is-typing');
+    control.hidden = false;
+    control.textContent = 'Pausar animación';
+    step();
+  };
+  control.addEventListener('click', () => {
+    if (motion.matches) return;
+    if (finished) { start(); return; }
+    paused = !paused;
+    terminal.classList.toggle('is-paused', paused);
+    control.textContent = paused ? 'Continuar animación' : 'Pausar animación';
+    if (paused) clearTimeout(timer);
+    else step();
+  });
+  motion.addEventListener('change', () => {
+    if (motion.matches) { complete(); control.hidden = true; }
+  });
+  if (!motion.matches) {
+    const observer = new IntersectionObserver(entries => {
+      if (entries.some(entry => entry.isIntersecting) && !started) {
+        start();
+        observer.disconnect();
+      }
+    }, { threshold: 0.3 });
+    observer.observe(terminal);
+  }
+}
