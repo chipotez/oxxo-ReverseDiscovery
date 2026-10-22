@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#193A37">
+  <meta name="robots" content="noindex">
+  <meta name="description" content="Acceso a tu cuenta de Koodaria.">
+  <title>Iniciar sesión — Koodaria</title>
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/styles.css">
+  <link rel="stylesheet" href="/assets/login.css">
+</head>
+<body class="login-page">
+<a class="skip-link" href="#acceso">Saltar al contenido</a>
+<header class="login-header"><div class="shell"><a class="wordmark" href="/" aria-label="Koodaria, inicio">koodaria<span>.</span></a><a class="login-back" href="/">{{icon:arrow-right}} Volver al inicio</a></div></header>
+<main id="acceso" class="login-layout shell">
+  <section class="login-intro" aria-labelledby="login-intro-title">
+    <p class="eyebrow">Koodaria</p>
+    <h1 id="login-intro-title">Bienvenido a<br> <em>Koodaria.</em></h1>
+    <p>Accede al espacio de trabajo de tu organización con tu cuenta de Koodaria.</p>
+    <div class="login-art" aria-hidden="true"><div class="login-art-panel"><span>{{icon:briefcase}} Tu organización</span><div>{{icon:key}}<i></i>{{icon:layout-dashboard}}</div></div></div>
+  </section>
+  <section class="login-card" aria-labelledby="login-title">
+    <span class="login-key">{{icon:key}}</span>
+    <h2 id="login-title">Iniciar sesión</h2>
+    <p class="login-description">Aquí podrás entrar con tu cuenta de trabajo.</p>
+    <p class="login-availability" id="login-availability">El acceso aún no está habilitado.</p>
+    <form aria-describedby="login-availability">
+      <fieldset disabled>
+        <legend class="sr-only">Datos de acceso</legend>
+        <label for="account-email">Correo electrónico</label>
+        <input id="account-email" name="email" type="email" autocomplete="username" placeholder="nombre@empresa.com">
+        <label for="account-password">Contraseña</label>
+        <input id="account-password" name="password" type="password" autocomplete="current-password" placeholder="Tu contraseña">
+        <button class="button login-submit" type="submit">Iniciar sesión {{icon:arrow-right}}</button>
+      </fieldset>
+    </form>
+    <a class="login-card-back" href="/">Volver a Koodaria</a>
+  </section>
+</main>
+<footer class="login-footer shell"><small>© 2026 Koodaria</small><a href="/#contacto">Privacidad</a></footer>
+</body>
+</html>

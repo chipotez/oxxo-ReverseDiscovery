@@ -1,0 +1,42 @@
+[
+  {
+    "width": 1440,
+    "height": 900,
+    "login_navigation": true,
+    "overflow": false,
+    "axe_violations": [],
+    "credentials_disabled": true
+  },
+  {
+    "width": 1024,
+    "height": 768,
+    "login_navigation": true,
+    "overflow": false,
+    "axe_violations": [],
+    "credentials_disabled": true
+  },
+  {
+    "width": 768,
+    "height": 1024,
+    "login_navigation": true,
+    "overflow": false,
+    "axe_violations": [],
+    "credentials_disabled": true
+  },
+  {
+    "width": 390,
+    "height": 844,
+    "login_navigation": true,
+    "overflow": false,
+    "axe_violations": [],
+    "credentials_disabled": true
+  },
+  {
+    "width": 320,
+    "height": 740,
+    "login_navigation": true,
+    "overflow": false,
+    "axe_violations": [],
+    "credentials_disabled": true
+  }
+]

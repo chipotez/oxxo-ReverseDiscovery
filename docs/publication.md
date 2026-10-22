@@ -22,7 +22,7 @@ No hay AAAA público observado. No se necesitó un token de Hostinger para esta 
 
 ## Integración y seguridad
 
-Se reutiliza el gateway `themike-site`, ahora con imagen `localhost/themike-site:koodaria-cascade-20261022`. Su base es el runtime parcheado original, fijado por ID. La Home está en `/srv/koodaria`, separada de la landing del laboratorio en `/srv`. No requiere backend nuevo, redes o puertos adicionales. El contenedor de desarrollo permanece aislado y no forma parte del tráfico de producción.
+Se reutiliza el gateway `themike-site`, ahora con imagen `localhost/themike-site:koodaria-login-page-20261022`. Su base es el runtime parcheado original, fijado por ID. La Home está en `/srv/koodaria`, separada de la landing del laboratorio en `/srv`. No requiere backend nuevo, redes o puertos adicionales. El contenedor de desarrollo permanece aislado y no forma parte del tráfico de producción.
 
 Los fragmentos de configuración están en `infra/edge/`. Se ensamblaron con el Caddyfile original conservando las rutas del laboratorio. La imagen fue validada antes de actualizar el Quadlet activo y su copia de fuente. Se reinició brevemente el gateway porque su API administrativa está desactivada. Se conservaron volúmenes, identidades, redes, puertos y políticas de reinicio.
 
@@ -115,3 +115,11 @@ Imagen activa: `localhost/themike-site:koodaria-clean-header-20261022`, contexto
 Se redistribuyeron las columnas de texto y panel y se añadieron dos ventanas decorativas detrás del ejemplo principal, con desplazamientos, bordes y sombras suaves en la paleta existente. El panel animado sigue delante y completamente accesible. Las ventanas traseras están marcadas `aria-hidden`, no reciben foco ni eventos de puntero; en móvil sus desplazamientos son menores. La portada mantiene la altura de viewport en escritorio y el contenido crece naturalmente en móvil.
 
 Se verificaron ocho tamaños, ausencia de desbordamiento y el ciclo de animación, con evidencia en `evidence/cascade-report.json`. Imagen activa: `localhost/themike-site:koodaria-cascade-20261022`, contexto `/home/mip/apps/koodaria-cascade`. Respaldo de Quadlets para volver a la revisión anterior: `/root/remediation-20261022/koodaria-cascade`.
+
+## Etiqueta ejecutiva y página de inicio de sesión
+
+La portada cambia su etiqueta a «Gestión, continuidad y resiliencia» y elimina el guion decorativo. El enlace Login ahora lleva a `/login/`, una página independiente con la misma identidad visual, enlaces para volver al inicio y acceso a privacidad. Caddy sirve el nuevo directorio estático y normaliza `/login` a `/login/`. La publicación de esta página responde a la ampliación explícita del alcance solicitada por el usuario.
+
+Se solicitó aclaración sobre la conexión real a Keycloak. Hasta definirla, la página es visual: comunica que el acceso aún no está habilitado; el fieldset está deshabilitado, no tiene acción de envío ni JavaScript, no recoge ni valida contraseñas y no simula sesiones. No se modificaron realms, usuarios, clientes OIDC o contenedores de identidad del laboratorio. `/enterprise` y `/workspace` siguen fuera de esta fase; `/login/` ya es una ruta pública.
+
+Pruebas: siete comprobaciones estructurales y navegación desde el Login de Home hacia la nueva página a cinco tamaños, con comprobación de accesibilidad, ausencia de desbordamiento y campos deshabilitados. Evidencia: `evidence/login-page-report.json`. Imagen activa: `localhost/themike-site:koodaria-login-page-20261022`, contexto `/home/mip/apps/koodaria-login-page`; respaldo de Quadlets para rollback en `/root/remediation-20261022/koodaria-login-page`.

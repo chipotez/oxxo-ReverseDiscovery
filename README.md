@@ -1,6 +1,6 @@
 # Koodaria · Home pública / Fase 1
 
-Implementación propia de la Home de Koodaria. El ZIP recibido es **solo una referencia**, se conserva intacto y no se incorpora al sitio ni al historial. No se implementan Enterprise, login, Workspace, cursos o ejecución de laboratorios.
+Implementación propia de la Home de Koodaria. El ZIP recibido es **solo una referencia**, se conserva intacto y no se incorpora al sitio ni al historial. No se implementan autenticación real, Enterprise, Workspace, cursos o ejecución de laboratorios. La página visual de inicio de sesión está disponible en `/login/`.
 
 ## Desarrollo local
 
@@ -32,7 +32,7 @@ Se usa la tipografía del sistema; no hay descarga de fuentes. Los nombres de te
 
 Las pestañas cambian entre módulos, rutas y especializaciones; admiten flechas, Home/End y foco visible. Las tarjetas despliegan sus temas. Los enlaces del footer seleccionan un grupo existente. El menú móvil admite Escape, cierra al navegar y comunica su estado. La navegación funciona sin JavaScript, mostrando entonces todos los grupos.
 
-El terminal es una demostración animada, sin ejecución real. Se repite automáticamente, se pausa al enfocar el terminal y respeta la preferencia de movimiento reducido. Enterprise es una sección informativa con un flujo futuro; `/enterprise`, `/login` y `/workspace` devuelven 404. No hay formularios ni credenciales. El canal de contacto aún debe confirmarse.
+El terminal es una demostración animada, sin ejecución real. Se repite automáticamente, se pausa al enfocar el terminal y respeta la preferencia de movimiento reducido. Enterprise es una sección informativa con un flujo futuro; `/enterprise` y `/workspace` devuelven 404. Login abre una página propia en `/login/`; el formulario se presenta deshabilitado y no envía ni valida credenciales mientras se define la integración de identidad. No se almacenan credenciales. El canal de contacto aún debe confirmarse.
 
 ## Vista de la implementación
 
