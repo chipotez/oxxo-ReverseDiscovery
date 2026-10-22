@@ -31,6 +31,19 @@
         <p class="hero-description">Para quienes empiezan a trabajar con sistemas y para quienes ya los administran. Explora Linux, cloud y contenedores: qué hace cada herramienta y cuándo usarla.</p>
         <div class="hero-actions"><a class="button" href="#competencias">Explorar competencias {{icon:arrow-right}}</a><a class="text-link" href="#enterprise">Koodaria para empresas {{icon:arrow-up-right}}</a></div>
       </div>
+      <div class="console-scene">
+        <div class="stack-console stack-console-back" aria-hidden="true">
+          <div class="stack-console-bar"><span class="window-dots"><i></i><i></i><i></i></span><span>playbook.yml</span>{{icon:code}}</div>
+          <pre>- name: Revisar servicios
+  hosts: linux
+  tasks:
+    - name: Consultar estado</pre>
+        </div>
+        <div class="stack-console stack-console-middle" aria-hidden="true">
+          <div class="stack-console-bar"><span class="window-dots"><i></i><i></i><i></i></span><span>registros · linux</span>{{icon:terminal-2}}</div>
+          <pre>$ journalctl -u example.service
+  Leyendo los últimos registros…</pre>
+        </div>
       <figure class="workspace-preview" aria-label="Ejemplo animado de diagnóstico de un servicio Linux">
         <div class="preview-top"><span class="preview-brand">k<span>.</span></span><span>SISTEMAS LINUX</span><span class="preview-label">Ejemplo animado</span></div>
         <div class="preview-content"><div class="preview-sidebar" aria-hidden="true">{{icon:layout-dashboard}}{{icon:terminal-2}}{{icon:book-2}}{{icon:settings-automation}}</div><div class="preview-main">
@@ -46,6 +59,7 @@
 <span class="terminal-prompt">$</span> <span data-terminal-command>journalctl -u example.service</span></code></pre></div>
         </div></div>
       </figure>
+      </div>
     </div>
   </section>
 

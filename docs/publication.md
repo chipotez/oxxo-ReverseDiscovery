@@ -22,7 +22,7 @@ No hay AAAA público observado. No se necesitó un token de Hostinger para esta 
 
 ## Integración y seguridad
 
-Se reutiliza el gateway `themike-site`, ahora con imagen `localhost/themike-site:koodaria-clean-header-20261022`. Su base es el runtime parcheado original, fijado por ID. La Home está en `/srv/koodaria`, separada de la landing del laboratorio en `/srv`. No requiere backend nuevo, redes o puertos adicionales. El contenedor de desarrollo permanece aislado y no forma parte del tráfico de producción.
+Se reutiliza el gateway `themike-site`, ahora con imagen `localhost/themike-site:koodaria-cascade-20261022`. Su base es el runtime parcheado original, fijado por ID. La Home está en `/srv/koodaria`, separada de la landing del laboratorio en `/srv`. No requiere backend nuevo, redes o puertos adicionales. El contenedor de desarrollo permanece aislado y no forma parte del tráfico de producción.
 
 Los fragmentos de configuración están en `infra/edge/`. Se ensamblaron con el Caddyfile original conservando las rutas del laboratorio. La imagen fue validada antes de actualizar el Quadlet activo y su copia de fuente. Se reinició brevemente el gateway porque su API administrativa está desactivada. Se conservaron volúmenes, identidades, redes, puertos y políticas de reinicio.
 
@@ -109,3 +109,9 @@ Imagen activa: `localhost/themike-site:koodaria-viewport-hero-20261022`, context
 Se retiraron la franja «Áreas de trabajo», la nota de demostración, el pie del panel y «Un caso sencillo». Se corrigió el nombre accesible de la figura al retirar su figcaption. El hero conserva el fondo a altura de viewport con una sola fila de contenido. En escritorio, el logo, el menú de secciones y las acciones ocupan tres columnas: el menú queda centrado respecto al ancho de la ventana. En móvil se conserva el menú desplegable. Por petición explícita del usuario se cambió la etiqueta «Para empresas» a «Login»; mantiene su destino informativo en Enterprise, sin implementar autenticación nueva.
 
 Imagen activa: `localhost/themike-site:koodaria-clean-header-20261022`, contexto `/home/mip/apps/koodaria-clean-header`. Respaldo de Quadlets para rollback: `/root/remediation-20261022/koodaria-clean-header`. Pruebas estructurales y revisión publicada a seis tamaños; evidencia `evidence/clean-header-report.json`.
+
+## Composición de ventanas en cascada
+
+Se redistribuyeron las columnas de texto y panel y se añadieron dos ventanas decorativas detrás del ejemplo principal, con desplazamientos, bordes y sombras suaves en la paleta existente. El panel animado sigue delante y completamente accesible. Las ventanas traseras están marcadas `aria-hidden`, no reciben foco ni eventos de puntero; en móvil sus desplazamientos son menores. La portada mantiene la altura de viewport en escritorio y el contenido crece naturalmente en móvil.
+
+Se verificaron ocho tamaños, ausencia de desbordamiento y el ciclo de animación, con evidencia en `evidence/cascade-report.json`. Imagen activa: `localhost/themike-site:koodaria-cascade-20261022`, contexto `/home/mip/apps/koodaria-cascade`. Respaldo de Quadlets para volver a la revisión anterior: `/root/remediation-20261022/koodaria-cascade`.
