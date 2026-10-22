@@ -1,0 +1,37 @@
+[
+  {
+    "width": 1440,
+    "height": 768,
+    "hero_bottom": 706.875,
+    "entire_hero_visible": true,
+    "horizontal_overflow": false
+  },
+  {
+    "width": 1366,
+    "height": 680,
+    "hero_bottom": 659.28125,
+    "entire_hero_visible": true,
+    "horizontal_overflow": false
+  },
+  {
+    "width": 1280,
+    "height": 720,
+    "hero_bottom": 659.28125,
+    "entire_hero_visible": true,
+    "horizontal_overflow": false
+  },
+  {
+    "width": 1024,
+    "height": 768,
+    "hero_bottom": 731.65625,
+    "entire_hero_visible": true,
+    "horizontal_overflow": false
+  },
+  {
+    "width": 390,
+    "height": 844,
+    "hero_bottom": 1421.203125,
+    "entire_hero_visible": false,
+    "horizontal_overflow": false
+  }
+]

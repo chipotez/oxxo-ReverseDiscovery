@@ -22,7 +22,7 @@ No hay AAAA público observado. No se necesitó un token de Hostinger para esta 
 
 ## Integración y seguridad
 
-Se reutiliza el gateway `themike-site`, ahora con imagen `localhost/themike-site:koodaria-terminal-loop-20261022`. Su base es el runtime parcheado original, fijado por ID. La Home está en `/srv/koodaria`, separada de la landing del laboratorio en `/srv`. No requiere backend nuevo, redes o puertos adicionales. El contenedor de desarrollo permanece aislado y no forma parte del tráfico de producción.
+Se reutiliza el gateway `themike-site`, ahora con imagen `localhost/themike-site:koodaria-compact-hero-20261022`. Su base es el runtime parcheado original, fijado por ID. La Home está en `/srv/koodaria`, separada de la landing del laboratorio en `/srv`. No requiere backend nuevo, redes o puertos adicionales. El contenedor de desarrollo permanece aislado y no forma parte del tráfico de producción.
 
 Los fragmentos de configuración están en `infra/edge/`. Se ensamblaron con el Caddyfile original conservando las rutas del laboratorio. La imagen fue validada antes de actualizar el Quadlet activo y su copia de fuente. Se reinició brevemente el gateway porque su API administrativa está desactivada. Se conservaron volúmenes, identidades, redes, puertos y políticas de reinicio.
 
@@ -91,3 +91,7 @@ Rollback de esta revisión: restaurar `quadlet.before` y `source-quadlet.before`
 ## Terminal en ciclo continuo
 
 La demostración ahora se repite automáticamente con una pausa de lectura entre ciclos, sin botones visibles. Se detiene fuera de pantalla, con la pestaña oculta o al enfocar el terminal; con movimiento reducido muestra el contenido completo sin animación. Se comprobaron dos reinicios automáticos consecutivos, ausencia de botones, pausa por foco y movimiento reducido mediante `tests/terminal_qa.py`. Imagen activa: `localhost/themike-site:koodaria-terminal-loop-20261022`, contexto `/home/mip/apps/koodaria-terminal-loop`. El respaldo de Quadlets de la revisión anterior está en `/root/remediation-20261022/koodaria-terminal-loop`.
+
+## Ajuste de altura de la introducción
+
+Se compactó únicamente el hero de escritorio (desde 901 px): márgenes verticales, espacios internos del panel y alto reservado del terminal. Se conservan los tamaños de lectura y la disposición móvil. No se utiliza zoom ni escalado de la página. Se verificó el hero completo a zoom normal en 1440×768, 1366×680, 1280×720 y 1024×768; sin desbordamiento horizontal en móvil. Evidencia: `evidence/compact-hero-report.json`. Imagen activa: `localhost/themike-site:koodaria-compact-hero-20261022`, contexto `/home/mip/apps/koodaria-compact-hero`; respaldo de Quadlets de la revisión previa en `/root/remediation-20261022/koodaria-compact-hero`.
