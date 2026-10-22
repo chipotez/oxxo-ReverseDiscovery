@@ -22,7 +22,7 @@ No hay AAAA público observado. No se necesitó un token de Hostinger para esta 
 
 ## Integración y seguridad
 
-Se reutiliza el gateway `themike-site`, ahora con imagen `localhost/themike-site:koodaria-readable-20261022`. Su base es el runtime parcheado original, fijado por ID. La Home está en `/srv/koodaria`, separada de la landing del laboratorio en `/srv`. No requiere backend nuevo, redes o puertos adicionales. El contenedor de desarrollo permanece aislado y no forma parte del tráfico de producción.
+Se reutiliza el gateway `themike-site`, ahora con imagen `localhost/themike-site:koodaria-terminal-loop-20261022`. Su base es el runtime parcheado original, fijado por ID. La Home está en `/srv/koodaria`, separada de la landing del laboratorio en `/srv`. No requiere backend nuevo, redes o puertos adicionales. El contenedor de desarrollo permanece aislado y no forma parte del tráfico de producción.
 
 Los fragmentos de configuración están en `infra/edge/`. Se ensamblaron con el Caddyfile original conservando las rutas del laboratorio. La imagen fue validada antes de actualizar el Quadlet activo y su copia de fuente. Se reinició brevemente el gateway porque su API administrativa está desactivada. Se conservaron volúmenes, identidades, redes, puertos y políticas de reinicio.
 
@@ -87,3 +87,7 @@ El terminal utiliza una animación finita y local de escritura; no ejecuta coman
 Pruebas: seis comprobaciones estructurales, navegador a 320/390/768/1024/1280/1440 px y pruebas de animación. Evidencia de navegador: `evidence/readability-browser-report.json`. `tests/terminal_qa.py` permite repetir las pruebas de animación con Playwright. Se comprobaron los archivos desplegados contra `dist/` y el funcionamiento del laboratorio.
 
 Rollback de esta revisión: restaurar `quadlet.before` y `source-quadlet.before` desde `/root/remediation-20261022/koodaria-readable`, recargar systemd de usuario y reiniciar `themike-site.service`. La revisión previa conserva HTTPS y el contenido anterior sin secciones 05/06. No se modificaron DNS, certificados o rutas del gateway.
+
+## Terminal en ciclo continuo
+
+La demostración ahora se repite automáticamente con una pausa de lectura entre ciclos, sin botones visibles. Se detiene fuera de pantalla, con la pestaña oculta o al enfocar el terminal; con movimiento reducido muestra el contenido completo sin animación. Se comprobaron dos reinicios automáticos consecutivos, ausencia de botones, pausa por foco y movimiento reducido mediante `tests/terminal_qa.py`. Imagen activa: `localhost/themike-site:koodaria-terminal-loop-20261022`, contexto `/home/mip/apps/koodaria-terminal-loop`. El respaldo de Quadlets de la revisión anterior está en `/root/remediation-20261022/koodaria-terminal-loop`.

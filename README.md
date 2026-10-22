@@ -32,7 +32,7 @@ Se usa la tipografía del sistema; no hay descarga de fuentes. Los nombres de te
 
 Las pestañas cambian entre módulos, rutas y especializaciones; admiten flechas, Home/End y foco visible. Las tarjetas despliegan sus temas. Los enlaces del footer seleccionan un grupo existente. El menú móvil admite Escape, cierra al navegar y comunica su estado. La navegación funciona sin JavaScript, mostrando entonces todos los grupos.
 
-El terminal es una demostración animada, sin ejecución real. Puede pausarse o repetirse y respeta la preferencia de movimiento reducido. Enterprise es una sección informativa con un flujo futuro; `/enterprise`, `/login` y `/workspace` devuelven 404. No hay formularios ni credenciales. El canal de contacto aún debe confirmarse.
+El terminal es una demostración animada, sin ejecución real. Se repite automáticamente, se pausa al enfocar el terminal y respeta la preferencia de movimiento reducido. Enterprise es una sección informativa con un flujo futuro; `/enterprise`, `/login` y `/workspace` devuelven 404. No hay formularios ni credenciales. El canal de contacto aún debe confirmarse.
 
 ## Vista de la implementación
 

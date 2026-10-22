@@ -70,13 +70,12 @@ function revealAnchorDetails() {
 window.addEventListener('hashchange', revealAnchorDetails);
 revealAnchorDetails();
 
-// Local, finite demonstration: never opens a shell or sends a network request.
+// Browser-only looping demonstration; commands are never executed.
 const terminal = document.querySelector('.terminal');
 if (terminal) {
   const screen = terminal.querySelector('.terminal-screen');
   const commands = [...terminal.querySelectorAll('[data-terminal-command]')];
   const output = terminal.querySelector('[data-terminal-output]');
-  const control = terminal.querySelector('.terminal-control');
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
   const original = commands.map(command => command.textContent);
   const accessibleText = document.createElement('p');
@@ -84,71 +83,49 @@ if (terminal) {
   accessibleText.textContent = screen.textContent;
   terminal.append(accessibleText);
   screen.setAttribute('aria-hidden', 'true');
+  terminal.tabIndex = 0;
+  terminal.setAttribute('role', 'region');
+  terminal.setAttribute('aria-label', 'Demostración de terminal. La animación se pausa al enfocar esta zona.');
   let timer;
-  let started = false;
-  let paused = false;
-  let finished = false;
-  let line = 0;
-  let character = 0;
-  const complete = () => {
-    clearTimeout(timer);
-    commands.forEach((command, i) => { command.textContent = original[i]; });
-    output.classList.remove('awaiting-output');
-    terminal.classList.remove('is-typing');
-    finished = true;
-    paused = false;
-    control.textContent = 'Repetir animación';
-  };
-  const step = () => {
-    if (paused || finished) return;
-    const current = commands[line];
-    current.textContent = original[line].slice(0, ++character);
-    if (character < original[line].length) {
-      timer = setTimeout(step, 42);
-    } else if (line === 0) {
-      timer = setTimeout(() => {
-        output.classList.remove('awaiting-output');
-        line = 1;
-        character = 0;
-        timer = setTimeout(step, 600);
-      }, 450);
-    } else {
-      complete();
-    }
-  };
-  const start = () => {
-    clearTimeout(timer);
-    line = 0;
-    character = 0;
-    paused = false;
-    finished = false;
-    started = true;
+  let position = 0;
+  let visible = false;
+  let focused = false;
+  const steps = [{delay: 350, action: () => {
     commands.forEach(command => { command.textContent = ''; });
     output.classList.add('awaiting-output');
-    terminal.classList.add('is-typing');
-    control.hidden = false;
-    control.textContent = 'Pausar animación';
-    step();
+  }}];
+  original.forEach((text, line) => {
+    for (let length = 1; length <= text.length; length++) {
+      steps.push({delay: 42, action: () => { commands[line].textContent = text.slice(0, length); }});
+    }
+    if (line === 0) {
+      steps.push({delay: 450, action: () => { output.classList.remove('awaiting-output'); }});
+      steps.push({delay: 600, action: () => {}});
+    }
+  });
+  steps.push({delay: 2400, action: () => {}});
+  const showComplete = () => {
+    commands.forEach((command, i) => { command.textContent = original[i]; });
+    output.classList.remove('awaiting-output');
   };
-  control.addEventListener('click', () => {
-    if (motion.matches) return;
-    if (finished) { start(); return; }
-    paused = !paused;
-    terminal.classList.toggle('is-paused', paused);
-    control.textContent = paused ? 'Continuar animación' : 'Pausar animación';
-    if (paused) clearTimeout(timer);
-    else step();
-  });
-  motion.addEventListener('change', () => {
-    if (motion.matches) { complete(); control.hidden = true; }
-  });
-  if (!motion.matches) {
-    const observer = new IntersectionObserver(entries => {
-      if (entries.some(entry => entry.isIntersecting) && !started) {
-        start();
-        observer.disconnect();
-      }
-    }, { threshold: 0.3 });
-    observer.observe(terminal);
-  }
+  const advance = () => {
+    if (!visible || focused || document.hidden || motion.matches) return;
+    const step = steps[position];
+    step.action();
+    position = (position + 1) % steps.length;
+    timer = setTimeout(advance, step.delay);
+  };
+  const sync = () => {
+    clearTimeout(timer);
+    if (motion.matches) { position = 0; showComplete(); }
+    else advance();
+  };
+  terminal.addEventListener('focusin', () => { focused = true; sync(); });
+  terminal.addEventListener('focusout', () => { focused = false; sync(); });
+  motion.addEventListener('change', sync);
+  document.addEventListener('visibilitychange', sync);
+  new IntersectionObserver(entries => {
+    visible = entries.some(entry => entry.isIntersecting);
+    sync();
+  }, { threshold: 0.3 }).observe(terminal);
 }
