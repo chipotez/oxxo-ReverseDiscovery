@@ -1,0 +1,225 @@
+{
+  "verified_at_utc": "2026-10-22T17:56:00.683087+00:00",
+  "certificates": [
+    {
+      "hostname": "koodaria.com",
+      "tls_version": "TLSv1.2",
+      "issuer": [
+        [
+          [
+            "countryName",
+            "US"
+          ]
+        ],
+        [
+          [
+            "organizationName",
+            "Let's Encrypt"
+          ]
+        ],
+        [
+          [
+            "commonName",
+            "YE2"
+          ]
+        ]
+      ],
+      "subject_alt_names": [
+        [
+          "DNS",
+          "koodaria.com"
+        ]
+      ],
+      "not_before": "Oct 22 16:56:52 2026 GMT",
+      "not_after": "Jan 20 16:56:51 2027 GMT",
+      "trusted_hostname_verified": true
+    },
+    {
+      "hostname": "www.koodaria.com",
+      "tls_version": "TLSv1.2",
+      "issuer": [
+        [
+          [
+            "countryName",
+            "US"
+          ]
+        ],
+        [
+          [
+            "organizationName",
+            "Let's Encrypt"
+          ]
+        ],
+        [
+          [
+            "commonName",
+            "YE2"
+          ]
+        ]
+      ],
+      "subject_alt_names": [
+        [
+          "DNS",
+          "www.koodaria.com"
+        ]
+      ],
+      "not_before": "Oct 22 16:56:52 2026 GMT",
+      "not_after": "Jan 20 16:56:51 2027 GMT",
+      "trusted_hostname_verified": true
+    }
+  ],
+  "endpoints": [
+    {
+      "url": "http://koodaria.com/",
+      "status": 308,
+      "headers": {
+        "Location": "https://koodaria.com/",
+        "Server": "Caddy"
+      },
+      "bytes": 0,
+      "koodaria": false
+    },
+    {
+      "url": "https://koodaria.com/",
+      "status": 200,
+      "headers": {
+        "Cache-Control": "no-cache",
+        "Content-Security-Policy": "default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; upgrade-insecure-requests",
+        "Content-Type": "text/html; charset=utf-8",
+        "Permissions-Policy": "camera=(), microphone=(), geolocation=(), payment=(), usb=()",
+        "Referrer-Policy": "strict-origin-when-cross-origin",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Frame-Options": "DENY"
+      },
+      "bytes": 56829,
+      "koodaria": true
+    },
+    {
+      "url": "https://www.koodaria.com/",
+      "status": 301,
+      "headers": {
+        "Location": "https://koodaria.com/",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff"
+      },
+      "bytes": 0,
+      "koodaria": false
+    },
+    {
+      "url": "http://www.koodaria.com/",
+      "status": 308,
+      "headers": {
+        "Location": "https://www.koodaria.com/",
+        "Server": "Caddy"
+      },
+      "bytes": 0,
+      "koodaria": false
+    },
+    {
+      "url": "https://koodaria.com/assets/styles.css",
+      "status": 200,
+      "headers": {
+        "Cache-Control": "no-cache",
+        "Content-Security-Policy": "default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; upgrade-insecure-requests",
+        "Content-Type": "text/css; charset=utf-8",
+        "Permissions-Policy": "camera=(), microphone=(), geolocation=(), payment=(), usb=()",
+        "Referrer-Policy": "strict-origin-when-cross-origin",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Frame-Options": "DENY"
+      },
+      "bytes": 22706,
+      "koodaria": false
+    },
+    {
+      "url": "https://koodaria.com/assets/app.js",
+      "status": 200,
+      "headers": {
+        "Cache-Control": "no-cache",
+        "Content-Security-Policy": "default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; upgrade-insecure-requests",
+        "Content-Type": "text/javascript; charset=utf-8",
+        "Permissions-Policy": "camera=(), microphone=(), geolocation=(), payment=(), usb=()",
+        "Referrer-Policy": "strict-origin-when-cross-origin",
+        "Strict-Transport-Security": "max-age=31536000",
+        "X-Content-Type-Options": "nosniff",
+        "X-Frame-Options": "DENY"
+      },
+      "bytes": 3271,
+      "koodaria": false
+    },
+    {
+      "url": "https://koodaria.com/enterprise",
+      "status": 404,
+      "headers": {
+        "Server": "Caddy"
+      },
+      "bytes": 0,
+      "koodaria": false
+    },
+    {
+      "url": "https://koodaria.com/login",
+      "status": 404,
+      "headers": {
+        "Server": "Caddy"
+      },
+      "bytes": 0,
+      "koodaria": false
+    },
+    {
+      "url": "https://koodaria.com/workspace",
+      "status": 404,
+      "headers": {
+        "Server": "Caddy"
+      },
+      "bytes": 0,
+      "koodaria": false
+    },
+    {
+      "url": "https://themike.io/",
+      "status": 200,
+      "headers": {
+        "Content-Security-Policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests",
+        "Content-Type": "text/html; charset=utf-8",
+        "Permissions-Policy": "camera=(), microphone=(), geolocation=(), payment=(), usb=()",
+        "Referrer-Policy": "strict-origin-when-cross-origin",
+        "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
+        "X-Content-Type-Options": "nosniff",
+        "X-Frame-Options": "DENY"
+      },
+      "bytes": 1920,
+      "koodaria": false
+    },
+    {
+      "url": "https://themike.io/portal/",
+      "status": 302,
+      "headers": {
+        "Cache-Control": "no-cache, no-store, must-revalidate, max-age=0",
+        "Content-Security-Policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests",
+        "Content-Type": "text/html; charset=utf-8",
+        "Location": "https://login.themike.io/realms/themike.io/protocol/openid-connect/auth",
+        "Permissions-Policy": "camera=(), microphone=(), geolocation=(), payment=(), usb=()",
+        "Referrer-Policy": "strict-origin-when-cross-origin",
+        "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
+        "X-Content-Type-Options": "nosniff",
+        "X-Frame-Options": "DENY"
+      },
+      "bytes": 424,
+      "koodaria": false
+    },
+    {
+      "url": "https://login.themike.io/realms/master/.well-known/openid-configuration",
+      "status": 200,
+      "headers": {
+        "Cache-Control": "no-cache, must-revalidate, no-transform, no-store",
+        "Content-Type": "application/json",
+        "Referrer-Policy": "strict-origin-when-cross-origin",
+        "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
+        "X-Content-Type-Options": "nosniff",
+        "X-Frame-Options": "SAMEORIGIN"
+      },
+      "bytes": 6628,
+      "koodaria": false
+    }
+  ]
+}

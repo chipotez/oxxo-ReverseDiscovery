@@ -42,4 +42,4 @@ El terminal es una composición ilustrativa expresamente identificada. Enterpris
 
 Ver [inspección y arquitectura](docs/architecture.md), [despliegue y rollback](docs/deployment.md) y [validación](docs/validation.md).
 
-La Home ya está publicada en **http://45.80.153.100** a través del Caddy existente, tras autorización explícita. Se conservan el laboratorio y Keycloak. El contenedor de desarrollo sigue aislado. `koodaria.com` y HTTPS quedan pendientes del cambio DNS y de la credencial de Hostinger; véase [publicación](docs/publication.md).
+La Home está publicada en **https://koodaria.com**, con certificado gratuito de Let’s Encrypt, renovación automática de Caddy, redirección HTTP→HTTPS y `www`→dominio canónico. Se conservan el laboratorio y Keycloak. El contenedor de desarrollo sigue aislado. El acceso por IP continúa disponible como entrada HTTP transitoria; la URL recomendada es siempre HTTPS. Véase [publicación](docs/publication.md).
