@@ -195,7 +195,7 @@ figcaption { font-size: 11px; }
 :root { --header-block-size: 89px; }
 .hero {
   display: grid;
-  grid-template-rows: minmax(min-content, 1fr) auto;
+  grid-template-rows: minmax(min-content, 1fr);
   min-block-size: calc(100vh - var(--header-block-size));
   min-block-size: calc(100dvh - var(--header-block-size));
 }
@@ -206,4 +206,13 @@ figcaption { font-size: 11px; }
 }
 @media (max-width: 600px) {
   :root { --header-block-size: 69px; }
+}
+
+/* Keep the section links centered independently of the side controls. */
+@media (min-width: 1200px) {
+  .header-inner { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 24px; }
+  .header-inner > .wordmark { grid-column: 1; grid-row: 1; justify-self: start; }
+  .navigation { display: contents; }
+  .navigation nav { grid-column: 2; grid-row: 1; justify-self: center; }
+  .header-actions { grid-column: 3; grid-row: 1; justify-self: end; }
 }

@@ -1,0 +1,50 @@
+[
+  {
+    "width": 1920,
+    "height": 1080,
+    "removed_content_absent": true,
+    "login_label": true,
+    "navigation_center_offset": 0.0,
+    "horizontal_overflow": false
+  },
+  {
+    "width": 1440,
+    "height": 900,
+    "removed_content_absent": true,
+    "login_label": true,
+    "navigation_center_offset": 0.0,
+    "horizontal_overflow": false
+  },
+  {
+    "width": 1280,
+    "height": 720,
+    "removed_content_absent": true,
+    "login_label": true,
+    "navigation_center_offset": 0.0,
+    "horizontal_overflow": false
+  },
+  {
+    "width": 1200,
+    "height": 800,
+    "removed_content_absent": true,
+    "login_label": true,
+    "navigation_center_offset": 0.0,
+    "horizontal_overflow": false
+  },
+  {
+    "width": 1024,
+    "height": 768,
+    "removed_content_absent": true,
+    "login_label": true,
+    "navigation_center_offset": null,
+    "horizontal_overflow": false
+  },
+  {
+    "width": 390,
+    "height": 844,
+    "removed_content_absent": true,
+    "login_label": true,
+    "navigation_center_offset": null,
+    "horizontal_overflow": false
+  }
+]

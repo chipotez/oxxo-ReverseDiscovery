@@ -18,7 +18,7 @@
     <button class="menu-toggle" type="button" aria-controls="primary-navigation" aria-expanded="false" aria-label="Abrir menú">{{icon:menu-2}}</button>
     <div class="navigation" id="primary-navigation">
       <nav aria-label="Principal">{{NAVIGATION}}</nav>
-      <div class="header-actions"><a class="enterprise-link" href="#enterprise">Para empresas {{icon:arrow-up-right}}</a><a class="button button-small" href="#competencias">Explorar competencias</a></div>
+      <div class="header-actions"><a class="enterprise-link" href="#enterprise">Login {{icon:arrow-up-right}}</a><a class="button button-small" href="#competencias">Explorar competencias</a></div>
     </div>
   </div>
 </header>
@@ -31,11 +31,11 @@
         <p class="hero-description">Para quienes empiezan a trabajar con sistemas y para quienes ya los administran. Explora Linux, cloud y contenedores: qué hace cada herramienta y cuándo usarla.</p>
         <div class="hero-actions"><a class="button" href="#competencias">Explorar competencias {{icon:arrow-right}}</a><a class="text-link" href="#enterprise">Koodaria para empresas {{icon:arrow-up-right}}</a></div>
       </div>
-      <figure class="workspace-preview" aria-labelledby="preview-caption">
+      <figure class="workspace-preview" aria-label="Ejemplo animado de diagnóstico de un servicio Linux">
         <div class="preview-top"><span class="preview-brand">k<span>.</span></span><span>SISTEMAS LINUX</span><span class="preview-label">Ejemplo animado</span></div>
         <div class="preview-content"><div class="preview-sidebar" aria-hidden="true">{{icon:layout-dashboard}}{{icon:terminal-2}}{{icon:book-2}}{{icon:settings-automation}}</div><div class="preview-main">
           <div class="preview-breadcrumb">Competencias <span>/</span> Sistemas Linux</div>
-          <div class="preview-heading"><span class="icon-tile">{{icon:terminal-2}}</span><div><span>UN CASO SENCILLO</span><h2>¿Por qué se detuvo el servicio?</h2></div></div>
+          <div class="preview-heading"><span class="icon-tile">{{icon:terminal-2}}</span><div><h2>¿Por qué se detuvo el servicio?</h2></div></div>
           <div class="instruction"><div><strong>Investiga el estado de un servicio</strong><p>Empieza por revisar su estado. Después, consulta qué ocurrió en los registros.</p></div></div>
           <div class="terminal"><div class="terminal-bar"><span>{{icon:terminal-2}} terminal · demostración</span><span>bash</span></div><pre class="terminal-screen" aria-label="Ejemplo de consulta del estado y los registros de un servicio"><code><span class="terminal-comment"># Revisa el estado del servicio</span>
 <span class="terminal-prompt">$</span> <span data-terminal-command>systemctl status example.service</span>
@@ -44,12 +44,9 @@
 
 <span class="terminal-comment"># Consulta sus últimos registros</span>
 <span class="terminal-prompt">$</span> <span data-terminal-command>journalctl -u example.service</span></code></pre></div>
-          <div class="preview-note">{{icon:shield-lock}} Demostración: los comandos no se ejecutan.</div>
         </div></div>
-        <figcaption id="preview-caption"><span class="caption-mark"></span> Revisar el estado es el primer paso. Los registros ayudan a encontrar la causa.</figcaption>
       </figure>
     </div>
-    <div class="shell discipline-strip"><span>ÁREAS DE TRABAJO</span><p>Sistemas <i>/</i> Automatización <i>/</i> Cloud <i>/</i> Plataformas <i>/</i> Operación</p></div>
   </section>
 
   <section class="section" id="competencias" aria-labelledby="competencies-title">
