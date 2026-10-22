@@ -1,0 +1,37 @@
+[
+  {
+    "width": 1440,
+    "height": 900,
+    "form_centered": true,
+    "overflow": false,
+    "visual_only": true
+  },
+  {
+    "width": 1024,
+    "height": 768,
+    "form_centered": true,
+    "overflow": false,
+    "visual_only": true
+  },
+  {
+    "width": 768,
+    "height": 1024,
+    "form_centered": true,
+    "overflow": false,
+    "visual_only": true
+  },
+  {
+    "width": 390,
+    "height": 844,
+    "form_centered": true,
+    "overflow": false,
+    "visual_only": true
+  },
+  {
+    "width": 320,
+    "height": 740,
+    "form_centered": true,
+    "overflow": false,
+    "visual_only": true
+  }
+]
