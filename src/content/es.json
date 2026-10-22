@@ -1,5 +1,5 @@
 {
-  "navigation": [["Inicio", "inicio"], ["Competencias", "competencias"], ["Tecnologías", "tecnologias"], ["Entornos", "entornos"], ["Enterprise", "enterprise"], ["Recursos", "recursos"]],
+  "navigation": [["Inicio", "inicio"], ["Competencias", "competencias"], ["Tecnologías", "tecnologias"], ["Entornos", "entornos"], ["Enterprise", "enterprise"]],
   "catalog": [
     {"id":"modulos", "label":"Módulos destacados", "kind":"Área de competencia", "items":[
       {"title":"Administración Linux", "icon":"terminal-2", "description":"Comprende el sistema. Opera servicios, permisos y procesos con decisiones fundamentadas.", "level":"Fundamentos", "topics":["Sistema de archivos y permisos", "Servicios y procesos", "Diagnóstico y registros"]},
@@ -20,10 +20,5 @@
       {"title":"Operaciones y observabilidad", "icon":"chart-line", "description":"Métodos para investigar fallos y convertir evidencia técnica en decisiones de operación.", "level":"Profundización", "topics":["Correlación de señales", "Investigación de incidentes", "Confiabilidad de servicios"]}
     ]}
   ],
-  "technologies": [["AWS","cloud","Servicios cloud"],["Azure","cloud","Infraestructura cloud"],["GCP","cloud","Plataformas cloud"],["Linux","terminal-2","Sistemas operativos"],["Contenedores","brand-docker","Empaquetado y ejecución"],["Kubernetes","hexagons","Orquestación"],["Ansible","settings-automation","Automatización"],["Observabilidad","chart-line","Señales y diagnóstico"],["Seguridad","shield-lock","Identidad y protección"],["Arquitectura tecnológica","topology-star-3","Diseño de sistemas"]],
-  "challenges": [
-    {"title":"Infraestructura esencial", "description":"Un servicio no responde. Revisa procesos, permisos y conectividad para construir un diagnóstico con evidencia.", "focus":"Sistemas · Redes · Diagnóstico", "tab":"modulos"},
-    {"title":"Automatización y plataformas", "description":"Una configuración diverge entre entornos. Identifica el cambio y plantea una operación repetible y verificable.", "focus":"Ansible · Contenedores · Kubernetes", "tab":"rutas"},
-    {"title":"Cloud y arquitectura", "description":"Una aplicación necesita crecer. Evalúa disponibilidad, identidad y costes antes de elegir los servicios.", "focus":"Cloud · Seguridad · Diseño", "tab":"especializaciones"}
-  ]
+  "technologies": [["AWS","cloud","Servicios cloud"],["Azure","cloud","Infraestructura cloud"],["GCP","cloud","Plataformas cloud"],["Linux","terminal-2","Sistemas operativos"],["Contenedores","brand-docker","Empaquetado y ejecución"],["Kubernetes","hexagons","Orquestación"],["Ansible","settings-automation","Automatización"],["Observabilidad","chart-line","Señales y diagnóstico"],["Seguridad","shield-lock","Identidad y protección"],["Arquitectura tecnológica","topology-star-3","Diseño de sistemas"]]
 }

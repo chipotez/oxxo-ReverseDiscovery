@@ -41,7 +41,6 @@ def build():
         'NAVIGATION': ''.join(link(label, target) for label,target in data['navigation']),
         'CATALOG': catalog(data['catalog']),
         'TECHNOLOGIES': ''.join(f'<li class="technology"><span class="tech-icon">{icon(i)}</span><div><h3>{text(n)}</h3><p>{text(d)}</p></div></li>' for n,i,d in data['technologies']),
-        'CHALLENGES': ''.join(f'<article class="challenge"><span class="challenge-number">0{i+1}</span><h3>{text(c["title"])}</h3><p>{text(c["description"])}</p><span class="challenge-focus">{text(c["focus"])}</span><a href="#competencias" data-select-tab="{text(c["tab"])}">Ver competencias relacionadas {icon("arrow-right")}</a></article>' for i,c in enumerate(data['challenges'])),
     }
     template = (ROOT / 'src/index.html').read_text()
     for name,value in replacements.items():

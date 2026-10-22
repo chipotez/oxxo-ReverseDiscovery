@@ -17,7 +17,7 @@ Abrir **http://127.0.0.1:4173**. El servidor escucha únicamente en loopback; de
 ## Organización
 
 - `src/index.html`: composición de la Home y secciones editoriales.
-- `src/content/es.json`: navegación, catálogo, tecnologías y desafíos; preparado para separar idiomas.
+- `src/content/es.json`: navegación, catálogo y tecnologías; preparado para separar idiomas.
 - `scripts/build.py`: componentes de catálogo, tarjetas, iconos y enlaces; escape HTML y generación determinista.
 - `src/assets/styles.css`: tokens Mineral Intelligence, componentes y adaptaciones responsive.
 - `src/assets/app.js`: módulos nativos del navegador, pestañas accesibles y menú móvil; sin APIs ni lógica de negocio.
@@ -30,7 +30,7 @@ Se usa la tipografía del sistema; no hay descarga de fuentes. Los nombres de te
 
 ## Interacciones reales
 
-Las pestañas cambian entre módulos, rutas y especializaciones; admiten flechas, Home/End y foco visible. Las tarjetas despliegan sus temas. Los enlaces de desafíos y footer seleccionan un grupo existente. El menú móvil admite Escape, cierra al navegar y comunica su estado. Los recursos son preguntas desplegables. La navegación funciona sin JavaScript, mostrando entonces todos los grupos.
+Las pestañas cambian entre módulos, rutas y especializaciones; admiten flechas, Home/End y foco visible. Las tarjetas despliegan sus temas. Los enlaces del footer seleccionan un grupo existente. El menú móvil admite Escape, cierra al navegar y comunica su estado. La navegación funciona sin JavaScript, mostrando entonces todos los grupos.
 
 El terminal es una composición ilustrativa expresamente identificada. Enterprise es una sección informativa con un flujo futuro; `/enterprise`, `/login` y `/workspace` devuelven 404. No hay formularios ni credenciales. El canal de contacto aún debe confirmarse.
 

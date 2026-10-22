@@ -22,7 +22,7 @@ No hay AAAA público observado. No se necesitó un token de Hostinger para esta 
 
 ## Integración y seguridad
 
-Se reutiliza el gateway `themike-site`, ahora con imagen `localhost/themike-site:koodaria-https-20261022`. Su base es el runtime parcheado original, fijado por ID. La Home está en `/srv/koodaria`, separada de la landing del laboratorio en `/srv`. No requiere backend nuevo, redes o puertos adicionales. El contenedor de desarrollo permanece aislado y no forma parte del tráfico de producción.
+Se reutiliza el gateway `themike-site`, ahora con imagen `localhost/themike-site:koodaria-without-05-06-20261022`. Su base es el runtime parcheado original, fijado por ID. La Home está en `/srv/koodaria`, separada de la landing del laboratorio en `/srv`. No requiere backend nuevo, redes o puertos adicionales. El contenedor de desarrollo permanece aislado y no forma parte del tráfico de producción.
 
 Los fragmentos de configuración están en `infra/edge/`. Se ensamblaron con el Caddyfile original conservando las rutas del laboratorio. La imagen fue validada antes de actualizar el Quadlet activo y su copia de fuente. Se reinició brevemente el gateway porque su API administrativa está desactivada. Se conservaron volúmenes, identidades, redes, puertos y políticas de reinicio.
 
@@ -73,3 +73,7 @@ No es necesario borrar contenedores, imágenes, certificados, volúmenes o redes
 - `evidence/public-ip-publication.json` y `public-ip-browser-report.json`: evidencia histórica de la primera publicación por IP, anterior al cambio DNS.
 
 Las rutas futuras `/enterprise`, `/login` y `/workspace` continúan devolviendo 404. La publicación no incorpora autenticación real a Koodaria ni modifica la del laboratorio.
+
+## Actualización de contenido: retirar secciones 05 y 06
+
+Se retiraron Desafíos técnicos y Recursos a petición del usuario, incluidos los enlaces de navegación y footer hacia esas secciones. Las secciones Inicio y 01–04 se mantienen. Imagen activa: `localhost/themike-site:koodaria-without-05-06-20261022`; contexto: `/home/mip/apps/koodaria-without-05-06`. Para revertir solo este cambio, restaurar `quadlet.before` y `source-quadlet.before` de `/root/remediation-20261022/koodaria-remove-05-06` a sus destinos habituales, recargar systemd de usuario y reiniciar el gateway. La imagen HTTPS anterior queda retenida.
