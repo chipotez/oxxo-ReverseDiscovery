@@ -1,0 +1,166 @@
+{
+  "live_resize": true,
+  "header_resize_observed": true,
+  "viewports": [
+    {
+      "width": 1920,
+      "height": 1080,
+      "pixel_ratio": 1,
+      "hero_bottom": 1080,
+      "matches_viewport": true,
+      "horizontal_overflow": false
+    },
+    {
+      "width": 1536,
+      "height": 960,
+      "pixel_ratio": 1,
+      "hero_bottom": 960,
+      "matches_viewport": true,
+      "horizontal_overflow": false
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "pixel_ratio": 1,
+      "hero_bottom": 900,
+      "matches_viewport": true,
+      "horizontal_overflow": false
+    },
+    {
+      "width": 1440,
+      "height": 768,
+      "pixel_ratio": 1,
+      "hero_bottom": 768,
+      "matches_viewport": true,
+      "horizontal_overflow": false
+    },
+    {
+      "width": 1366,
+      "height": 680,
+      "pixel_ratio": 1,
+      "hero_bottom": 680,
+      "matches_viewport": true,
+      "horizontal_overflow": false
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "pixel_ratio": 1,
+      "hero_bottom": 720,
+      "matches_viewport": true,
+      "horizontal_overflow": false
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "pixel_ratio": 1,
+      "hero_bottom": 768,
+      "matches_viewport": true,
+      "horizontal_overflow": false
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "pixel_ratio": 1,
+      "hero_bottom": 1309.765625,
+      "matches_viewport": false,
+      "horizontal_overflow": false
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "pixel_ratio": 1,
+      "hero_bottom": 1421.203125,
+      "matches_viewport": false,
+      "horizontal_overflow": false
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "pixel_ratio": 1,
+      "hero_bottom": 1320.359375,
+      "matches_viewport": false,
+      "horizontal_overflow": false
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "pixel_ratio": 2,
+      "hero_bottom": 1080,
+      "matches_viewport": true,
+      "horizontal_overflow": false
+    },
+    {
+      "width": 1536,
+      "height": 960,
+      "pixel_ratio": 2,
+      "hero_bottom": 960,
+      "matches_viewport": true,
+      "horizontal_overflow": false
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "pixel_ratio": 2,
+      "hero_bottom": 900,
+      "matches_viewport": true,
+      "horizontal_overflow": false
+    },
+    {
+      "width": 1440,
+      "height": 768,
+      "pixel_ratio": 2,
+      "hero_bottom": 768,
+      "matches_viewport": true,
+      "horizontal_overflow": false
+    },
+    {
+      "width": 1366,
+      "height": 680,
+      "pixel_ratio": 2,
+      "hero_bottom": 680,
+      "matches_viewport": true,
+      "horizontal_overflow": false
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "pixel_ratio": 2,
+      "hero_bottom": 720,
+      "matches_viewport": true,
+      "horizontal_overflow": false
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "pixel_ratio": 2,
+      "hero_bottom": 768,
+      "matches_viewport": true,
+      "horizontal_overflow": false
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "pixel_ratio": 2,
+      "hero_bottom": 1309.765625,
+      "matches_viewport": false,
+      "horizontal_overflow": false
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "pixel_ratio": 2,
+      "hero_bottom": 1421.203125,
+      "matches_viewport": false,
+      "horizontal_overflow": false
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "pixel_ratio": 2,
+      "hero_bottom": 1320.359375,
+      "matches_viewport": false,
+      "horizontal_overflow": false
+    }
+  ]
+}

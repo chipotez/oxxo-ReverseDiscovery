@@ -129,3 +129,13 @@ if (terminal) {
     sync();
   }, { threshold: 0.3 }).observe(terminal);
 }
+
+// Use the actual masthead height, including wrapping or the open mobile menu.
+const masthead = document.querySelector('.site-header');
+if (masthead) {
+  const syncMasthead = () => {
+    document.documentElement.style.setProperty('--header-block-size', `${masthead.getBoundingClientRect().height}px`);
+  };
+  syncMasthead();
+  new ResizeObserver(syncMasthead).observe(masthead);
+}

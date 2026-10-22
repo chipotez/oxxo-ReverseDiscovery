@@ -190,3 +190,20 @@ figcaption { font-size: 11px; }
   .hero-layout { padding-bottom: 20px; }
   .preview-breadcrumb { display: none; }
 }
+
+/* The first background fills the visible viewport, allowing content to grow. */
+:root { --header-block-size: 89px; }
+.hero {
+  display: grid;
+  grid-template-rows: minmax(min-content, 1fr) auto;
+  min-block-size: calc(100vh - var(--header-block-size));
+  min-block-size: calc(100dvh - var(--header-block-size));
+}
+.hero-layout { align-content: center; min-inline-size: 0; }
+.discipline-strip { align-self: end; }
+@media (max-width: 1199px) {
+  :root { --header-block-size: 77px; }
+}
+@media (max-width: 600px) {
+  :root { --header-block-size: 69px; }
+}

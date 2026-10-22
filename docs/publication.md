@@ -22,7 +22,7 @@ No hay AAAA público observado. No se necesitó un token de Hostinger para esta 
 
 ## Integración y seguridad
 
-Se reutiliza el gateway `themike-site`, ahora con imagen `localhost/themike-site:koodaria-compact-hero-20261022`. Su base es el runtime parcheado original, fijado por ID. La Home está en `/srv/koodaria`, separada de la landing del laboratorio en `/srv`. No requiere backend nuevo, redes o puertos adicionales. El contenedor de desarrollo permanece aislado y no forma parte del tráfico de producción.
+Se reutiliza el gateway `themike-site`, ahora con imagen `localhost/themike-site:koodaria-viewport-hero-20261022`. Su base es el runtime parcheado original, fijado por ID. La Home está en `/srv/koodaria`, separada de la landing del laboratorio en `/srv`. No requiere backend nuevo, redes o puertos adicionales. El contenedor de desarrollo permanece aislado y no forma parte del tráfico de producción.
 
 Los fragmentos de configuración están en `infra/edge/`. Se ensamblaron con el Caddyfile original conservando las rutas del laboratorio. La imagen fue validada antes de actualizar el Quadlet activo y su copia de fuente. Se reinició brevemente el gateway porque su API administrativa está desactivada. Se conservaron volúmenes, identidades, redes, puertos y políticas de reinicio.
 
@@ -95,3 +95,11 @@ La demostración ahora se repite automáticamente con una pausa de lectura entre
 ## Ajuste de altura de la introducción
 
 Se compactó únicamente el hero de escritorio (desde 901 px): márgenes verticales, espacios internos del panel y alto reservado del terminal. Se conservan los tamaños de lectura y la disposición móvil. No se utiliza zoom ni escalado de la página. Se verificó el hero completo a zoom normal en 1440×768, 1366×680, 1280×720 y 1024×768; sin desbordamiento horizontal en móvil. Evidencia: `evidence/compact-hero-report.json`. Imagen activa: `localhost/themike-site:koodaria-compact-hero-20261022`, contexto `/home/mip/apps/koodaria-compact-hero`; respaldo de Quadlets de la revisión previa en `/root/remediation-20261022/koodaria-compact-hero`.
+
+## Altura adaptable al navegador
+
+El hero ahora usa `100dvh` (con fallback `100vh`) menos la altura real del encabezado. Una cuadrícula distribuye el contenido y mantiene «Áreas de trabajo» en el borde inferior del fondo. ResizeObserver actualiza la medida del encabezado cuando cambia su distribución o se abre el menú móvil; CSS responde al ancho, alto y orientación sin identificar marcas de navegador ni depender de la resolución física del monitor. No se aplica zoom, escala global, recorte ni altura máxima al contenido.
+
+Se probaron veinte combinaciones de viewport y densidad de píxel (1×/2×), incluyendo redimensionado sin recargar y apertura/cierre del menú. En escritorios de 1024×768 a 1920×1080 el fondo termina exactamente al final del viewport. En móvil, tablet vertical o ventanas muy bajas se permite que el contenido crezca y se recorra: no se fuerza toda la composición a una pantalla a costa de la lectura. Evidencia: `evidence/viewport-hero-report.json`.
+
+Imagen activa: `localhost/themike-site:koodaria-viewport-hero-20261022`, contexto `/home/mip/apps/koodaria-viewport-hero`. El respaldo de Quadlets para volver a la revisión anterior está en `/root/remediation-20261022/koodaria-viewport-hero`.
