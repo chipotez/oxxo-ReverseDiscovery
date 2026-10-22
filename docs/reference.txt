@@ -1,0 +1,5 @@
+Referencia recibida: koodaria-v2-standalone.zip
+SHA256: 3aaf1c28c6ac28e8bfb62ae745c3b57311cc48c6d1300f110d24a0d520d5ee58
+Solo index.html informa esta Fase 1. Enterprise y Workspace no se publican.
+Iconos: Tabler Icons, SVG outline, MIT. Copias locales; véase tabler-LICENSE.txt.
+Fuente: https://github.com/tabler/tabler-icons/tree/main/icons/outline

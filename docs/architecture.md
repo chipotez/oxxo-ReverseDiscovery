@@ -1,0 +1,27 @@
+# Inspección y decisiones — 22 de octubre de 2026
+
+## Evidencia previa a la implementación
+
+Repositorio `/Users/imip/Documents/iMIP-Repos/oxxo-ReverseDiscovery`, remoto `chipotez/oxxo-ReverseDiscovery`. Git sin commits; rama inicial `dev` con upstream inexistente. No había frontend, framework, dependencias, CI ni estrategia de despliegue. El único archivo del usuario era `koodaria-v2-standalone.zip`, con tres HTML independientes: Home, Enterprise y Workspace. Se conservó sin modificar. Su checksum se registra en `reference.txt`; no se importaron sus páginas como aplicación.
+
+Se creó `feature/koodaria-public-home-v1` antes de implementar. Aplicación e infraestructura se mantienen separadas en directorios y commits. No había AGENTS.md en el árbol inspeccionado.
+
+Servidor `yard-hostinger`, Fedora 44, acceso SSH administrativo por Tailscale. Podman rootless de `mip`. Cinco contenedores existentes: `themike-site`, `themike-postgres`, `themike-keycloak`, `themike-portal-ui`, `themike-portal-auth`. Redes `podman`, `themike-auth`, `themike-ops`. Persistencia en tres volúmenes endurecidos para Postgres y Caddy; ninguno se monta en Koodaria.
+
+El Caddy existente recibe 80/443 mediante los puertos 8080/8443 del host; administra TLS para `themike.io`, `www.themike.io` y `login.themike.io`. Sirve la landing y enruta el portal mediante OAuth2 Proxy hacia Keycloak. Se inspeccionaron Caddyfile y Quadlets de usuario. No hay virtual host de Koodaria ni entorno de desarrollo previo dedicado. No se modificaron archivos existentes ni autenticación.
+
+## Arquitectura elegida
+
+Home pública precompilada con Python estándar, HTML semántico, CSS y módulos JavaScript nativos. Una Home editorial con pestañas y desplegables no necesita un framework, base de datos o servidor de APIs. La salida es un único artefacto estático, pero sus componentes, datos, tokens e interacciones se desarrollan por separado: no son tres maquetas desconectadas.
+
+El JSON centraliza contenido repetitivo y navegación; el compilador reutiliza funciones para tarjetas, catálogo e iconos y escapa todos los valores editoriales. El JavaScript se limita a interacciones progresivas. Los tipos de catálogo se documentan con JSDoc; Python valida identificadores y nombres de iconos. No se afirma una comprobación TypeScript que este stack no realiza.
+
+Tokens: mineral `#193A37`, cobre `#CC653F`, arena `#D9D1BE`, salvia `#85A69D`, marfil `#F3F1EB`, blanco y oscuro `#141D27`. Para texto pequeño sobre superficies claras se usa cobre más oscuro `#A34627`; el cobre principal se conserva como superficie de acción con texto oscuro para mantener contraste. Iconos oficiales Tabler locales, SVG outline, 1.75. Fuentes locales del sistema para evitar fallos de CDN y solicitudes a terceros.
+
+El runtime reutiliza por ID inmutable la imagen local de Caddy ya parcheada. Se ejecuta como UID 1000, sirviendo únicamente `/koodaria` por HTTP interno; no es una segunda entrada de reverse proxy, no administra certificados y no configura rutas hacia otros servicios. Su Caddyfile está separado del proxy global. La imagen base contiene también archivos estáticos heredados, que no se sirven: el root es `/koodaria`. Una base mínima independiente sería una mejora posterior, tras mantener los parches verificados del runtime.
+
+## Límites y evolución
+
+No se conectó Koodaria con el realm o los usuarios existentes. El esquema Público → Enterprise → Keycloak → Workspace es solo informativo. Las futuras rutas pueden implementarse como aplicaciones separadas bajo el proxy existente, con autenticación del lado servidor y controles por organización. Esta decisión se deberá revisar en la fase de Enterprise.
+
+No hay pipeline automático, registro de imágenes ni publicación de dominio aún. Se propone validar cada commit, etiquetar imágenes inmutables, conservar la anterior y promover únicamente con autorización para modificar producción. La política de privacidad final y el contacto necesitan datos institucionales confirmados antes de un lanzamiento público.
