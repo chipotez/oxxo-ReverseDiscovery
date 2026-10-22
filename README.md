@@ -42,4 +42,4 @@ El terminal es una composición ilustrativa expresamente identificada. Enterpris
 
 Ver [inspección y arquitectura](docs/architecture.md), [despliegue y rollback](docs/deployment.md) y [validación](docs/validation.md).
 
-Esta fase valida un contenedor de desarrollo aislado en el VPS. No modifica DNS, certificados, firewall, Keycloak ni el Caddy global. El dominio `koodaria.com` todavía no se publica.
+La Home ya está publicada en **http://45.80.153.100** a través del Caddy existente, tras autorización explícita. Se conservan el laboratorio y Keycloak. El contenedor de desarrollo sigue aislado. `koodaria.com` y HTTPS quedan pendientes del cambio DNS y de la credencial de Hostinger; véase [publicación](docs/publication.md).

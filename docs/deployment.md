@@ -60,8 +60,8 @@ Para retirar esta fase del servidor, detener únicamente `koodaria-public-home-v
 
 Para probar una revisión posterior, construir otra etiqueta por commit y crear otro nombre dedicado, conservando la instancia previa. Cambiar la instancia activa solo después de pruebas. Si falla, detener la nueva y reanudar la anterior. En Git, volver al commit de aplicación anterior en otro checkout; no hacer reset destructivo sobre archivos del usuario.
 
-## Publicación futura — pendiente de autorización
+## Publicación del dominio — autorización recibida, DNS pendiente
 
-No se modificaron DNS, producción, TLS o proxy global. Antes de publicar `koodaria.com` se requiere autorización explícita para esos cambios y confirmar el contacto, textos legales, destino DNS y nombres canónicos.
+El usuario autorizó después de Fase 1 publicar por IP y configurar dominio/HTTPS. Ya se añadió la Home en el Caddy existente para `http://45.80.153.100`. El DNS aún apunta al aparcamiento de Hostinger; falta la credencial para cambiarlo. La configuración del dominio está preparada y validada, sin activarla hasta verificar DNS. Ver `publication.md` para estado, integración aplicada y rollback del gateway.
 
-La integración prevista es añadir el servicio en una red dedicada compartida únicamente con el Caddy existente y configurar allí el virtual host, manteniendo TLS y controles de entrada en el proxy actual. No publicar directamente el puerto 8080 del nuevo contenedor. Para operación permanente, preparar su propio Quadlet rootless y probar arranque/rollback antes de promoverlo. No copiar definiciones del laboratorio ni reutilizar sus volúmenes.
+Dado que esta fase produce archivos estáticos, la integración aplicada incorpora `dist/` en `/srv/koodaria` de una nueva revisión de la imagen del gateway existente. No requiere otra red ni backend. El virtual host de dominio mantendrá TLS y controles de entrada en ese mismo proxy. Para futuros servicios dinámicos, una red dedicada puede conectar únicamente el backend con ese gateway. No publicar directamente el puerto 8080 del nuevo contenedor. Para operación permanente, preparar su propio Quadlet rootless y probar arranque/rollback antes de promoverlo. No copiar definiciones del laboratorio ni reutilizar sus volúmenes.

@@ -1,0 +1,7 @@
+# Preserve the gateway runtime, existing landing and services. No credentials in context.
+ARG GATEWAY_BASE=5e2c5b4f65129fb9467fd15a9754d93cdede8590b79a1b5e9f35a5008b91dff8
+FROM ${GATEWAY_BASE}
+USER 0
+COPY dist/ /srv/koodaria/
+COPY edge.Caddyfile /etc/caddy/Caddyfile
+USER 1000:1000

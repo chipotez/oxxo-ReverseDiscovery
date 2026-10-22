@@ -1,0 +1,19 @@
+# Transitional public-IP access while DNS is being configured.
+http://45.80.153.100 {
+  root * /srv/koodaria
+  encode zstd gzip
+  file_server
+  header {
+    Content-Security-Policy "default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'"
+    X-Content-Type-Options "nosniff"
+    X-Frame-Options "DENY"
+    Referrer-Policy "strict-origin-when-cross-origin"
+    Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+    Cache-Control "no-cache"
+    -Server
+  }
+  log {
+    output stdout
+    format json
+  }
+}

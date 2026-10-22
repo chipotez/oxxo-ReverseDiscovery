@@ -1,0 +1,88 @@
+{
+  "verified_at_utc": "2026-10-22T17:46:48.696950+00:00",
+  "dns_pending": true,
+  "endpoints": [
+    {
+      "requested": "http://45.80.153.100/",
+      "status": 200,
+      "final_host": "45.80.153.100",
+      "bytes": 56829,
+      "headers": {
+        "Cache-Control": "no-cache",
+        "Content-Security-Policy": "default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'",
+        "Permissions-Policy": "camera=(), microphone=(), geolocation=(), payment=(), usb=()",
+        "Referrer-Policy": "strict-origin-when-cross-origin",
+        "X-Content-Type-Options": "nosniff",
+        "X-Frame-Options": "DENY"
+      }
+    },
+    {
+      "requested": "http://45.80.153.100/assets/styles.css",
+      "status": 200,
+      "final_host": "45.80.153.100",
+      "bytes": 22706,
+      "headers": {
+        "Cache-Control": "no-cache",
+        "Content-Security-Policy": "default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'",
+        "Permissions-Policy": "camera=(), microphone=(), geolocation=(), payment=(), usb=()",
+        "Referrer-Policy": "strict-origin-when-cross-origin",
+        "X-Content-Type-Options": "nosniff",
+        "X-Frame-Options": "DENY"
+      }
+    },
+    {
+      "requested": "http://45.80.153.100/assets/app.js",
+      "status": 200,
+      "final_host": "45.80.153.100",
+      "bytes": 3271,
+      "headers": {
+        "Cache-Control": "no-cache",
+        "Content-Security-Policy": "default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'",
+        "Permissions-Policy": "camera=(), microphone=(), geolocation=(), payment=(), usb=()",
+        "Referrer-Policy": "strict-origin-when-cross-origin",
+        "X-Content-Type-Options": "nosniff",
+        "X-Frame-Options": "DENY"
+      }
+    },
+    {
+      "requested": "https://themike.io/",
+      "status": 200,
+      "final_host": "themike.io",
+      "bytes": 1920,
+      "headers": {
+        "Content-Security-Policy": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests",
+        "Permissions-Policy": "camera=(), microphone=(), geolocation=(), payment=(), usb=()",
+        "Referrer-Policy": "strict-origin-when-cross-origin",
+        "X-Content-Type-Options": "nosniff",
+        "X-Frame-Options": "DENY"
+      }
+    },
+    {
+      "requested": "https://themike.io/portal/",
+      "status": 200,
+      "final_host": "login.themike.io",
+      "bytes": 7267,
+      "headers": {
+        "Cache-Control": "no-store, must-revalidate, max-age=0",
+        "Content-Security-Policy": "frame-src 'self'; frame-ancestors 'self'; object-src 'none';",
+        "Referrer-Policy": "strict-origin-when-cross-origin",
+        "X-Content-Type-Options": "nosniff",
+        "X-Frame-Options": "SAMEORIGIN"
+      }
+    },
+    {
+      "requested": "https://login.themike.io/realms/master/.well-known/openid-configuration",
+      "status": 200,
+      "final_host": "login.themike.io",
+      "bytes": 6628,
+      "headers": {
+        "Cache-Control": "no-cache, must-revalidate, no-transform, no-store",
+        "Referrer-Policy": "strict-origin-when-cross-origin",
+        "X-Content-Type-Options": "nosniff",
+        "X-Frame-Options": "SAMEORIGIN"
+      }
+    }
+  ],
+  "authoritative_apex_a": "2.57.91.91",
+  "authoritative_www_cname": "koodaria.com."
+}
