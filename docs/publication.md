@@ -22,7 +22,7 @@ No hay AAAA público observado. No se necesitó un token de Hostinger para esta 
 
 ## Integración y seguridad
 
-Se reutiliza el gateway `themike-site`, ahora con imagen `localhost/themike-site:koodaria-green-palette-20261022`. Su base es el runtime parcheado original, fijado por ID. La Home está en `/srv/koodaria`, separada de la landing del laboratorio en `/srv`. No requiere backend nuevo, redes o puertos adicionales. El contenedor de desarrollo permanece aislado y no forma parte del tráfico de producción.
+Se reutiliza el gateway `themike-site`, ahora con imagen `localhost/themike-site:koodaria-logo-parity-20261022`. Su base es el runtime parcheado original, fijado por ID. La Home está en `/srv/koodaria`, separada de la landing del laboratorio en `/srv`. No requiere backend nuevo, redes o puertos adicionales. El contenedor de desarrollo permanece aislado y no forma parte del tráfico de producción.
 
 Los fragmentos de configuración están en `infra/edge/`. Se ensamblaron con el Caddyfile original conservando las rutas del laboratorio. La imagen fue validada antes de actualizar el Quadlet activo y su copia de fuente. Se reinició brevemente el gateway porque su API administrativa está desactivada. Se conservaron volúmenes, identidades, redes, puertos y políticas de reinicio.
 
@@ -135,3 +135,9 @@ Pruebas estructurales, accesibilidad local y revisión publicada a cinco tamaño
 A petición del usuario se sustituyeron los acentos cobre y marrones por variantes minerales y salvia en Home y login. Se actualizaron botones, estados hover y foco, títulos, subrayados, fondos, punto del logo y favicon. Los tokens de color se denominan ahora `--accent`, `--accent-ink` y `--line-soft`. Los botones principales usan blanco sobre verde bosque; se comprobaron contraste y accesibilidad en ambas páginas a tamaños de escritorio y móvil. Evidencia: `evidence/green-palette-report.json`.
 
 Imagen activa: `localhost/themike-site:koodaria-green-palette-20261022`, contexto `/home/mip/apps/koodaria-green-palette`; respaldo de Quadlets para rollback en `/root/remediation-20261022/koodaria-green-palette`.
+
+## Logo consistente entre Home y Login
+
+Login reutiliza la geometría del encabezado y la tipografía de Home, incluidos sus puntos de adaptación. Publicado con `localhost/themike-site:koodaria-logo-parity-20261022`. Respaldo de las unidades en `/root/remediation-20261022/koodaria-logo-parity`.
+
+Se compararon las coordenadas y dimensiones reales del logo en producción para nueve tamaños de pantalla (320–1920 px), con densidades 1 y 2: las 18 comparaciones coinciden, sin desbordamiento horizontal. Evidencia: `evidence/logo-parity-report.json`. Las siete pruebas estructurales siguen pasando.

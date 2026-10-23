@@ -5,8 +5,9 @@
   flex-direction: column;
   background: var(--surface);
 }
-.login-header > .shell {
-  min-height: 112px;
+.login-header { border-bottom: 1px solid transparent; }
+/* Share Home’s header height, gutters and wordmark at every breakpoint. */
+.login-header > .header-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -102,12 +103,9 @@
 .login-footer small { font-size: inherit; }
 .login-footer a { padding-block: 8px; }
 @media (max-width: 600px) {
-  .login-header > .shell { min-height: 88px; }
-  .login-header .wordmark { font-size: 31px; }
   .login-layout { padding-block: 30px 44px; }
   .login-card h1 { font-size: 32px; margin-bottom: 34px; }
 }
 @media (max-height: 650px) and (min-width: 601px) {
-  .login-header > .shell { min-height: 88px; }
   .login-layout { padding-block: 20px 36px; }
 }
