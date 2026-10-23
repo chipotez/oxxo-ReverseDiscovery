@@ -69,7 +69,7 @@
       "no_overflow": true,
       "rail_controls_visible": true,
       "header_width": 668,
-      "header_height": 122
+      "header_height": 68
     },
     {
       "theme": "light",
@@ -79,7 +79,7 @@
       "no_overflow": true,
       "rail_controls_visible": true,
       "header_width": 668,
-      "header_height": 122
+      "header_height": 68
     },
     {
       "theme": "light",
@@ -89,7 +89,7 @@
       "no_overflow": true,
       "rail_controls_visible": true,
       "header_width": 318,
-      "header_height": 128
+      "header_height": 119.1875
     },
     {
       "theme": "light",
@@ -99,7 +99,7 @@
       "no_overflow": true,
       "rail_controls_visible": true,
       "header_width": 318,
-      "header_height": 128
+      "header_height": 119.1875
     },
     {
       "theme": "light",
@@ -109,7 +109,7 @@
       "no_overflow": true,
       "rail_controls_visible": true,
       "header_width": 303,
-      "header_height": 128
+      "header_height": 119.1875
     },
     {
       "theme": "light",
@@ -119,7 +119,7 @@
       "no_overflow": true,
       "rail_controls_visible": true,
       "header_width": 303,
-      "header_height": 128
+      "header_height": 119.1875
     },
     {
       "theme": "light",
@@ -129,7 +129,7 @@
       "no_overflow": true,
       "rail_controls_visible": true,
       "header_width": 248,
-      "header_height": 128
+      "header_height": 119.1875
     },
     {
       "theme": "light",
@@ -139,7 +139,7 @@
       "no_overflow": true,
       "rail_controls_visible": true,
       "header_width": 248,
-      "header_height": 128
+      "header_height": 119.1875
     },
     {
       "theme": "light",
@@ -149,7 +149,7 @@
       "no_overflow": true,
       "rail_controls_visible": true,
       "header_width": 728,
-      "header_height": 122
+      "header_height": 68
     },
     {
       "theme": "light",
@@ -159,7 +159,7 @@
       "no_overflow": true,
       "rail_controls_visible": true,
       "header_width": 728,
-      "header_height": 122
+      "header_height": 68
     },
     {
       "theme": "dark",
@@ -229,7 +229,7 @@
       "no_overflow": true,
       "rail_controls_visible": true,
       "header_width": 668,
-      "header_height": 122
+      "header_height": 68
     },
     {
       "theme": "dark",
@@ -239,7 +239,7 @@
       "no_overflow": true,
       "rail_controls_visible": true,
       "header_width": 668,
-      "header_height": 122
+      "header_height": 68
     },
     {
       "theme": "dark",
@@ -249,7 +249,7 @@
       "no_overflow": true,
       "rail_controls_visible": true,
       "header_width": 318,
-      "header_height": 128
+      "header_height": 119.1875
     },
     {
       "theme": "dark",
@@ -259,7 +259,7 @@
       "no_overflow": true,
       "rail_controls_visible": true,
       "header_width": 318,
-      "header_height": 128
+      "header_height": 119.1875
     },
     {
       "theme": "dark",
@@ -269,7 +269,7 @@
       "no_overflow": true,
       "rail_controls_visible": true,
       "header_width": 303,
-      "header_height": 128
+      "header_height": 119.1875
     },
     {
       "theme": "dark",
@@ -279,7 +279,7 @@
       "no_overflow": true,
       "rail_controls_visible": true,
       "header_width": 303,
-      "header_height": 128
+      "header_height": 119.1875
     },
     {
       "theme": "dark",
@@ -289,7 +289,7 @@
       "no_overflow": true,
       "rail_controls_visible": true,
       "header_width": 248,
-      "header_height": 128
+      "header_height": 119.1875
     },
     {
       "theme": "dark",
@@ -299,7 +299,7 @@
       "no_overflow": true,
       "rail_controls_visible": true,
       "header_width": 248,
-      "header_height": 128
+      "header_height": 119.1875
     },
     {
       "theme": "dark",
@@ -309,7 +309,7 @@
       "no_overflow": true,
       "rail_controls_visible": true,
       "header_width": 728,
-      "header_height": 122
+      "header_height": 68
     },
     {
       "theme": "dark",
@@ -319,17 +319,11 @@
       "no_overflow": true,
       "rail_controls_visible": true,
       "header_width": 728,
-      "header_height": 122
+      "header_height": 68
     }
   ],
   "axe_a_aa_violations": 0,
   "browser_errors": [],
   "navigation_selection_works": true,
-  "appearance_toggle_works": true,
-  "date": "2026-10-23",
-  "production_assets_match_source": true,
-  "anonymous_access_still_requires_login": true,
-  "server_tests_passed": 8,
-  "public_site_tests_passed": 7,
-  "authentication_configuration_unchanged": true
+  "appearance_toggle_works": true
 }

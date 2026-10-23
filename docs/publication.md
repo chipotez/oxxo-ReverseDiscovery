@@ -280,3 +280,10 @@ No se cambiaron el flujo OIDC, el MFA, secretos, sesiones ni el gateway. El
 volumen de sesiones permanece montado. Respaldo de la unidad anterior en
 `/home/mip/backups/koodaria-20261023/sidebar/`; rollback con la imagen
 `localhost/koodaria-workspace:welcome-20261023`.
+
+### Cuenta únicamente en el lateral
+
+Retirados del header el engrane, avatar y nombre. El perfil al pie de la barra
+lateral abre el menú de cuenta y conserva Cerrar sesión con el mismo POST/CSRF.
+CSS versionado `welcome-v3.css`; imagen `rail-account-20261023`. Revisados los
+32 estados claros/oscuros y las auditorías de accesibilidad de la navegación.

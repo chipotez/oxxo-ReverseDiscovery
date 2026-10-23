@@ -46,3 +46,13 @@ main{margin-left:var(--rail-width);padding:0;min-height:0}.sr-only{position:abso
 [data-theme=dark] .rail-button{color:#b7cdbf}
 [data-theme=dark] .rail-button:hover,[data-theme=dark] .rail-button[aria-current=page],[data-theme=dark] .user-popover a:hover,[data-theme=dark] .user-popover button:hover{background:#345c4b;color:#e1eee5;border-color:#719683}
 [data-theme=dark] .user-popover button{color:#a0cdb8}[data-theme=dark] .user-popover form{border-color:#48665a}
+
+/* Account controls live only in the navigation rail. */
+.workspace-header{grid-template-columns:1fr auto 1fr}.workspace-tabs{grid-column:2;grid-row:1}
+.rail-account-menu{margin-top:7px}.rail-account-menu summary.rail-profile{width:36px;height:36px;min-height:36px;margin:0;padding:0;border-radius:12px;background:#dce9df;border:1px solid #a5bcad;display:grid;place-items:center;color:#28594d;font-size:12px;list-style:none}
+.rail-account-menu .user-popover{position:fixed;top:auto;bottom:12px;left:calc(var(--rail-width) + 10px);right:auto;width:min(240px,calc(100vw - var(--rail-width) - 20px));text-align:left}
+@media(max-width:900px){.workspace-header{grid-template-columns:1fr auto}.workspace-tabs{grid-column:2;grid-row:1;width:auto}}
+@media(max-width:600px){.workspace-header{grid-template-columns:1fr;gap:10px}.workspace-tabs{grid-column:1;grid-row:2;width:100%}.wordmark{justify-self:center}}
+@media(max-height:700px){.rail-account-menu{margin-top:3px}.rail-account-menu summary.rail-profile{width:30px;height:30px;min-height:30px;border-radius:10px}}
+@media(max-height:470px){.rail-account-menu{grid-column:1/-1;justify-self:center}}
+[data-theme=dark] .rail-account-menu summary.rail-profile{background:#345c4b;color:#e1eee5;border-color:#719683}
