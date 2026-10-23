@@ -189,3 +189,36 @@ Se conserva la tarea activa y el contenido de los campos al cambiar el tamaño d
 Validación en producción de 11 tamaños de pantalla, 23 estados y densidades 1/2: sin scroll horizontal o vertical en las vistas verificadas, con envío visible y accesible. Se comprobaron navegación por teclado, retroceso, configuración manual, preservación de campos y un envío real de TOTP únicamente con una cuenta desechable. axe no encontró infracciones WCAG A/AA en los estados analizados. La cuenta de QA y la cuenta de servicio administrativa temporal se eliminaron; el acceso temporal devuelve 401. La cuenta personal y su autenticador no se modificaron. Evidencia: `evidence/responsive-enrollment-report.json`.
 
 Respaldo del tema anterior: `/home/mip/backups/koodaria-20261023/theme-before-responsive.tar.gz`. Solo se sustituyó el tema de Keycloak; el gateway permanece en la misma imagen.
+
+## Perfil y consola de cuenta coherentes con Koodaria — 23 de octubre de 2026
+
+Publicado `koodaria-v6.css` para las acciones de acceso y `account-v4.css` con
+`account-brand-v2.js` para la consola nativa. Corregida la mezcla de tokens de
+modo oscuro con fondos claros (`darkMode=false`). Logo con la tipografía y la
+alineación de Home, navegación verde salvia, campos claros, bordes redondeados,
+sombras suaves y estados de foco visibles. Título de pestaña propio de Koodaria.
+
+La verificación de perfil adapta sus columnas y espaciados al ancho y alto.
+La información personal se divide en dos pasos en ventanas pequeñas. Los métodos
+de acceso usan pestañas cuando falta espacio; los metadatos secundarios de las
+sesiones quedan desplegables. Los formularios y controles de seguridad nativos
+siguen operativos. La regla para futuras vistas está en `../AGENTS.md` y
+`design-system.md`; nunca recortar contenido ni aplicar zoom CSS para ocultar
+scroll. Se conserva desplazamiento accesible para ampliación extrema, teclado
+virtual, colecciones largas o detalles abiertos explícitamente.
+
+Verificados 32 estados en escritorio, tablet, móvil y horizontal, sin overflow
+del documento ni de los paneles en las vistas predeterminadas. Diez auditorías
+axe A/AA en las cinco secciones con preferencias de sistema clara y oscura, sin
+infracciones detectadas. Se probó guardado real y persistencia tras recarga,
+además de conservar campos sin guardar al redimensionar, solo con identidades
+desechables. Contraste calculado: texto principal 11,24:1; secundario 5,82:1;
+texto blanco en botón 6,73:1; borde de campo 3,58:1.
+
+Eliminadas tres cuentas de QA y el cliente administrativo temporal; su secreto
+ya devuelve 401 y los archivos privados de prueba fueron retirados. No se tocó
+la cuenta personal ni su MFA. Respaldo privado del tema previo:
+`/home/mip/backups/koodaria-20261023/before-account-style.tar.gz`. El gateway
+conserva la imagen anterior; solo se actualizó el tema montado en Keycloak.
+Evidencias: `evidence/account-responsive-theme-report.json` y
+`evidence/account-color-contrast.json`.

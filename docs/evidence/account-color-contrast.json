@@ -1,0 +1,44 @@
+[
+  {
+    "role": "Primary text",
+    "foreground": "#243c39",
+    "background": "#f8faf7",
+    "ratio": 11.24,
+    "minimum": 4.5
+  },
+  {
+    "role": "Secondary text",
+    "foreground": "#576560",
+    "background": "#f8faf7",
+    "ratio": 5.82,
+    "minimum": 4.5
+  },
+  {
+    "role": "Button text",
+    "foreground": "#ffffff",
+    "background": "#2f6557",
+    "ratio": 6.73,
+    "minimum": 4.5
+  },
+  {
+    "role": "Input boundary",
+    "foreground": "#738779",
+    "background": "#f5f8f3",
+    "ratio": 3.58,
+    "minimum": 3
+  },
+  {
+    "role": "Navigation text",
+    "foreground": "#243c39",
+    "background": "#dce9df",
+    "ratio": 9.42,
+    "minimum": 4.5
+  },
+  {
+    "role": "Link",
+    "foreground": "#28594d",
+    "background": "#ffffff",
+    "ratio": 8.0,
+    "minimum": 4.5
+  }
+]

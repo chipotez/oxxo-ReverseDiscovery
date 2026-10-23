@@ -1,0 +1,608 @@
+{
+  "date": "2026-10-23",
+  "production": "https://login.koodaria.com/realms/koodaria/account/",
+  "theme": {
+    "login_css": "koodaria-v6.css",
+    "account_css": "account-v4.css",
+    "account_js": "account-brand-v2.js",
+    "darkMode": false
+  },
+  "profile_completion": [
+    {
+      "w": 1440,
+      "h": 800,
+      "scroll": [
+        1440,
+        800
+      ],
+      "submit": 464.78125
+    },
+    {
+      "w": 1366,
+      "h": 768,
+      "scroll": [
+        1366,
+        768
+      ],
+      "submit": 464.78125
+    },
+    {
+      "w": 1024,
+      "h": 600,
+      "scroll": [
+        1024,
+        600
+      ],
+      "submit": 392.96875
+    },
+    {
+      "w": 390,
+      "h": 844,
+      "scroll": [
+        390,
+        844
+      ],
+      "submit": 583.15625
+    },
+    {
+      "w": 375,
+      "h": 667,
+      "scroll": [
+        375,
+        667
+      ],
+      "submit": 533.15625
+    },
+    {
+      "w": 320,
+      "h": 568,
+      "scroll": [
+        320,
+        568
+      ],
+      "submit": 517.34375
+    },
+    {
+      "w": 844,
+      "h": 390,
+      "scroll": [
+        844,
+        390
+      ],
+      "submit": 343.96875
+    }
+  ],
+  "account_personal_information": [
+    {
+      "w": 1440,
+      "h": 800,
+      "body": [
+        1440,
+        800
+      ],
+      "main": [
+        711,
+        711
+      ],
+      "save": 636.390625,
+      "logo": {
+        "x": 60,
+        "y": 23.59375,
+        "width": 123.9375,
+        "height": 40.796875,
+        "top": 23.59375,
+        "right": 183.9375,
+        "bottom": 64.390625,
+        "left": 60
+      }
+    },
+    {
+      "w": 1366,
+      "h": 768,
+      "body": [
+        1366,
+        768
+      ],
+      "main": [
+        679,
+        679
+      ],
+      "save": 636.390625,
+      "logo": {
+        "x": 54.625,
+        "y": 23.59375,
+        "width": 123.9375,
+        "height": 40.796875,
+        "top": 23.59375,
+        "right": 178.5625,
+        "bottom": 64.390625,
+        "left": 54.625
+      }
+    },
+    {
+      "w": 1024,
+      "h": 600,
+      "body": [
+        1024,
+        600
+      ],
+      "main": [
+        523,
+        523
+      ],
+      "save": 494.390625,
+      "logo": {
+        "x": 40.953125,
+        "y": 17.59375,
+        "width": 123.9375,
+        "height": 40.796875,
+        "top": 17.59375,
+        "right": 164.890625,
+        "bottom": 58.390625,
+        "left": 40.953125
+      }
+    },
+    {
+      "w": 390,
+      "h": 844,
+      "body": [
+        390,
+        844
+      ],
+      "main": [
+        775,
+        775
+      ],
+      "save": 737.1875,
+      "logo": {
+        "x": 22,
+        "y": 15.40625,
+        "width": 112.21875,
+        "height": 37.1875,
+        "top": 15.40625,
+        "right": 134.21875,
+        "bottom": 52.59375,
+        "left": 22
+      }
+    },
+    {
+      "w": 375,
+      "h": 667,
+      "body": [
+        375,
+        667
+      ],
+      "main": [
+        598,
+        598
+      ],
+      "save": 0,
+      "logo": {
+        "x": 22,
+        "y": 15.40625,
+        "width": 112.21875,
+        "height": 37.1875,
+        "top": 15.40625,
+        "right": 134.21875,
+        "bottom": 52.59375,
+        "left": 22
+      }
+    },
+    {
+      "step": 2,
+      "w": 375,
+      "h": 667,
+      "main": [
+        598,
+        598
+      ],
+      "save": 499.1875
+    },
+    {
+      "w": 320,
+      "h": 568,
+      "body": [
+        320,
+        568
+      ],
+      "main": [
+        499,
+        499
+      ],
+      "save": 0,
+      "logo": {
+        "x": 22,
+        "y": 15.40625,
+        "width": 112.21875,
+        "height": 37.1875,
+        "top": 15.40625,
+        "right": 134.21875,
+        "bottom": 52.59375,
+        "left": 22
+      }
+    },
+    {
+      "step": 2,
+      "w": 320,
+      "h": 568,
+      "main": [
+        499,
+        499
+      ],
+      "save": 464.1875
+    },
+    {
+      "w": 844,
+      "h": 390,
+      "body": [
+        844,
+        390
+      ],
+      "main": [
+        313,
+        313
+      ],
+      "save": 0,
+      "logo": {
+        "x": 33.75,
+        "y": 17.59375,
+        "width": 123.9375,
+        "height": 40.796875,
+        "top": 17.59375,
+        "right": 157.6875,
+        "bottom": 58.390625,
+        "left": 33.75
+      }
+    },
+    {
+      "step": 2,
+      "w": 844,
+      "h": 390,
+      "main": [
+        313,
+        313
+      ],
+      "save": 371.09375
+    }
+  ],
+  "security_devices_applications_organizations": [
+    {
+      "w": 390,
+      "h": 844,
+      "main": [
+        775,
+        775
+      ],
+      "doc": [
+        390,
+        844
+      ],
+      "route": "account-security/signing-in"
+    },
+    {
+      "w": 390,
+      "h": 844,
+      "main": [
+        775,
+        775
+      ],
+      "doc": [
+        390,
+        844
+      ],
+      "route": "account-security/signing-in",
+      "tab": 2
+    },
+    {
+      "w": 320,
+      "h": 568,
+      "main": [
+        499,
+        499
+      ],
+      "doc": [
+        320,
+        568
+      ],
+      "route": "account-security/signing-in"
+    },
+    {
+      "w": 320,
+      "h": 568,
+      "main": [
+        499,
+        499
+      ],
+      "doc": [
+        320,
+        568
+      ],
+      "route": "account-security/signing-in",
+      "tab": 2
+    },
+    {
+      "w": 844,
+      "h": 390,
+      "main": [
+        313,
+        313
+      ],
+      "doc": [
+        844,
+        390
+      ],
+      "route": "account-security/signing-in"
+    },
+    {
+      "w": 844,
+      "h": 390,
+      "main": [
+        313,
+        313
+      ],
+      "doc": [
+        844,
+        390
+      ],
+      "route": "account-security/signing-in",
+      "tab": 2
+    },
+    {
+      "w": 390,
+      "h": 844,
+      "main": [
+        775,
+        775
+      ],
+      "doc": [
+        390,
+        844
+      ],
+      "route": "account-security/device-activity"
+    },
+    {
+      "w": 320,
+      "h": 568,
+      "main": [
+        499,
+        499
+      ],
+      "doc": [
+        320,
+        568
+      ],
+      "route": "account-security/device-activity"
+    },
+    {
+      "w": 844,
+      "h": 390,
+      "main": [
+        313,
+        313
+      ],
+      "doc": [
+        844,
+        390
+      ],
+      "route": "account-security/device-activity"
+    },
+    {
+      "w": 390,
+      "h": 844,
+      "main": [
+        775,
+        775
+      ],
+      "doc": [
+        390,
+        844
+      ],
+      "route": "applications"
+    },
+    {
+      "w": 320,
+      "h": 568,
+      "main": [
+        499,
+        499
+      ],
+      "doc": [
+        320,
+        568
+      ],
+      "route": "applications"
+    },
+    {
+      "w": 844,
+      "h": 390,
+      "main": [
+        313,
+        313
+      ],
+      "doc": [
+        844,
+        390
+      ],
+      "route": "applications"
+    },
+    {
+      "w": 390,
+      "h": 844,
+      "main": [
+        775,
+        775
+      ],
+      "doc": [
+        390,
+        844
+      ],
+      "route": "organizations"
+    },
+    {
+      "w": 320,
+      "h": 568,
+      "main": [
+        499,
+        499
+      ],
+      "doc": [
+        320,
+        568
+      ],
+      "route": "organizations"
+    },
+    {
+      "w": 844,
+      "h": 390,
+      "main": [
+        313,
+        313
+      ],
+      "doc": [
+        844,
+        390
+      ],
+      "route": "organizations"
+    }
+  ],
+  "states_without_document_or_panel_overflow": 32,
+  "wcag_a_aa_axe_checks": [
+    {
+      "violations": [],
+      "h": 844,
+      "w": 390,
+      "main": [
+        775,
+        775
+      ],
+      "dark": false,
+      "scheme": "light",
+      "route": "profile"
+    },
+    {
+      "violations": [],
+      "h": 844,
+      "w": 390,
+      "main": [
+        775,
+        775
+      ],
+      "dark": false,
+      "scheme": "light",
+      "route": "account-security/signing-in"
+    },
+    {
+      "violations": [],
+      "h": 844,
+      "w": 390,
+      "main": [
+        775,
+        775
+      ],
+      "dark": false,
+      "scheme": "light",
+      "route": "account-security/device-activity"
+    },
+    {
+      "violations": [],
+      "h": 844,
+      "w": 390,
+      "main": [
+        775,
+        775
+      ],
+      "dark": false,
+      "scheme": "light",
+      "route": "applications"
+    },
+    {
+      "violations": [],
+      "h": 844,
+      "w": 390,
+      "main": [
+        775,
+        775
+      ],
+      "dark": false,
+      "scheme": "light",
+      "route": "organizations"
+    },
+    {
+      "violations": [],
+      "h": 844,
+      "w": 390,
+      "main": [
+        775,
+        775
+      ],
+      "dark": false,
+      "scheme": "dark",
+      "route": "profile"
+    },
+    {
+      "violations": [],
+      "h": 844,
+      "w": 390,
+      "main": [
+        775,
+        775
+      ],
+      "dark": false,
+      "scheme": "dark",
+      "route": "account-security/signing-in"
+    },
+    {
+      "violations": [],
+      "h": 844,
+      "w": 390,
+      "main": [
+        775,
+        775
+      ],
+      "dark": false,
+      "scheme": "dark",
+      "route": "account-security/device-activity"
+    },
+    {
+      "violations": [],
+      "h": 844,
+      "w": 390,
+      "main": [
+        775,
+        775
+      ],
+      "dark": false,
+      "scheme": "dark",
+      "route": "applications"
+    },
+    {
+      "violations": [],
+      "h": 844,
+      "w": 390,
+      "main": [
+        775,
+        775
+      ],
+      "dark": false,
+      "scheme": "dark",
+      "route": "organizations"
+    }
+  ],
+  "native_form_checks": {
+    "native_save_persists": true,
+    "resize_preserves_unsaved_fields": true,
+    "disposable_identity_only": true
+  },
+  "cleanup": {
+    "disposable_users_deleted": 3,
+    "temporary_admin_client_deleted": true,
+    "temporary_client_rejected_with_401": true,
+    "private_qa_credential_files_removed": true,
+    "personal_account_untouched": true
+  },
+  "scope_notes": [
+    "Default views fit the tested viewports without clipping or CSS zoom.",
+    "Explicitly expanded secondary details, unusually long collections, extreme zoom and software keyboards retain native scrolling as an accessibility fallback.",
+    "No authentication flows or personal credentials were changed."
+  ]
+}
