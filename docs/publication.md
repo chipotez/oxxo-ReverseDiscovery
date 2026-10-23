@@ -179,3 +179,13 @@ Solo se modificaron recursos del tema montado en Keycloak; no se cambiaron el fl
 Evidencia de navegación y accesibilidad: `evidence/premium-mfa-report.json`. Las capturas de revisión locales ocultan el QR y la clave de configuración; no se enviaron formularios de alta de MFA durante la revisión.
 
 Los recursos públicos del tema deben quedar con directorios 755 y archivos 644 para que el UID no privilegiado del contenedor pueda leerlos. El respaldo permanece privado (600); no aplicar su umask a los archivos que sirve el tema.
+
+## Alta de 2FA adaptada al alto y ancho visibles — 23 de octubre de 2026
+
+Tema `koodaria-v4.css` y mejora progresiva `responsive-enrollment-v2.js`. La tarjeta completa usa una distribución más compacta en escritorio. Bajo 800 px de ancho o 700 px de alto, la configuración se divide en aplicación, vinculación y verificación. La densidad se ajusta a la altura disponible, incluidos cambios de `visualViewport`. En vistas muy bajas el selector de idioma se sitúa en la cabecera. Los campos y el botón nativo de envío se conservan; el código no lee contraseñas ni códigos, no usa almacenamiento ni envía solicitudes.
+
+Se conserva la tarea activa y el contenido de los campos al cambiar el tamaño de la ventana. La configuración manual mantiene sus parámetros nativos en un desplegable dentro del paso de vinculación. Si la mejora progresiva no carga, el formulario nativo continúa disponible; no se oculta contenido mediante un overflow global ni se aplica zoom o escala a la página.
+
+Validación en producción de 11 tamaños de pantalla, 23 estados y densidades 1/2: sin scroll horizontal o vertical en las vistas verificadas, con envío visible y accesible. Se comprobaron navegación por teclado, retroceso, configuración manual, preservación de campos y un envío real de TOTP únicamente con una cuenta desechable. axe no encontró infracciones WCAG A/AA en los estados analizados. La cuenta de QA y la cuenta de servicio administrativa temporal se eliminaron; el acceso temporal devuelve 401. La cuenta personal y su autenticador no se modificaron. Evidencia: `evidence/responsive-enrollment-report.json`.
+
+Respaldo del tema anterior: `/home/mip/backups/koodaria-20261023/theme-before-responsive.tar.gz`. Solo se sustituyó el tema de Keycloak; el gateway permanece en la misma imagen.

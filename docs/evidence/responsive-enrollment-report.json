@@ -1,0 +1,331 @@
+{
+  "views": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "dpr": 1,
+      "mode": "full",
+      "step": 0,
+      "height": 900,
+      "scrollHeight": 900,
+      "width": 1440,
+      "scrollWidth": 1440,
+      "submit_visible_and_unobstructed": true,
+      "violations": []
+    },
+    {
+      "viewport": [
+        1440,
+        800
+      ],
+      "dpr": 2,
+      "mode": "full",
+      "step": 0,
+      "height": 800,
+      "scrollHeight": 800,
+      "width": 1440,
+      "scrollWidth": 1440,
+      "submit_visible_and_unobstructed": true,
+      "violations": []
+    },
+    {
+      "viewport": [
+        1366,
+        768
+      ],
+      "dpr": 1,
+      "mode": "full",
+      "step": 0,
+      "height": 768,
+      "scrollHeight": 768,
+      "width": 1366,
+      "scrollWidth": 1366,
+      "submit_visible_and_unobstructed": true
+    },
+    {
+      "viewport": [
+        1280,
+        720
+      ],
+      "dpr": 1,
+      "mode": "full",
+      "step": 0,
+      "height": 720,
+      "scrollHeight": 720,
+      "width": 1280,
+      "scrollWidth": 1280,
+      "submit_visible_and_unobstructed": true
+    },
+    {
+      "viewport": [
+        1024,
+        768
+      ],
+      "dpr": 1,
+      "mode": "full",
+      "step": 0,
+      "height": 768,
+      "scrollHeight": 768,
+      "width": 1024,
+      "scrollWidth": 1024,
+      "submit_visible_and_unobstructed": true
+    },
+    {
+      "viewport": [
+        1024,
+        600
+      ],
+      "dpr": 1,
+      "mode": "steps",
+      "step": 1,
+      "height": 600,
+      "scrollHeight": 600,
+      "width": 1024,
+      "scrollWidth": 1024
+    },
+    {
+      "viewport": [
+        1024,
+        600
+      ],
+      "dpr": 1,
+      "mode": "steps",
+      "step": 2,
+      "height": 600,
+      "scrollHeight": 600,
+      "width": 1024,
+      "scrollWidth": 1024
+    },
+    {
+      "viewport": [
+        1024,
+        600
+      ],
+      "dpr": 1,
+      "mode": "steps",
+      "step": 3,
+      "height": 600,
+      "scrollHeight": 600,
+      "width": 1024,
+      "scrollWidth": 1024,
+      "submit_visible_and_unobstructed": true
+    },
+    {
+      "viewport": [
+        768,
+        1024
+      ],
+      "dpr": 1,
+      "mode": "steps",
+      "step": 1,
+      "height": 1024,
+      "scrollHeight": 1024,
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "viewport": [
+        768,
+        1024
+      ],
+      "dpr": 1,
+      "mode": "steps",
+      "step": 2,
+      "height": 1024,
+      "scrollHeight": 1024,
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "viewport": [
+        768,
+        1024
+      ],
+      "dpr": 1,
+      "mode": "steps",
+      "step": 3,
+      "height": 1024,
+      "scrollHeight": 1024,
+      "width": 768,
+      "scrollWidth": 768,
+      "submit_visible_and_unobstructed": true
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "dpr": 2,
+      "mode": "steps",
+      "step": 1,
+      "height": 844,
+      "scrollHeight": 844,
+      "width": 390,
+      "scrollWidth": 390,
+      "violations": []
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "dpr": 2,
+      "mode": "steps",
+      "step": 2,
+      "height": 844,
+      "scrollHeight": 844,
+      "width": 390,
+      "scrollWidth": 390,
+      "violations": []
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "dpr": 2,
+      "mode": "steps",
+      "step": 3,
+      "height": 844,
+      "scrollHeight": 844,
+      "width": 390,
+      "scrollWidth": 390,
+      "submit_visible_and_unobstructed": true,
+      "violations": []
+    },
+    {
+      "viewport": [
+        375,
+        667
+      ],
+      "dpr": 1,
+      "mode": "steps",
+      "step": 1,
+      "height": 667,
+      "scrollHeight": 667,
+      "width": 375,
+      "scrollWidth": 375
+    },
+    {
+      "viewport": [
+        375,
+        667
+      ],
+      "dpr": 1,
+      "mode": "steps",
+      "step": 2,
+      "height": 667,
+      "scrollHeight": 667,
+      "width": 375,
+      "scrollWidth": 375
+    },
+    {
+      "viewport": [
+        375,
+        667
+      ],
+      "dpr": 1,
+      "mode": "steps",
+      "step": 3,
+      "height": 667,
+      "scrollHeight": 667,
+      "width": 375,
+      "scrollWidth": 375,
+      "submit_visible_and_unobstructed": true
+    },
+    {
+      "viewport": [
+        320,
+        568
+      ],
+      "dpr": 1,
+      "mode": "steps",
+      "step": 1,
+      "height": 568,
+      "scrollHeight": 568,
+      "width": 320,
+      "scrollWidth": 320
+    },
+    {
+      "viewport": [
+        320,
+        568
+      ],
+      "dpr": 1,
+      "mode": "steps",
+      "step": 2,
+      "height": 568,
+      "scrollHeight": 568,
+      "width": 320,
+      "scrollWidth": 320
+    },
+    {
+      "viewport": [
+        320,
+        568
+      ],
+      "dpr": 1,
+      "mode": "steps",
+      "step": 3,
+      "height": 568,
+      "scrollHeight": 568,
+      "width": 320,
+      "scrollWidth": 320,
+      "submit_visible_and_unobstructed": true
+    },
+    {
+      "viewport": [
+        844,
+        390
+      ],
+      "dpr": 1,
+      "mode": "steps",
+      "step": 1,
+      "height": 390,
+      "scrollHeight": 390,
+      "width": 844,
+      "scrollWidth": 844,
+      "violations": []
+    },
+    {
+      "viewport": [
+        844,
+        390
+      ],
+      "dpr": 1,
+      "mode": "steps",
+      "step": 2,
+      "height": 390,
+      "scrollHeight": 390,
+      "width": 844,
+      "scrollWidth": 844,
+      "violations": []
+    },
+    {
+      "viewport": [
+        844,
+        390
+      ],
+      "dpr": 1,
+      "mode": "steps",
+      "step": 3,
+      "height": 390,
+      "scrollHeight": 390,
+      "width": 844,
+      "scrollWidth": 844,
+      "submit_visible_and_unobstructed": true,
+      "violations": []
+    }
+  ],
+  "resize_preserves_inputs_and_active_task": true,
+  "manual_setup_remains_available_without_scrolling": true,
+  "native_form_submit_completes_authentication": true,
+  "keyboard_navigation_works": true,
+  "password_visibility_toggle_works": true,
+  "mfa_submitted_only_for_disposable_qa_account": true,
+  "disposable_test_user_deleted": true,
+  "temporary_admin_deleted_and_credentials_rejected": true,
+  "personal_user_not_modified": true
+}
