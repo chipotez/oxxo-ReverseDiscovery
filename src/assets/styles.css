@@ -295,3 +295,12 @@ figcaption { font-size: 11px; }
   .stack-console-middle { top: 21px; right: 17px; left: 24px; }
   .stack-console-bar { padding-block: 6px; min-height: 31px; }
 }
+
+/* Let the introduction breathe vertically on taller desktop screens. */
+@media (min-width: 901px) and (min-height: 800px) {
+  .hero-copy { padding-block: clamp(8px, 2vh, 24px); }
+  .hero .eyebrow { margin-bottom: clamp(26px, 4vh, 46px); }
+  .hero h1 { line-height: 1.25; }
+  .hero-description { margin-top: clamp(30px, 4.5vh, 52px); line-height: 1.85; }
+  .hero-actions { margin-top: clamp(32px, 4.5vh, 52px); }
+}
