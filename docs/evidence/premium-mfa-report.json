@@ -1,0 +1,92 @@
+{
+  "theme": "koodaria-v3.css",
+  "mfa_configuration_not_submitted": true,
+  "views": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "card": {
+        "x": 330,
+        "y": 112,
+        "width": 780,
+        "height": 777.828125
+      },
+      "two_columns": true,
+      "language_and_title_do_not_overlap": true,
+      "no_horizontal_overflow": true,
+      "form_fields_enabled": true,
+      "violations": []
+    },
+    {
+      "viewport": [
+        1024,
+        768
+      ],
+      "card": {
+        "x": 122,
+        "y": 112,
+        "width": 780,
+        "height": 777.828125
+      },
+      "two_columns": true,
+      "language_and_title_do_not_overlap": true,
+      "no_horizontal_overflow": true,
+      "form_fields_enabled": true,
+      "violations": []
+    },
+    {
+      "viewport": [
+        768,
+        1024
+      ],
+      "card": {
+        "x": 22,
+        "y": 108,
+        "width": 724,
+        "height": 977.171875
+      },
+      "two_columns": false,
+      "language_and_title_do_not_overlap": true,
+      "no_horizontal_overflow": true,
+      "form_fields_enabled": true,
+      "violations": []
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "card": {
+        "x": 22,
+        "y": 108,
+        "width": 346,
+        "height": 1194.28125
+      },
+      "two_columns": false,
+      "language_and_title_do_not_overlap": true,
+      "no_horizontal_overflow": true,
+      "form_fields_enabled": true,
+      "violations": [],
+      "manual_configuration_available": true
+    },
+    {
+      "viewport": [
+        320,
+        740
+      ],
+      "card": {
+        "x": 16,
+        "y": 108,
+        "width": 288,
+        "height": 1272.609375
+      },
+      "two_columns": false,
+      "language_and_title_do_not_overlap": true,
+      "no_horizontal_overflow": true,
+      "form_fields_enabled": true,
+      "violations": []
+    }
+  ]
+}

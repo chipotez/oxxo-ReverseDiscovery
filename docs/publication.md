@@ -169,3 +169,13 @@ Se utilizó el procedimiento oficial de recuperación con una cuenta de servicio
 La cuenta administrativa temporal fue eliminada y una solicitud posterior con su secreto devolvió HTTP 401. El archivo local del secreto se retiró. Confirmación de configuración sin secretos: `evidence/keycloak-config-report.json`. El MFA del administrador humano sigue pendiente de su propia vinculación y no fue eliminado.
 
 Se verificó también que el logo conserva posición y tamaño frente a Home en escritorio y móvil, y que axe no detecta infracciones WCAG A/AA en las tres vistas revisadas (`evidence/keycloak-accessibility-report.json`).
+
+## Tema de acceso y alta de 2FA refinado — 23 de octubre de 2026
+
+Tema `koodaria-v3.css`: panel blanco de bordes redondeados y sombra suave, aviso de alta en verde mineral con icono Tabler, aplicaciones autenticadoras en etiquetas, QR y formulario en columnas en escritorio y apilados en móvil. Se conserva la geometría del logo. El selector de idioma ocupa su propia fila para evitar solaparse con el título. Los errores conservan una presentación distinta del aviso informativo.
+
+Solo se modificaron recursos del tema montado en Keycloak; no se cambiaron el flujo de autenticación, usuarios, contraseñas ni autenticadores. Respaldo del tema anterior: `/home/mip/backups/koodaria-20261023/theme-before-premium.tar.gz`. La versión nueva del archivo CSS evita reutilizar la caché del estilo anterior. El gateway continúa en `localhost/themike-site:koodaria-identity-20261023`.
+
+Evidencia de navegación y accesibilidad: `evidence/premium-mfa-report.json`. Las capturas de revisión locales ocultan el QR y la clave de configuración; no se enviaron formularios de alta de MFA durante la revisión.
+
+Los recursos públicos del tema deben quedar con directorios 755 y archivos 644 para que el UID no privilegiado del contenedor pueda leerlos. El respaldo permanece privado (600); no aplicar su umask a los archivos que sirve el tema.
