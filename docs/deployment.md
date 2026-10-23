@@ -68,7 +68,7 @@ Dado que esta fase produce archivos estáticos, la integración aplicada incorpo
 
 ## Aplicación de bienvenida
 
-- Fuente: `app/`; imagen `localhost/koodaria-workspace:welcome-20261023`.
+- Fuente: `app/`; imagen `localhost/koodaria-workspace:sidebar-20261023`.
 - Construcción reproducible con `app/requirements.lock`; rangos de mantenimiento
   en `app/requirements.txt`. Gunicorn escucha solo dentro de la red de Podman.
 - Unidad: `infra/koodaria-workspace.container`; montada en systemd de mip.

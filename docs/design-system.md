@@ -35,3 +35,12 @@ Validate at least 1440×800, 1366×768, 1024×600, 390×844, 375×667,
 actions, keyboard use, and light/dark OS preferences. Measure contrast rather
 than judging color pairs only by appearance. Account-specific QA uses disposable
 identities and excludes secrets from evidence.
+
+The authenticated shell uses a compact floating header (maximum 1100px) and a
+64px icon rail (52px on phones). On short landscape windows the rail arranges
+icons in two columns so every action remains reachable. The central canvas is
+currently empty; retain a screen-reader heading for the selected section.
+The appearance control has an explicit mineral-green dark palette; do not mix
+its text and surface values with the light palette. Theme preference is local
+and contains no identity data. Login and account-management themes retain their
+separately verified light palette.

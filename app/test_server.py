@@ -23,6 +23,9 @@ class WelcomeTests(unittest.TestCase):
         self.authenticated();response=self.client.get('/bienvenida/')
         self.assertEqual(response.status_code,200)
         self.assertIn(b'&lt;script&gt;',response.data)
+        self.assertNotIn(b'Bienvenido,',response.data)
+        self.assertNotIn(b'TU ESPACIO EN KOODARIA',response.data)
+        self.assertIn(b'workspace-rail',response.data)
         self.assertNotIn(b'PRIVATE-ID-TOKEN',response.data)
         self.assertEqual(response.headers['Cache-Control'],'no-store')
     def test_expired_local_session_requires_login(self):

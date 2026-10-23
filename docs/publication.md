@@ -252,3 +252,31 @@ la Home. Evidencia: `evidence/welcome-flow-report.json`. Se retiraron el usuario
 desechable y el cliente administrativo temporal; sus credenciales ya devuelven
 401. Se conservan únicamente las credenciales operativas de la aplicación en
 archivos privados ignorados. La cuenta personal y su autenticador no se tocaron.
+
+## Header compacto y navegación lateral — 23 de octubre de 2026
+
+Publicado `localhost/koodaria-workspace:sidebar-20261023`. Header limitado a
+1100 px en escritorio y aproximadamente 68 px de alto; adaptación en dos filas
+en pantallas estrechas. Se retiraron el saludo, la etiqueta superior y el nombre
+de sección del centro visible. El título accesible de la vista se conserva.
+
+Barra lateral con monograma, inicio, asistente, aplicaciones, biblioteca,
+aprendizaje, crear y favoritos; preferencias, apariencia, configuración,
+consola y perfil al pie. Bordes suaves, trazos finos y verdes de Koodaria.
+Las secciones por ahora seleccionan el estado de navegación sobre un lienzo
+vacío: no se incorporaron servicios ni acciones de creación. Cuenta e idioma
+abren la gestión real de cuenta. Apariencia alterna una paleta mineral clara u
+oscura y guarda únicamente la preferencia local, sin datos de autenticación.
+
+Verificados 32 estados (ocho tamaños, dos temas, menú abierto/cerrado), todos con
+controles laterales visibles y sin overflow. Auditorías axe A/AA en escritorio y
+móvil sin incidencias. Ocho pruebas de servidor y siete de Home correctas.
+La revisión visual usa el template real con identidad sintética interceptada
+solo dentro del navegador de QA; no se desplegó ningún acceso de prueba ni se
+crearon usuarios administrativos. Los recursos publicados coinciden con fuente.
+Evidencia: `evidence/sidebar-layout-report.json`.
+
+No se cambiaron el flujo OIDC, el MFA, secretos, sesiones ni el gateway. El
+volumen de sesiones permanece montado. Respaldo de la unidad anterior en
+`/home/mip/backups/koodaria-20261023/sidebar/`; rollback con la imagen
+`localhost/koodaria-workspace:welcome-20261023`.
