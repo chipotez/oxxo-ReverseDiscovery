@@ -25,3 +25,15 @@ El runtime reutiliza por ID inmutable la imagen local de Caddy ya parcheada. Se 
 No se conectó Koodaria con el realm o los usuarios existentes. El esquema Público → Enterprise → Keycloak → Workspace es solo informativo. Las futuras rutas pueden implementarse como aplicaciones separadas bajo el proxy existente, con autenticación del lado servidor y controles por organización. Esta decisión se deberá revisar en la fase de Enterprise.
 
 No hay pipeline automático, registro de imágenes ni publicación de dominio aún. Se propone validar cada commit, etiquetar imágenes inmutables, conservar la anterior y promover únicamente con autorización para modificar producción. La política de privacidad final y el contacto necesitan datos institucionales confirmados antes de un lanzamiento público.
+
+## Integración de identidad preparada (23 de octubre de 2026)
+
+Keycloak instalado: 26.8.1. El acceso administrativo probado exige completar `CONFIGURE_TOTP` (Mobile Authenticator Setup). No se crearon realms, organizaciones ni usuarios; Login público continúa sin autenticación real. No se alteró el laboratorio ni se intentó eludir MFA.
+
+`infra/keycloak/koodaria-realm.json` prepara un realm independiente, con organizaciones, español, HTTPS obligatorio, protección contra intentos repetidos y sin registro público. Recuperación de contraseña permanece deshabilitada hasta disponer de correo saliente. `scripts/provision_keycloak.py` valida sin modificar nada por defecto; `--apply --credentials-file RUTA` requiere una cuenta de servicio administrativa de master y un archivo privado (600) con `client_id` y `client_secret`. No utiliza la contraseña de una persona. Si el realm ya existe, no lo sobrescribe. No genera usuarios ni membresías automáticamente.
+
+Propuesta pendiente de elección: una organización Kyndryl admite miembros de varios dominios cuando comparten un mismo ámbito de acceso. Para clientes que requieren separación, usar organizaciones distintas por empresa dentro de koodaria. No asumir organizaciones anidadas: la relación comercial Kyndryl–cliente y los permisos cruzados deben modelarse explícitamente en la aplicación. El dominio de correo ayuda al enrutamiento de identidad; no concede acceso por sí solo. La aplicación deberá validar membresía y permisos en cada recurso privado.
+
+La publicación de Login queda pendiente de acceso administrativo válido. La autenticación se delegará en Keycloak (OpenID Connect), sin capturar contraseñas desde la Home. El destino inicial propuesto es la cuenta del usuario; una sesión para un futuro workspace requiere su propia integración OIDC y autorización, y todavía no está implementada.
+
+Referencia: https://www.keycloak.org/docs/latest/server_admin/ (Organizations).
