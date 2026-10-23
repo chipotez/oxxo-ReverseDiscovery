@@ -65,3 +65,24 @@ Para probar una revisión posterior, construir otra etiqueta por commit y crear 
 El usuario autorizó después de Fase 1 publicar por IP y configurar dominio/HTTPS. Tras su cambio manual del DNS, se activó **https://koodaria.com** en el Caddy existente. Los certificados de dominio y `www` fueron emitidos por Let’s Encrypt y están administrados por Caddy. No fue necesario utilizar un token de Hostinger. Ver `publication.md` para estado, integración aplicada y rollback del gateway.
 
 Dado que esta fase produce archivos estáticos, la integración aplicada incorpora `dist/` en `/srv/koodaria` de una nueva revisión de la imagen del gateway existente. No requiere otra red ni backend. El virtual host de dominio mantendrá TLS y controles de entrada en ese mismo proxy. Para futuros servicios dinámicos, una red dedicada puede conectar únicamente el backend con ese gateway. No publicar directamente el puerto 8080 del nuevo contenedor. Para operación permanente, preparar su propio Quadlet rootless y probar arranque/rollback antes de promoverlo. No copiar definiciones del laboratorio ni reutilizar sus volúmenes.
+
+## Aplicación de bienvenida
+
+- Fuente: `app/`; imagen `localhost/koodaria-workspace:welcome-20261023`.
+- Construcción reproducible con `app/requirements.lock`; rangos de mantenimiento
+  en `app/requirements.txt`. Gunicorn escucha solo dentro de la red de Podman.
+- Unidad: `infra/koodaria-workspace.container`; montada en systemd de mip.
+- Entorno privado: `/home/mip/.config/koodaria/workspace.env`, permisos 600.
+  Copia local ignorada: `.secrets/koodaria-workspace.env`. No incorporar al build.
+- Volumen privado: `koodaria-workspace-sessions`. Conserva sesiones entre reinicios.
+  Para retirar una sesión local se requiere invalidarla, no solo borrar su cookie.
+- Proxy: `infra/edge/koodaria-welcome.caddy` sustituye el bloque de koodaria.com,
+  conservando todos los demás dominios y volúmenes de Caddy.
+- Gateway requiere `NetworkAlias=login.koodaria.com` en `themike-auth.network`.
+- Pruebas de servidor: `SESSION_DIR=/tmp/koodaria-tests python -m unittest test_server -v`
+  dentro del contenedor; nunca apuntar las pruebas al almacén real de sesiones.
+- Rollback: restaurar la unidad y Caddyfile de
+  `/home/mip/backups/koodaria-20261023/welcome-edge/` y reiniciar el gateway con
+  la imagen anterior `localhost/themike-site:koodaria-identity-20261023`.
+  La base previa está en `before-welcome.dump`, pero no restaurarla sobre cambios
+  posteriores sin revisión. El cliente nuevo puede deshabilitarse independientemente.

@@ -1,0 +1,27 @@
+[Unit]
+Description=Koodaria authenticated welcome
+After=network-online.target themike-keycloak.service
+Wants=network-online.target
+
+[Container]
+Image=localhost/koodaria-workspace:welcome-20261023
+ContainerName=koodaria-workspace
+Network=themike-auth.network
+EnvironmentFile=/home/mip/.config/koodaria/workspace.env
+Volume=koodaria-workspace-sessions:/app/sessions:U,Z
+ReadOnly=true
+Tmpfs=/tmp:rw,size=32m
+NoNewPrivileges=true
+DropCapability=all
+Memory=256m
+PidsLimit=100
+HealthCmd=python -c "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/healthz')"
+HealthInterval=30s
+HealthRetries=3
+
+[Service]
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target

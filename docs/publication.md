@@ -222,3 +222,33 @@ la cuenta personal ni su MFA. Respaldo privado del tema previo:
 conserva la imagen anterior; solo se actualizó el tema montado en Keycloak.
 Evidencias: `evidence/account-responsive-theme-report.json` y
 `evidence/account-color-contrast.json`.
+
+## Bienvenida privada después del acceso — 23 de octubre de 2026
+
+La Home conserva su diseño. Login ahora inicia `koodaria-web` y termina en
+`https://koodaria.com/bienvenida/` después de las verificaciones de Keycloak.
+La nueva vista usa una barra flotante, Servicios/Módulos, configuración y menú
+personal con Mi cuenta, Volver al inicio y Cerrar sesión. El nombre y las
+iniciales proceden de la identidad validada; no están escritos en el frontend.
+El contenido se mantiene mínimo para la siguiente fase de servicios.
+
+Aplicación: `localhost/koodaria-workspace:welcome-20261023`. Gateway:
+`localhost/themike-site:koodaria-welcome-20261023`. Se conserva el resto del
+laboratorio. La regla CSP del espacio privado permite el formulario local y
+exclusivamente el endpoint de salida de Keycloak; la Home conserva su política
+anterior. Las rutas privadas tienen no-store separado de los encabezados públicos.
+
+Cliente OIDC confidencial con callback exacto y PKCE S256; sesión opaca en cookie
+Secure/HttpOnly/SameSite=Lax y datos de sesión en volumen privado. La aplicación
+no publica puertos. Las credenciales se transfirieron por stdin a un archivo 600
+fuera del repositorio desplegado. No se cambió el MFA ni la cuenta personal.
+
+Verificación final: contraseña → alta TOTP → bienvenida, identidad real en menú,
+protección de acceso anónimo, cookie opaca segura, no-store, rechazo de cierre
+con CSRF inválido y cierre efectivo de sesión local + SSO. Ocho resoluciones con
+menú abierto/cerrado (16 estados sin scroll), seis auditorías axe A/AA en
+preferencias claras/oscuras sin incidencias, ocho pruebas de backend y siete de
+la Home. Evidencia: `evidence/welcome-flow-report.json`. Se retiraron el usuario
+desechable y el cliente administrativo temporal; sus credenciales ya devuelven
+401. Se conservan únicamente las credenciales operativas de la aplicación en
+archivos privados ignorados. La cuenta personal y su autenticador no se tocaron.

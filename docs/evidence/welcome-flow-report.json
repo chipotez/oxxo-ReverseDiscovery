@@ -1,0 +1,168 @@
+{
+  "disposable_identity_only": true,
+  "viewports": [
+    {
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 900,
+      "menu_open": false
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "scrollWidth": 1440,
+      "scrollHeight": 900,
+      "menu_open": true
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "scrollWidth": 1366,
+      "scrollHeight": 768,
+      "menu_open": false
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "scrollWidth": 1366,
+      "scrollHeight": 768,
+      "menu_open": true
+    },
+    {
+      "width": 1024,
+      "height": 600,
+      "scrollWidth": 1024,
+      "scrollHeight": 600,
+      "menu_open": false
+    },
+    {
+      "width": 1024,
+      "height": 600,
+      "scrollWidth": 1024,
+      "scrollHeight": 600,
+      "menu_open": true
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "scrollWidth": 768,
+      "scrollHeight": 1024,
+      "menu_open": false
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "scrollWidth": 768,
+      "scrollHeight": 1024,
+      "menu_open": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "scrollWidth": 390,
+      "scrollHeight": 844,
+      "menu_open": false
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "scrollWidth": 390,
+      "scrollHeight": 844,
+      "menu_open": true
+    },
+    {
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 667,
+      "menu_open": false
+    },
+    {
+      "width": 375,
+      "height": 667,
+      "scrollWidth": 375,
+      "scrollHeight": 667,
+      "menu_open": true
+    },
+    {
+      "width": 320,
+      "height": 568,
+      "scrollWidth": 320,
+      "scrollHeight": 568,
+      "menu_open": false
+    },
+    {
+      "width": 320,
+      "height": 568,
+      "scrollWidth": 320,
+      "scrollHeight": 568,
+      "menu_open": true
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "scrollWidth": 844,
+      "scrollHeight": 390,
+      "menu_open": false
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "scrollWidth": 844,
+      "scrollHeight": 390,
+      "menu_open": true
+    }
+  ],
+  "anonymous_redirects_to_keycloak": true,
+  "password_and_first_mfa_redirect_to_welcome": true,
+  "opaque_cookie_secure_httponly_samesite_lax": true,
+  "tabs_work": true,
+  "keyboard_escape_closes_menu": true,
+  "private_page_no_store": true,
+  "logout_rejects_invalid_csrf": true,
+  "accessibility": [
+    {
+      "scheme": "light",
+      "width": 1440,
+      "violations": []
+    },
+    {
+      "scheme": "light",
+      "width": 390,
+      "violations": []
+    },
+    {
+      "scheme": "light",
+      "width": 320,
+      "violations": []
+    },
+    {
+      "scheme": "dark",
+      "width": 1440,
+      "violations": []
+    },
+    {
+      "scheme": "dark",
+      "width": 390,
+      "violations": []
+    },
+    {
+      "scheme": "dark",
+      "width": 320,
+      "violations": []
+    }
+  ],
+  "logout_ends_local_and_sso_session": true,
+  "browser_script_errors": [],
+  "cleanup": {
+    "disposable_users_deleted": 1,
+    "temporary_admin_client_deleted": true,
+    "temporary_client_rejected_with_401": true,
+    "private_qa_credential_files_removed": true,
+    "personal_account_untouched": true
+  },
+  "server_unit_tests_passed": 8,
+  "public_site_tests_passed": 7,
+  "production_endpoints_healthy": true
+}

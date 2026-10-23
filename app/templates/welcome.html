@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light"><title>Bienvenido · Koodaria</title><link rel="icon" href="/assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/workspace-assets/welcome.css"><script src="/workspace-assets/welcome.js" defer></script></head>
+<body>
+<a class="skip-link" href="#contenido">Ir al contenido</a>
+<header class="workspace-header">
+ <a class="wordmark" href="/" aria-label="Koodaria, inicio">koodaria<span>.</span></a>
+ <nav class="workspace-tabs" aria-label="Tu espacio"><button type="button" aria-pressed="true" data-view="servicios">Servicios</button><button type="button" aria-pressed="false" data-view="modulos">Módulos</button></nav>
+ <div class="workspace-actions">
+  <a class="icon-button" href="{{ account_url }}" aria-label="Configuración de tu cuenta" title="Mi cuenta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="m9 3-.5 2-2 .9L4.7 5l-2 3.5 1.7 1.4v2.2L2.7 14l2 3.5 2-.8 1.8 1 .5 2.3h4l.5-2.3 1.8-1 2 .8 2-3.5-1.7-1.9V10l1.7-1.5-2-3.5-1.8.9-2-.9-.5-2Z"/><circle cx="11" cy="11.5" r="3"/></svg></a>
+  <details class="user-menu"><summary aria-label="{{ name }}, menú de cuenta"><span class="avatar" aria-hidden="true">{{ initials }}</span><span class="user-name">{{ name }}</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="m7 10 5 5 5-5"/></svg></summary><div class="user-popover"><p>{{ name }}</p><a href="{{ account_url }}">Mi cuenta <span aria-hidden="true">↗</span></a><a href="/">Volver al inicio</a><form method="post" action="/auth/logout"><input type="hidden" name="csrf" value="{{ csrf }}"><button type="submit">Cerrar sesión <span aria-hidden="true">↗</span></button></form></div></details>
+ </div>
+</header>
+<main id="contenido" tabindex="-1"><section class="welcome" aria-live="polite"><p class="eyebrow">TU ESPACIO EN KOODARIA</p><h1>Bienvenido, {{ first_name }}<span>.</span></h1><p class="view-label" id="view-label">Servicios</p></section></main>
+</body></html>

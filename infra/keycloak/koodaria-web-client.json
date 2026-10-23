@@ -1,0 +1,17 @@
+{
+  "clientId":"koodaria-web",
+  "name":"Koodaria",
+  "enabled":true,
+  "protocol":"openid-connect",
+  "publicClient":false,
+  "standardFlowEnabled":true,
+  "implicitFlowEnabled":false,
+  "directAccessGrantsEnabled":false,
+  "serviceAccountsEnabled":false,
+  "rootUrl":"https://koodaria.com",
+  "baseUrl":"https://koodaria.com/bienvenida/",
+  "redirectUris":["https://koodaria.com/auth/callback"],
+  "webOrigins":[],
+  "attributes":{"pkce.code.challenge.method":"S256","post.logout.redirect.uris":"https://koodaria.com/"},
+  "defaultClientScopes":["web-origins","profile","email","roles"]
+}

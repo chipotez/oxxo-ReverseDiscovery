@@ -24,7 +24,7 @@ El runtime reutiliza por ID inmutable la imagen local de Caddy ya parcheada. Se 
 
 Keycloak 26.8.1 comparte la instalación existente, pero Koodaria usa un realm independiente. `login.koodaria.com` tiene certificado de Let’s Encrypt renovado por el Caddy existente. El atributo `frontendUrl` del realm fija el emisor y los endpoints en ese dominio. El hostname global del laboratorio se conserva; `KC_HOSTNAME_ADMIN` y el frontend de master apuntan al dominio de Koodaria para administrar sin pasar por themike.io. El acceso del laboratorio se verificó después del cambio.
 
-`/login` y `/login/` en koodaria.com redirigen a `https://login.koodaria.com/realms/koodaria/account/`. El cliente público nativo `account-console` usa Authorization Code con PKCE S256 y devuelve al usuario a su gestión de cuenta. La Home no recibe contraseñas, secretos de cliente ni tokens. No hay aún una sesión ni un backend de Workspace.
+`/login` y `/login/` en koodaria.com inician el cliente confidencial `koodaria-web` y terminan en `/bienvenida/`. La gestión nativa de cuenta (`account-console`) permanece accesible desde el menú personal. La Home no recibe contraseñas, secretos de cliente ni tokens. El backend mínimo de bienvenida y su sesión se describen abajo.
 
 El flujo propio `koodaria-browser-2fa` exige usuario/contraseña y luego OTP. El subflujo OTP es obligatorio y sus condiciones de omisión están deshabilitadas. `CONFIGURE_TOTP` está habilitado como acción predeterminada; aun cuando una cuenta se cree sin acciones pendientes, el flujo exige configurar el autenticador. Se conserva el orden explícito de ejecución: contraseña antes de OTP. Sin una sesión SSO vigente, los accesos posteriores exigen ambos factores. Las sesiones SSO existentes pueden reutilizarse hasta expirar o cerrar sesión.
 
@@ -46,4 +46,40 @@ Referencias oficiales: https://www.keycloak.org/docs/latest/server_admin/, https
 
 ## Límites y evolución
 
-Enterprise y Workspace continúan informativos. No hay pipeline automático ni registro remoto de imágenes. La política de privacidad final, el contacto, SMTP y la asignación de empresas/usuarios reales requieren datos institucionales. El inicio de sesión actual permite gestionar la cuenta; no implica acceso a herramientas o datos empresariales todavía no implementados.
+Enterprise y Workspace continúan informativos. No hay pipeline automático ni registro remoto de imágenes. La política de privacidad final, el contacto, SMTP y la asignación de empresas/usuarios reales requieren datos institucionales. El inicio de sesión actual muestra la bienvenida y permite gestionar la cuenta; no implica acceso a herramientas o datos empresariales todavía no implementados.
+
+## Bienvenida autenticada — 23 de octubre de 2026
+
+El acceso público `/login[/]` ahora inicia el cliente confidencial `koodaria-web`.
+Después de contraseña, MFA y cualquier acción de perfil requerida, Keycloak
+regresa exclusivamente a `https://koodaria.com/auth/callback`. El servidor usa
+Authlib con Authorization Code, PKCE S256, estado y nonce; valida el ID token
+antes de mostrar `/bienvenida/`. El cliente no admite flujos implícitos,
+contraseña directa ni cuentas de servicio. No se cambiaron las reglas de MFA.
+
+La bienvenida corre en `koodaria-workspace`, un contenedor sin puerto público,
+con filesystem de solo lectura y volumen de sesiones. Flask-Session guarda los
+datos de sesión y el ID token en el servidor. El navegador recibe únicamente un
+identificador opaco `__Host-koodaria`, Secure, HttpOnly, SameSite=Lax y sin Domain.
+La sesión local dura como máximo 30 minutos; no se conservan access/refresh tokens.
+El ID se regenera después de autenticar. Los datos visibles se escapan al renderizar.
+
+El menú permite abrir la gestión nativa de cuenta o volver a la Home. Cerrar
+sesión requiere POST y token CSRF; elimina la sesión local y ejecuta el cierre
+OIDC de Keycloak antes de volver al inicio. La ruta autenticada y sus respuestas
+usan `Cache-Control: no-store`; la política de la Home se aplica separadamente.
+Los callbacks y las peticiones de logout no entran en el access log de Caddy,
+para evitar registrar códigos o hints de identidad.
+
+El alias de red `login.koodaria.com` en el gateway permite a la aplicación
+consultar discovery, tokens y claves por HTTPS verificado dentro de la red de
+Podman, conservando el emisor público. No se deshabilita la validación TLS.
+
+Es una bienvenida mínima con Servicios/Módulos y menú de usuario. Todavía no
+hay catálogo privado, permisos sobre recursos empresariales ni backend de
+laboratorios. Las organizaciones permanecen separadas según la decisión previa;
+la bienvenida no concede permisos por dominio de correo ni cambia membresías.
+
+Referencias de implementación: [Authlib Flask](https://docs.authlib.org/en/latest/oauth2/client/web/flask.html),
+[Flask-Session](https://flask-session.readthedocs.io/en/latest/config.html),
+[Caddy log_skip](https://caddyserver.com/docs/caddyfile/directives/log_skip).

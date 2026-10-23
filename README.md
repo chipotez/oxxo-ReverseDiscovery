@@ -1,6 +1,6 @@
 # Koodaria · Home pública / Fase 1
 
-Implementación propia de la Home de Koodaria. El ZIP recibido es **solo una referencia**, se conserva intacto y no se incorpora al sitio ni al historial. El Login público está conectado a Keycloak mediante `login.koodaria.com`, con contraseña y 2FA obligatorio. Enterprise, Workspace, cursos y ejecución de laboratorios siguen fuera del alcance actual.
+Implementación propia de la Home de Koodaria. El ZIP recibido es **solo una referencia**, se conserva intacto y no se incorpora al sitio ni al historial. El Login público está conectado a Keycloak mediante `login.koodaria.com`, con contraseña y 2FA obligatorio. Incluye una bienvenida privada mínima después del acceso. Enterprise, cursos y ejecución de laboratorios siguen fuera del alcance actual.
 
 ## Desarrollo local
 
@@ -32,7 +32,7 @@ Se usa la tipografía del sistema; no hay descarga de fuentes. Los nombres de te
 
 Las pestañas cambian entre módulos, rutas y especializaciones; admiten flechas, Home/End y foco visible. Las tarjetas despliegan sus temas. Los enlaces del footer seleccionan un grupo existente. El menú móvil admite Escape, cierra al navegar y comunica su estado. La navegación funciona sin JavaScript, mostrando entonces todos los grupos.
 
-El terminal es una demostración animada, sin ejecución real. Se repite automáticamente, se pausa al enfocar el terminal y respeta la preferencia de movimiento reducido. Enterprise es una sección informativa con un flujo futuro; `/enterprise` y `/workspace` devuelven 404. En producción, `/login/` redirige a la cuenta de Koodaria en Keycloak. La primera autenticación exige vincular una aplicación autenticadora; las siguientes exigen contraseña y TOTP. Las contraseñas se introducen únicamente en Keycloak. La Home no guarda credenciales ni tokens. En el servidor local, la página de Login ofrece un enlace al servicio publicado. El canal de contacto aún debe confirmarse.
+El terminal es una demostración animada, sin ejecución real. Se repite automáticamente, se pausa al enfocar el terminal y respeta la preferencia de movimiento reducido. Enterprise es una sección informativa con un flujo futuro; `/enterprise` y `/workspace` devuelven 404. En producción, `/login/` inicia el acceso mediante Keycloak y termina en `/bienvenida/`. La primera autenticación exige vincular una aplicación autenticadora; las siguientes exigen contraseña y TOTP. Las contraseñas se introducen únicamente en Keycloak. La Home no guarda credenciales ni tokens. En el servidor local, la página de Login ofrece un enlace al servicio publicado. El canal de contacto aún debe confirmarse.
 
 ## Vista de la implementación
 
@@ -46,6 +46,6 @@ La Home está publicada en **https://koodaria.com**, con certificado gratuito de
 
 ## Identidad
 
-Realm independiente `koodaria`, temas propios en `infra/keycloak/themes/koodaria`. La organización `Kyndryl` está creada sin usuarios; cada empresa cliente tendrá otra organización. El dominio del correo no concede membresía automáticamente. El destino tras autenticar es la gestión de cuenta, no un Workspace privado. La autorización de datos por organización se implementará junto con esa aplicación.
+Realm independiente `koodaria`, temas propios en `infra/keycloak/themes/koodaria`. La organización `Kyndryl` está creada sin usuarios; cada empresa cliente tendrá otra organización. El dominio del correo no concede membresía automáticamente. El destino tras autenticar es una bienvenida privada con Servicios/Módulos y menú personal. La gestión de cuenta sigue disponible desde ese menú. La autorización sobre herramientas y datos por organización queda pendiente; esta bienvenida no concede acceso a recursos empresariales.
 
 `scripts/provision_keycloak.py` y `scripts/configure_keycloak.py` validan sin cambios por defecto. La aplicación requiere `--apply --credentials-file RUTA`, con una cuenta de servicio autorizada y archivo privado 600. No hay credenciales administrativas activas en el repositorio. La prueba `tests/keycloak_live_qa.py --credentials-file RUTA` usa Playwright y crea/elimina una cuenta desechable; debe ejecutarse solo con autorización administrativa.

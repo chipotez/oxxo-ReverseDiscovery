@@ -55,7 +55,7 @@ class SiteTests(unittest.TestCase):
         self.assertEqual(len(doc.headings), 1)
         self.assertEqual(len(doc.ids), len(set(doc.ids)))
         self.assertNotIn('<input', html)
-        self.assertIn('https://login.koodaria.com/realms/koodaria/account/', html)
+        self.assertIn('/auth/login', html)
         self.assertNotIn('action=', html)
         self.assertNotIn('<script', html)
         for asset in doc.assets:
