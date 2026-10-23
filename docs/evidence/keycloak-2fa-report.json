@@ -1,0 +1,16 @@
+{
+  "invalid_password_rejected_before_enrollment": true,
+  "first_login_requires_qr_enrollment": true,
+  "invalid_enrollment_code_rejected": true,
+  "enrollment_completes_account_login": true,
+  "subsequent_login_requires_otp": true,
+  "invalid_otp_rejected": true,
+  "subsequent_valid_otp_succeeds": true,
+  "customer_hosts": [
+    "koodaria.com",
+    "login.koodaria.com"
+  ],
+  "customer_flow_stays_on_koodaria_domains": true,
+  "mobile_no_horizontal_overflow": true,
+  "temporary_test_user_deleted": true
+}

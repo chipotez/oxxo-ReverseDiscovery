@@ -12,7 +12,7 @@ import urllib.request
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-BASE = 'https://login.themike.io'
+BASE = 'https://login.koodaria.com'
 
 
 def provision(credentials_file, apply=False):

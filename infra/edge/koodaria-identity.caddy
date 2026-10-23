@@ -1,0 +1,18 @@
+# Add inside the existing koodaria.com block, before file_server:
+# @koodariaLogin path /login /login/
+# redir @koodariaLogin https://login.koodaria.com/realms/koodaria/account/ 302
+
+login.koodaria.com {
+  redir / /realms/koodaria/account/ 302
+  reverse_proxy themike-keycloak:8080
+  header {
+    Strict-Transport-Security "max-age=31536000"
+    X-Content-Type-Options "nosniff"
+    Referrer-Policy "no-referrer"
+    -Server
+  }
+  log {
+    output stdout
+    format json
+  }
+}

@@ -1,0 +1,7 @@
+:root { --pf-v5-global--primary-color--100:#2f6557; --pf-v5-global--primary-color--200:#28594d; --pf-t--global--color--brand--default:#2f6557; --pf-t--global--color--brand--hover:#28594d; }
+body,.pf-v5-c-page,.pf-v6-c-page { background:#f8faf7!important; color:#243c39!important; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif!important; }
+.pf-v5-c-page__header,.pf-v5-c-masthead,.pf-v6-c-masthead { background:#f8faf7!important; border-bottom:1px solid #d9ddd4!important; box-shadow:none!important; }
+img.pf-v5-c-brand,img.pf-v6-c-brand { content:url('../img/logo.svg'); width:184px!important; height:44px!important; }
+.pf-v5-c-page__sidebar,.pf-v5-c-nav,.pf-v6-c-page__sidebar,.pf-v6-c-nav { background:#243c39!important; }
+.pf-v5-c-button.pf-m-primary,.pf-v6-c-button.pf-m-primary { background:#2f6557!important; border-radius:8px!important; }
+.pf-v5-c-page__main-section,.pf-v6-c-page__main-section { background:#f8faf7!important; }

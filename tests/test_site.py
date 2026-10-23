@@ -54,7 +54,8 @@ class SiteTests(unittest.TestCase):
         doc = Document(html)
         self.assertEqual(len(doc.headings), 1)
         self.assertEqual(len(doc.ids), len(set(doc.ids)))
-        self.assertIn('<fieldset disabled>', html)
+        self.assertNotIn('<input', html)
+        self.assertIn('https://login.koodaria.com/realms/koodaria/account/', html)
         self.assertNotIn('action=', html)
         self.assertNotIn('<script', html)
         for asset in doc.assets:

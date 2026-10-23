@@ -22,7 +22,7 @@ No hay AAAA público observado. No se necesitó un token de Hostinger para esta 
 
 ## Integración y seguridad
 
-Se reutiliza el gateway `themike-site`, ahora con imagen `localhost/themike-site:koodaria-no-label-20261022`. Su base es el runtime parcheado original, fijado por ID. La Home está en `/srv/koodaria`, separada de la landing del laboratorio en `/srv`. No requiere backend nuevo, redes o puertos adicionales. El contenedor de desarrollo permanece aislado y no forma parte del tráfico de producción.
+Se reutiliza el gateway `themike-site`, ahora con imagen `localhost/themike-site:koodaria-identity-20261023`. Su base es el runtime parcheado original, fijado por ID. La Home está en `/srv/koodaria`, separada de la landing del laboratorio en `/srv`. No requiere backend nuevo, redes o puertos adicionales. El contenedor de desarrollo permanece aislado y no forma parte del tráfico de producción.
 
 Los fragmentos de configuración están en `infra/edge/`. Se ensamblaron con el Caddyfile original conservando las rutas del laboratorio. La imagen fue validada antes de actualizar el Quadlet activo y su copia de fuente. Se reinició brevemente el gateway porque su API administrativa está desactivada. Se conservaron volúmenes, identidades, redes, puertos y políticas de reinicio.
 
@@ -157,3 +157,15 @@ Descripción principal orientada a las habilidades necesarias en las organizacio
 ## Consola sin etiqueta
 
 Retirada la etiqueta visible “Ejemplo animado”. Publicado con `localhost/themike-site:koodaria-no-label-20261022` y verificado en el HTML público. Respaldo: `/root/remediation-20261022/koodaria-no-label`.
+
+## Keycloak y primer acceso con 2FA — 23 de octubre de 2026
+
+DNS A de `login.koodaria.com` confirmado en 1.1.1.1 y 8.8.8.8. Certificado válido de Let’s Encrypt y renovación automática con el almacenamiento persistente de Caddy. `/login/` redirige al servicio de identidad de Koodaria. Gateway activo: `localhost/themike-site:koodaria-identity-20261023`.
+
+Realm `koodaria`, organización `Kyndryl` vacía y temas de Login/cuenta propios. Cada empresa cliente tendrá una organización independiente. Primer acceso: contraseña correcta → QR e instrucciones → validación TOTP. Siguientes accesos desde una sesión nueva: contraseña + TOTP. No se crearon usuarios reales ni se importaron cuentas del laboratorio. El destino actual es la gestión de cuenta nativa, no un Workspace.
+
+Se utilizó el procedimiento oficial de recuperación con una cuenta de servicio temporal y respaldo previo de Postgres; no se retiró el MFA del administrador. Copias de unidades y Caddyfile en `/root/remediation-20261023/koodaria-identity`. Informe funcional: `evidence/keycloak-2fa-report.json`; HTTPS, dominio, administración y vistas móviles: `evidence/keycloak-publication-report.json`.
+
+La cuenta administrativa temporal fue eliminada y una solicitud posterior con su secreto devolvió HTTP 401. El archivo local del secreto se retiró. Confirmación de configuración sin secretos: `evidence/keycloak-config-report.json`. El MFA del administrador humano sigue pendiente de su propia vinculación y no fue eliminado.
+
+Se verificó también que el logo conserva posición y tamaño frente a Home en escritorio y móvil, y que axe no detecta infracciones WCAG A/AA en las tres vistas revisadas (`evidence/keycloak-accessibility-report.json`).

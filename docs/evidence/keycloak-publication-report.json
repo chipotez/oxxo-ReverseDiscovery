@@ -1,0 +1,72 @@
+{
+  "certificate": {
+    "issuer": [
+      [
+        [
+          "countryName",
+          "US"
+        ]
+      ],
+      [
+        [
+          "organizationName",
+          "Let's Encrypt"
+        ]
+      ],
+      [
+        [
+          "commonName",
+          "YE1"
+        ]
+      ]
+    ],
+    "notAfter": "Jan 21 14:08:43 2027 GMT"
+  },
+  "issuer": "https://login.koodaria.com/realms/koodaria",
+  "login_viewports": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "no_horizontal_overflow": true,
+      "login_available": true
+    },
+    {
+      "viewport": [
+        1024,
+        768
+      ],
+      "no_horizontal_overflow": true,
+      "login_available": true
+    },
+    {
+      "viewport": [
+        600,
+        800
+      ],
+      "no_horizontal_overflow": true,
+      "login_available": true
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "no_horizontal_overflow": true,
+      "login_available": true
+    },
+    {
+      "viewport": [
+        320,
+        740
+      ],
+      "no_horizontal_overflow": true,
+      "login_available": true
+    }
+  ],
+  "admin_login_under_koodaria": true,
+  "https://koodaria.com/": 200,
+  "https://themike.io/": 200,
+  "https://login.themike.io/realms/master/.well-known/openid-configuration": 200
+}

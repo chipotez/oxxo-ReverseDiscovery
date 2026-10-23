@@ -10,11 +10,29 @@
   "duplicateEmailsAllowed": false,
   "resetPasswordAllowed": false,
   "internationalizationEnabled": true,
-  "supportedLocales": ["es", "en"],
+  "supportedLocales": [
+    "es",
+    "en"
+  ],
   "defaultLocale": "es",
   "bruteForceProtected": true,
   "failureFactor": 5,
   "waitIncrementSeconds": 60,
   "maxFailureWaitSeconds": 900,
-  "permanentLockout": false
+  "permanentLockout": false,
+  "loginTheme": "koodaria",
+  "accountTheme": "koodaria",
+  "attributes": {
+    "frontendUrl": "https://login.koodaria.com"
+  },
+  "otpPolicyType": "totp",
+  "otpPolicyAlgorithm": "HmacSHA1",
+  "otpPolicyDigits": 6,
+  "otpPolicyPeriod": 30,
+  "otpPolicyLookAheadWindow": 1,
+  "passwordPolicy": "length(14) and notUsername(undefined) and notEmail(undefined)",
+  "eventsEnabled": true,
+  "eventsExpiration": 2592000,
+  "adminEventsEnabled": true,
+  "adminEventsDetailsEnabled": false
 }

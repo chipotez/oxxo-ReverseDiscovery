@@ -1,0 +1,124 @@
+{
+  "realm": "koodaria",
+  "enabled": true,
+  "organizationsEnabled": true,
+  "loginTheme": "koodaria",
+  "accountTheme": "koodaria",
+  "browserFlow": "koodaria-browser-2fa",
+  "registrationAllowed": false,
+  "bruteForceProtected": true,
+  "passwordPolicy": "length(14) and notUsername(undefined) and notEmail(undefined)",
+  "otpPolicyType": "totp",
+  "otpPolicyDigits": 6,
+  "otpPolicyPeriod": 30,
+  "frontendUrl": "https://login.koodaria.com",
+  "otp_required_action": [
+    {
+      "alias": "CONFIGURE_TOTP",
+      "enabled": true,
+      "defaultAction": true
+    }
+  ],
+  "flow": [
+    {
+      "displayName": "Cookie",
+      "requirement": "ALTERNATIVE",
+      "priority": 10,
+      "level": 0
+    },
+    {
+      "displayName": "Kerberos",
+      "requirement": "DISABLED",
+      "priority": 20,
+      "level": 0
+    },
+    {
+      "displayName": "Identity Provider Redirector",
+      "requirement": "ALTERNATIVE",
+      "priority": 25,
+      "level": 0
+    },
+    {
+      "displayName": "koodaria-browser-2fa Organization",
+      "requirement": "DISABLED",
+      "priority": 26,
+      "level": 0
+    },
+    {
+      "displayName": "koodaria-browser-2fa Browser - Conditional Organization",
+      "requirement": "CONDITIONAL",
+      "priority": 10,
+      "level": 1
+    },
+    {
+      "displayName": "Condition - user configured",
+      "requirement": "REQUIRED",
+      "priority": 10,
+      "level": 2
+    },
+    {
+      "displayName": "Organization Identity-First Login",
+      "requirement": "ALTERNATIVE",
+      "priority": 20,
+      "level": 2
+    },
+    {
+      "displayName": "koodaria-browser-2fa forms",
+      "requirement": "ALTERNATIVE",
+      "priority": 30,
+      "level": 0
+    },
+    {
+      "displayName": "Username Password Form",
+      "requirement": "REQUIRED",
+      "priority": 10,
+      "level": 1
+    },
+    {
+      "displayName": "koodaria-browser-2fa Browser - Conditional 2FA",
+      "requirement": "REQUIRED",
+      "priority": 20,
+      "level": 1
+    },
+    {
+      "displayName": "Condition - user configured",
+      "requirement": "DISABLED",
+      "priority": 10,
+      "level": 2
+    },
+    {
+      "displayName": "Condition - credential",
+      "requirement": "DISABLED",
+      "priority": 20,
+      "level": 2
+    },
+    {
+      "displayName": "OTP Form",
+      "requirement": "REQUIRED",
+      "priority": 30,
+      "level": 2
+    },
+    {
+      "displayName": "WebAuthn Authenticator",
+      "requirement": "DISABLED",
+      "priority": 40,
+      "level": 2
+    },
+    {
+      "displayName": "Recovery Authentication Code Form",
+      "requirement": "DISABLED",
+      "priority": 50,
+      "level": 2
+    }
+  ],
+  "organizations": [
+    {
+      "name": "Kyndryl",
+      "alias": "kyndryl",
+      "members": 0
+    }
+  ],
+  "remaining_koodaria_users": 0,
+  "password_grants_disabled": true,
+  "temporary_admin_removed_and_credentials_rejected": true
+}

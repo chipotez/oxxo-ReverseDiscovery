@@ -20,20 +20,30 @@ Paleta actual: verde mineral `#193A37`, bosque `#2F6557`, acento oscuro `#28594D
 
 El runtime reutiliza por ID inmutable la imagen local de Caddy ya parcheada. Se ejecuta como UID 1000, sirviendo únicamente `/koodaria` por HTTP interno; no es una segunda entrada de reverse proxy, no administra certificados y no configura rutas hacia otros servicios. Su Caddyfile está separado del proxy global. La imagen base contiene también archivos estáticos heredados, que no se sirven: el root es `/koodaria`. Una base mínima independiente sería una mejora posterior, tras mantener los parches verificados del runtime.
 
+## Identidad desplegada — 23 de octubre de 2026
+
+Keycloak 26.8.1 comparte la instalación existente, pero Koodaria usa un realm independiente. `login.koodaria.com` tiene certificado de Let’s Encrypt renovado por el Caddy existente. El atributo `frontendUrl` del realm fija el emisor y los endpoints en ese dominio. El hostname global del laboratorio se conserva; `KC_HOSTNAME_ADMIN` y el frontend de master apuntan al dominio de Koodaria para administrar sin pasar por themike.io. El acceso del laboratorio se verificó después del cambio.
+
+`/login` y `/login/` en koodaria.com redirigen a `https://login.koodaria.com/realms/koodaria/account/`. El cliente público nativo `account-console` usa Authorization Code con PKCE S256 y devuelve al usuario a su gestión de cuenta. La Home no recibe contraseñas, secretos de cliente ni tokens. No hay aún una sesión ni un backend de Workspace.
+
+El flujo propio `koodaria-browser-2fa` exige usuario/contraseña y luego OTP. El subflujo OTP es obligatorio y sus condiciones de omisión están deshabilitadas. `CONFIGURE_TOTP` está habilitado como acción predeterminada; aun cuando una cuenta se cree sin acciones pendientes, el flujo exige configurar el autenticador. Se conserva el orden explícito de ejecución: contraseña antes de OTP. Sin una sesión SSO vigente, los accesos posteriores exigen ambos factores. Las sesiones SSO existentes pueden reutilizarse hasta expirar o cerrar sesión.
+
+Registro público deshabilitado, contraseña mínima de 14 caracteres, protección contra intentos repetidos y concesiones directas de contraseña deshabilitadas. TOTP de seis dígitos cada 30 segundos, compatible con aplicaciones autenticadoras habituales. Recuperación de contraseña deshabilitada hasta configurar SMTP. Los eventos de acceso se conservan 30 días; los eventos administrativos no incluyen detalles completos para evitar registrar datos sensibles.
+
+### Organizaciones
+
+El usuario eligió separar cada empresa cliente. Existe una organización `Kyndryl` sin miembros ni dominios. No se inventaron empresas ni usuarios reales. Las organizaciones son pares dentro del realm, no una jerarquía anidada. La relación comercial Kyndryl–cliente y sus permisos cruzados deberán modelarse explícitamente en el backend futuro. El correo por sí solo no concede membresía. La pertenencia a organizaciones no sustituye los controles de autorización sobre los datos.
+
+### Operación y validación
+
+Configuración declarativa en `infra/keycloak/koodaria-realm.json`, tema en `infra/keycloak/themes/koodaria`, proxy en `infra/edge/koodaria-identity.caddy`. Los scripts de provisionamiento requieren una cuenta de servicio administrativa y un archivo privado (600); no usan contraseñas humanas. La cuenta temporal de recuperación se retira al finalizar el despliegue; el MFA del administrador humano se conserva.
+
+Se respaldó Postgres antes de modificarlo en `/home/mip/backups/koodaria-20261023/before-identity.dump` (directorio privado). Las unidades y el Caddyfile anteriores están en `/root/remediation-20261023/koodaria-identity`. Para rollback del acceso público, restaurar las unidades del gateway y su Caddyfile; el realm nuevo puede conservarse deshabilitado sin tocar los realms del laboratorio. No restaurar toda la base sobre datos posteriores sin una revisión previa.
+
+Las pruebas de navegador verifican contraseña incorrecta, alta inicial por QR, rechazo de código inválido, acceso con código correcto y exigencia de TOTP en una sesión nueva. Las cuentas de QA se eliminan. Evidencias sin contraseñas, códigos ni semillas: `evidence/keycloak-2fa-report.json` y `evidence/keycloak-publication-report.json`.
+
+Referencias oficiales: https://www.keycloak.org/docs/latest/server_admin/, https://www.keycloak.org/server/hostname y https://www.keycloak.org/server/bootstrap-admin-recovery.
+
 ## Límites y evolución
 
-No se conectó Koodaria con el realm o los usuarios existentes. El esquema Público → Enterprise → Keycloak → Workspace es solo informativo. Las futuras rutas pueden implementarse como aplicaciones separadas bajo el proxy existente, con autenticación del lado servidor y controles por organización. Esta decisión se deberá revisar en la fase de Enterprise.
-
-No hay pipeline automático, registro de imágenes ni publicación de dominio aún. Se propone validar cada commit, etiquetar imágenes inmutables, conservar la anterior y promover únicamente con autorización para modificar producción. La política de privacidad final y el contacto necesitan datos institucionales confirmados antes de un lanzamiento público.
-
-## Integración de identidad preparada (23 de octubre de 2026)
-
-Keycloak instalado: 26.8.1. El acceso administrativo probado exige completar `CONFIGURE_TOTP` (Mobile Authenticator Setup). No se crearon realms, organizaciones ni usuarios; Login público continúa sin autenticación real. No se alteró el laboratorio ni se intentó eludir MFA.
-
-`infra/keycloak/koodaria-realm.json` prepara un realm independiente, con organizaciones, español, HTTPS obligatorio, protección contra intentos repetidos y sin registro público. Recuperación de contraseña permanece deshabilitada hasta disponer de correo saliente. `scripts/provision_keycloak.py` valida sin modificar nada por defecto; `--apply --credentials-file RUTA` requiere una cuenta de servicio administrativa de master y un archivo privado (600) con `client_id` y `client_secret`. No utiliza la contraseña de una persona. Si el realm ya existe, no lo sobrescribe. No genera usuarios ni membresías automáticamente.
-
-Propuesta pendiente de elección: una organización Kyndryl admite miembros de varios dominios cuando comparten un mismo ámbito de acceso. Para clientes que requieren separación, usar organizaciones distintas por empresa dentro de koodaria. No asumir organizaciones anidadas: la relación comercial Kyndryl–cliente y los permisos cruzados deben modelarse explícitamente en la aplicación. El dominio de correo ayuda al enrutamiento de identidad; no concede acceso por sí solo. La aplicación deberá validar membresía y permisos en cada recurso privado.
-
-La publicación de Login queda pendiente de acceso administrativo válido. La autenticación se delegará en Keycloak (OpenID Connect), sin capturar contraseñas desde la Home. El destino inicial propuesto es la cuenta del usuario; una sesión para un futuro workspace requiere su propia integración OIDC y autorización, y todavía no está implementada.
-
-Referencia: https://www.keycloak.org/docs/latest/server_admin/ (Organizations).
+Enterprise y Workspace continúan informativos. No hay pipeline automático ni registro remoto de imágenes. La política de privacidad final, el contacto, SMTP y la asignación de empresas/usuarios reales requieren datos institucionales. El inicio de sesión actual permite gestionar la cuenta; no implica acceso a herramientas o datos empresariales todavía no implementados.

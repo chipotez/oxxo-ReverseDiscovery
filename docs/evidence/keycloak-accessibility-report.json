@@ -1,0 +1,71 @@
+[
+  {
+    "width": 1440,
+    "logo_parity": true,
+    "home_logo": {
+      "x": 60,
+      "y": 23.59375,
+      "width": 117.4375,
+      "height": 40,
+      "fontSize": "34px",
+      "fontWeight": "500",
+      "fontFamily": "-apple-system, \"system-ui\", \"Segoe UI\", sans-serif"
+    },
+    "keycloak_logo": {
+      "x": 60,
+      "y": 23.59375,
+      "width": 117.4375,
+      "height": 40,
+      "fontSize": "34px",
+      "fontWeight": "500",
+      "fontFamily": "-apple-system, \"system-ui\", \"Segoe UI\", sans-serif"
+    },
+    "violations": []
+  },
+  {
+    "width": 600,
+    "logo_parity": true,
+    "home_logo": {
+      "x": 22,
+      "y": 15.40625,
+      "width": 106.375,
+      "height": 37,
+      "fontSize": "31px",
+      "fontWeight": "500",
+      "fontFamily": "-apple-system, \"system-ui\", \"Segoe UI\", sans-serif"
+    },
+    "keycloak_logo": {
+      "x": 22,
+      "y": 15.40625,
+      "width": 106.375,
+      "height": 37,
+      "fontSize": "31px",
+      "fontWeight": "500",
+      "fontFamily": "-apple-system, \"system-ui\", \"Segoe UI\", sans-serif"
+    },
+    "violations": []
+  },
+  {
+    "width": 390,
+    "logo_parity": true,
+    "home_logo": {
+      "x": 22,
+      "y": 15.40625,
+      "width": 106.375,
+      "height": 37,
+      "fontSize": "31px",
+      "fontWeight": "500",
+      "fontFamily": "-apple-system, \"system-ui\", \"Segoe UI\", sans-serif"
+    },
+    "keycloak_logo": {
+      "x": 22,
+      "y": 15.40625,
+      "width": 106.375,
+      "height": 37,
+      "fontSize": "31px",
+      "fontWeight": "500",
+      "fontFamily": "-apple-system, \"system-ui\", \"Segoe UI\", sans-serif"
+    },
+    "violations": []
+  }
+]
