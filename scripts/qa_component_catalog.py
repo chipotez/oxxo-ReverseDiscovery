@@ -43,7 +43,7 @@ with sync_playwright() as p:
  catalog=json.loads(Path('app/frontend/src/component-catalog.json').read_text())
  for c in catalog['categories']:
   start();page.locator('.standards-tree-desktop').get_by_role('button',name=c['label'],exact=True).click();sub=c['children'][0];entry(sub['label']).click()
-  if sub['id']!='servers':entry(next(r['label'] for r in catalog['resources'] if r['kind']==sub['kinds'][0])).click()
+  if sub['id']!='servers':entry(next(r['label'] for r in catalog['resources'] if r['kind']==next(k for k in sub['kinds'] if not next(r for r in catalog['resources'] if r['kind']==k).get('legacy')))).click()
   entry('Identificación de entidad').wait_for()
  report['checks'].append('twelve_categories_share_four_block_structure')
  # Real disposable database: palette uses same resource catalog, node context saved online

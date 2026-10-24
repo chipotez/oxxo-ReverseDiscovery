@@ -697,7 +697,8 @@
       "subcategory": "users",
       "icon": "endpoint",
       "technologies": [],
-      "providers": []
+      "providers": [],
+      "legacy": true
     },
     {
       "kind": "persona",
@@ -715,7 +716,8 @@
       "subcategory": "users",
       "icon": "identity",
       "technologies": [],
-      "providers": []
+      "providers": [],
+      "legacy": true
     },
     {
       "kind": "equipo",

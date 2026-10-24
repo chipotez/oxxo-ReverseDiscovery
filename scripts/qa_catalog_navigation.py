@@ -1,0 +1,10 @@
+from playwright.sync_api import sync_playwright
+import json,os
+with sync_playwright() as p:
+ b=p.chromium.launch(executable_path='/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',headless=True);page=b.new_page(viewport={'width':1500,'height':1100});base=os.environ.get('KOODARIA_QA_ORIGIN','http://localhost:18179');page.goto(base+'/__qa/session');page.goto(base+'/bienvenida/#/estandares');page.get_by_label('Buscar componentes',exact=True).wait_for();page.wait_for_timeout(400)
+ assert page.locator('.standard-entry').count()==12,page.locator('.standard-entry').count()
+ page.locator('.standards-tree-desktop').get_by_role('button',name='Personas y organización',exact=True).click();page.locator('button.standard-entry').filter(has=page.get_by_role('heading',name='Personas',exact=True)).click();assert page.locator('.standard-entry').count()==1
+ page.locator('.standard-entry').click();page.get_by_role('button').filter(has=page.get_by_role('heading',name='Identificación de entidad',exact=True)).click();page.get_by_role('table').wait_for();assert page.get_by_text('Roles y responsabilidades',exact=True).count()==1;assert not page.get_by_text('Tecnología y versión',exact=True).count()
+ page.screenshot(path='.artifacts/component-catalog/person-identity.png')
+ page.goto(base+'/bienvenida/#/herramientas/diagramas');page.locator('button.diagram-open').first.click();page.get_by_role('button',name='Añadir recurso',exact=True).click();palette=page.get_by_role('complementary',name='Biblioteca de recursos');palette.get_by_role('button',name='Personas y organización',exact=True).click();palette.get_by_role('button',name='Personas',exact=True).click();palette.get_by_role('button',name='Persona',exact=True).wait_for();assert not palette.get_by_role('button',name='Rol',exact=True).count();assert not palette.get_by_role('button',name='Origen / usuario',exact=True).count()
+ page.screenshot(path='.artifacts/component-catalog/tree-palette.png');b.close();print('PASS dynamic fill, unified Person and nested palette')

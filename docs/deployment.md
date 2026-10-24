@@ -522,3 +522,21 @@ del reinicio y unidad anterior en
 Para revertir después de utilizar tipos nuevos, conservar un catálogo compatible:
 las versiones anteriores no reconocen esos identificadores al editar. No
 restaurar la base de datos sobre cambios posteriores de los usuarios.
+
+## Navegación compacta de recursos — 24 de octubre de 2026
+
+Publicada `localhost/koodaria-workspace:catalog-tree-20261024`
+(`25149ad1f1f6721231aee3699038d9d2cedcc99b126285681fd88a094508a8d2`).
+La paginación de estándares mide tarjetas, espacios y filtros renderizados,
+sin el límite anterior de cuatro filas. La biblioteca del editor muestra
+categorías y subcategorías desplegables en lista, con búsqueda, arrastre y
+paginación según la altura del panel. Servidores conservan la selección de
+su estándar publicado.
+
+Persona reúne identidad corporativa, correo, roles, organización y estado.
+Origen y Rol dejan de ofrecerse en los catálogos nuevos; sus identificadores
+siguen siendo compatibles con diagramas guardados. Sin migración ni borrado
+de datos. Validación: 42 pruebas de servidor, 144 estados responsive, seis
+auditorías AA y comprobación específica de llenado de pantalla, Persona y
+árbol de recursos (`scripts/qa_catalog_navigation.py`). Backup previo y unidad
+anterior en `/home/mip/backups/koodaria-20261024/catalog-tree/`.

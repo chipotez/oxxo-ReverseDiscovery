@@ -1045,12 +1045,14 @@
     "provider_and_technology_filters",
     "twelve_categories_share_four_block_structure",
     "shared_diagram_palette_and_saved_provider_technology_location",
-    "guest_standards_and_create_restrictions_preserved"
+    "guest_standards_and_create_restrictions_preserved",
+    "all_twelve_categories_fit_tall_viewport",
+    "person_identity_and_roles_unified",
+    "nested_resource_palette_without_legacy_choices"
   ],
   "synthetic_identity_only": true,
   "browser_errors": [],
   "backend_tests": 42,
-  "deployed_image": "7b9d28466fd147d36209ee37cdf2f39e4fb40c1f6c1379e76a665d7e0666d690",
-  "public_assets_verified": true,
-  "unauthenticated_apis": 401
+  "deployed_image": "25149ad1f1f6721231aee3699038d9d2cedcc99b126285681fd88a094508a8d2",
+  "public_assets_verified": true
 }
