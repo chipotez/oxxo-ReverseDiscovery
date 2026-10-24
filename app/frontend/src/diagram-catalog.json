@@ -1,0 +1,586 @@
+{
+  "categories": [
+    {
+      "id": "infraestructura",
+      "label": "Infraestructura",
+      "icon": "server"
+    },
+    {
+      "id": "datos",
+      "label": "Datos",
+      "icon": "database"
+    },
+    {
+      "id": "aplicaciones",
+      "label": "Aplicaciones",
+      "icon": "application"
+    },
+    {
+      "id": "conectividad",
+      "label": "Conectividad y seguridad",
+      "icon": "shield"
+    },
+    {
+      "id": "visual",
+      "label": "Organización visual",
+      "icon": "collection"
+    }
+  ],
+  "resources": [
+    {
+      "kind": "servidor",
+      "label": "Servidor",
+      "category": "infraestructura",
+      "icon": "server"
+    },
+    {
+      "kind": "virtual",
+      "label": "Máquina virtual",
+      "category": "infraestructura",
+      "icon": "virtual"
+    },
+    {
+      "kind": "red",
+      "label": "Red",
+      "category": "infraestructura",
+      "icon": "network"
+    },
+    {
+      "kind": "almacenamiento",
+      "label": "Almacenamiento",
+      "category": "infraestructura",
+      "icon": "storage"
+    },
+    {
+      "kind": "nube",
+      "label": "Nube",
+      "category": "infraestructura",
+      "icon": "cloud"
+    },
+    {
+      "kind": "contenedor",
+      "label": "Contenedor",
+      "category": "infraestructura",
+      "icon": "container"
+    },
+    {
+      "kind": "kubernetes",
+      "label": "Kubernetes",
+      "category": "infraestructura",
+      "icon": "cluster"
+    },
+    {
+      "kind": "datos",
+      "label": "Base de datos",
+      "category": "datos",
+      "icon": "database"
+    },
+    {
+      "kind": "cluster",
+      "label": "Clúster de datos",
+      "category": "datos",
+      "icon": "cluster"
+    },
+    {
+      "kind": "cache",
+      "label": "Caché",
+      "category": "datos",
+      "icon": "cache"
+    },
+    {
+      "kind": "cola",
+      "label": "Cola de mensajes",
+      "category": "datos",
+      "icon": "queue"
+    },
+    {
+      "kind": "aplicacion",
+      "label": "Aplicación",
+      "category": "aplicaciones",
+      "icon": "application"
+    },
+    {
+      "kind": "servicio",
+      "label": "Servicio",
+      "category": "aplicaciones",
+      "icon": "topology"
+    },
+    {
+      "kind": "api",
+      "label": "API",
+      "category": "aplicaciones",
+      "icon": "code"
+    },
+    {
+      "kind": "origen",
+      "label": "Origen / usuario",
+      "category": "aplicaciones",
+      "icon": "endpoint"
+    },
+    {
+      "kind": "balanceador",
+      "label": "Balanceador",
+      "category": "conectividad",
+      "icon": "balance"
+    },
+    {
+      "kind": "dns",
+      "label": "DNS",
+      "category": "conectividad",
+      "icon": "network"
+    },
+    {
+      "kind": "firewall",
+      "label": "Firewall",
+      "category": "conectividad",
+      "icon": "shield"
+    },
+    {
+      "kind": "identidad",
+      "label": "Identidad",
+      "category": "conectividad",
+      "icon": "identity"
+    },
+    {
+      "kind": "externo",
+      "label": "Sistema externo",
+      "category": "conectividad",
+      "icon": "cloud"
+    },
+    {
+      "kind": "grupo",
+      "label": "Grupo visual",
+      "category": "visual",
+      "icon": "collection"
+    },
+    {
+      "kind": "nota",
+      "label": "Nota",
+      "category": "visual",
+      "icon": "note"
+    },
+    {
+      "kind": "etiqueta",
+      "label": "Etiqueta",
+      "category": "visual",
+      "icon": "tag"
+    }
+  ],
+  "templates": [
+    {
+      "id": "blank",
+      "title": "En blanco",
+      "description": "Un lienzo libre para tus ideas.",
+      "nodes": [],
+      "edges": []
+    },
+    {
+      "id": "infrastructure",
+      "title": "Infraestructura",
+      "description": "Balanceo, servidores y datos.",
+      "nodes": [
+        {
+          "id": "lb",
+          "type": "resource",
+          "position": {
+            "x": 0,
+            "y": 100
+          },
+          "data": {
+            "label": "Balanceador",
+            "kind": "balanceador",
+            "address": "",
+            "port": ""
+          }
+        },
+        {
+          "id": "s1",
+          "type": "resource",
+          "position": {
+            "x": 300,
+            "y": 0
+          },
+          "data": {
+            "label": "Servidor 1",
+            "kind": "servidor",
+            "address": "",
+            "port": ""
+          }
+        },
+        {
+          "id": "s2",
+          "type": "resource",
+          "position": {
+            "x": 300,
+            "y": 200
+          },
+          "data": {
+            "label": "Servidor 2",
+            "kind": "servidor",
+            "address": "",
+            "port": ""
+          }
+        },
+        {
+          "id": "db",
+          "type": "resource",
+          "position": {
+            "x": 600,
+            "y": 100
+          },
+          "data": {
+            "label": "Base de datos",
+            "kind": "datos",
+            "address": "",
+            "port": ""
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "e0",
+          "source": "lb",
+          "target": "s1",
+          "label": "HTTPS"
+        },
+        {
+          "id": "e1",
+          "source": "lb",
+          "target": "s2",
+          "label": "HTTPS"
+        },
+        {
+          "id": "e2",
+          "source": "s1",
+          "target": "db",
+          "label": "SQL"
+        },
+        {
+          "id": "e3",
+          "source": "s2",
+          "target": "db",
+          "label": "SQL"
+        }
+      ]
+    },
+    {
+      "id": "business-service",
+      "title": "Servicio de negocio",
+      "description": "Usuarios, aplicación y servicios asociados.",
+      "nodes": [
+        {
+          "id": "u",
+          "type": "resource",
+          "position": {
+            "x": 0,
+            "y": 100
+          },
+          "data": {
+            "label": "Usuarios",
+            "kind": "origen",
+            "address": "",
+            "port": ""
+          }
+        },
+        {
+          "id": "a",
+          "type": "resource",
+          "position": {
+            "x": 270,
+            "y": 100
+          },
+          "data": {
+            "label": "Aplicación",
+            "kind": "aplicacion",
+            "address": "",
+            "port": ""
+          }
+        },
+        {
+          "id": "api",
+          "type": "resource",
+          "position": {
+            "x": 540,
+            "y": 0
+          },
+          "data": {
+            "label": "API",
+            "kind": "api",
+            "address": "",
+            "port": ""
+          }
+        },
+        {
+          "id": "db",
+          "type": "resource",
+          "position": {
+            "x": 810,
+            "y": 0
+          },
+          "data": {
+            "label": "Base de datos",
+            "kind": "datos",
+            "address": "",
+            "port": ""
+          }
+        },
+        {
+          "id": "ex",
+          "type": "resource",
+          "position": {
+            "x": 540,
+            "y": 200
+          },
+          "data": {
+            "label": "Servicio externo",
+            "kind": "externo",
+            "address": "",
+            "port": ""
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "e0",
+          "source": "u",
+          "target": "a",
+          "label": "HTTPS"
+        },
+        {
+          "id": "e1",
+          "source": "a",
+          "target": "api",
+          "label": "API"
+        },
+        {
+          "id": "e2",
+          "source": "api",
+          "target": "db",
+          "label": "SQL"
+        },
+        {
+          "id": "e3",
+          "source": "a",
+          "target": "ex",
+          "label": "Integración"
+        }
+      ]
+    },
+    {
+      "id": "dependencies",
+      "title": "Dependencias",
+      "description": "Aplicaciones y sus relaciones.",
+      "nodes": [
+        {
+          "id": "a",
+          "type": "resource",
+          "position": {
+            "x": 0,
+            "y": 100
+          },
+          "data": {
+            "label": "Aplicación principal",
+            "kind": "aplicacion",
+            "address": "",
+            "port": ""
+          }
+        },
+        {
+          "id": "id",
+          "type": "resource",
+          "position": {
+            "x": 300,
+            "y": 0
+          },
+          "data": {
+            "label": "Identidad",
+            "kind": "identidad",
+            "address": "",
+            "port": ""
+          }
+        },
+        {
+          "id": "api",
+          "type": "resource",
+          "position": {
+            "x": 300,
+            "y": 200
+          },
+          "data": {
+            "label": "API de negocio",
+            "kind": "api",
+            "address": "",
+            "port": ""
+          }
+        },
+        {
+          "id": "q",
+          "type": "resource",
+          "position": {
+            "x": 600,
+            "y": 100
+          },
+          "data": {
+            "label": "Mensajería",
+            "kind": "cola",
+            "address": "",
+            "port": ""
+          }
+        },
+        {
+          "id": "db",
+          "type": "resource",
+          "position": {
+            "x": 600,
+            "y": 300
+          },
+          "data": {
+            "label": "Base de datos",
+            "kind": "datos",
+            "address": "",
+            "port": ""
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "e0",
+          "source": "a",
+          "target": "id",
+          "label": "Autenticación"
+        },
+        {
+          "id": "e1",
+          "source": "a",
+          "target": "api",
+          "label": "Consulta"
+        },
+        {
+          "id": "e2",
+          "source": "api",
+          "target": "q",
+          "label": "Publica"
+        },
+        {
+          "id": "e3",
+          "source": "api",
+          "target": "db",
+          "label": "Persistencia"
+        }
+      ]
+    },
+    {
+      "id": "oracle-cluster",
+      "title": "Clúster Oracle",
+      "description": "Listeners, nodos y almacenamiento compartido.",
+      "nodes": [
+        {
+          "id": "g",
+          "type": "resourceGroup",
+          "position": {
+            "x": 280,
+            "y": -30
+          },
+          "data": {
+            "label": "Clúster Oracle",
+            "kind": "grupo",
+            "address": "",
+            "port": ""
+          },
+          "style": {
+            "width": 550,
+            "height": 370
+          }
+        },
+        {
+          "id": "scan",
+          "type": "resource",
+          "position": {
+            "x": 0,
+            "y": 100
+          },
+          "data": {
+            "label": "SCAN / Listener",
+            "kind": "servicio",
+            "address": "",
+            "port": ""
+          }
+        },
+        {
+          "id": "o1",
+          "type": "resource",
+          "position": {
+            "x": 40,
+            "y": 70
+          },
+          "data": {
+            "label": "Nodo Oracle 1",
+            "kind": "servidor",
+            "address": "",
+            "port": ""
+          },
+          "parentId": "g",
+          "extent": "parent"
+        },
+        {
+          "id": "o2",
+          "type": "resource",
+          "position": {
+            "x": 290,
+            "y": 70
+          },
+          "data": {
+            "label": "Nodo Oracle 2",
+            "kind": "servidor",
+            "address": "",
+            "port": ""
+          },
+          "parentId": "g",
+          "extent": "parent"
+        },
+        {
+          "id": "asm",
+          "type": "resource",
+          "position": {
+            "x": 165,
+            "y": 235
+          },
+          "data": {
+            "label": "Almacenamiento ASM",
+            "kind": "almacenamiento",
+            "address": "",
+            "port": ""
+          },
+          "parentId": "g",
+          "extent": "parent"
+        }
+      ],
+      "edges": [
+        {
+          "id": "e0",
+          "source": "scan",
+          "target": "o1",
+          "label": "Listener"
+        },
+        {
+          "id": "e1",
+          "source": "scan",
+          "target": "o2",
+          "label": "Listener"
+        },
+        {
+          "id": "e2",
+          "source": "o1",
+          "target": "asm",
+          "label": "Datos compartidos"
+        },
+        {
+          "id": "e3",
+          "source": "o2",
+          "target": "asm",
+          "label": "Datos compartidos"
+        }
+      ]
+    }
+  ]
+}

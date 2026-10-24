@@ -108,3 +108,26 @@ class DiagramIntegrationTests(unittest.TestCase):
         self.assertEqual(self.send('get','?page=invalid').status_code,400)
 
 if __name__=='__main__':unittest.main()
+
+class StarterTemplateTests(unittest.TestCase):
+    def test_every_template_validates_with_independent_ids(self):
+        from diagram_catalog import TEMPLATES,starter
+        from diagrams import validate
+        for template_id in TEMPLATES:
+            first=validate(starter(template_id,'QA template'))
+            second=validate(starter(template_id,'QA template'))
+            self.assertEqual(len(first['nodes']),len(TEMPLATES[template_id]['nodes']))
+            self.assertFalse({n['id'] for n in first['nodes']}&{n['id'] for n in second['nodes']})
+    def test_unknown_template_and_kind_are_rejected(self):
+        from diagram_catalog import starter
+        from diagrams import validate,InvalidDiagram
+        with self.assertRaises(ValueError):starter('../../secrets','QA')
+        doc=starter('infrastructure','QA');doc['nodes'][0]['data']['kind']='untrusted'
+        with self.assertRaises(InvalidDiagram):validate(doc)
+    def test_new_resource_kinds_are_in_pdf_inventory(self):
+        from diagram_catalog import CATALOG
+        from diagrams import validate
+        from diagram_pdf import render_pdf
+        nodes=[{'id':r['kind'],'type':'resource','position':{'x':i*230,'y':0},'data':{'label':r['label'],'kind':r['kind']}} for i,r in enumerate(CATALOG['resources']) if r['kind']!='grupo']
+        doc=validate({'name':'QA palette','nodes':nodes,'edges':[]})
+        self.assertTrue(render_pdf({'name':'QA palette','revision':1,'document':doc}).read().startswith(b'%PDF'))

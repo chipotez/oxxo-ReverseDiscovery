@@ -273,3 +273,57 @@ reconstruido y usuario sintético, usando el shell público real: ocho viewports
 cada preferencia de color, foco único y botones visibles, sin scroll. No se usó
 la cuenta real ni se capturaron códigos. Ver `otp-polish-report.json`. La pantalla
 de login y los recursos publicados se verificaron también por HTTPS.
+
+## Diagramas unificados — 24 de octubre de 2026
+
+Release `localhost/koodaria-workspace:unified-diagrams-20261024`. No requiere
+migración de esquema ni cambios en Keycloak, SMTP, Caddy o sesiones.
+
+El catálogo de Observabilidad tiene una sola herramienta, Diagramas. La ruta
+canónica es `/bienvenida/#/herramientas/diagramas`; los enlaces anteriores a
+Mapeo de recursos, servicios y dependencias abren la misma biblioteca online.
+Se retira el editor local de servicios de las rutas y del JavaScript servido.
+Los diagramas ya almacenados, grupos, revisiones y concesiones siguen en sus
+mismas tablas e identificadores. No se convierte ningún archivo JSON descargado
+anteriormente por el editor local.
+
+`app/frontend/src/diagram-catalog.json` es el catálogo compartido por UI y backend:
+23 tipos de recurso en cinco categorías y cinco plantillas (en blanco,
+infraestructura, servicio de negocio, dependencias y clúster Oracle). El build
+copia el mismo JSON a la imagen Python. `diagram_catalog.py` genera identificadores
+nuevos por instancia y el servidor valida y guarda todo el documento en una única
+transacción durante POST, usando un `template_id` permitido. No acepta rutas de
+plantillas ni contenido externo. Elegir una plantilla no limita la edición posterior.
+
+Añadir abre un panel flotante izquierdo con categorías, búsqueda y paginación
+según el espacio disponible. Clic/tap inserta un nodo con nombre editable; en
+pantallas pequeñas se cierra el panel para dejar el lienzo visible. El arrastre
+nativo de escritorio convierte coordenadas de pantalla a coordenadas React Flow,
+respetando el zoom. En dispositivos táctiles se usa la alternativa de toque.
+Notas y etiquetas usan los mismos documentos validados; los grupos visuales
+conservan contención padre/hijo. La exportación sigue siendo PDF, con las etiquetas
+del mismo catálogo para todos los tipos nuevos.
+
+Se mantienen RLS, revisión optimista, CSRF, límites de documentos, invitaciones y
+permisos de invitados. Un invitado puede añadir recursos al documento concedido,
+pero no crear un diagrama, ni siquiera mediante POST directo con una plantilla.
+
+QA: 33 pruebas de servidor; `scripts/qa_unified_diagrams.py` comprueba plantillas
+persistidas/reabiertas/PDF, enlaces antiguos, arrastre, toque, edición de invitado
+y bloqueo de creación. Verifica dimensiones reales de documento, diálogo y panel
+en ocho viewports y dos temas, además del paso de nombre y resultados de búsqueda.
+Evidencia en `docs/evidence/unified-diagrams-report.json`. Sustituye las pruebas
+históricas del editor local (`qa_catalog_functional.py` / `qa_resource_flow.py`).
+
+Backup de unidad previa: `/home/mip/backups/koodaria-20261024/unified-diagrams/`.
+Se guarda un dump antes de promover la imagen. Conservar el volumen de sesiones
+además de PostgreSQL y las claves privadas existentes. Un rollback a imágenes
+anteriores no entiende todos los tipos nuevos de recurso; después de guardar
+tipos nuevos, preferir una corrección compatible hacia adelante. Nunca restaurar
+un dump antiguo encima de diagramas nuevos para revertir la interfaz.
+
+Imagen publicada y verificada:
+`f07506dff72673844d918f0d5a56b11f785963e2eb5aa4823bb7ea35f9d789a1`.
+Resultado: 33 pruebas de servidor, 56 estados responsive, ocho auditorías WCAG AA
+sin incidencias y vista previa del clúster dentro de sus límites. Se compararon
+los hashes públicos de JavaScript/CSS con los archivos del contenedor activo.

@@ -20,9 +20,7 @@ const disciplines=[
 {id:'infraestructura-como-codigo',title:'Infraestructura como código',description:'Infraestructura definida y versionada.',icon:'code'},
 {id:'sre',title:'SRE',description:'Confiabilidad y continuidad de los servicios.',icon:'sre'}];
 const products=[
-{id:'mapeo-recursos',ready:true,title:'Mapeo de recursos',description:'Identifica los componentes de tu entorno.',type:'herramienta',icon:'resource',outcome:'Un inventario de recursos con su función y contexto.'},
-{id:'mapeo-servicios',title:'Mapeo de servicios',description:'Documenta tus servicios mediante diagramas.',type:'herramienta',icon:'map',ready:true,outcome:'Un diagrama de los componentes y dependencias de tu servicio.'},
-{id:'mapeo-dependencias',title:'Mapeo de dependencias',description:'Visualiza qué depende de qué.',type:'herramienta',icon:'dependency',outcome:'Una vista de las relaciones entre aplicaciones y servicios.'},
+{id:'diagramas',ready:true,title:'Diagramas',description:'Documenta recursos, servicios y dependencias en un solo lugar.',type:'herramienta',icon:'map',outcome:'Diagramas guardados en línea, con plantillas y acceso compartido.'},
 {id:'fundamentos',title:'Fundamentos de observabilidad',description:'Métricas, registros y trazas.',type:'curso',level:1,icon:'book',outcome:'Reconocer las señales que permiten investigar un servicio.',topics:['Métricas y señales de salud','Registros y contexto de un evento','Trazas y recorrido de una solicitud']},
 {id:'investiga-servicios',title:'Investiga tus servicios',description:'De una señal a una causa probable.',type:'curso',level:2,icon:'observe',outcome:'Relacionar señales para construir un diagnóstico con evidencia.',topics:['Preguntas para empezar una investigación','Correlación de métricas, registros y trazas','Hipótesis y comprobación de causas']},
 {id:'observabilidad-avanzada',title:'Observabilidad avanzada',description:'Diseño, correlación y operación.',type:'curso',level:3,icon:'sre',outcome:'Diseñar una estrategia de observabilidad acorde con el servicio.',topics:['Indicadores y objetivos de servicio','Diseño de alertas y señales útiles','Contexto, costo y operación']},
@@ -30,7 +28,7 @@ const products=[
 {id:'datadog-ansible',title:'Datadog + Ansible',description:'De la detección a una acción automatizada.',type:'caso',icon:'automation',outcome:'Definir una respuesta controlada a un evento de monitoreo.',topics:['Condiciones para iniciar una acción','Ejecución autorizada del playbook','Verificación del resultado y registro de evidencia']},
 {id:'escenarios-operacion',title:'Escenarios de operación',description:'Aplica lo aprendido a situaciones reales.',type:'caso',icon:'code',outcome:'Investigar un servicio y documentar el razonamiento utilizado.',topics:['Un servicio dejó de responder','Una dependencia presenta latencia','Un cambio afecta el comportamiento del servicio']}];
 const typeLabel=p=>p.type==='curso'?`Curso · Nivel ${p.level}`:p.type==='caso'?'Caso de uso':'Herramienta';
-let page=1,query='',filter='todo',currentItems=[],currentMode='catalog',resizeEditor=()=>{};
+let page=1,query='',filter='todo',currentItems=[],currentMode='catalog';
 const crumbs=parts=>`<nav class="breadcrumbs" aria-label="Ruta de navegación"><a href="#/catalogo">Catálogo</a>${parts.map(p=>`<span aria-hidden="true">/</span>${p.href?`<a href="${p.href}">${esc(p.label)}</a>`:`<span aria-current="page">${esc(p.label)}</span>`}`).join('')}</nav>`;
 const pagination=()=>`<nav class="catalog-pagination" aria-label="Páginas del catálogo"><span id="result-count" role="status"></span><div><button type="button" id="page-prev" aria-label="Página anterior">←</button><span id="page-count"></span><button type="button" id="page-next" aria-label="Página siguiente">→</button></div></nav>`;
 function listView(title,description,items,mode,parts=[],initialFilter='todo'){
@@ -61,9 +59,9 @@ function paginate(){
  const pages=Math.max(1,Math.ceil(items.length/size));page=Math.max(1,Math.min(page,pages));
  grid.style.setProperty('--columns',cols);
  grid.innerHTML=items.slice((page-1)*size,page*size).map(p=>{
-  const href=currentMode==='catalog'?`#/catalogo/${p.id}`:p.id==='mapeo-recursos'?'#/herramientas/mapeo-recursos':`#/catalogo/observabilidad/${p.id}`;
-  const locked=guest&&(currentMode==='catalog'?p.id!=='observabilidad':p.id!=='mapeo-recursos');
-  return `<${locked?'div':'a'} class="catalog-card ${currentMode==='catalog'?'discipline-card':'product-card'} ${p.id==='mapeo-servicios'?'card-featured':''} ${locked?'is-locked':''}" ${locked?'aria-label="'+esc(p.title)+', sin acceso"':'href="'+href+'"'}>${currentMode==='catalog'?illustration(p.icon):`<div class="product-art">${productIllustration(p.icon)}</div>`}<div class="card-copy">${currentMode==='products'?`<div class="card-tags"><span>${typeLabel(p)}</span>${p.ready?'<span class="available-tag">Disponible</span>':''}</div>`:''}<h2>${esc(p.title)}</h2><p>${esc(p.description)}</p><span class="card-action">${locked?'Sin acceso':currentMode==='catalog'?'Explorar':p.id==='mapeo-recursos'?'Mis diagramas':'Ver detalle'} ${locked?'':icon('arrow')}</span></div></${locked?'div':'a'}>`;
+  const href=currentMode==='catalog'?`#/catalogo/${p.id}`:p.id==='diagramas'?'#/herramientas/diagramas':`#/catalogo/observabilidad/${p.id}`;
+  const locked=guest&&(currentMode==='catalog'?p.id!=='observabilidad':p.id!=='diagramas');
+  return `<${locked?'div':'a'} class="catalog-card ${currentMode==='catalog'?'discipline-card':'product-card'} ${p.id==='mapeo-servicios'?'card-featured':''} ${locked?'is-locked':''}" ${locked?'aria-label="'+esc(p.title)+', sin acceso"':'href="'+href+'"'}>${currentMode==='catalog'?illustration(p.icon):`<div class="product-art">${productIllustration(p.icon)}</div>`}<div class="card-copy">${currentMode==='products'?`<div class="card-tags"><span>${typeLabel(p)}</span>${p.ready?'<span class="available-tag">Disponible</span>':''}</div>`:''}<h2>${esc(p.title)}</h2><p>${esc(p.description)}</p><span class="card-action">${locked?'Sin acceso':currentMode==='catalog'?'Explorar':p.id==='diagramas'?'Mis diagramas':'Ver detalle'} ${locked?'':icon('arrow')}</span></div></${locked?'div':'a'}>`;
  }).join('')||(currentItems.length?'<p class="catalog-empty">No encontramos coincidencias. Prueba con otro término.</p>':'<p class="catalog-empty">Este catálogo estará disponible próximamente.</p>');
  main.querySelector('#result-count').textContent=`${items.length} ${currentMode==='catalog'?'disciplinas':'opciones'}`;
  main.querySelector('#page-count').textContent=`${page} / ${pages}`;
@@ -88,52 +86,6 @@ function detail(p){
  const how=main.querySelector('.how-to');if(how&&(innerWidth<=700||innerHeight<=730))how.open=false;
 
 }
-let project={name:'Mi servicio',nodes:[{id:'servicio',label:'Mi servicio',type:'servicio',parent:''}]},dirty=false;
-function download(content,name,type){const url=URL.createObjectURL(new Blob([content],{type}));const a=document.createElement('a');a.href=url;a.download=name;a.hidden=true;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);}
-function editor(loadExample=false){
- if(loadExample){project=JSON.parse(JSON.stringify(example));dirty=false;}
- main.className='workspace-main editor-page';main.dataset.editorPanel=(innerWidth<=600||innerHeight<650)?'servicio':'componentes';fitShell();
- main.innerHTML=`${crumbs([{label:'Observabilidad',href:'#/catalogo/observabilidad'},{label:'Mapeo de servicios',href:'#/catalogo/observabilidad/mapeo-servicios'},{label:'Diagrama'}])}<div class="editor-header"><div><h1 id="workspace-heading">Mapeo de servicios</h1><p>Trabaja en este navegador. Descarga el proyecto para conservarlo.</p></div><div class="editor-toolbar"><button type="button" id="load-project">Abrir proyecto</button><button type="button" id="save-project">Descargar proyecto</button><button type="button" id="export-svg">Exportar SVG</button><input type="file" id="project-file" accept="application/json,.json" hidden></div></div><nav class="editor-mobile-tabs" aria-label="Vista del editor"><button type="button" data-editor-panel="servicio" aria-pressed="true">Servicio</button><button type="button" data-editor-panel="componentes" aria-pressed="false">Componentes</button><button type="button" data-editor-panel="diagrama" aria-pressed="false">Diagrama</button></nav><div class="editor-layout"><section class="component-panel" aria-label="Componentes del servicio"><div class="service-name-field"><label for="service-name">Nombre del servicio</label><input id="service-name" maxlength="60" value="${esc(project.name)}"></div><div class="component-heading"><h2>Componentes</h2><button type="button" id="add-node" class="primary-action">+ Añadir</button></div><div id="component-list"></div><p class="editor-status" id="editor-status" role="status"></p></section><section class="editor-canvas" aria-label="Diagrama del servicio"><nav class="canvas-controls" aria-label="Vista del diagrama"><button type="button" id="zoom-out" aria-label="Alejar diagrama">−</button><button type="button" id="zoom-fit">Ajustar</button><button type="button" id="zoom-in" aria-label="Acercar diagrama">+</button></nav><div id="project-diagram"></div><p class="canvas-help" id="canvas-help">Arrastra para mover · + / − para acercar o alejar</p></section></div><dialog id="node-dialog" aria-labelledby="node-dialog-title"><form id="node-form"><h2 id="node-dialog-title">Añadir componente</h2><label for="node-label">Nombre</label><input id="node-label" maxlength="22" required autocomplete="off"><label for="node-type">Tipo</label><select id="node-type"><option value="servicio">Servicio</option><option value="canal">Canal</option><option value="datos">Datos</option><option value="externo">Externo</option></select><label for="node-parent">Origen de la conexión</label><select id="node-parent"></select><p id="node-error" role="alert"></p><div class="dialog-actions"><button type="button" id="cancel-node">Cancelar</button><button class="primary-action" type="submit">Añadir</button></div></form></dialog>`;
- main.querySelectorAll('[data-editor-panel]').forEach(b=>b.onclick=()=>{main.dataset.editorPanel=b.dataset.editorPanel;main.querySelectorAll('[data-editor-panel]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));});
- main.querySelectorAll('[data-editor-panel]').forEach(x=>x.setAttribute('aria-pressed',String(x.dataset.editorPanel===main.dataset.editorPanel)));
- let editingId=null;let componentPage=1;let componentPageSize=innerHeight<650?1:innerHeight<750?2:3;
- const dialog=main.querySelector('#node-dialog');
- const update=()=>{
-  componentPage=Math.max(1,Math.min(componentPage,Math.ceil(project.nodes.length/componentPageSize)));
-  main.querySelector('#project-diagram').innerHTML=diagramSvg(project);
-  const svg=main.querySelector('#project-diagram svg');svg.setAttribute('tabindex','0');svg.setAttribute('aria-describedby','canvas-help');
-  let start=null;
-  svg.addEventListener('pointerdown',e=>{start={x:e.clientX,y:e.clientY,view:svg.getAttribute('viewBox').split(' ').map(Number)};svg.setPointerCapture(e.pointerId);});
-  svg.addEventListener('pointermove',e=>{if(!start)return;const r=svg.getBoundingClientRect(),v=start.view;svg.setAttribute('viewBox',`${v[0]-(e.clientX-start.x)*v[2]/r.width} ${v[1]-(e.clientY-start.y)*v[3]/r.height} ${v[2]} ${v[3]}`);});
-  svg.addEventListener('pointerup',()=>{start=null;});svg.addEventListener('pointercancel',()=>{start=null;});
-  const fit=svg.getAttribute('viewBox');
-  const zoom=factor=>{const v=svg.getAttribute('viewBox').split(' ').map(Number);const w=Math.max(90,Math.min(2880,v[2]*factor)),h=w*v[3]/v[2];svg.setAttribute('viewBox',`${v[0]+(v[2]-w)/2} ${v[1]+(v[3]-h)/2} ${w} ${h}`);};
-  main.querySelector('#zoom-in').onclick=()=>zoom(.8);main.querySelector('#zoom-out').onclick=()=>zoom(1.25);main.querySelector('#zoom-fit').onclick=()=>svg.setAttribute('viewBox',fit);
-  svg.addEventListener('keydown',e=>{if(['+','=','-','ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(e.key)){e.preventDefault();if(['+','=','-'].includes(e.key)){zoom(e.key==='-'?1.25:.8);return;}const v=svg.getAttribute('viewBox').split(' ').map(Number);v[0]+=(e.key==='ArrowRight'?1:e.key==='ArrowLeft'?-1:0)*v[2]/8;v[1]+=(e.key==='ArrowDown'?1:e.key==='ArrowUp'?-1:0)*v[3]/8;svg.setAttribute('viewBox',v.join(' '));}});
-
-  main.querySelector('#component-list').innerHTML=project.nodes.slice((componentPage-1)*componentPageSize,componentPage*componentPageSize).map(n=>`<div class="component-row"><button type="button" class="component-edit" data-edit="${esc(n.id)}" aria-label="Editar ${esc(n.label)}">${esc(n.label)}</button><button type="button" data-remove="${esc(n.id)}" aria-label="Eliminar ${esc(n.label)}">×</button></div>`).join('');
-  const totalPages=Math.ceil(project.nodes.length/componentPageSize);
-  if(totalPages>1){main.querySelector('#component-list').insertAdjacentHTML('beforeend',`<nav class="component-pagination" aria-label="Páginas de componentes"><button type="button" id="component-prev" ${componentPage===1?'disabled':''} aria-label="Componentes anteriores">←</button><span>${componentPage} / ${totalPages}</span><button type="button" id="component-next" ${componentPage===totalPages?'disabled':''} aria-label="Siguientes componentes">→</button></nav>`);main.querySelector('#component-prev').onclick=()=>{componentPage--;update();};main.querySelector('#component-next').onclick=()=>{componentPage++;update();};}
-  main.querySelectorAll('[data-remove]').forEach(b=>b.onclick=()=>{if(project.nodes.length===1){main.querySelector('#editor-status').textContent='Conserva al menos un componente.';return;}const id=b.dataset.remove;project.nodes=project.nodes.filter(n=>n.id!==id).map(n=>({...n,parent:n.parent===id?'':n.parent}));dirty=true;update();});
-  const previousParent=main.querySelector('#node-parent').value;
-  main.querySelector('#node-parent').innerHTML='<option value="">Sin conexión inicial</option>'+project.nodes.map(n=>`<option value="${esc(n.id)}">${esc(n.label)}</option>`).join('');
-  main.querySelector('#node-parent').value=previousParent;
-  main.querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>{const node=project.nodes.find(n=>n.id===b.dataset.edit);editingId=node.id;main.querySelector('#node-form').reset();main.querySelector('#node-dialog-title').textContent='Editar componente';main.querySelector('#node-form button[type=submit]').textContent='Guardar';main.querySelector('#node-label').value=node.label;main.querySelector('#node-type').value=node.type;main.querySelector('#node-parent').value=node.parent;main.querySelector('#node-error').textContent='';dialog.showModal();});
-  main.querySelector('#add-node').disabled=project.nodes.length>=12;
-  main.querySelector('#editor-status').textContent=`${project.nodes.length} / 12 componentes · ${dirty?'Cambios sin descargar':'Proyecto listo'}`;
- };
- main.querySelector('#service-name').oninput=e=>{const previous=project.name;project.name=e.target.value||'Mi servicio';if(project.nodes.length===1&&project.nodes[0].label===previous.slice(0,22))project.nodes[0].label=project.name.slice(0,22);dirty=true;update();};
- main.querySelector('#add-node').onclick=()=>{editingId=null;main.querySelector('#node-form').reset();main.querySelector('#node-dialog-title').textContent='Añadir componente';main.querySelector('#node-form button[type=submit]').textContent='Añadir';main.querySelector('#node-parent').value=project.nodes[0].id;main.querySelector('#node-error').textContent='';dialog.showModal();};
- main.querySelector('#cancel-node').onclick=()=>dialog.close();
- main.querySelector('#node-form').onsubmit=e=>{e.preventDefault();const label=main.querySelector('#node-label').value.trim();if(!label)return;const parent=main.querySelector('#node-parent').value;let current=parent;const seen=new Set(editingId?[editingId]:[]);while(current){if(seen.has(current)){main.querySelector('#node-error').textContent='La conexión crearía un ciclo. Elige otro origen.';return;}seen.add(current);current=project.nodes.find(n=>n.id===current)?.parent||'';}
- const node={id:editingId||crypto.randomUUID(),label,type:main.querySelector('#node-type').value,parent};if(editingId)project.nodes=project.nodes.map(n=>n.id===editingId?node:n);else project.nodes.push(node);dirty=true;dialog.close();update();};
- main.querySelector('#save-project').onclick=()=>{download(JSON.stringify({version:1,...project},null,2),'koodaria-servicio.json','application/json');dirty=false;update();};
- main.querySelector('#export-svg').onclick=()=>download(diagramSvg(project),'koodaria-servicio.svg','image/svg+xml');
- main.querySelector('#load-project').onclick=()=>main.querySelector('#project-file').click();
- main.querySelector('#project-file').onchange=async e=>{try{const file=e.target.files[0];if(!file)return;if(file.size>100000)throw Error();const p=JSON.parse(await file.text());if(p.version!==1||typeof p.name!=='string'||!p.name.trim()||p.name.length>60||!Array.isArray(p.nodes)||p.nodes.length<1||p.nodes.length>12)throw Error();const ids=new Set();for(const n of p.nodes){if(typeof n.id!=='string'||!n.id||n.id.length>80||ids.has(n.id)||typeof n.label!=='string'||!n.label.trim()||n.label.length>22||!['canal','servicio','datos','externo'].includes(n.type)||typeof n.parent!=='string')throw Error();ids.add(n.id);}for(const n of p.nodes){if(n.parent&&!ids.has(n.parent))throw Error();let node=n,seen=new Set([n.id]);while(node.parent){node=p.nodes.find(x=>x.id===node.parent);if(seen.has(node.id))throw Error();seen.add(node.id);}}project={name:p.name,nodes:p.nodes.map(n=>({id:n.id,label:n.label,type:n.type,parent:n.parent}))};dirty=false;editor();}catch{main.querySelector('#editor-status').textContent='No pudimos abrir el archivo. Usa un proyecto JSON de Koodaria válido.';}};
- resizeEditor=()=>{componentPageSize=innerHeight<650?1:innerHeight<750?2:3;update();};
- update();
-}
 let lastRenderedHash=location.hash,restoringHash=false;
 function render(){
  if(restoringHash){restoringHash=false;return;}
@@ -145,9 +97,9 @@ function render(){
  document.querySelectorAll('[data-view]').forEach(b=>b.setAttribute('aria-pressed',String((route.startsWith('/cursos')?'modulos':'servicios')===b.dataset.view)));
  document.querySelectorAll('[data-section]').forEach(b=>{if(b.dataset.section===(route.startsWith('/cursos')?'aprendizaje':route.startsWith('/herramientas')?'crear':'aplicaciones'))b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');});
  const [path,params='']=route.split('?');const bits=path.split('/').filter(Boolean);
- if(guest&&!(bits[0]==='catalogo'&&(!bits[1]||(bits[1]==='observabilidad'&&(!bits[2]||bits[2]==='mapeo-recursos'))))&&!(bits[0]==='herramientas'&&bits[1]==='mapeo-recursos')){location.hash='/catalogo';return;}
- if((bits[0]==='herramientas'&&bits[1]==='mapeo-recursos')||(bits[0]==='catalogo'&&bits[1]==='observabilidad'&&bits[2]==='mapeo-recursos')){document.body.classList.add('resource-tool-open');main.className='workspace-main resource-flow-page';main.removeAttribute('style');main.innerHTML='';window.KoodariaResourceFlow.mount(main);return;}
- if(bits[0]==='herramientas'&&bits[1]==='mapeo-servicios'){editor(bits[2]==='ejemplo');return;}
+ const diagramAliases=['diagramas','mapeo-recursos','mapeo-servicios','mapeo-dependencias'];
+ if((bits[0]==='herramientas'&&diagramAliases.includes(bits[1]))||(bits[0]==='catalogo'&&bits[1]==='observabilidad'&&diagramAliases.includes(bits[2]))){if(path!=='/herramientas/diagramas'){location.replace('#/herramientas/diagramas');return;}document.body.classList.add('resource-tool-open');main.className='workspace-main resource-flow-page';main.removeAttribute('style');main.innerHTML='';window.KoodariaResourceFlow.mount(main);return;}
+ if(guest&&!(bits[0]==='catalogo'&&(!bits[1]||(bits[1]==='observabilidad'&&!bits[2])))){location.hash='/catalogo';return;}
  if(bits[0]==='cursos'){listView('Cursos','Aprende observabilidad, desde sus fundamentos hasta su aplicación en operación.',products.filter(p=>p.type==='curso'),'products',[{label:'Cursos'}]);return;}
  if(bits[0]==='catalogo'&&bits[1]){
   const discipline=disciplines.find(d=>d.id===bits[1]);if(!discipline){location.hash='/catalogo';return;}
@@ -159,11 +111,10 @@ function render(){
  listView('¿Qué quieres desarrollar?','Aprende, documenta y lleva tus conocimientos a la práctica.',disciplines,'catalog');
 }
 window.addEventListener('hashchange',render);
-let resizeFrame;const resize=()=>{cancelAnimationFrame(resizeFrame);resizeFrame=requestAnimationFrame(()=>{if(main.querySelector('#catalog-grid'))paginate();else{fitShell();if(main.classList.contains('editor-page'))resizeEditor();}});};
+let resizeFrame;const resize=()=>{cancelAnimationFrame(resizeFrame);resizeFrame=requestAnimationFrame(()=>{if(main.querySelector('#catalog-grid'))paginate();else fitShell();});};
 window.addEventListener('resize',resize);window.visualViewport?.addEventListener('resize',resize);
-window.addEventListener('beforeunload',e=>{if(dirty){e.preventDefault();e.returnValue='';}});
 document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>{location.hash=b.dataset.view==='modulos'?'/cursos':'/catalogo';}));
-document.querySelectorAll('[data-section]').forEach(b=>b.addEventListener('click',()=>{const route={inicio:'/catalogo',aplicaciones:'/catalogo',biblioteca:'/cursos',aprendizaje:'/cursos',crear:guest?'/herramientas/mapeo-recursos':'/herramientas/mapeo-servicios'}[b.dataset.section];if(route)location.hash=route;}));
+document.querySelectorAll('[data-section]').forEach(b=>b.addEventListener('click',()=>{const route={inicio:'/catalogo',aplicaciones:'/catalogo',biblioteca:'/cursos',aprendizaje:'/cursos',crear:'/herramientas/diagramas'}[b.dataset.section];if(route)location.hash=route;}));
 for(const section of (guest?['asistente','favoritos','consola','crear','biblioteca','aprendizaje']:['asistente','favoritos','consola'])){const button=document.querySelector(`[data-section="${section}"]`);if(button){button.disabled=true;button.title=button.getAttribute('aria-label')+' · Próximamente';}}
 if(guest)document.querySelector('[data-view=modulos]')?.setAttribute('disabled','');
 render();

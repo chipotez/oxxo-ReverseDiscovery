@@ -7,7 +7,7 @@ from reportlab.lib.pagesizes import A3, landscape
 from reportlab.pdfbase.pdfmetrics import stringWidth
 
 INK=HexColor('#243c39'); GREEN=HexColor('#2f6557'); MUTED=HexColor('#52665d'); SAGE=HexColor('#edf4ee')
-LABELS={'origen':'Origen','balanceador':'Balanceador','servidor':'Servidor','servicio':'Servicio','datos':'Base de datos','externo':'Externo','grupo':'Grupo'}
+from diagram_catalog import LABELS
 
 def lines(value,width,size):
     # Character wrapping also handles long DNS names without spaces.
@@ -28,7 +28,7 @@ def render_pdf(row):
         page+=1
         c.setFillColor(INK);c.setFont('Helvetica-Bold',24);c.drawString(36,height-44,'koodaria.');c.setFont('Helvetica',15)
         for i,line in enumerate(lines(title,width-300,15)[:2]): c.drawString(220,height-36-i*19,line)
-        c.setFont('Helvetica',9);c.setFillColor(MUTED);c.drawString(36,22,f'Mapeo de recursos · Versión {row["revision"]}');c.drawRightString(width-36,22,str(page))
+        c.setFont('Helvetica',9);c.setFillColor(MUTED);c.drawString(36,22,f'Diagramas · Versión {row["revision"]}');c.drawRightString(width-36,22,str(page))
     def xy(n):
         parent=by_id.get(n.get('parentId'))
         return (n['position']['x']+(parent['position']['x'] if parent else 0), n['position']['y']+(parent['position']['y'] if parent else 0))

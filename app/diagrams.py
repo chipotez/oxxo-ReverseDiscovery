@@ -15,7 +15,8 @@ from access import is_member, capabilities
 from invitations import normalize_email, notify_existing, IdentityProvider, InvitationUnavailable, provision_ready, mail_ready
 
 bp = Blueprint('diagrams', __name__, url_prefix='/bienvenida/api/diagrams')
-KINDS = {'origen', 'balanceador', 'servidor', 'servicio', 'datos', 'externo', 'grupo'}
+from diagram_catalog import LABELS, starter
+KINDS = set(LABELS)
 
 class InvalidDiagram(ValueError):
     pass
@@ -206,7 +207,8 @@ def move():
 
 @bp.post('')
 def create():
-    value=validate(dict(name=(request.get_json() or {}).get('name','Nuevo diagrama'),nodes=[],edges=[]))
+    body=request.get_json() or {}
+    value=validate(starter(body.get('template_id','blank'),body.get('name','Nuevo diagrama')))
     folder_id=(request.get_json() or {}).get('folder_id')
     with connection(subject()) as conn:
         require_member(conn)

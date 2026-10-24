@@ -198,3 +198,16 @@ solo uso. Las invitaciones nuevas completan correo, perfil, contraseña, TOTP y
 códigos. Las cuentas existentes conservan contraseña y MFA; si su correo todavía
 no está verificado, se solicita únicamente esa verificación adicional. La edición
 compartida y la revocación están verificadas tanto en API como mediante RLS.
+
+## Actualización: una herramienta de Diagramas — 24 de octubre de 2026
+
+Recursos, servicios y dependencias comparten ahora editor, biblioteca y permisos.
+Son puntos de partida y contenido del documento, no repositorios separados.
+La galería ofrece plantillas versionadas locales y el backend genera cada copia
+con UUID nuevos. El documento completo se valida y se inserta atómicamente antes
+de abrir el editor; no se requiere un segundo guardado para conservar la plantilla.
+
+UI y servidor consumen el mismo catálogo JSON de componentes. La ampliación de
+tipos mantiene compatibles los nodos y grupos anteriores. El panel flotante y la
+galería paginan según ancho y alto; en móvil la inserción por toque es una
+alternativa al arrastre. Los cursos permanecen separados de la herramienta.
