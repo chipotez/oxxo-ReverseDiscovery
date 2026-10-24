@@ -369,3 +369,15 @@ copiada en su diagrama compartido, conservando el bloqueo del catálogo privado.
 JavaScript/CSS públicos coinciden con el contenedor desplegado; ambos API privados
 responden 401 sin sesión. Unidad anterior en
 `/home/mip/backups/koodaria-20261024/resource-standards/`.
+
+## Subsección Diagramas — 24 de octubre de 2026
+
+Publicada `localhost/koodaria-workspace:diagrams-hub-20261024`
+(`b0af36ffdc464abba3f48fb0655b4126ca7072212918a493e27b4abe3fa3c60b`).
+Observabilidad → Diagramas abre dos tarjetas: Estándares y Diagramas.
+Ambas vistas regresan a esta subsección; los invitados mantienen bloqueado
+el catálogo privado de estándares. Sin cambios de esquema ni de sesiones.
+Verificación: navegación, restricciones de invitado, 16 estados responsive
+y auditorías WCAG AA; evidencia en `evidence/diagrams-hub-report.json`.
+Los assets públicos coinciden con el contenedor. Unidad anterior respaldada en
+`/home/mip/backups/koodaria-20261024/diagrams-hub/`.
