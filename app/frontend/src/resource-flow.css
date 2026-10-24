@@ -120,3 +120,10 @@
 [data-theme=dark] .documentation-missing button{color:#ffb6b9;background:#50272d;border-color:#ad6569}[data-theme=dark] .documentation-progress button{color:#ffe082;background:#473b19;border-color:#a58b3d}[data-theme=dark] .documentation-complete button{color:#a6ebc0;background:#1c4531;border-color:#529d70}
 .hosted-resources{display:flex;align-items:center;justify-content:space-between;margin-top:10px;padding-top:6px;height:30px}.hosted-count{font-size:10px;color:var(--muted)}.resource-tool .hosted-resources .hosted-add{display:grid;place-items:center;width:28px;height:28px;min-height:28px;padding:0;margin:0;font-size:19px;border-radius:8px;background:var(--surface);color:var(--forest)}
 .resource-tool .resource-properties label{font-size:12px}.resource-tool .resource-properties input,.resource-tool .resource-properties select{font-size:12px;min-height:34px;padding:7px 9px}
+
+/* Dense node headers: add action shares the title row; no footer reservation. */
+.resource-node.server-instance-node{min-height:0;padding:12px;border-radius:16px}
+.server-instance-node>header{min-height:34px;gap:9px}.server-instance-node>header>svg{width:24px;height:24px}.server-instance-node>header>div:not(.hosted-resources){flex:1;min-width:0}.server-instance-node header strong{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:15px;line-height:20px}.server-instance-node header span{font-size:10px;line-height:12px}
+.node-summary{height:auto;min-height:14px;margin:6px 0;gap:0;font-size:11px;line-height:14px}
+.server-instance-node .server-standard-icons{padding-top:8px;gap:6px}.resource-tool .server-instance-node .server-standard-icon button{height:32px;width:32px;min-height:32px;padding:6px;border-radius:9px}.server-instance-node .server-standard-icon button svg{width:19px;height:19px}
+.server-instance-node>header .hosted-resources{flex:none;margin:0 0 0 auto;padding:0;border:0;height:28px}.resource-tool .server-instance-node .hosted-resources .hosted-add{width:28px;height:28px;min-height:28px;font-size:18px;border-radius:8px}

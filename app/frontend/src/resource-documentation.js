@@ -17,3 +17,5 @@ export function documentation(data,section,id,edges=[]){
  const total=fields.length,percent=total?Math.round(100*filled/total):0;
  return {filled,total,percent,state:total&&filled===total?'complete':percent<50?'missing':'progress',mark:total&&filled===total?'✓':percent<50?'!':'◐'};
 }
+
+export function nodeSummary(data){const fields=data[instanceKey(data)]?.identification||{};return [fields.hostname||fields.name,fields.environment,fields.criticality,fields.technology||data.technology,fields.location||data.location,data.address&&(data.address+(data.port?' · '+data.port:''))].filter(Boolean).filter((v,i,all)=>v!==data.label&&all.indexOf(v)===i).slice(0,3);}

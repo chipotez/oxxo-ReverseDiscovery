@@ -38,20 +38,25 @@ def render_pdf(row):
     for edge in edges:
         if edge.get('relation')=='hosts':children.setdefault(edge['source'],[]).append(edge['target'])
     nested_positions={};ordered=[]
+    def footprint(n):
+        data=n['data'];fields=data.get('server_instance' if data['kind'] in ['servidor','virtual'] else 'component_instance',{}).get('identification',{})
+        values=[fields.get('hostname') or fields.get('name'),fields.get('environment'),fields.get('criticality'),fields.get('technology') or data.get('technology'),fields.get('location') or data.get('location'),data.get('address')]
+        count=len(list(dict.fromkeys(v for v in values if v and v!=data['label']))[:3])
+        return 124+14*max(1,count)
     def size_host(key):
         if key not in children:return sizes[key]
         child_sizes=[size_host(k) for k in children[key]]
-        sizes[key]=(max(300,*[w for w,h in child_sizes])+32,268+sum(h+16 for w,h in child_sizes))
+        sizes[key]=(max(300,*[w for w,h in child_sizes])+24,footprint(by_id[key])+12+sum(h+12 for w,h in child_sizes))
         return sizes[key]
     # Every hosted real component uses the compact node footprint.
     if children:
         for n in nodes:
-            if n['type']=='resource':sizes[n['id']]=(300,240)
+            if n['type']=='resource':sizes[n['id']]=(300,footprint(n))
         targets={k for values in children.values() for k in values}
         def place_host(key,x,y):
-            nested_positions[key]=(x,y);ordered.append(by_id[key]);cy=y+268
+            nested_positions[key]=(x,y);ordered.append(by_id[key]);cy=y+footprint(by_id[key])+12
             for child in children.get(key,[]):
-                place_host(child,x+16,cy);cy+=sizes[child][1]+16
+                place_host(child,x+12,cy);cy+=sizes[child][1]+12
         for n in nodes:
             if n['id'] not in targets:
                 size_host(n['id']);place_host(n['id'],*xy(n))

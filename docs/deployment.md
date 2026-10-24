@@ -705,3 +705,20 @@ semáforo, diez estados responsive, auditorías AA de nodos en claro/oscuro,
 guardado/reapertura, alta dentro del host, cambio de tipo y borrado sin cascada.
 PDF sintético renderizado y revisado. Imagen activa y JS/CSS públicos verificados.
 Evidencia: `docs/evidence/nested-resources-report.json`.
+
+## Nodos de altura ajustada al contenido — 24 de octubre de 2026
+
+Publicada `localhost/koodaria-workspace:dense-nodes-20261024`
+(`0ed4d83bdbec21eb5a2a94d3128c9a6b07aa49bbf5c324ab49bb8057c3d46096`).
+El botón de alojamiento comparte la fila del nombre; se retira la fila inferior.
+Resumen sin reserva de líneas vacías, márgenes interiores de 12 px e iconos de
+19 px en controles de 32 px. El nodo base mide 138–166 px de alto según las líneas
+visibles, frente a 240 px. La disposición anidada y el PDF usan ese mismo cálculo.
+Sin cambios de esquema, permisos o autenticación. Backup previo y unidad anterior
+en `/home/mip/backups/koodaria-20261024/dense-nodes/`; solo se reinició la aplicación.
+
+49 pruebas de servidor, pruebas de geometría y altura por contenido; diez estados
+responsive, revisión visual en navegador, auditorías AA en ambos temas y PDF
+renderizado. Verificados guardado/reapertura, alta anidada y borrado sin cascada.
+Imagen activa y assets públicos comprobados. Evidencia:
+`docs/evidence/dense-nodes-report.json`. Reversión a `nested-20261024` sin migración.

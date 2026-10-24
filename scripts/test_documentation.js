@@ -10,5 +10,10 @@ const result=resourceLayout(nodes,[{source:'a',target:'b',relation:'hosts'},{sou
 check(result.nodes.map(n=>n.id).join('')==='abc','parent-first');
 check(result.nodes[1].parentId==='a'&&result.nodes[2].parentId==='b','recursive containment');
 check(result.sizes.get('a').width>result.sizes.get('b').width&&result.sizes.get('a').height>result.sizes.get('b').height,'recursive bounds');
-check(result.absolute.get('c').x===32&&result.absolute.get('c').y===536,'absolute coordinates');
+check(result.absolute.get('c').x===24&&result.absolute.get('c').y===300,'absolute coordinates');
 console.log('PASS recursive matryoshka layout and absolute positions');
+const shortNode={id:'short',type:'resource',position:{x:0,y:0},data:{kind:'virtual',label:'QA'}};
+const detailed={...shortNode,data:{...shortNode.data,server_instance:{identification:{hostname:'qa.example',environment:'QA',criticality:'Alta'}}}};
+check(resourceLayout([shortNode],[]).sizes.get('short').height===138,'one-line compact footprint');
+check(resourceLayout([detailed],[]).sizes.get('short').height===152,'summary grows only with visible distinct values');
+console.log('PASS content-aware compact node height');

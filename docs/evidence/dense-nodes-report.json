@@ -1,0 +1,98 @@
+{
+  "synthetic_identity_only": true,
+  "states": [
+    {
+      "theme": "light",
+      "width": 1440,
+      "height": 1000
+    },
+    {
+      "theme": "light",
+      "width": 1024,
+      "height": 600
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 568
+    },
+    {
+      "theme": "light",
+      "width": 844,
+      "height": 390
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "height": 1000
+    },
+    {
+      "theme": "dark",
+      "width": 1024,
+      "height": 600
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 568
+    },
+    {
+      "theme": "dark",
+      "width": 844,
+      "height": 390
+    }
+  ],
+  "accessibility": [
+    {
+      "theme": "light",
+      "violations": []
+    },
+    {
+      "theme": "dark",
+      "violations": []
+    }
+  ],
+  "compact_geometry": [
+    {
+      "height": "490px",
+      "inside": true,
+      "aligned": true
+    },
+    {
+      "height": "300px",
+      "inside": true,
+      "aligned": true
+    },
+    {
+      "height": "138px",
+      "inside": true,
+      "aligned": true
+    }
+  ],
+  "delete_host_retains_children": true,
+  "browser_errors": [],
+  "recursive_containment": true,
+  "roundtrip": true,
+  "add_inside": true,
+  "type_change_saved": true,
+  "backend_tests_passed": 49,
+  "layout_semantic_tests": true,
+  "pdf_visual_review": true,
+  "deployment": {
+    "image": "0ed4d83bdbec21eb5a2a94d3128c9a6b07aa49bbf5c324ab49bb8057c3d46096",
+    "public_assets": {
+      "resource-flow-v1.js": "3b7beaf1e25c751883a07bbc55935375a59865bf853a2e79c67d25472d1e3a44",
+      "resource-flow-v1.css": "9fc75090ae9ec75d5319ee51aca84d18a22c39a8b048b403c7ce52fac4a360a0"
+    }
+  }
+}
