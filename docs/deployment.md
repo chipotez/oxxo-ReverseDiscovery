@@ -437,3 +437,18 @@ versiones anteriores y usar el modelo en la copia del estándar dentro del diagr
 Backup de la base completado antes de publicar. Unidad anterior en
 `/home/mip/backups/koodaria-20261024/server-model/`. Assets públicos verificados
 contra el contenedor; el API de estándares sigue respondiendo 401 sin sesión.
+
+## Tablas de referencia del servidor — 24 de octubre de 2026
+
+Publicada `localhost/koodaria-workspace:reference-tables-20261024`
+(`15da79270c12bba806b30045e0893fc54aa9097e2f568f96d21646ff06271359`).
+Los cuatro bloques de referencia muestran tablas con nombre, explicación y
+formato, con paginación según el viewport y adaptación móvil. Agregar campo
+abre un formulario de vista previa en memoria; no persiste ni modifica
+definiciones, publicaciones o la base de datos. Los campos temporales se
+descartan al salir de la vista y la interfaz lo indica.
+72 estados responsive y ocho auditorías WCAG AA en el preview local; comprobadas
+la validación de duplicados y ausencia de escrituras API. Evidencia en
+`docs/evidence/reference-tables-report.json`. Assets públicos coinciden con
+el contenedor y API privado conserva 401 sin sesión. Sin migración SQL.
+Unidad anterior en `/home/mip/backups/koodaria-20261024/reference-tables/`.
