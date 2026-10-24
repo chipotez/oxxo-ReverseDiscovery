@@ -53,8 +53,9 @@ Realm independiente `koodaria`, temas propios en `infra/keycloak/themes/koodaria
 ## Estándares operativos
 
 El nuevo icono **Estándares** de la barra lateral abre el catálogo privado del
-espacio. En esta primera versión incluye Infraestructura / Servidores y bases
-editables Linux y Windows con dieciséis funciones: monitoreo, seguridad de
+espacio. Infraestructura se organiza en ocho categorías, con subcategorías y
+tipos de recurso. Las definiciones editables siguen en Cómputo / Servidores:
+bases Linux y Windows con dieciséis funciones: monitoreo, seguridad de
 endpoints, backup, logs, CMDB, configuración, parches, vulnerabilidades,
 cumplimiento, identidad, auditoría, APM, automatización, gestión remota,
 integridad de archivos y protección de datos.

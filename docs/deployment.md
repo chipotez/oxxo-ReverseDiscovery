@@ -391,3 +391,23 @@ de Blueprints está identificado como en preparación; no implementa CRUD.
 La ruta anterior de la subsección Diagramas redirige a Gobierno.
 Permisos de invitados sin cambios. Navegación, retornos, Blueprints y 16 estados
 responsive verificados; evidencia `evidence/governance-hub-report.json`.
+
+## Catálogo de infraestructura y salida de edición — 24 de octubre de 2026
+
+Imagen `localhost/koodaria-workspace:infrastructure-catalog-20261024`
+(`8c5ccbf87e59fe9d08de33f98e9417c8a02d3e0dd72281c24997bcf9aa4bbdb2`).
+Estándares → Infraestructura incorpora ocho categorías, subcategorías y tipos
+de recurso paginados. Las definiciones editables existentes se conservan bajo
+Cómputo → Servidores; los otros tipos identifican su definición operativa como
+en preparación. No hay migración de base de datos ni nuevas autorizaciones.
+
+Salir de una definición con cambios abre un diálogo Koodaria con Seguir editando,
+Salir sin guardar y Guardar y salir, tanto en la flecha de retorno como al
+cambiar de sección. Un fallo al guardar mantiene abierto el diálogo y conserva
+los cambios. Cerrar o recargar la pestaña conserva la protección nativa del navegador.
+
+Verificados 96 estados responsive, ocho auditorías WCAG AA y todos los niveles
+del catálogo con cuentas sintéticas. Evidencias: `infrastructure-catalog-report.json`
+y `infrastructure-accessibility-report.json` en `docs/evidence/`; script
+`scripts/qa_infrastructure_catalog.py` usa el harness descartable en localhost.
+Unidad anterior respaldada en `/home/mip/backups/koodaria-20261024/infrastructure-catalog/`.

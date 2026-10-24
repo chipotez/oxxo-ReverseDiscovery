@@ -1,0 +1,284 @@
+[
+  {
+    "id": "compute",
+    "label": "Cómputo",
+    "icon": "server",
+    "children": [
+      {
+        "id": "servers",
+        "label": "Servidores",
+        "types": [
+          "Servidor físico",
+          "Máquina virtual"
+        ]
+      },
+      {
+        "id": "virtualization",
+        "label": "Virtualización",
+        "types": [
+          "Hipervisor",
+          "Clúster de virtualización"
+        ]
+      },
+      {
+        "id": "specialized",
+        "label": "Cómputo especializado",
+        "types": [
+          "Servidor GPU",
+          "Plataforma HPC"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "storage",
+    "label": "Almacenamiento",
+    "icon": "database",
+    "children": [
+      {
+        "id": "block",
+        "label": "Bloque",
+        "types": [
+          "Cabina SAN",
+          "Volumen de bloques"
+        ]
+      },
+      {
+        "id": "files",
+        "label": "Archivos",
+        "types": [
+          "NAS",
+          "Servidor de archivos"
+        ]
+      },
+      {
+        "id": "objects",
+        "label": "Objetos",
+        "types": [
+          "Almacenamiento de objetos"
+        ]
+      },
+      {
+        "id": "san",
+        "label": "Conectividad SAN",
+        "types": [
+          "Switch Fibre Channel",
+          "Adaptador HBA"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "network",
+    "label": "Conectividad",
+    "icon": "topology",
+    "children": [
+      {
+        "id": "datacenter",
+        "label": "Red de datacenter",
+        "types": [
+          "Switch de acceso",
+          "Switch de distribución",
+          "Switch de núcleo"
+        ]
+      },
+      {
+        "id": "wan",
+        "label": "WAN",
+        "types": [
+          "Router",
+          "Enlace WAN",
+          "Equipo SD-WAN"
+        ]
+      },
+      {
+        "id": "balancing",
+        "label": "Balanceo",
+        "types": [
+          "Balanceador de carga"
+        ]
+      },
+      {
+        "id": "wireless",
+        "label": "Red inalámbrica",
+        "types": [
+          "Punto de acceso",
+          "Controlador Wi-Fi"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "security",
+    "label": "Seguridad",
+    "icon": "shield",
+    "children": [
+      {
+        "id": "network-security",
+        "label": "Protección de red",
+        "types": [
+          "Firewall",
+          "IDS/IPS",
+          "Concentrador VPN"
+        ]
+      },
+      {
+        "id": "application-security",
+        "label": "Protección de aplicaciones",
+        "types": [
+          "WAF",
+          "Pasarela de API"
+        ]
+      },
+      {
+        "id": "secure-access",
+        "label": "Acceso seguro",
+        "types": [
+          "Bastión",
+          "Plataforma de acceso privilegiado"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "recovery",
+    "label": "Respaldo y recuperación",
+    "icon": "collection",
+    "children": [
+      {
+        "id": "backup",
+        "label": "Backup",
+        "types": [
+          "Servidor de backup",
+          "Repositorio de backup",
+          "Appliance de backup"
+        ]
+      },
+      {
+        "id": "archive",
+        "label": "Archivo",
+        "types": [
+          "Librería de cintas",
+          "Repositorio de archivo"
+        ]
+      },
+      {
+        "id": "disaster",
+        "label": "Recuperación ante desastres",
+        "types": [
+          "Plataforma de replicación",
+          "Orquestador de recuperación"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "platforms",
+    "label": "Plataformas",
+    "icon": "container",
+    "children": [
+      {
+        "id": "os",
+        "label": "Sistemas operativos",
+        "types": [
+          "Linux",
+          "Windows",
+          "Unix"
+        ]
+      },
+      {
+        "id": "containers",
+        "label": "Contenedores",
+        "types": [
+          "Motor de contenedores",
+          "Clúster Kubernetes",
+          "Registro de imágenes"
+        ]
+      },
+      {
+        "id": "middleware",
+        "label": "Middleware",
+        "types": [
+          "Servidor web",
+          "Servidor de aplicaciones",
+          "Plataforma de integración"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "data",
+    "label": "Datos",
+    "icon": "database",
+    "children": [
+      {
+        "id": "databases",
+        "label": "Bases de datos",
+        "types": [
+          "Oracle",
+          "PostgreSQL",
+          "SQL Server",
+          "MySQL"
+        ]
+      },
+      {
+        "id": "cache",
+        "label": "Caché",
+        "types": [
+          "Redis",
+          "Memcached"
+        ]
+      },
+      {
+        "id": "messaging",
+        "label": "Mensajería",
+        "types": [
+          "Broker de mensajes",
+          "Plataforma de eventos"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "facilities",
+    "label": "Instalaciones del datacenter",
+    "icon": "collection",
+    "children": [
+      {
+        "id": "space",
+        "label": "Espacio físico",
+        "types": [
+          "Rack",
+          "Gabinete",
+          "Sala de equipos"
+        ]
+      },
+      {
+        "id": "power",
+        "label": "Energía",
+        "types": [
+          "PDU",
+          "UPS",
+          "Generador"
+        ]
+      },
+      {
+        "id": "cooling",
+        "label": "Climatización",
+        "types": [
+          "Unidad de enfriamiento",
+          "Sensor ambiental"
+        ]
+      },
+      {
+        "id": "cabling",
+        "label": "Cableado",
+        "types": [
+          "Panel de parcheo",
+          "Cableado de cobre",
+          "Fibra óptica"
+        ]
+      }
+    ]
+  }
+]

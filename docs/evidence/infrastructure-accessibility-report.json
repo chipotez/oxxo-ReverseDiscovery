@@ -1,0 +1,68 @@
+{
+  "states": [
+    {
+      "theme": "light",
+      "width": 1440,
+      "height": 900,
+      "view": "categories",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "height": 900,
+      "view": "dialog",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 568,
+      "view": "categories",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 568,
+      "view": "dialog",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "height": 900,
+      "view": "categories",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "height": 900,
+      "view": "dialog",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 568,
+      "view": "categories",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 568,
+      "view": "dialog",
+      "no_overflow": true
+    }
+  ],
+  "checks": [
+    "all_domains_subcategories_and_types_reachable",
+    "cancel_preserves_edits_failed_save_stays_open_successful_save_exits",
+    "sidebar_route_guard_cancel_and_discard_preserve_saved_data"
+  ],
+  "browser_errors": [],
+  "wcag_aa_audits": 8,
+  "wcag_aa_violations": []
+}

@@ -92,9 +92,9 @@ function detail(p){
 
 }
 let lastRenderedHash=location.hash,restoringHash=false;
-function render(){
+async function render(){
  if(restoringHash){restoringHash=false;return;}
- if(window.KoodariaResourceFlow?.hasUnsavedChanges()&&!confirm('Todavía hay cambios sin guardar. Espera al guardado o vuelve al editor para reintentar. ¿Salir de todos modos?')){restoringHash=true;location.hash=lastRenderedHash;return;}
+ if(window.KoodariaResourceFlow?.hasUnsavedChanges()&&!await window.KoodariaResourceFlow.requestLeave()){restoringHash=true;location.hash=lastRenderedHash;return;}
  lastRenderedHash=location.hash;
  accountMenu?.removeAttribute('open');
  window.KoodariaResourceFlow?.unmount();document.body.classList.remove('resource-tool-open');

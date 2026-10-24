@@ -1,0 +1,682 @@
+{
+  "states": [
+    {
+      "theme": "light",
+      "width": 1440,
+      "height": 900,
+      "view": "root",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "height": 900,
+      "view": "categories",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "height": 900,
+      "view": "compute",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "height": 900,
+      "view": "servers",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "height": 900,
+      "view": "editor",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "height": 900,
+      "view": "dialog",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1366,
+      "height": 768,
+      "view": "root",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1366,
+      "height": 768,
+      "view": "categories",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1366,
+      "height": 768,
+      "view": "compute",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1366,
+      "height": 768,
+      "view": "servers",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1366,
+      "height": 768,
+      "view": "editor",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1366,
+      "height": 768,
+      "view": "dialog",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1024,
+      "height": 600,
+      "view": "root",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1024,
+      "height": 600,
+      "view": "categories",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1024,
+      "height": 600,
+      "view": "compute",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1024,
+      "height": 600,
+      "view": "servers",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1024,
+      "height": 600,
+      "view": "editor",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1024,
+      "height": 600,
+      "view": "dialog",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 768,
+      "height": 1024,
+      "view": "root",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 768,
+      "height": 1024,
+      "view": "categories",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 768,
+      "height": 1024,
+      "view": "compute",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 768,
+      "height": 1024,
+      "view": "servers",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 768,
+      "height": 1024,
+      "view": "editor",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 768,
+      "height": 1024,
+      "view": "dialog",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "height": 844,
+      "view": "root",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "height": 844,
+      "view": "categories",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "height": 844,
+      "view": "compute",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "height": 844,
+      "view": "servers",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "height": 844,
+      "view": "editor",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "height": 844,
+      "view": "dialog",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 375,
+      "height": 667,
+      "view": "root",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 375,
+      "height": 667,
+      "view": "categories",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 375,
+      "height": 667,
+      "view": "compute",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 375,
+      "height": 667,
+      "view": "servers",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 375,
+      "height": 667,
+      "view": "editor",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 375,
+      "height": 667,
+      "view": "dialog",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 568,
+      "view": "root",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 568,
+      "view": "categories",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 568,
+      "view": "compute",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 568,
+      "view": "servers",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 568,
+      "view": "editor",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 568,
+      "view": "dialog",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 844,
+      "height": 390,
+      "view": "root",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 844,
+      "height": 390,
+      "view": "categories",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 844,
+      "height": 390,
+      "view": "compute",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 844,
+      "height": 390,
+      "view": "servers",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 844,
+      "height": 390,
+      "view": "editor",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 844,
+      "height": 390,
+      "view": "dialog",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "height": 900,
+      "view": "root",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "height": 900,
+      "view": "categories",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "height": 900,
+      "view": "compute",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "height": 900,
+      "view": "servers",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "height": 900,
+      "view": "editor",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "height": 900,
+      "view": "dialog",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1366,
+      "height": 768,
+      "view": "root",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1366,
+      "height": 768,
+      "view": "categories",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1366,
+      "height": 768,
+      "view": "compute",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1366,
+      "height": 768,
+      "view": "servers",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1366,
+      "height": 768,
+      "view": "editor",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1366,
+      "height": 768,
+      "view": "dialog",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1024,
+      "height": 600,
+      "view": "root",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1024,
+      "height": 600,
+      "view": "categories",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1024,
+      "height": 600,
+      "view": "compute",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1024,
+      "height": 600,
+      "view": "servers",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1024,
+      "height": 600,
+      "view": "editor",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1024,
+      "height": 600,
+      "view": "dialog",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "height": 1024,
+      "view": "root",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "height": 1024,
+      "view": "categories",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "height": 1024,
+      "view": "compute",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "height": 1024,
+      "view": "servers",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "height": 1024,
+      "view": "editor",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "height": 1024,
+      "view": "dialog",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "height": 844,
+      "view": "root",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "height": 844,
+      "view": "categories",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "height": 844,
+      "view": "compute",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "height": 844,
+      "view": "servers",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "height": 844,
+      "view": "editor",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "height": 844,
+      "view": "dialog",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 375,
+      "height": 667,
+      "view": "root",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 375,
+      "height": 667,
+      "view": "categories",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 375,
+      "height": 667,
+      "view": "compute",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 375,
+      "height": 667,
+      "view": "servers",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 375,
+      "height": 667,
+      "view": "editor",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 375,
+      "height": 667,
+      "view": "dialog",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 568,
+      "view": "root",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 568,
+      "view": "categories",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 568,
+      "view": "compute",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 568,
+      "view": "servers",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 568,
+      "view": "editor",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 568,
+      "view": "dialog",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 844,
+      "height": 390,
+      "view": "root",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 844,
+      "height": 390,
+      "view": "categories",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 844,
+      "height": 390,
+      "view": "compute",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 844,
+      "height": 390,
+      "view": "servers",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 844,
+      "height": 390,
+      "view": "editor",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 844,
+      "height": 390,
+      "view": "dialog",
+      "no_overflow": true
+    }
+  ],
+  "checks": [
+    "all_domains_subcategories_and_types_reachable",
+    "cancel_preserves_edits_failed_save_stays_open_successful_save_exits",
+    "sidebar_route_guard_cancel_and_discard_preserve_saved_data"
+  ],
+  "browser_errors": []
+}

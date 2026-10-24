@@ -13,7 +13,7 @@ const CoverageContext=React.createContext(()=>{});
 function ResourceNode({id,data,selected}){const openCoverage=React.useContext(CoverageContext);return <div className={'resource-node '+(data.kind==='nota'?'resource-note ':data.kind==='etiqueta'?'resource-tag ':'')+(selected?'is-selected':'')}><Handle type="target" position={Position.Left}/><div className="resource-node-kind"><span aria-hidden="true"><Glyph name={icons[data.kind]||'topology'}/></span>{kinds[data.kind]||'Recurso'}</div><strong>{data.label}</strong>{(data.address||data.port)&&<span className="resource-address">{data.address}{data.address&&data.port?':':''}{data.port||''}</span>}{data.standard&&<div className="node-coverage" role="group" aria-label={'Cobertura de '+data.label}>{data.standard.definition.requirements.map((r,i)=>{const state=data.standard.coverage.find(c=>c.id===r.id)?.status||'unknown';return <button key={r.id} className={'nodrag nopan coverage-indicator coverage-'+state} title={r.label+' · '+operating.states[state]} aria-label={r.label+' · '+operating.states[state]} onClick={e=>{e.stopPropagation();openCoverage(id,i);}}><Glyph name={operating.functions.find(f=>f.id===r.id)?.icon||'select'}/><span className="coverage-dot" aria-hidden="true">{state==='configured'?'✓':state==='pending'?'!':state==='na'?'−':'·'}</span></button>;})}</div>}{!data.standard&&['servidor','virtual'].includes(data.kind)&&<span className="node-no-standard">Sin definición</span>}<Handle type="source" position={Position.Right}/></div>;}
 function GroupNode({data,selected}){return <div className="resource-group"><NodeResizer isVisible={selected} minWidth={260} minHeight={180} maxWidth={3000} maxHeight={3000}/><strong>{data.label}</strong></div>;}
 const nodeTypes={resource:ResourceNode,resourceGroup:GroupNode};
-let dirty=false,activeRoot=null,activeSaver=null;
+let dirty=false,activeRoot=null,activeSaver=null,leaveHandler=null;
 const API='/bienvenida/api/diagrams';
 const originalSubject=document.querySelector('meta[name=session-subject]')?.content;
 const loginUrl=()=>'/auth/login?next='+encodeURIComponent('/bienvenida/'+location.hash);
@@ -194,7 +194,9 @@ function Editor({item,standards,onBack,onCopy,pending,outerError,reauth,onResume
 const beforeUnload=e=>{if(dirty){e.preventDefault();e.returnValue='';}};
 window.addEventListener('beforeunload',beforeUnload);
 export function mount(element){unmount();activeRoot=createRoot(element);activeRoot.render(<ReactFlowProvider><Workspace/></ReactFlowProvider>);}
-export function mountStandards(element){unmount();activeRoot=createRoot(element);activeRoot.render(<StandardsWorkspace api={standardsApi} Glyph={Glyph} onDirty={v=>{dirty=v;}} SessionRecovery={SessionRecovery} resumeSession={resumeSession}/>);}
-export function unmount(){if(activeRoot){activeRoot.unmount();activeRoot=null;}activeSaver=null;dirty=false;}
+export function mountStandards(element){unmount();activeRoot=createRoot(element);activeRoot.render(<StandardsWorkspace api={standardsApi} Glyph={Glyph} onDirty={v=>{dirty=v;}} SessionRecovery={SessionRecovery} resumeSession={resumeSession} registerLeave={handler=>{leaveHandler=handler;}}/>);}
+export function unmount(){if(activeRoot){activeRoot.unmount();activeRoot=null;}activeSaver=null;leaveHandler=null;dirty=false;}
 
 export function hasUnsavedChanges(){return !!activeRoot&&(dirty||!!activeSaver?.isDirty());}
+
+export function requestLeave(){return leaveHandler?leaveHandler():Promise.resolve(!hasUnsavedChanges()||confirm('Todavía hay cambios sin guardar. ¿Salir del editor?'));}
