@@ -3,7 +3,7 @@ import os
 import secrets
 import time
 from datetime import timedelta
-from urllib.parse import urlencode
+from urllib.parse import urlencode, urlsplit
 from flask import Flask, abort, redirect, render_template, request, session
 from flask_session import Session
 from cachelib.file import FileSystemCache
@@ -40,12 +40,31 @@ def secure(response):
     response.headers['Content-Security-Policy']="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'self' https://login.koodaria.com/realms/koodaria/protocol/openid-connect/logout"
     return response
 
+def safe_return_to(value):
+    if not isinstance(value,str) or len(value)>600 or any(ord(c)<32 for c in value):
+        return '/bienvenida/'
+    try:
+        parsed=urlsplit(value)
+    except ValueError:
+        return '/bienvenida/'
+    if parsed.scheme or parsed.netloc or parsed.path!='/bienvenida/' or parsed.query:
+        return '/bienvenida/'
+    return value
+
+@app.get('/auth/session')
+def session_status():
+    if not session.get('identity',{}).get('sub') or session.get('expires_at',0)<=time.time():
+        return {'error':'Vuelve a iniciar sesión para continuar.','code':'session_expired'},401
+    return {'subject':session['identity']['sub'],'csrf':session['csrf']}
+
 @app.get('/auth/login')
 def login():
+    return_to=safe_return_to(request.args.get('next','/bienvenida/'))
     if session.get('identity') and session.get('expires_at',0)>time.time():
-        return redirect('/bienvenida/')
+        return redirect(return_to)
     session.clear()
     session.permanent=True
+    session['return_to']=return_to
     return oauth.keycloak.authorize_redirect(ORIGIN+'/auth/callback', nonce=secrets.token_urlsafe(32))
 
 @app.get('/auth/callback')
@@ -58,6 +77,7 @@ def callback():
     except Exception:
         session.clear()
         return render_template('error.html'),400
+    return_to=safe_return_to(session.get('return_to','/bienvenida/'))
     # Invalidate the pre-authentication session to prevent session fixation.
     session.clear()
     session['authenticated']=True
@@ -66,7 +86,7 @@ def callback():
     session['id_token']=token['id_token']
     session['expires_at']=time.time()+1800
     session['csrf']=secrets.token_urlsafe(32)
-    return redirect('/bienvenida/')
+    return redirect(return_to)
 
 @app.get('/bienvenida/')
 def welcome():
@@ -75,7 +95,7 @@ def welcome():
     identity=session['identity']
     name=identity.get('name') or identity.get('given_name') or 'Mi cuenta'
     initials=''.join(word[0] for word in name.split()[:2]).upper()
-    return render_template('welcome.html', name=name, first_name=identity.get('given_name') or name.split()[0], initials=initials, csrf=session['csrf'], account_url=ISSUER+'/account/')
+    return render_template('welcome.html', name=name, first_name=identity.get('given_name') or name.split()[0], initials=initials, csrf=session['csrf'], subject=identity['sub'], account_url=ISSUER+'/account/')
 
 @app.post('/auth/logout')
 def logout():

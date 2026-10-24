@@ -73,11 +73,11 @@ def connection(subject):
 @bp.before_request
 def authorize():
     if not session.get('identity',{}).get('sub') or session.get('expires_at',0)<=time.time():
-        return jsonify(error='La sesión venció. Vuelve a iniciar sesión.'),401
+        return jsonify(error='La sesión venció. Vuelve a iniciar sesión.',code='session_expired'),401
     if request.method not in ('GET','HEAD','OPTIONS'):
         expected=session.get('csrf','')
         if not expected or not secrets.compare_digest(request.headers.get('X-CSRF-Token',''),expected):
-            return jsonify(error='No se pudo verificar la solicitud. Recarga la página.'),403
+            return jsonify(error='No se pudo verificar la solicitud. Recupera tu sesión para continuar.',code='csrf_invalid'),403
         if request.mimetype!='application/json': return jsonify(error='Se requiere JSON.'),415
 
 @bp.errorhandler(Exception)

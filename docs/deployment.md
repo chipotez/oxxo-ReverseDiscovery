@@ -139,3 +139,19 @@ Unidad previa para rollback:
 Restaurar solo esa unidad y reiniciar `koodaria-workspace.service` revierte la UI;
 no borrar el volumen PostgreSQL ni restaurar un dump anterior sobre mapas nuevos.
 El gateway y Keycloak no se reconstruyeron ni reiniciaron en este cambio.
+
+## Recuperación de sesión en herramientas
+
+La sesión local conserva su límite de 30 minutos; una pestaña abierta no equivale
+por sí sola a una sesión válida. Si la API responde 401 y no hay cambios pendientes,
+la herramienta inicia OIDC con un destino local validado y vuelve a Mapeo de recursos.
+Si hay cambios pendientes, mantiene el editor abierto y ofrece acceso en otra pestaña.
+Al continuar, `/auth/session` comprueba vigencia, renueva el CSRF del cliente y exige
+la misma identidad que abrió el editor antes de reintentar el guardado. Un 403 por
+rotación de CSRF permite un único reintento con una sesión verificada. No se extiende
+la sesión ni se modifica MFA.
+
+Imagen: `localhost/koodaria-workspace:session-recovery-20261023`.
+Rollback de unidad en `/home/mip/backups/koodaria-20261023/session-recovery/`.
+Pruebas: 17 pruebas de servidor contra base desechable, más
+`scripts/qa_session_recovery.py` (respuestas sintéticas en el navegador).

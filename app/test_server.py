@@ -55,4 +55,33 @@ class WelcomeTests(unittest.TestCase):
     def test_untrusted_host_rejected(self):
         self.assertEqual(self.client.get('/bienvenida/',headers={'Host':'attacker.invalid'}).status_code,400)
 
+    def test_session_status_requires_valid_session(self):
+        self.assertEqual(self.client.get('/auth/session').status_code,401)
+        self.authenticated();r=self.client.get('/auth/session')
+        self.assertEqual(r.json,{'subject':'qa-test','csrf':'qa-csrf'})
+        self.assertEqual(r.headers['Cache-Control'],'no-store')
+        self.assertNotIn(b'PRIVATE-ID-TOKEN',r.data)
+        with self.client.session_transaction() as s:s['expires_at']=0
+        self.assertEqual(self.client.get('/auth/session').status_code,401)
+
+    def test_valid_session_login_preserves_safe_destination(self):
+        self.authenticated()
+        response=self.client.get('/auth/login',query_string={'next':'/bienvenida/#/herramientas/mapeo-recursos'})
+        self.assertEqual(response.location,'/bienvenida/#/herramientas/mapeo-recursos')
+        for destination in ['https://attacker.invalid','//attacker.invalid','//[broken','/auth/logout','/bienvenida/?external=yes','/bienvenida/\\evil']:
+            self.assertEqual(self.client.get('/auth/login',query_string={'next':destination}).location,'/bienvenida/')
+
+    def test_oidc_callback_restores_destination_and_refreshes_csrf(self):
+        from flask import redirect
+        destination='/bienvenida/#/herramientas/mapeo-recursos'
+        with patch.object(oauth.keycloak,'authorize_redirect',return_value=redirect('/qa-provider')):
+            self.client.get('/auth/login',query_string={'next':destination})
+        token={'userinfo':{'sub':'qa-test','name':'QA'},'id_token':'QA-ID-TOKEN'}
+        with patch.object(oauth.keycloak,'authorize_access_token',return_value=token):
+            self.assertEqual(self.client.get('/auth/callback').location,destination)
+        self.assertEqual(self.client.get('/auth/session').status_code,200)
+        self.assertEqual(self.client.get('/bienvenida/').status_code,200)
+        with self.client.session_transaction() as s:self.assertNotIn('return_to',s)
+
 if __name__=='__main__':unittest.main()
+
