@@ -4,7 +4,7 @@ from playwright.sync_api import sync_playwright
 base='http://localhost:18179';report={'states':[],'checks':[],'accessibility':[],'synthetic_identity_only':True}
 with sync_playwright() as p:
  b=p.chromium.launch(executable_path='/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',headless=True);ctx=b.new_context(viewport={'width':1440,'height':900});page=ctx.new_page();errors=[];page.on('pageerror',lambda e:errors.append(str(e)));page.goto(base+'/__qa/session');page.goto(base+'/bienvenida/#/estandares')
- def entry(label):return page.locator('button.standard-entry').filter(has=page.get_by_role('heading',name=label,exact=True))
+ def entry(label):return page.locator('.standards-tree-desktop').get_by_role('button',name=label,exact=True) if label=='Infraestructura' else page.locator('button.standard-entry').filter(has=page.get_by_role('heading',name=label,exact=True))
  def root():
   page.evaluate("location.hash='/catalogo'");page.get_by_role('heading',name='¿Qué quieres desarrollar?').wait_for()
   with page.expect_response(lambda r:r.url.endswith('/bienvenida/api/standards') and r.request.method=='GET'):page.evaluate("location.hash='/estandares'")
@@ -29,7 +29,7 @@ with sync_playwright() as p:
    if view=='server-overview':audit(view,theme);page.screenshot(path=f'.artifacts/server-model-{theme}.png')
  report['checks'].append('four_server_blocks_fields_controls_and_criteria_reachable')
  # Create through UI, exercise editable model policy and conditional control
- page.set_viewport_size({'width':1440,'height':900});root();page.get_by_role('button',name='Definiciones',exact=True).click();page.get_by_role('button',name='+ Nueva definición',exact=True).click();d=page.get_by_role('dialog');name='QA modelo servidor '+str(time.time_ns());d.get_by_label('Nombre',exact=True).fill(name);d.get_by_role('button',name='Crear borrador').click();page.get_by_role('button',name='Estructura',exact=True).click()
+ page.set_viewport_size({'width':1440,'height':900});root();page.locator('.resource-toolbar').get_by_role('button',name='Definiciones',exact=True).click();page.get_by_role('button',name='+ Nueva definición',exact=True).click();d=page.get_by_role('dialog');name='QA modelo servidor '+str(time.time_ns());d.get_by_label('Nombre',exact=True).fill(name);d.get_by_role('button',name='Crear borrador').click();page.get_by_role('button',name='Estructura',exact=True).click()
  for block in ['identification','evidence','relationships']:
   page.get_by_role('button',name='Campo',exact=True).click();page.get_by_label('Bloque del servidor',exact=True).select_option(block);page.get_by_role('button',name='Regla',exact=True).click();page.get_by_label('Regla de documentación',exact=True).fill('QA regla '+block)
  page.get_by_role('button',name='Guardar borrador',exact=True).click();page.get_by_text('Borrador guardado.',exact=True).wait_for()

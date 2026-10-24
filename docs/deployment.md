@@ -465,3 +465,22 @@ ni se cambiaron datos, permisos o la persistencia temporal de Agregar campo.
 auditorías WCAG AA. Evidencia `docs/evidence/standards-split-report.json`.
 Assets públicos coinciden con el contenedor. Unidad anterior en
 `/home/mip/backups/koodaria-20261024/standards-split/`.
+
+## Árbol de navegación de estándares — 24 de octubre de 2026
+
+Imagen `localhost/koodaria-workspace:standards-tree-20261024`
+(`986a0a843cafa83d42d757dc8dc796d7095f6daccbceaaa39af72e07771cedf1`).
+El panel izquierdo conserva Infraestructura → categoría → subcategoría y,
+en Servidores, sus cuatro bloques, Definiciones y Criterios. Los ancestros se
+expanden al navegar; las flechas contraen sin cambiar el contenido y cada
+etiqueta permite saltar directamente a ese nivel. El panel se mantiene en las
+tablas y al editar; los cambios sin guardar mantienen el diálogo de protección.
+Las opciones del panel derecho son compactas y la paginación usa su tamaño real.
+En móvil, un botón en la cabecera abre la misma navegación en un diálogo, con
+cierre por Escape, retorno del foco y acceso a Gobierno.
+
+Verificados 80 estados del árbol, 72 de tablas y 80 del editor; doce auditorías
+WCAG AA en total. Fixtures locales sintéticas, sin modificar datos de usuarios.
+Evidencia `docs/evidence/standards-tree-report.json`. Sin cambios de base de
+datos, permisos, catálogo ni persistencia de campos temporales. Unidad anterior
+en `/home/mip/backups/koodaria-20261024/standards-tree/`.

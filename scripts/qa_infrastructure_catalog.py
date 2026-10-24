@@ -6,7 +6,7 @@ with sync_playwright() as p:
  b=p.chromium.launch(executable_path='/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',headless=True);ctx=b.new_context(viewport={'width':1440,'height':900});page=ctx.new_page();errors=[];page.on('pageerror',lambda e:errors.append(str(e)));page.on('dialog',lambda d:(_ for _ in ()).throw(AssertionError('Unexpected native dialog '+d.message)))
  page.goto(base+'/__qa/session');page.goto(base+'/bienvenida/#/estandares');page.get_by_role('heading',name='Estándares',level=1).wait_for()
  result=page.evaluate('''async()=>{let r=await fetch('/bienvenida/api/standards',{method:'POST',headers:{'Content-Type':'application/json','X-CSRF-Token':document.querySelector('meta[name=csrf-token]').content},body:JSON.stringify({name:'QA infraestructura '+Date.now(),family:'linux'})});if(!r.ok)throw Error(await r.text());return r.json()}''');name=result['name']
- def entry(label):return page.locator('button.standard-entry').filter(has=page.get_by_role('heading',name=label,exact=True))
+ def entry(label):return page.locator('.standards-tree-desktop').get_by_role('button',name=label,exact=True) if label=='Infraestructura' else page.locator('button.standard-entry').filter(has=page.get_by_role('heading',name=label,exact=True))
  def root():
   page.evaluate("location.hash='/catalogo'");page.get_by_role('heading',name='¿Qué quieres desarrollar?').wait_for();
   with page.expect_response(lambda r:r.url.endswith('/bienvenida/api/standards') and r.request.method=='GET'):page.evaluate("location.hash='/estandares'")
@@ -18,7 +18,7 @@ with sync_playwright() as p:
   if view=='categories':return
   entry('Cómputo').click()
   if view=='compute':return
-  entry('Servidores').click();page.get_by_role('button',name='Definiciones',exact=True).click()
+  entry('Servidores').click();page.locator('.resource-toolbar').get_by_role('button',name='Definiciones',exact=True).click()
   if view=='servers':return
   # find synthetic definition with pagination
   for i in range(20):
