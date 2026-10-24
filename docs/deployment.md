@@ -601,3 +601,34 @@ con la imagen. Evidencia `docs/evidence/server-inspector-report.json` y script
 `scripts/qa_server_inspector.py`. Sin migración SQL ni cambios de permisos.
 Backup previo y unidad anterior en
 `/home/mip/backups/koodaria-20261024/server-inspector/`.
+
+## Inspector unificado y campos canónicos — 24 de octubre de 2026
+
+Publicada `localhost/koodaria-workspace:unified-inspector-20261024`
+(`097917a4533dcaac2d619489dcda5ffff8301c5d83f5216f35289fa7595d4b4a`).
+Los cuatro bloques usan el mismo panel compacto, junto al nodo con separación
+aproximada de 24px. Altura según contenido y viewport, tipografía más compacta,
+sin descripciones bajo los campos. Identificación muestra ocho campos juntos
+en escritorio; las colecciones largas se paginan cuando es necesario. Tabla
+de Estándares más compacta y paginación basada en filas renderizadas.
+
+El modelo canónico v2 separa Ambiente y Criticidad. Los valores combinados
+anteriores permanecen como registro de consulta, sin inferir ni sobrescribir
+su significado. Las reglas antiguas de contexto se adaptan al guardar un
+borrador; publicaciones históricas no se reescriben. Nuevos guardados asignan
+el esquema estructural actual desde el servidor. No hubo migración SQL.
+
+Propiedades de conexión incorpora Recta, Curva, Esquinas redondeadas y Ángulos
+rectos. Su tipo se valida y persiste; clientes antiguos que omiten el atributo
+lo conservan. Se preserva el anclaje lateral por defecto junto a los puntos
+norte/sur. Marca visual de React Flow oculta mediante su opción documentada,
+sin retirar avisos de licencia del código distribuido.
+
+46 pruebas de servidor, paridad de campos entre Estándares y paneles,
+64 estados responsive de los cuatro bloques y ocho auditorías AA enfocadas.
+Captura/reapertura de todos los bloques y selección/guardado de una curva en
+navegador. Assets públicos verificados. Evidencia:
+`docs/evidence/unified-inspector-report.json`. Backup previo y unidad anterior:
+`/home/mip/backups/koodaria-20261024/unified-inspector/`.
+Para revertir tras usar campos v2 o tipos de trazo, mantener un backend que
+reconozca esos atributos; no restaurar una base antigua sobre cambios nuevos.

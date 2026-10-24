@@ -78,6 +78,9 @@ def validate(value):
             if handle is not None:
                 if handle not in ['north','south'] or ids[node_id]['data']['kind'] not in ['servidor','virtual']:raise InvalidDiagram()
                 item[field]=handle
+        if 'type' in e:
+            if e['type'] not in ['straight','default','smoothstep','step']:raise InvalidDiagram()
+            item['type']=e['type']
         connections.append(item)
     clean.sort(key=lambda n:n['type']!='resourceGroup')
     return dict(name=name,nodes=clean,edges=connections)
@@ -265,6 +268,7 @@ def save(diagram_id):
         old_edges={e['id']:e for e in original['document']['edges']}
         for edge in value['edges']:
             old=old_edges.get(edge['id'],{})
+            if 'type' not in edge and 'type' in old:edge['type']=old['type']
             for field,endpoint in [('sourceHandle','source'),('targetHandle','target')]:
                 incoming=next(e for e in body['document']['edges'] if e['id']==edge['id'])
                 if field not in incoming and old.get(endpoint)==edge[endpoint] and field in old and next(n for n in value['nodes'] if n['id']==edge[endpoint])['data']['kind'] in ['servidor','virtual']:edge[field]=old[field]

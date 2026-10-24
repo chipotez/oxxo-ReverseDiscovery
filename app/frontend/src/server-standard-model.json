@@ -32,9 +32,14 @@
           "description": "Ubicación física o lógica del servidor."
         },
         {
-          "id": "context",
-          "label": "Entorno y criticidad",
-          "description": "Ambiente y criticidad del servicio."
+          "id": "environment",
+          "label": "Ambiente",
+          "description": "Producción, pruebas, desarrollo u otro ambiente."
+        },
+        {
+          "id": "criticality",
+          "label": "Criticidad",
+          "description": "Impacto y nivel de criticidad para el negocio."
         },
         {
           "id": "owner",
@@ -125,5 +130,6 @@
     "La definición esperada y el estado observado se documentan por separado.",
     "Los agentes y controles son detalle del recurso; no necesitan ser nodos del mapa ejecutivo.",
     "Toda relación debe indicar su fuente y grado de confianza."
-  ]
+  ],
+  "version": 2
 }

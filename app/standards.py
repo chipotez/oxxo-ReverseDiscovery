@@ -40,7 +40,13 @@ def definition(value):
         result['server_model']={}
         for section in SERVER_MODEL['sections']:
             if section['id']=='controls':continue
-            entries=model[section['id']];allowed={f['id'] for f in section['fields']}
+            entries=model[section['id']]
+            if section['id']=='identification' and isinstance(entries,list):
+                if not all(isinstance(e,dict) for e in entries):raise InvalidDiagram()
+                legacy=next((e for e in entries if isinstance(e,dict) and e.get('id')=='context'),None)
+                if legacy and not any(e.get('id') in ['environment','criticality'] for e in entries if isinstance(e,dict)):
+                    entries=[e for e in entries if e.get('id')!='context']+[dict(legacy,id=i) for i in ['environment','criticality']]
+            allowed={f['id'] for f in section['fields']}
             if not isinstance(entries,list) or len(entries)!=len(allowed):raise InvalidDiagram()
             seen=set();clean=[]
             for entry in entries:
@@ -140,6 +146,7 @@ def instance(value):
     if not isinstance(value,dict):raise InvalidDiagram()
     allowed={s['id']:{f['id'] for f in s['fields']} for s in SERVER_MODEL['sections']}
     allowed['controls']=set(FUNCTIONS)
+    allowed['identification'].add('context') # Preserve pre-v2 values without guessing their meaning.
     if set(value)-set(allowed):raise InvalidDiagram()
     result={}
     for section,fields in value.items():
@@ -160,7 +167,7 @@ def bind(conn,doc,original=None):
         data=node['data'];value=data.get('standard')
         if data['kind'] in ['servidor','virtual']:
             prior_schema=previous.get(node['id'],{}).get('data',{}).get('resource_schema')
-            data['resource_schema']=prior_schema or dict(version=1,sections=SERVER_MODEL['sections'])
+            data['resource_schema']=dict(version=SERVER_MODEL.get('version',1),sections=SERVER_MODEL['sections'])
 
         if not value and data['kind'] in ['servidor','virtual']:
             existing=previous.get(node['id'],{}).get('data',{}).get('standard')

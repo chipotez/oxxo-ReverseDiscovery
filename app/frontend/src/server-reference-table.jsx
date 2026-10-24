@@ -1,15 +1,16 @@
 import React,{useEffect,useRef,useState} from 'react';
 import model from './server-standard-model.json';
 import catalog from './operating-standards.json';
-const formats={ci:'Identificador',hostname:'Texto',manufacturer:'Texto',serial:'Texto',location:'Referencia',context:'Selección',owner:'Referencia',product:'Texto',implementation:'Selección',state:'Selección',evidence:'Referencia',compliance:'Selección',hosts:'Referencia',connected:'Referencia',storage:'Referencia',depends:'Referencia',managed:'Referencia'};
+const formats={ci:'Identificador',hostname:'Texto',manufacturer:'Texto',serial:'Texto',location:'Referencia',environment:'Selección',criticality:'Selección',owner:'Referencia',product:'Texto',implementation:'Selección',state:'Selección',evidence:'Referencia',compliance:'Selección',hosts:'Referencia',connected:'Referencia',storage:'Referencia',depends:'Referencia',managed:'Referencia'};
 const formatChoices=['Texto','Identificador','Número','Fecha','Selección','Referencia','Sí / No'];
 export default function ServerReferenceTable({section,Glyph,definition}){
  const spec=definition||model.sections.find(s=>s.id===section);
  const original=definition?spec.fields:section==='controls'?catalog.functions:spec.fields;
  const [extra,setExtra]=useState([]),[page,setPage]=useState(0),[size,setSize]=useState(5),[adding,setAdding]=useState(false),[name,setName]=useState(''),[description,setDescription]=useState(''),[format,setFormat]=useState('Texto'),[message,setMessage]=useState(''),[error,setError]=useState('');
+ const rowMeasure=useRef({width:0,height:0});
  const area=useRef(null),dialog=useRef(null),trigger=useRef(null);
  const rows=[...original.map(f=>({...f,format:section==='controls'?'Control':formats[f.id]||'Texto'})),...extra];
- useEffect(()=>{if(!area.current)return;const observer=new ResizeObserver(([entry])=>{const narrow=entry.contentRect.width<700;const rowHeight=narrow?190:110;setSize(Math.max(1,Math.floor((entry.contentRect.height-(narrow?0:40))/rowHeight)));setPage(0);});observer.observe(area.current);return()=>observer.disconnect();},[]);
+ useEffect(()=>{if(!area.current)return;const host=area.current;let frame;const measure=()=>{cancelAnimationFrame(frame);frame=requestAnimationFrame(()=>{const table=host.querySelector('table'),items=[...table.querySelectorAll('tbody tr')];if(!items.length)return;const head=table.querySelector('thead').getBoundingClientRect().height;const measured=Math.max(...items.map(e=>e.getBoundingClientRect().height));if(Math.abs(rowMeasure.current.width-host.clientWidth)>1)rowMeasure.current={width:host.clientWidth,height:measured};else rowMeasure.current.height=Math.max(rowMeasure.current.height,measured);const row=rowMeasure.current.height;setSize(Math.max(1,Math.floor((host.clientHeight-head-2)/row)));});};const observer=new ResizeObserver(measure);observer.observe(host);measure();return()=>{observer.disconnect();cancelAnimationFrame(frame);};},[size,page,extra.length]);
  useEffect(()=>{if(adding)dialog.current?.showModal();},[adding]);
  const close=()=>{dialog.current?.close();setAdding(false);requestAnimationFrame(()=>trigger.current?.focus());};
  const add=e=>{e.preventDefault();const label=name.trim(),help=description.trim();if(!label||!help)return;if(rows.some(f=>f.label.toLocaleLowerCase('es')===label.toLocaleLowerCase('es'))){setError('Ya existe un campo con ese nombre.');return;}setExtra(v=>[...v,{id:'preview-'+Date.now(),label,description:help,format,preview:true}]);setPage(Math.floor(rows.length/size));setMessage('Campo añadido a la vista previa. No se ha guardado.');close();};

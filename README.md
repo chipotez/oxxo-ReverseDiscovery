@@ -88,15 +88,28 @@ y los estados declarados de los controles se guardan con el diagrama en
 PostgreSQL (`server_instance`, dentro del documento JSONB). No modifican la
 política ni crean una nueva definición.
 
-El servidor asigna `resource_schema` desde el modelo compartido y conserva su
-versión en cada nodo; ignora esquemas enviados por el navegador. Si hay una
+El servidor asigna `resource_schema` desde el modelo compartido y registra la
+versión estructural en cada nodo; ignora esquemas enviados por el navegador. Si hay una
 única publicación compatible se vincula al añadir el servidor. Sin ella se
 utiliza la estructura base de Servidores, sin inventar una política publicada.
 La selección de una publicación sigue disponible en Propiedades. Los clientes
 anteriores que omiten los datos de instancia no los borran al guardar.
 
-La identificación abre un panel flotante a la derecha. El encuadre reserva
+Los cuatro bloques abren el mismo panel flotante compacto junto al nodo. El encuadre reserva
 espacio para el nodo sin mover sus coordenadas; al cerrar se restaura la vista.
 Los campos se paginan según el tamaño del panel. Hay guardado automático,
 acción Guardar y marca decorativa «sync» solo tras confirmar el guardado.
 Los conectores norte/sur conservan sus anclajes al guardar y reabrir el mapa.
+
+Ambiente y Criticidad son campos independientes del modelo canónico (v2). El
+valor combinado anterior se conserva como registro de consulta. Las reglas de
+ese campo en borradores anteriores se adaptan a los dos campos nuevos, sin
+modificar publicaciones históricas. La tabla de Estándares y el inspector usan
+las mismas etiquetas y conjuntos de campos. Los campos añadidos en la vista
+previa de Estándares siguen siendo temporales.
+
+Al seleccionar una conexión, Propiedades permite elegir Recta, Curva, Esquinas
+redondeadas o Ángulos rectos. El trazo se conserva en el documento online. La
+marca de la esquina del lienzo se oculta con la opción documentada
+[`proOptions.hideAttribution`](https://reactflow.dev/api-reference/types/pro-options);
+los avisos MIT de la dependencia permanecen en el código distribuido.
