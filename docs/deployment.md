@@ -632,3 +632,22 @@ navegador. Assets públicos verificados. Evidencia:
 `/home/mip/backups/koodaria-20261024/unified-inspector/`.
 Para revertir tras usar campos v2 o tipos de trazo, mantener un backend que
 reconozca esos atributos; no restaurar una base antigua sobre cambios nuevos.
+
+## Guardar solo campos del estándar — 24 de octubre de 2026
+
+Publicada `localhost/koodaria-workspace:canonical-fields-only-20261024`
+(`5b52e2edf8448a6946a57f004af8aec066c3387072163453e7474afbed049c2f`).
+Se retira el aviso de registro anterior. `context` deja de formar parte de los
+valores activos de identificación; las peticiones de pestañas antiguas lo
+descartan y el backend sigue rechazando otros identificadores no definidos.
+Los valores heredados por clientes que omiten la instancia vuelven a validarse.
+Ambiente y Criticidad se mantienen independientes.
+
+Tras backup, con la aplicación detenida, se ejecutó
+`infra/sql/20261024_remove_legacy_context.sql`. Elimina solo ese atributo,
+conserva los demás valores e incrementa revisiones para proteger pestañas
+abiertas. Cero diagramas activos conservan el campo retirado. Prueba SQL con
+fixture sintética y rollback, 46 pruebas de servidor, bundle público verificado
+sin el aviso. Evidencia `docs/evidence/canonical-fields-only-report.json`.
+Unidad anterior en `/home/mip/backups/koodaria-20261024/canonical-fields-only/`.
+Los datos anteriores permanecen en el backup, no en el formulario/documento activo.

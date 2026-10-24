@@ -1,0 +1,7 @@
+{
+  "backend_tests": 46,
+  "cleanup_synthetic_transaction_verified": true,
+  "production_legacy_context_remaining": 0,
+  "public_bundle_verified": true,
+  "legacy_notice_absent": true
+}

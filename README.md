@@ -102,7 +102,8 @@ acción Guardar y marca decorativa «sync» solo tras confirmar el guardado.
 Los conectores norte/sur conservan sus anclajes al guardar y reabrir el mapa.
 
 Ambiente y Criticidad son campos independientes del modelo canónico (v2). El
-valor combinado anterior se conserva como registro de consulta. Las reglas de
+campo combinado anterior se elimina del documento activo; queda únicamente
+en el backup previo al ajuste. Las reglas de
 ese campo en borradores anteriores se adaptan a los dos campos nuevos, sin
 modificar publicaciones históricas. La tabla de Estándares y el inspector usan
 las mismas etiquetas y conjuntos de campos. Los campos añadidos en la vista

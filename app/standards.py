@@ -146,10 +146,10 @@ def instance(value):
     if not isinstance(value,dict):raise InvalidDiagram()
     allowed={s['id']:{f['id'] for f in s['fields']} for s in SERVER_MODEL['sections']}
     allowed['controls']=set(FUNCTIONS)
-    allowed['identification'].add('context') # Preserve pre-v2 values without guessing their meaning.
     if set(value)-set(allowed):raise InvalidDiagram()
     result={}
     for section,fields in value.items():
+        if section=='identification' and isinstance(fields,dict):fields={k:v for k,v in fields.items() if k!='context'}
         if not isinstance(fields,dict) or set(fields)-allowed[section]:raise InvalidDiagram()
         result[section]={}
         for fid,entry in fields.items():
@@ -166,7 +166,7 @@ def bind(conn,doc,original=None):
     for node in doc['nodes']:
         data=node['data'];value=data.get('standard')
         if data['kind'] in ['servidor','virtual']:
-            prior_schema=previous.get(node['id'],{}).get('data',{}).get('resource_schema')
+            if 'server_instance' in data:data['server_instance']=instance(data['server_instance'])
             data['resource_schema']=dict(version=SERVER_MODEL.get('version',1),sections=SERVER_MODEL['sections'])
 
         if not value and data['kind'] in ['servidor','virtual']:

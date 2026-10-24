@@ -73,12 +73,12 @@ class StandardsTests(unittest.TestCase):
         doc['nodes'][0]['data']['server_instance']={'identification':{'hostname':'x'*501}}
         self.assertEqual(self.map('put','/'+created['id'],{'revision':again.json['revision'],'document':doc}).status_code,400)
 
-    def test_legacy_context_rules_and_values_survive_split(self):
+    def test_legacy_rules_adapt_but_undefined_instance_field_is_dropped(self):
         row=self.create();doc=row['draft'];policy=self.server_model();identity=policy['identification'];policy['identification']=[f for f in identity if f['id'] not in ['environment','criticality']]+[dict(id='context',level='required',rule='QA old rule')];doc['server_model']=policy
         saved=self.send('put','/'+row['id'],{'revision':row['revision'],'definition':doc});self.assertEqual(saved.status_code,200,saved.data)
         by_id={f['id']:f for f in saved.json['draft']['server_model']['identification']};self.assertEqual(by_id['environment']['rule'],'QA old rule');self.assertEqual(by_id['criticality']['rule'],'QA old rule')
         from standards import instance
-        values=instance({'identification':{'context':'QA previous combined value','environment':'Producción','criticality':'Alta'}});self.assertEqual(values['identification']['context'],'QA previous combined value')
+        values=instance({'identification':{'context':'QA previous combined value','environment':'Producción','criticality':'Alta'}});self.assertNotIn('context',values['identification']);self.assertEqual(values['identification']['environment'],'Producción');self.assertEqual(values['identification']['criticality'],'Alta')
 
     def server_model(self):
         from standards import SERVER_MODEL
