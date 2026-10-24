@@ -484,3 +484,13 @@ WCAG AA en total. Fixtures locales sintéticas, sin modificar datos de usuarios.
 Evidencia `docs/evidence/standards-tree-report.json`. Sin cambios de base de
 datos, permisos, catálogo ni persistencia de campos temporales. Unidad anterior
 en `/home/mip/backups/koodaria-20261024/standards-tree/`.
+
+## Retirar accesos de Definiciones y Criterios — 24 de octubre de 2026
+
+Publicada `localhost/koodaria-workspace:standards-four-blocks-20261024`
+(`ad7f9c262823f8abfd10fd2cc0f0cdcc2899c3cce39825b9634e1a101f99cfb2`).
+Se quitaron los dos accesos del árbol y de la cabecera. Permanecen los cuatro
+bloques de Servidores. Sin borrar estándares, versiones ni datos. Compilación
+y navegación verificadas en escritorio y móvil; bundle público coincide con
+el contenedor. Unidad anterior en
+`/home/mip/backups/koodaria-20261024/standards-four-blocks/`.
