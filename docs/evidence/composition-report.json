@@ -1,0 +1,142 @@
+{
+  "states": [
+    {
+      "view": "relations",
+      "theme": "light",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "view": "relations",
+      "theme": "light",
+      "width": 1024,
+      "height": 600
+    },
+    {
+      "view": "relations",
+      "theme": "light",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "view": "relations",
+      "theme": "light",
+      "width": 320,
+      "height": 568
+    },
+    {
+      "view": "relations",
+      "theme": "light",
+      "width": 844,
+      "height": 390
+    },
+    {
+      "view": "relations",
+      "theme": "dark",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "view": "relations",
+      "theme": "dark",
+      "width": 1024,
+      "height": 600
+    },
+    {
+      "view": "relations",
+      "theme": "dark",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "view": "relations",
+      "theme": "dark",
+      "width": 320,
+      "height": 568
+    },
+    {
+      "view": "relations",
+      "theme": "dark",
+      "width": 844,
+      "height": 390
+    }
+  ],
+  "synthetic_identity_only": true,
+  "browser_errors": [],
+  "documentation_thresholds": true,
+  "hosting_roundtrip": true,
+  "custom_component_roundtrip": true,
+  "cycle_prevented": true,
+  "multiple_dependencies": true,
+  "accessibility": [
+    {
+      "view": "empty",
+      "theme": "light",
+      "violations": []
+    },
+    {
+      "view": "empty",
+      "theme": "dark",
+      "violations": []
+    },
+    {
+      "view": "missing",
+      "theme": "light",
+      "violations": []
+    },
+    {
+      "view": "missing",
+      "theme": "dark",
+      "violations": []
+    },
+    {
+      "view": "progress",
+      "theme": "light",
+      "violations": []
+    },
+    {
+      "view": "progress",
+      "theme": "dark",
+      "violations": []
+    },
+    {
+      "view": "complete",
+      "theme": "light",
+      "violations": []
+    },
+    {
+      "view": "complete",
+      "theme": "dark",
+      "violations": []
+    },
+    {
+      "view": "architecture",
+      "theme": "light",
+      "violations": []
+    },
+    {
+      "view": "architecture",
+      "theme": "dark",
+      "violations": []
+    },
+    {
+      "view": "generic-controls",
+      "theme": "light",
+      "violations": []
+    },
+    {
+      "view": "generic-controls",
+      "theme": "dark",
+      "violations": []
+    }
+  ],
+  "deployment": {
+    "image": "a0884755932b5928719bd6e0ca75b6fc7a1f2c96b703bf12f4d7ec8ba95c804c",
+    "public_assets": {
+      "resource-flow-v1.js": "92e1bb20eb4f31d81b8ff2ea3a326ced55e7964a50c73b9702ce64dd6f417066",
+      "resource-flow-v1.css": "435611ef10af99f2adec824338066d5f5de8299f945e437c216b2dc713d1c9a0"
+    },
+    "backend_tests_passed": 48,
+    "semantic_tests_passed": true
+  }
+}

@@ -11,6 +11,7 @@ WORKDIR /app
 COPY requirements.lock .
 RUN pip install --no-cache-dir -r requirements.lock && useradd --uid 1000 --create-home koodaria && mkdir /app/sessions && chown 1000:1000 /app/sessions
 COPY --chown=1000:1000 server.py diagrams.py diagram_pdf.py diagram_catalog.py standards.py access.py invitations.py test_server.py test_diagrams.py test_sharing.py test_standards.py ./
+COPY --chown=1000:1000 frontend/src/generic-standard-model.json ./generic-standard-model.json
 COPY --chown=1000:1000 frontend/src/component-catalog.json ./component-catalog.json
 COPY --chown=1000:1000 frontend/src/diagram-catalog.json ./diagram-catalog.json
 COPY --chown=1000:1000 frontend/src/server-standard-model.json ./server-standard-model.json

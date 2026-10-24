@@ -651,3 +651,30 @@ fixture sintética y rollback, 46 pruebas de servidor, bundle público verificad
 sin el aviso. Evidencia `docs/evidence/canonical-fields-only-report.json`.
 Unidad anterior en `/home/mip/backups/koodaria-20261024/canonical-fields-only/`.
 Los datos anteriores permanecen en el backup, no en el formulario/documento activo.
+
+## Composición lógica y documentación — 24 de octubre de 2026
+
+Publicada `localhost/koodaria-workspace:composition-20261024`
+(`a0884755932b5928719bd6e0ca75b6fc7a1f2c96b703bf12f4d7ec8ba95c804c`).
+Los cuatro indicadores calculan documentación completa, parcial o pendiente;
+no representan salud ni cumplimiento verificado. El guardado permite borradores.
+Componentes alojados incorpora una lista desplegable y recursos independientes
+con sus propios estándares. Relaciones de arquitectura vincula nodos existentes:
+un alojamiento principal por componente, sin ciclos de alojamiento, y múltiples
+dependencias. Las relaciones inversas se derivan sin duplicar registros.
+
+El catálogo incorpora Servicio personalizado. El esquema genérico es compartido
+por Estándares, formularios y validación del servidor; sus valores se almacenan
+con el diagrama. No hubo migración SQL ni cambios de permisos o autenticación.
+Se reinició únicamente la aplicación; unidad previa y backup en
+`/home/mip/backups/koodaria-20261024/composition/`.
+
+Validación: 48 pruebas de servidor, pruebas semánticas de indicadores,
+10 estados responsive y 12 auditorías de accesibilidad enfocadas sin incidencias.
+JS y CSS públicos coinciden con el contenedor activo. Evidencia:
+`docs/evidence/composition-report.json`. Alcance y siguientes etapas:
+`docs/roadmap/composition.md`. La composición es lógica; las cajas recursivas
+anidadas visualmente y el diseñador de estándares personalizados quedan pendientes.
+Para revertir después de editar nuevos componentes, conservar un backend que
+entienda `custom_service`, `component_instance` y relaciones tipadas; no restaurar
+un backup de datos sobre cambios posteriores.

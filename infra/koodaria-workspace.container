@@ -5,7 +5,7 @@ Wants=network-online.target
 Requires=koodaria-diagrams-db.service
 
 [Container]
-Image=localhost/koodaria-workspace:canonical-fields-only-20261024
+Image=localhost/koodaria-workspace:composition-20261024
 ContainerName=koodaria-workspace
 Network=themike-auth.network
 Network=koodaria-data.network

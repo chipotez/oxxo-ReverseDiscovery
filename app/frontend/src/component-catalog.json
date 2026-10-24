@@ -349,6 +349,13 @@
             "broker",
             "eventos"
           ]
+        },
+        {
+          "id": "custom",
+          "label": "Componentes personalizados",
+          "kinds": [
+            "custom_service"
+          ]
         }
       ],
       "capabilities": [
@@ -1877,6 +1884,15 @@
       "category": "business",
       "subcategory": "business-services",
       "icon": "endpoint",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "custom_service",
+      "label": "Servicio personalizado",
+      "category": "applications",
+      "subcategory": "custom",
+      "icon": "application",
       "technologies": [],
       "providers": []
     }

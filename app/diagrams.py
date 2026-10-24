@@ -52,6 +52,12 @@ def validate(value):
             from standards import instance
             if data['kind'] not in ['servidor','virtual']:raise InvalidDiagram()
             out['data']['server_instance']=instance(data['server_instance'])
+        if 'component_instance' in data:
+            from standards import instance
+            from diagram_catalog import resource_model
+            schema=resource_model(data['kind'])
+            if not schema or data['kind'] in ['servidor','virtual']:raise InvalidDiagram()
+            out['data']['component_instance']=instance(data['component_instance'],schema)
         if data.get('standard') is not None:
             from standards import reference
             out['data']['standard']=reference(data['standard'])
@@ -76,12 +82,24 @@ def validate(value):
         for field,node_id in [('sourceHandle',source),('targetHandle',target)]:
             handle=e.get(field)
             if handle is not None:
-                if handle not in ['north','south'] or ids[node_id]['data']['kind'] not in ['servidor','virtual']:raise InvalidDiagram()
+                if handle not in ['north','south'] or ids[node_id]['data']['kind'] in ['grupo','nota','etiqueta']:raise InvalidDiagram()
                 item[field]=handle
+        if 'relation' in e:
+            if e['relation'] not in ['hosts','belongs','depends','connected','storage','managed','used']:raise InvalidDiagram()
+            item['relation']=e['relation']
         if 'type' in e:
             if e['type'] not in ['straight','default','smoothstep','step']:raise InvalidDiagram()
             item['type']=e['type']
         connections.append(item)
+    hosting={};children={}
+    for edge in connections:
+        if edge.get('relation')!='hosts':continue
+        if edge['target'] in hosting:raise InvalidDiagram()
+        hosting[edge['target']]=edge['source'];children.setdefault(edge['source'],[]).append(edge['target'])
+    def visit(n,trail):
+        if n in trail:raise InvalidDiagram()
+        for child in children.get(n,[]):visit(child,trail|{n})
+    for root in children:visit(root,set())
     clean.sort(key=lambda n:n['type']!='resourceGroup')
     return dict(name=name,nodes=clean,edges=connections)
 
@@ -263,15 +281,17 @@ def save(diagram_id):
         old_nodes={n['id']:n for n in original['document']['nodes']}
         for node in value['nodes']:
             old=old_nodes.get(node['id'],{}).get('data',{})
-            for field in ['provider','technology','location','server_instance']:
+            for field in ['provider','technology','location','server_instance','component_instance']:
                 if field not in node['data'] and field in old:node['data'][field]=old[field]
         old_edges={e['id']:e for e in original['document']['edges']}
         for edge in value['edges']:
             old=old_edges.get(edge['id'],{})
             if 'type' not in edge and 'type' in old:edge['type']=old['type']
+            if 'relation' not in edge and 'relation' in old and old.get('source')==edge['source'] and old.get('target')==edge['target']:edge['relation']=old['relation']
             for field,endpoint in [('sourceHandle','source'),('targetHandle','target')]:
                 incoming=next(e for e in body['document']['edges'] if e['id']==edge['id'])
                 if field not in incoming and old.get(endpoint)==edge[endpoint] and field in old and next(n for n in value['nodes'] if n['id']==edge[endpoint])['data']['kind'] in ['servidor','virtual']:edge[field]=old[field]
+        value=validate(value)
         value=bind(conn,value,original['document'])
         row=conn.execute('UPDATE resource_diagrams SET name=%s,document=%s,revision=revision+1,updated_at=now() WHERE id=%s AND (owner_sub=%s OR diagram_granted(id)) AND revision=%s RETURNING id,name,revision,updated_at',(value['name'],Jsonb(value),key(diagram_id),subject(),revision)).fetchone()
         if not row:

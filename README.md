@@ -114,3 +114,22 @@ redondeadas o Ángulos rectos. El trazo se conserva en el documento online. La
 marca de la esquina del lienzo se oculta con la opción documentada
 [`proOptions.hideAttribution`](https://reactflow.dev/api-reference/types/pro-options);
 los avisos MIT de la dependencia permanecen en el código distribuido.
+
+### Documentación y componentes alojados
+
+Los cuatro iconos muestran avance documental (gris, rojo, ámbar y verde), con
+símbolo y contador al enfocarlos. No representan salud del servicio. El guardado
+sigue aceptando borradores incompletos. Un control requiere un estado declarado
+y evidencia para completar su documentación.
+
+«Componentes alojados» abre una lista expandible. Desde allí se añade un recurso
+del catálogo, que conserva su identificador y sus propios cuatro bloques. La
+relación «Aloja / ejecuta» se guarda en el mismo grafo. Relaciones de arquitectura
+permite vincular recursos existentes y agregar dependencias sin duplicarlos.
+Servicio personalizado está en Aplicaciones e integración / Componentes
+personalizados, con cuatro campos de identidad como punto de partida.
+
+Al quitar una relación o eliminar el host, los componentes alojados se conservan.
+Se impiden ciclos de alojamiento y un segundo host principal, mientras las
+relaciones de dependencia admiten varios recursos. Diseño, reglas y próximos
+casos: [composición](docs/roadmap/composition.md).

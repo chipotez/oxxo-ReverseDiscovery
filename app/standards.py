@@ -141,11 +141,12 @@ def reference(value):
         seen.add(item['id']);clean.append(dict(id=item['id'],status=item['status'],evidence=text(item.get('evidence',''),500)))
     return dict(id=sid,version=version,coverage=clean)
 
-def instance(value):
+def instance(value,schema=None):
     """Observed server values; the schema and policy are never client-controlled."""
     if not isinstance(value,dict):raise InvalidDiagram()
-    allowed={s['id']:{f['id'] for f in s['fields']} for s in SERVER_MODEL['sections']}
-    allowed['controls']=set(FUNCTIONS)
+    schema=schema or SERVER_MODEL
+    allowed={s['id']:{f['id'] for f in s['fields']} for s in schema['sections']}
+    if schema is SERVER_MODEL:allowed['controls']=set(FUNCTIONS)
     if set(value)-set(allowed):raise InvalidDiagram()
     result={}
     for section,fields in value.items():
@@ -173,6 +174,12 @@ def bind(conn,doc,original=None):
             existing=previous.get(node['id'],{}).get('data',{}).get('standard')
             if existing:
                 data['standard']=json.loads(json.dumps(existing));continue
+        if data['kind'] not in ['servidor','virtual']:
+            from diagram_catalog import resource_model
+            schema=resource_model(data['kind'])
+            if schema:
+                data['resource_schema']=schema
+                if 'component_instance' in data:data['component_instance']=instance(data['component_instance'],schema)
         if not value:continue
         if data['kind'] not in ['servidor','virtual']:raise InvalidDiagram()
         pair=(value['id'],value['version']);known=snapshots.get(pair)

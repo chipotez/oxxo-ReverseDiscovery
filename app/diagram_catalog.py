@@ -20,3 +20,12 @@ def starter(template_id,name):
         if node.get('parentId'):node['parentId']=ids[node['parentId']]
     for edge in edges:edge.update(id=str(uuid.uuid4()),source=ids[edge['source']],target=ids[edge['target']])
     return dict(name=name,nodes=nodes,edges=edges)
+
+GENERIC_MODEL=json.loads(component_path.with_name('generic-standard-model.json').read_text())
+def resource_model(kind):
+    resource=next((r for r in COMPONENTS['resources'] if r['kind']==kind),None)
+    if not resource:return None
+    sections=json.loads(json.dumps(GENERIC_MODEL['sections']))
+    sections[0]['fields']=GENERIC_MODEL['identificationOverrides'].get(kind,sections[0]['fields'])
+    sections[1]['fields']=next(c for c in COMPONENTS['categories'] if c['id']==resource['category'])['capabilities']
+    return dict(version=1,sections=sections)

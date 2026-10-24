@@ -15,6 +15,15 @@ class DiagramValidationTests(unittest.TestCase):
         self.assertCountEqual(classified,kinds)
         self.assertTrue({'servidor','virtual','datos','cluster','cache','cola','origen','firewall','grupo'}<=set(r['kind'] for r in CATALOG['resources']))
 
+    def test_hosting_is_a_forest_but_dependencies_allow_many_to_many(self):
+        nodes=[dict(id=i,type='resource',position=dict(x=0,y=0),data=dict(label=i,kind='virtual')) for i in ['a','b','c']]
+        edges=[dict(id='ab',source='a',target='b',relation='hosts'),dict(id='ac',source='a',target='c',relation='hosts')]
+        validate(dict(name='QA',nodes=nodes,edges=edges))
+        for extra in [dict(id='cb',source='c',target='b',relation='hosts'),dict(id='ba',source='b',target='a',relation='hosts')]:
+            with self.assertRaises(InvalidDiagram):validate(dict(name='QA',nodes=nodes,edges=edges+[extra]))
+        edges=[dict(id=a+b,source=a,target=b,relation='depends') for a,b in [('a','b'),('b','a'),('c','b'),('a','c')]]
+        self.assertEqual(len(validate(dict(name='QA',nodes=nodes,edges=edges))['edges']),4)
+
     def test_untrusted_document_rejected(self):
         for value in [None,[],{},dict(name='x',nodes=[{}],edges=[]),dict(name='x',nodes=[],edges=[{}])]:
             with self.assertRaises(InvalidDiagram):validate(value)
@@ -123,6 +132,15 @@ class DiagramIntegrationTests(unittest.TestCase):
             doc['edges'][0]['type']=style;r=self.send('put',path,dict(revision=revision,document=doc));self.assertEqual(r.status_code,200,r.data);revision=r.json['revision'];self.assertEqual(self.send('get',path).json['document']['edges'][0]['type'],style)
         doc['edges'][0].pop('type');r=self.send('put',path,dict(revision=revision,document=doc));self.assertEqual(r.status_code,200);self.assertEqual(self.send('get',path).json['document']['edges'][0]['type'],'step')
         doc['edges'][0]['type']='untrusted';self.assertEqual(self.send('put',path,dict(revision=r.json['revision'],document=doc)).status_code,400)
+
+    def test_generic_instance_and_hosting_roundtrip(self):
+        row=self.create();path='/'+row['id'];doc=dict(name='QA composition',nodes=[dict(id='vm',type='resource',position=dict(x=0,y=0),data=dict(label='VM',kind='virtual')),dict(id='ftp',type='resource',position=dict(x=400,y=0),data=dict(label='FTP',kind='custom_service',component_instance={'identification':{'name':'FTP','purpose':'QA transfer','owner':'QA team','technology':'SFTP'}}))],edges=[dict(id='hosts',source='vm',target='ftp',relation='hosts',label='Aloja')])
+        r=self.send('put',path,dict(revision=row['revision'],document=doc));self.assertEqual(r.status_code,200,r.data)
+        saved=self.send('get',path).json;data=saved['document']['nodes'][1]['data'];self.assertEqual(data['component_instance']['identification']['name'],'FTP');self.assertEqual([f['id'] for f in data['resource_schema']['sections'][0]['fields']],['name','purpose','owner','technology']);self.assertEqual(saved['document']['edges'][0]['relation'],'hosts')
+        # Removing a host and its relation must leave its separately identified component.
+        doc=saved['document'];doc['nodes']=doc['nodes'][1:];doc['edges']=[];r=self.send('put',path,dict(revision=saved['revision'],document=doc));self.assertEqual(r.status_code,200,r.data);self.assertEqual(len(self.send('get',path).json['document']['nodes']),1)
+        doc['nodes'][0]['data']['component_instance']['identification']['undefined']='no'
+        self.assertEqual(self.send('put',path,dict(revision=r.json['revision'],document=doc)).status_code,400)
 
     def test_other_subject_cannot_list_read_edit_delete_or_export(self):
         row=self.create();self.login(self.other);path='/'+row['id']
