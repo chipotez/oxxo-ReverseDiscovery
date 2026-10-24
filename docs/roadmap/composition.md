@@ -79,7 +79,7 @@ conservación del componente cuando se elimina su host o se retira el vínculo.
 
 La relación `hosts` gobierna también la contención visual en React Flow.
 El contenedor crece según los descendientes; cada componente interno mantiene
-sus cuatro iconos, selección, edición y puntos de conexión. Los hijos siguen
+sus cuatro secciones, selección, edición y puntos de conexión. Los hijos siguen
 una disposición automática, se desplazan junto al contenedor y no se arrastran
 individualmente dentro de él. Se conservan coordenadas absolutas en el documento,
 sin introducir una segunda jerarquía persistida que pueda contradecir `hosts`.
@@ -91,3 +91,19 @@ depender solo del color. La cabecera muestra tipo una vez, nombre y hasta tres
 valores de contexto, priorizando los campos canónicos del estándar. IP/puerto
 siguen siendo atributos del recurso del diagrama; no se presentan como evidencia
 ni como controles. Los tipos de estándar conservan su esquema propio.
+
+## Tercera etapa: navegación documental
+
+1. Mapa: estado agregado del recurso, tonos por profundidad, cinta de cuatro
+   secciones solo en el recurso seleccionado y junto a su nombre.
+2. Resumen: cantidades por sección del recurso seleccionado y acceso a sus
+   formularios. La apertura reserva espacio junto al nodo y permite volver al mapa.
+3. Comparación: matriz de todos los recursos del diagrama, ordenada por jerarquía
+   de alojamiento. Usa los mismos contadores que el resumen. Búsqueda, paginación
+   ajustada al viewport y presentación de filas compactas en móvil. Cada celda
+   abre los campos del recurso/sección exactos; «Volver al mapa» conserva el contexto.
+
+Los formularios siguen usando el guardado existente en PostgreSQL. No hay nuevas
+tablas ni permisos. Cada estándar conserva sus propios campos y denominadores;
+compartir cuatro apartados no implica medir productos distintos con iguales requisitos.
+Los colores y fracciones se derivan, no se persisten como un estado operativo.

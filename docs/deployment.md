@@ -722,3 +722,30 @@ responsive, revisión visual en navegador, auditorías AA en ambos temas y PDF
 renderizado. Verificados guardado/reapertura, alta anidada y borrado sin cascada.
 Imagen activa y assets públicos comprobados. Evidencia:
 `docs/evidence/dense-nodes-report.json`. Reversión a `nested-20261024` sin migración.
+
+## Mapa, resumen y comparación — 24 de octubre de 2026
+
+Publicada `localhost/koodaria-workspace:documentation-journey-20261024`
+(`e1fd4d5c96e0b91c5257002ad1f528f16bff1d7f7f249c0ad16da5f48c781ce1`).
+El mapa usa tonos suaves por profundidad y un estado documental agregado por
+recurso; la cinta de cuatro secciones solo aparece en la cabecera seleccionada.
+Un clic abre un resumen junto al nodo. «Comparar recursos» o «Cobertura» abre la
+matriz del diagrama, ordenada por alojamiento, con búsqueda y paginación adaptada
+al ancho/alto disponible. Cada celda abre los campos del recurso/sección exactos.
+Los formularios permiten volver al resumen y conservan el guardado existente.
+Conteos derivados del mismo modelo por recurso, sin uniformar denominadores.
+
+Se mantienen marca, shell y temas existentes; contraste en claro y oscuro.
+La matriz presenta filas compactas en móvil y limita acciones del lienzo mientras
+está abierta. Selección y accesos por teclado; comparación no modifica el modelo.
+La altura base y exportación conservan la geometría compacta de las cajas.
+Sin migración SQL, cambios de identidad, permisos ni secretos. Backup previo y
+unidad anterior en `/home/mip/backups/koodaria-20261024/documentation-journey/`.
+Se reinició solo la aplicación. Reversión a `dense-nodes-20261024` sin migración.
+
+Validación: 49 pruebas del servidor, semántica de conteos/modelos/layout,
+20 estados responsive, cuatro auditorías AA de resumen y matriz, revisión visual,
+recorrido con teclado, guardado/reapertura desde una celda y búsqueda/paginación
+con 33 recursos sintéticos. Separación entre nodo y resumen comprobada por
+geometría. Imagen activa y assets públicos verificados. Evidencia:
+`docs/evidence/documentation-journey-report.json`.

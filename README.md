@@ -117,10 +117,16 @@ los avisos MIT de la dependencia permanecen en el código distribuido.
 
 ### Documentación y componentes alojados
 
-Los cuatro iconos muestran avance documental (rojo, amarillo y verde), con
-símbolo y contador al enfocarlos. No representan salud del servicio. El guardado
-sigue aceptando borradores incompletos. Un control requiere un estado declarado
-y evidencia para completar su documentación.
+El mapa muestra un estado documental discreto por recurso y tonos suaves según
+la profundidad de anidación. Solo el recurso seleccionado muestra la cinta de
+cuatro accesos junto al nombre. La cinta abre su resumen; cada sección del resumen
+abre sus campos canónicos. «Comparar recursos» (o «Cobertura» en la barra) abre
+la matriz del diagrama con búsqueda y paginación. Una celda abre la sección del
+recurso correspondiente; cada fila se calcula contra su propio estándar.
+
+El semáforo y los conteos describen documentación, no salud del servicio.
+El guardado sigue aceptando borradores incompletos. Un control requiere un
+estado declarado y evidencia para completar su documentación.
 
 El botón + de cada nodo añade un componente dentro de su caja. El recurso
 conserva su identificador y sus propios cuatro bloques, incluso en varios niveles. La
