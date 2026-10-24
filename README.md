@@ -94,3 +94,9 @@ versión en cada nodo; ignora esquemas enviados por el navegador. Si hay una
 utiliza la estructura base de Servidores, sin inventar una política publicada.
 La selección de una publicación sigue disponible en Propiedades. Los clientes
 anteriores que omiten los datos de instancia no los borran al guardar.
+
+La identificación abre un panel flotante a la derecha. El encuadre reserva
+espacio para el nodo sin mover sus coordenadas; al cerrar se restaura la vista.
+Los campos se paginan según el tamaño del panel. Hay guardado automático,
+acción Guardar y marca decorativa «sync» solo tras confirmar el guardado.
+Los conectores norte/sur conservan sus anclajes al guardar y reabrir el mapa.

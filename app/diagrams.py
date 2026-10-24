@@ -72,7 +72,13 @@ def validate(value):
         source, target=e.get('source'),e.get('target')
         if not isinstance(source,str) or not isinstance(target,str) or key in seen or source==target or ids.get(source,{}).get('type')!='resource' or ids.get(target,{}).get('type')!='resource': raise InvalidDiagram()
         seen.add(key)
-        connections.append(dict(id=key,source=source,target=target,label=text(e.get('label',''),100)))
+        item=dict(id=key,source=source,target=target,label=text(e.get('label',''),100))
+        for field,node_id in [('sourceHandle',source),('targetHandle',target)]:
+            handle=e.get(field)
+            if handle is not None:
+                if handle not in ['north','south'] or ids[node_id]['data']['kind'] not in ['servidor','virtual']:raise InvalidDiagram()
+                item[field]=handle
+        connections.append(item)
     clean.sort(key=lambda n:n['type']!='resourceGroup')
     return dict(name=name,nodes=clean,edges=connections)
 
@@ -256,6 +262,12 @@ def save(diagram_id):
             old=old_nodes.get(node['id'],{}).get('data',{})
             for field in ['provider','technology','location','server_instance']:
                 if field not in node['data'] and field in old:node['data'][field]=old[field]
+        old_edges={e['id']:e for e in original['document']['edges']}
+        for edge in value['edges']:
+            old=old_edges.get(edge['id'],{})
+            for field,endpoint in [('sourceHandle','source'),('targetHandle','target')]:
+                incoming=next(e for e in body['document']['edges'] if e['id']==edge['id'])
+                if field not in incoming and old.get(endpoint)==edge[endpoint] and field in old and next(n for n in value['nodes'] if n['id']==edge[endpoint])['data']['kind'] in ['servidor','virtual']:edge[field]=old[field]
         value=bind(conn,value,original['document'])
         row=conn.execute('UPDATE resource_diagrams SET name=%s,document=%s,revision=revision+1,updated_at=now() WHERE id=%s AND (owner_sub=%s OR diagram_granted(id)) AND revision=%s RETURNING id,name,revision,updated_at',(value['name'],Jsonb(value),key(diagram_id),subject(),revision)).fetchone()
         if not row:

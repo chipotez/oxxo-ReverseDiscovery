@@ -105,6 +105,17 @@ class DiagramIntegrationTests(unittest.TestCase):
         self.assertEqual(self.send('delete',path,dict(revision=1)).status_code,409)
         self.assertEqual(self.send('delete',path,dict(revision=2)).status_code,204)
         self.assertEqual(self.send('get',path).status_code,404)
+    def test_cardinal_handles_roundtrip_and_old_client_preservation(self):
+        row=self.create();path='/'+row['id']
+        doc=dict(name='QA cardinal',nodes=[dict(id=i,type='resource',position=dict(x=0,y=y),data=dict(label='QA '+i,kind='virtual')) for i,y in [('a',0),('b',300)]],edges=[dict(id='qa-edge',source='a',target='b',sourceHandle='south',targetHandle='north',label='QA')])
+        response=self.send('put',path,dict(revision=row['revision'],document=doc));self.assertEqual(response.status_code,200,response.data)
+        saved=self.send('get',path).json;edge=saved['document']['edges'][0];self.assertEqual(edge['sourceHandle'],'south');self.assertEqual(edge['targetHandle'],'north')
+        edge.pop('sourceHandle');edge.pop('targetHandle')
+        response=self.send('put',path,dict(revision=saved['revision'],document=saved['document']));self.assertEqual(response.status_code,200,response.data)
+        reopened=self.send('get',path).json;self.assertEqual(reopened['document']['edges'][0]['sourceHandle'],'south')
+        reopened['document']['edges'][0]['targetHandle']='invented'
+        self.assertEqual(self.send('put',path,dict(revision=reopened['revision'],document=reopened['document'])).status_code,400)
+
     def test_other_subject_cannot_list_read_edit_delete_or_export(self):
         row=self.create();self.login(self.other);path='/'+row['id']
         self.assertEqual(self.send('get').json['total'],0)

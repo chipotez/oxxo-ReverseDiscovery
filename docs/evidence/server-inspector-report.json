@@ -1,0 +1,120 @@
+{
+  "states": [
+    {
+      "theme": "light",
+      "width": 1440,
+      "height": 900,
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1366,
+      "height": 768,
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1024,
+      "height": 600,
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 768,
+      "height": 1024,
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "height": 844,
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 375,
+      "height": 667,
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 568,
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 844,
+      "height": 390,
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "height": 900,
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1366,
+      "height": 768,
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1024,
+      "height": 600,
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "height": 1024,
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "height": 844,
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 375,
+      "height": 667,
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 568,
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 844,
+      "height": 390,
+      "no_overflow": true
+    }
+  ],
+  "synthetic_identity_only": true,
+  "browser_errors": [],
+  "cardinal_connection_roundtrip": true,
+  "identity_roundtrip": true,
+  "node_coordinates_unchanged": true,
+  "backend_tests": 44,
+  "public_assets_verified": true,
+  "deployed_image": "f5bd60d70d81baece8d7d53f3317914e5b93ce60f334f7fca7b06902e6f00514",
+  "accessibility": [
+    {
+      "theme": "light",
+      "scope": "server-identity-panel",
+      "violations": []
+    },
+    {
+      "theme": "dark",
+      "scope": "server-identity-panel",
+      "violations": []
+    }
+  ]
+}

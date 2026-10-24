@@ -576,3 +576,28 @@ permisos. Verificados los cuatro accesos en cinco tamaños y ambos temas,
 incluidos tooltip y foco; assets públicos comparados con el contenedor.
 Evidencia `docs/evidence/server-icon-row-report.json`. Unidad anterior en
 `/home/mip/backups/koodaria-20261024/server-icon-row/`.
+
+## Inspector de identidad y conectores cardinales — 24 de octubre de 2026
+
+Publicada `localhost/koodaria-workspace:server-inspector-20261024`
+(`f5bd60d70d81baece8d7d53f3317914e5b93ce60f334f7fca7b06902e6f00514`).
+Nodo con sombras suaves y fondos minerales en la fila de iconos. Se añaden
+conectores norte/sur, guardados como `sourceHandle` y `targetHandle`; la
+validación limita sus identificadores y tipos de recurso. Las conexiones
+anteriores izquierda/derecha siguen usando los anclajes originales. Guardados
+de clientes anteriores conservan los anclajes si omiten sus atributos.
+
+Identificación abre un panel flotante con campos, explicaciones y paginación
+según la altura disponible. El encuadre reserva espacio a la izquierda sin
+alterar coordenadas del documento. Al cerrar se restaura el encuadre anterior.
+Guardado automático, acción Guardar e indicador decorativo «sync» únicamente
+en estado guardado; errores y estados pendientes conservan texto legible.
+En móviles y vistas bajas el panel aprovecha la altura del viewport.
+
+44 pruebas de servidor, conexión vertical real en navegador con reapertura,
+captura y guardado de los siete campos y 16 estados de tamaño/tema. Auditorías
+WCAG AA del panel en ambos temas sin infracciones. Assets públicos comparados
+con la imagen. Evidencia `docs/evidence/server-inspector-report.json` y script
+`scripts/qa_server_inspector.py`. Sin migración SQL ni cambios de permisos.
+Backup previo y unidad anterior en
+`/home/mip/backups/koodaria-20261024/server-inspector/`.
