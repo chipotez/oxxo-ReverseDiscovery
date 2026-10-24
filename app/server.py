@@ -20,9 +20,11 @@ app.config.update(
     SESSION_COOKIE_HTTPONLY=True, SESSION_COOKIE_SAMESITE='Lax',
     SESSION_COOKIE_PATH='/', PERMANENT_SESSION_LIFETIME=timedelta(minutes=30),
     SESSION_REFRESH_EACH_REQUEST=False, TRUSTED_HOSTS=['koodaria.com', 'localhost', '127.0.0.1'],
-    MAX_CONTENT_LENGTH=16384,
+    MAX_CONTENT_LENGTH=1500000,
 )
 Session(app)
+from diagrams import bp as diagrams_blueprint
+app.register_blueprint(diagrams_blueprint)
 oauth = OAuth(app)
 oauth.register('keycloak', client_id='koodaria-web',
     client_secret=os.environ['OIDC_CLIENT_SECRET'],
@@ -88,4 +90,10 @@ def logout():
 
 @app.get('/healthz')
 def health():
+    if os.environ.get('DIAGRAM_DATABASE_URL'):
+        try:
+            from diagrams import connection
+            with connection('healthcheck') as conn: conn.execute('SELECT 1')
+        except Exception:
+            return 'not ready\n',503
     return 'ok\n'

@@ -1,0 +1,24 @@
+[Unit]
+Description=Koodaria diagram storage PostgreSQL
+After=network-online.target
+
+[Container]
+Image=docker.io/library/postgres@sha256:e4cb93687b062cd25a0e8f672d85a7708235009d70d31f8a7698d9370092a9c4
+ContainerName=koodaria-diagrams-db
+Network=koodaria-data.network
+EnvironmentFile=/home/mip/.config/koodaria/diagrams-db.env
+Volume=koodaria-diagrams-data:/var/lib/postgresql/data:Z
+NoNewPrivileges=true
+Memory=256m
+PidsLimit=100
+HealthCmd=pg_isready -U koodaria_owner -d koodaria_diagrams
+HealthInterval=30s
+HealthRetries=3
+Exec=postgres -c shared_buffers=64MB -c max_connections=30 -c log_statement=none
+
+[Service]
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target

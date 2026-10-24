@@ -4,3 +4,5 @@ Flask-Session==0.8.0
 cachelib>=0.13,<0.18
 gunicorn>=23,<24
 requests>=2.32.5,<3
+psycopg[binary]>=3.2,<4
+reportlab>=4.4,<5

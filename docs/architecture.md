@@ -122,7 +122,7 @@ ampliación de accesibilidad conservan su comportamiento nativo.
 ## Editor de recursos con React Flow
 
 La tarjeta Mapeo de recursos abre directamente `#/herramientas/mapeo-recursos`.
-El antiguo enlace a su ficha también resuelve al editor. En esta vista se oculta
+El antiguo enlace a su ficha también resuelve a la herramienta. En esta vista se oculta
 el header del catálogo y el lienzo ocupa el área de trabajo junto a la navegación
 lateral. El editor previo de Mapeo de servicios se conserva por separado.
 
@@ -137,12 +137,29 @@ acercar/alejar y ajustar la vista. El lienzo se reajusta al cambiar de tamaño.
 Las propiedades tienen una distribución compacta en ventanas bajas. Las paletas
 clara y oscura siguen la preferencia de Koodaria.
 
-El formato JSON `koodaria-resource-flow`, versión 1, conserva posiciones, grupos,
-conexiones y etiquetas. Se limita a 200 nodos, 500 conexiones y archivos de
-1,5 MB. La importación valida el modelo y reconstruye únicamente propiedades
-permitidas: no admite componentes React arbitrarios, HTML, estilos libres ni
-URLs ejecutables. Los textos se renderizan mediante el escape de React.
+Los mapas se almacenan como documentos JSONB en PostgreSQL dedicado, con UUID,
+propietario OIDC, nombre, fecha y revisión. La tarjeta abre una biblioteca paginada
+que adapta la cantidad de mapas al área disponible. Cada mapa puede editarse y
+retomarse desde la cuenta; el guardado automático se realiza tras 900 ms sin
+cambios y serializa las escrituras. La revisión evita sobrescribir cambios de otra
+pestaña. Los conflictos permiten guardar una copia. Los fallos conservan el estado
+en la pestaña y muestran reintento; no se promete edición offline persistente.
 
-Los mapas siguen trabajando en memoria del navegador y se conservan mediante
-la descarga del proyecto. No se cambiaron la sesión, el MFA ni la autorización.
-Referencia oficial: https://reactflow.dev/learn.
+Las rutas `/bienvenida/api/diagrams` requieren una sesión vigente. Las escrituras
+requieren CSRF, y el sujeto se toma exclusivamente de la identidad verificada.
+Cada consulta restringe el propietario; PostgreSQL añade RLS forzado con identidad
+local a la transacción y un rol web sin privilegios administrativos. La API no
+acepta organización o propietario elegidos por el navegador. Los diagramas no se
+comparten automáticamente por dominio de correo ni por membresía de empresa.
+
+El servidor valida y reconstruye el modelo permitido: máximo 200 nodos, 500
+conexiones, coordenadas/dimensiones acotadas, referencias válidas y textos con
+longitud limitada. No acepta componentes React arbitrarios, HTML, estilos libres
+ni URLs ejecutables. Los textos se renderizan mediante el escape de React.
+
+La descarga es PDF del documento guardado: mapa vectorial completo más inventario
+legible de recursos y conexiones, sin depender del zoom o el encuadre del editor.
+La generación ocurre en el servidor, sin navegador remoto ni recursos externos.
+La configuración OIDC/MFA permanece intacta. Despliegue y backups: `deployment.md`.
+Referencias: https://reactflow.dev/learn,
+https://www.postgresql.org/docs/17/ddl-rowsecurity.html.

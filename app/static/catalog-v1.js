@@ -61,7 +61,7 @@ function paginate(){
  grid.style.setProperty('--columns',cols);
  grid.innerHTML=items.slice((page-1)*size,page*size).map(p=>{
   const href=currentMode==='catalog'?`#/catalogo/${p.id}`:p.id==='mapeo-recursos'?'#/herramientas/mapeo-recursos':`#/catalogo/observabilidad/${p.id}`;
-  return `<a class="catalog-card ${currentMode==='catalog'?'discipline-card':'product-card'} ${p.id==='mapeo-servicios'?'card-featured':''}" href="${href}">${currentMode==='catalog'?illustration(p.icon):`<div class="product-art">${productIllustration(p.icon)}</div>`}<div class="card-copy">${currentMode==='products'?`<div class="card-tags"><span>${typeLabel(p)}</span>${p.ready?'<span class="available-tag">Disponible</span>':''}</div>`:''}<h2>${esc(p.title)}</h2><p>${esc(p.description)}</p><span class="card-action">${currentMode==='catalog'?'Explorar':p.id==='mapeo-recursos'?'Abrir editor':'Ver detalle'} ${icon('arrow')}</span></div></a>`;
+  return `<a class="catalog-card ${currentMode==='catalog'?'discipline-card':'product-card'} ${p.id==='mapeo-servicios'?'card-featured':''}" href="${href}">${currentMode==='catalog'?illustration(p.icon):`<div class="product-art">${productIllustration(p.icon)}</div>`}<div class="card-copy">${currentMode==='products'?`<div class="card-tags"><span>${typeLabel(p)}</span>${p.ready?'<span class="available-tag">Disponible</span>':''}</div>`:''}<h2>${esc(p.title)}</h2><p>${esc(p.description)}</p><span class="card-action">${currentMode==='catalog'?'Explorar':p.id==='mapeo-recursos'?'Mis diagramas':'Ver detalle'} ${icon('arrow')}</span></div></a>`;
  }).join('')||(currentItems.length?'<p class="catalog-empty">No encontramos coincidencias. Prueba con otro término.</p>':'<p class="catalog-empty">Este catálogo estará disponible próximamente.</p>');
  main.querySelector('#result-count').textContent=`${items.length} ${currentMode==='catalog'?'disciplinas':'opciones'}`;
  main.querySelector('#page-count').textContent=`${page} / ${pages}`;
@@ -132,7 +132,11 @@ function editor(loadExample=false){
  resizeEditor=()=>{componentPageSize=innerHeight<650?1:innerHeight<750?2:3;update();};
  update();
 }
+let lastRenderedHash=location.hash,restoringHash=false;
 function render(){
+ if(restoringHash){restoringHash=false;return;}
+ if(window.KoodariaResourceFlow?.hasUnsavedChanges()&&!confirm('Todavía hay cambios sin guardar. Espera al guardado o vuelve al editor para reintentar. ¿Salir de todos modos?')){restoringHash=true;location.hash=lastRenderedHash;return;}
+ lastRenderedHash=location.hash;
  accountMenu?.removeAttribute('open');
  window.KoodariaResourceFlow?.unmount();document.body.classList.remove('resource-tool-open');
  const route=location.hash.slice(1)||'/catalogo';

@@ -1,0 +1,299 @@
+{
+  "synthetic_identity_only": true,
+  "real_postgresql_disposable_database": true,
+  "checks": [
+    "create_connect_edit_autosave",
+    "reopen_after_browser_reload",
+    "pdf_includes_saved_resources_and_connections",
+    "failed_save_retains_changes_and_retry_works",
+    "concurrent_conflict_and_save_as_copy",
+    "multiple_independent_diagrams"
+  ],
+  "states": [
+    {
+      "view": "library",
+      "theme": "light",
+      "width": 1440,
+      "height": 900,
+      "no_document_or_panel_overflow": true
+    },
+    {
+      "view": "library",
+      "theme": "light",
+      "width": 1366,
+      "height": 768,
+      "no_document_or_panel_overflow": true
+    },
+    {
+      "view": "library",
+      "theme": "light",
+      "width": 1024,
+      "height": 600,
+      "no_document_or_panel_overflow": true
+    },
+    {
+      "view": "library",
+      "theme": "light",
+      "width": 768,
+      "height": 1024,
+      "no_document_or_panel_overflow": true
+    },
+    {
+      "view": "library",
+      "theme": "light",
+      "width": 390,
+      "height": 844,
+      "no_document_or_panel_overflow": true
+    },
+    {
+      "view": "library",
+      "theme": "light",
+      "width": 375,
+      "height": 667,
+      "no_document_or_panel_overflow": true
+    },
+    {
+      "view": "library",
+      "theme": "light",
+      "width": 320,
+      "height": 568,
+      "no_document_or_panel_overflow": true
+    },
+    {
+      "view": "library",
+      "theme": "light",
+      "width": 844,
+      "height": 390,
+      "no_document_or_panel_overflow": true
+    },
+    {
+      "view": "library",
+      "theme": "dark",
+      "width": 1440,
+      "height": 900,
+      "no_document_or_panel_overflow": true
+    },
+    {
+      "view": "library",
+      "theme": "dark",
+      "width": 1366,
+      "height": 768,
+      "no_document_or_panel_overflow": true
+    },
+    {
+      "view": "library",
+      "theme": "dark",
+      "width": 1024,
+      "height": 600,
+      "no_document_or_panel_overflow": true
+    },
+    {
+      "view": "library",
+      "theme": "dark",
+      "width": 768,
+      "height": 1024,
+      "no_document_or_panel_overflow": true
+    },
+    {
+      "view": "library",
+      "theme": "dark",
+      "width": 390,
+      "height": 844,
+      "no_document_or_panel_overflow": true
+    },
+    {
+      "view": "library",
+      "theme": "dark",
+      "width": 375,
+      "height": 667,
+      "no_document_or_panel_overflow": true
+    },
+    {
+      "view": "library",
+      "theme": "dark",
+      "width": 320,
+      "height": 568,
+      "no_document_or_panel_overflow": true
+    },
+    {
+      "view": "library",
+      "theme": "dark",
+      "width": 844,
+      "height": 390,
+      "no_document_or_panel_overflow": true
+    },
+    {
+      "view": "editor_properties",
+      "theme": "light",
+      "width": 1440,
+      "height": 900,
+      "no_document_or_panel_overflow": true
+    },
+    {
+      "view": "editor_properties",
+      "theme": "light",
+      "width": 1366,
+      "height": 768,
+      "no_document_or_panel_overflow": true
+    },
+    {
+      "view": "editor_properties",
+      "theme": "light",
+      "width": 1024,
+      "height": 600,
+      "no_document_or_panel_overflow": true
+    },
+    {
+      "view": "editor_properties",
+      "theme": "light",
+      "width": 768,
+      "height": 1024,
+      "no_document_or_panel_overflow": true
+    },
+    {
+      "view": "editor_properties",
+      "theme": "light",
+      "width": 390,
+      "height": 844,
+      "no_document_or_panel_overflow": true
+    },
+    {
+      "view": "editor_properties",
+      "theme": "light",
+      "width": 375,
+      "height": 667,
+      "no_document_or_panel_overflow": true
+    },
+    {
+      "view": "editor_properties",
+      "theme": "light",
+      "width": 320,
+      "height": 568,
+      "no_document_or_panel_overflow": true
+    },
+    {
+      "view": "editor_properties",
+      "theme": "light",
+      "width": 844,
+      "height": 390,
+      "no_document_or_panel_overflow": true
+    },
+    {
+      "view": "editor_properties",
+      "theme": "dark",
+      "width": 1440,
+      "height": 900,
+      "no_document_or_panel_overflow": true
+    },
+    {
+      "view": "editor_properties",
+      "theme": "dark",
+      "width": 1366,
+      "height": 768,
+      "no_document_or_panel_overflow": true
+    },
+    {
+      "view": "editor_properties",
+      "theme": "dark",
+      "width": 1024,
+      "height": 600,
+      "no_document_or_panel_overflow": true
+    },
+    {
+      "view": "editor_properties",
+      "theme": "dark",
+      "width": 768,
+      "height": 1024,
+      "no_document_or_panel_overflow": true
+    },
+    {
+      "view": "editor_properties",
+      "theme": "dark",
+      "width": 390,
+      "height": 844,
+      "no_document_or_panel_overflow": true
+    },
+    {
+      "view": "editor_properties",
+      "theme": "dark",
+      "width": 375,
+      "height": 667,
+      "no_document_or_panel_overflow": true
+    },
+    {
+      "view": "editor_properties",
+      "theme": "dark",
+      "width": 320,
+      "height": 568,
+      "no_document_or_panel_overflow": true
+    },
+    {
+      "view": "editor_properties",
+      "theme": "dark",
+      "width": 844,
+      "height": 390,
+      "no_document_or_panel_overflow": true
+    }
+  ],
+  "accessibility": [
+    {
+      "view": "library",
+      "theme": "light",
+      "width": 1440,
+      "violations": []
+    },
+    {
+      "view": "library",
+      "theme": "light",
+      "width": 320,
+      "violations": []
+    },
+    {
+      "view": "library",
+      "theme": "dark",
+      "width": 1440,
+      "violations": []
+    },
+    {
+      "view": "library",
+      "theme": "dark",
+      "width": 320,
+      "violations": []
+    },
+    {
+      "view": "editor",
+      "theme": "light",
+      "width": 1440,
+      "violations": []
+    },
+    {
+      "view": "editor",
+      "theme": "light",
+      "width": 320,
+      "violations": []
+    },
+    {
+      "view": "editor",
+      "theme": "dark",
+      "width": 1440,
+      "violations": []
+    },
+    {
+      "view": "editor",
+      "theme": "dark",
+      "width": 320,
+      "violations": []
+    }
+  ],
+  "browser_errors": [],
+  "application_tests_passed": 14,
+  "public_site_tests_passed": 7,
+  "published": true,
+  "production_api_requires_authentication": true,
+  "production_image": "e8322c5d04daf3aa515263d79ee948c283684f294bf155527b622438bd2355f7",
+  "private_database_network": true,
+  "database_has_no_published_ports": true,
+  "pdf_visually_reviewed": true,
+  "pending_navigation_guard_test_passed": true,
+  "backup_restore_test_passed": true
+}

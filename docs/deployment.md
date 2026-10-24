@@ -68,7 +68,7 @@ Dado que esta fase produce archivos estáticos, la integración aplicada incorpo
 
 ## Aplicación de bienvenida
 
-- Fuente: `app/`; imagen `localhost/koodaria-workspace:react-flow-20261023`.
+- Fuente: `app/`; imagen `localhost/koodaria-workspace:diagrams-postgres-20261023`.
 - Construcción reproducible con `app/requirements.lock`; rangos de mantenimiento
   en `app/requirements.txt`. Gunicorn escucha solo dentro de la red de Podman.
 - Unidad: `infra/koodaria-workspace.container`; montada en systemd de mip.
@@ -92,6 +92,50 @@ Dado que esta fase produce archivos estáticos, la integración aplicada incorpo
 La imagen de la aplicación compila `app/frontend/` con Node 22, `npm ci` y
 esbuild; copia solamente los bundles finales al runtime Python. No se necesita
 Node en producción durante la ejecución. Los bundles generados están ignorados
-en Git y la imagen los reconstruye a partir del lock. Para reproducir la QA local,
-extraer `resource-flow-v1.js` y `.css` de `/app/static/` de la imagen compilada
-hacia `app/static/`, y ejecutar `scripts/qa_resource_flow.py` con Playwright.
+en Git y la imagen los reconstruye a partir del lock. La QA actual de React Flow usa `scripts/qa_diagrams_online.py`, contra una
+instancia de prueba y PostgreSQL desechable accesibles solo a través de SSH. No
+requiere inyectar identidades en producción ni usa la cuenta real del usuario.
+
+## Diagramas de recursos en PostgreSQL
+
+La herramienta usa `/bienvenida/api/diagrams` detrás de la misma sesión OIDC.
+La tarjeta abre **Mis diagramas**; cada mapa se crea con UUID, nombre y revisión.
+El editor guarda automáticamente y permite exportar únicamente PDF. El antiguo
+formato JSON local ya no es el mecanismo de guardado de Mapeo de recursos.
+
+- PostgreSQL 17 dedicado: `koodaria-diagrams-db`, imagen fijada por digest en
+  `infra/koodaria-diagrams-db.container`; volumen `koodaria-diagrams-data`.
+- Red interna `koodaria-data`, sin puertos publicados. Solo el backend se conecta
+  tanto a esta red como al gateway. No reutiliza la base ni los usuarios de Keycloak.
+- Entornos privados (600): `diagrams-db.env` y `diagrams-app.env`, dentro de
+  `/home/mip/.config/koodaria/`. No copiarlos al repositorio ni a imágenes.
+- Migración inicial: `app/migrations/001_resource_diagrams.sql`, ejecutada como
+  propietario de la base. El rol web `koodaria_app` no es superusuario y solo
+  tiene permisos CRUD; RLS forzado aplica la identidad OIDC en cada transacción.
+- Cada diagrama es privado para su usuario. No hay compartición implícita por
+  correo/dominio ni entre miembros de una organización.
+- Las escrituras exigen CSRF y revisión vigente. Un conflicto devuelve 409;
+  el navegador conserva sus cambios y ofrece guardar una copia.
+- Datos: máximo 200 recursos/500 conexiones por mapa, validación del modelo en
+  servidor, sin ejecución de HTML ni carga de URLs desde el documento.
+- Los fallos de guardado se muestran; no se anuncian como guardados. Al salir con
+  cambios pendientes se avisa. No hay edición offline persistente.
+- Backup diario UTC: `koodaria-diagrams-backup.timer`, 14 dumps recientes con
+  permisos privados en `/home/mip/backups/koodaria-diagrams/`. Son copias locales
+  al VPS; una copia externa de recuperación requiere otro destino.
+- Restauración: detener solo la aplicación, conservar dump previo, restaurar un
+  dump verificado con `pg_restore` como propietario en una base nueva y comprobar
+  RLS/permisos antes de cambiar la conexión privada. Nunca restaurar sobre la base
+  de identidad. Conservar el volumen al hacer rollback de la aplicación.
+- QA: base separada `koodaria_diagrams_qa`, cuentas sintéticas; ejecutar
+  `test_server` y `test_diagrams` con `DIAGRAM_TEST_DATABASE=disposable` y URL
+  que termine en esa base. El arnés de navegador solo vive en un contenedor de
+  prueba enlazado a loopback; su ruta sintética no forma parte de la imagen.
+
+Publicación del almacenamiento online: 23 de octubre de 2026. Imagen verificada
+`e8322c5d04daf3aa515263d79ee948c283684f294bf155527b622438bd2355f7`.
+Unidad previa para rollback:
+`/home/mip/backups/koodaria-20261023/diagrams-online/koodaria-workspace.container`.
+Restaurar solo esa unidad y reiniciar `koodaria-workspace.service` revierte la UI;
+no borrar el volumen PostgreSQL ni restaurar un dump anterior sobre mapas nuevos.
+El gateway y Keycloak no se reconstruyeron ni reiniciaron en este cambio.

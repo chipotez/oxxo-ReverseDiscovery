@@ -1,19 +1,22 @@
 [Unit]
 Description=Koodaria authenticated welcome
-After=network-online.target themike-keycloak.service
+After=network-online.target themike-keycloak.service koodaria-diagrams-db.service
 Wants=network-online.target
+Requires=koodaria-diagrams-db.service
 
 [Container]
-Image=localhost/koodaria-workspace:react-flow-20261023
+Image=localhost/koodaria-workspace:diagrams-postgres-20261023
 ContainerName=koodaria-workspace
 Network=themike-auth.network
+Network=koodaria-data.network
 EnvironmentFile=/home/mip/.config/koodaria/workspace.env
+EnvironmentFile=/home/mip/.config/koodaria/diagrams-app.env
 Volume=koodaria-workspace-sessions:/app/sessions:U,Z
 ReadOnly=true
 Tmpfs=/tmp:rw,size=32m
 NoNewPrivileges=true
 DropCapability=all
-Memory=256m
+Memory=384m
 PidsLimit=100
 HealthCmd=python -c "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/healthz')"
 HealthInterval=30s

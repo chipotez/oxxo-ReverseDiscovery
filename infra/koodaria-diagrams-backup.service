@@ -1,0 +1,9 @@
+[Unit]
+Description=Backup Koodaria diagrams
+Requires=koodaria-diagrams-db.service
+After=koodaria-diagrams-db.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/python3 /home/mip/apps/koodaria-diagrams-online/backup-diagrams.py
+UMask=0077
