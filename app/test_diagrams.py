@@ -25,10 +25,52 @@ class DiagramIntegrationTests(unittest.TestCase):
         with self.client.session_transaction() as s:s.update(identity={'sub':subject},expires_at=time.time()+300,csrf='qa-token')
     def tearDown(self):
         for owner in (self.owner,self.other):
-            with connection(owner) as c:c.execute('DELETE FROM resource_diagrams WHERE owner_sub=%s',(owner,))
+            with connection(owner) as c:
+                c.execute('DELETE FROM resource_diagrams WHERE owner_sub=%s',(owner,))
+                c.execute('DELETE FROM diagram_folders WHERE owner_sub=%s',(owner,))
     def send(self,method,path='',value=None):return getattr(self.client,method)('/bienvenida/api/diagrams'+path,json=value,headers={'X-CSRF-Token':'qa-token'})
     def create(self):
         r=self.send('post',value={'name':'Diagrama QA'});self.assertEqual(r.status_code,201,r.data);return r.json
+    def test_folder_bulk_move_filter_rename_delete_preserves_diagrams(self):
+        folder=self.send('post','/folders',dict(name='Oracle Producción')).json
+        self.assertEqual(self.send('post','/folders',dict(name='oracle producción')).status_code,409)
+        a,b=self.create(),self.create()
+        result=self.send('post','/move',dict(folder_id=folder['id'],items=[dict(id=x['id'],revision=x['revision']) for x in [a,b]]))
+        self.assertEqual(result.json['moved'],2)
+        self.assertEqual(self.send('get','?folder='+folder['id']).json['total'],2)
+        self.assertEqual(self.send('get','?folder=none').json['total'],0)
+        root=self.send('get','?folder=root').json
+        self.assertEqual(root['total'],1);self.assertEqual(root['items'][0]['resources'],2)
+        self.assertEqual(self.send('get','/'+a['id']).json['folder_id'],folder['id'])
+        renamed=self.send('put','/folders/'+folder['id'],dict(name='Oracle RAC',revision=1))
+        self.assertEqual(renamed.status_code,200)
+        self.assertEqual(self.send('delete','/folders/'+folder['id'],dict(revision=2)).status_code,204)
+        self.assertEqual(self.send('get','?folder=none').json['total'],2)
+        self.assertIsNone(self.send('get','/'+a['id']).json['folder_id'])
+        self.assertEqual(self.send('get','/'+b['id']).json['document'],b['document'])
+
+    def test_folder_isolation_and_atomic_move_conflict(self):
+        folder=self.send('post','/folders',dict(name='Privada QA')).json
+        mine=self.create()
+        self.login(self.other);other=self.create()
+        self.assertEqual(self.send('get','/folders').json['items'],[])
+        self.assertEqual(self.send('get','?folder='+folder['id']).status_code,404)
+        self.assertEqual(self.send('post',value=dict(name='No autorizado',folder_id=folder['id'])).status_code,404)
+        self.assertEqual(self.send('put','/folders/'+folder['id'],dict(name='x',revision=1)).status_code,409)
+        self.assertEqual(self.send('delete','/folders/'+folder['id'],dict(revision=1)).status_code,409)
+        self.assertEqual(self.send('post','/move',dict(folder_id=folder['id'],items=[dict(id=other['id'],revision=1)])).status_code,404)
+        import psycopg
+        with self.assertRaises(psycopg.errors.InsufficientPrivilege):
+            with connection(self.other) as c:c.execute('UPDATE resource_diagrams SET folder_id=%s WHERE id=%s',(folder['id'],other['id']))
+        self.login(self.owner)
+        result=self.send('post','/move',dict(folder_id=folder['id'],items=[dict(id=mine['id'],revision=1),dict(id=other['id'],revision=1)]))
+        self.assertEqual(result.status_code,409)
+        self.assertIsNone(self.send('get','/'+mine['id']).json['folder_id'])
+        self.assertEqual(self.send('post','/move',dict(folder_id=folder['id'],items=[dict(id=mine['id'],revision=99)])).status_code,409)
+        created=self.send('post',value=dict(name='Dentro de carpeta',folder_id=folder['id']))
+        self.assertEqual(created.status_code,201)
+        self.assertEqual(created.json['folder_id'],folder['id'])
+
     def test_create_list_update_reopen_conflict_and_pdf(self):
         first=self.create();second=self.create();self.assertNotEqual(first['id'],second['id'])
         self.assertEqual(self.send('get').json['total'],2)

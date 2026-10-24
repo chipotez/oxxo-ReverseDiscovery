@@ -82,37 +82,113 @@ def authorize():
 
 @bp.errorhandler(Exception)
 def failure(exc):
+    if isinstance(exc, psycopg.errors.UniqueViolation): return jsonify(error='Ya existe una carpeta con ese nombre.'),409
     if isinstance(exc, HTTPException): return jsonify(error='La solicitud no es válida.'),exc.code
     if isinstance(exc,(InvalidDiagram,TypeError,KeyError,ValueError)): return jsonify(error='El diagrama no es válido. Revisa sus datos.'),400
     # No connection strings, diagram data or credentials in errors/logs.
     return jsonify(error='No se pudo acceder al guardado. Tus cambios siguen en esta pestaña; vuelve a intentarlo.'),503
 
 def subject(): return session['identity']['sub']
-def key(value): return uuid.UUID(value)
+def key(value):
+    if not isinstance(value,str):raise InvalidDiagram()
+    return uuid.UUID(value)
 def serialize(row):
     row=dict(row)
     row['id']=str(row['id'])
     row['updated_at']=row['updated_at'].isoformat()
+    if row.get('folder_id'): row['folder_id']=str(row['folder_id'])
     return row
 
 def fetch(conn, diagram_id):
-    return conn.execute('SELECT id,name,document,revision,updated_at FROM resource_diagrams WHERE id=%s AND owner_sub=%s',(key(diagram_id),subject())).fetchone()
+    return conn.execute('SELECT id,name,document,revision,updated_at,folder_id FROM resource_diagrams WHERE id=%s AND owner_sub=%s',(key(diagram_id),subject())).fetchone()
+
+def visible_folder(conn, folder_id):
+    return conn.execute('SELECT id,name,revision,updated_at FROM diagram_folders WHERE id=%s AND owner_sub=%s',(key(folder_id),subject())).fetchone()
 
 @bp.get('')
 def listing():
-    page=max(1,int(request.args.get('page',1)))
-    page=min(page,100000)
+    page=max(1,min(100000,int(request.args.get('page',1))))
     page_size=max(1,min(8,int(request.args.get('page_size',8))))
+    folder=request.args.get('folder','all')
     with connection(subject()) as conn:
-        total=conn.execute('SELECT count(*) AS count FROM resource_diagrams WHERE owner_sub=%s',(subject(),)).fetchone()['count']
-        rows=conn.execute('SELECT id,name,revision,updated_at,jsonb_array_length(document->\'nodes\') AS resources FROM resource_diagrams WHERE owner_sub=%s ORDER BY updated_at DESC,id LIMIT %s OFFSET %s',(subject(),page_size,(page-1)*page_size)).fetchall()
+        if folder=='root':
+            query="""SELECT id,name,revision,updated_at,'folder' AS kind, NULL::uuid AS folder_id,
+                     (SELECT count(*) FROM resource_diagrams d WHERE d.folder_id=f.id AND d.owner_sub=f.owner_sub) AS resources
+                     FROM diagram_folders f WHERE owner_sub=%s
+                     UNION ALL SELECT id,name,revision,updated_at,'diagram' AS kind,folder_id,jsonb_array_length(document->'nodes') AS resources
+                     FROM resource_diagrams WHERE owner_sub=%s AND folder_id IS NULL"""
+            params=(subject(),subject())
+        else:
+            condition=''
+            params=(subject(),)
+            if folder=='none': condition=' AND folder_id IS NULL'
+            elif folder!='all':
+                if not visible_folder(conn,folder):return jsonify(error='Carpeta no encontrada.'),404
+                condition=' AND folder_id=%s';params+=(key(folder),)
+            query="SELECT id,name,revision,updated_at,'diagram' AS kind,folder_id,jsonb_array_length(document->'nodes') AS resources FROM resource_diagrams WHERE owner_sub=%s"+condition
+        total=conn.execute('SELECT count(*) AS count FROM ('+query+') AS items',params).fetchone()['count']
+        rows=conn.execute('SELECT * FROM ('+query+") AS items ORDER BY (kind='folder') DESC, CASE WHEN kind='folder' THEN lower(name) END,updated_at DESC,id LIMIT %s OFFSET %s",params+(page_size,(page-1)*page_size)).fetchall()
     return jsonify(items=[serialize(r) for r in rows],total=total,page=page,page_size=page_size)
+
+@bp.get('/folders')
+def folders():
+    with connection(subject()) as conn:
+        rows=conn.execute('SELECT id,name,revision,updated_at FROM diagram_folders WHERE owner_sub=%s ORDER BY lower(name),id LIMIT 200',(subject(),)).fetchall()
+    return jsonify(items=[serialize(r) for r in rows])
+
+@bp.post('/folders')
+def create_folder():
+    name=text((request.get_json() or {}).get('name'),100,True)
+    with connection(subject()) as conn:
+        conn.execute('SELECT pg_advisory_xact_lock(hashtextextended(%s,0))',(subject(),))
+        if conn.execute('SELECT count(*) AS count FROM diagram_folders WHERE owner_sub=%s',(subject(),)).fetchone()['count']>=200:
+            return jsonify(error='Puedes crear hasta 200 carpetas.'),400
+        row=conn.execute('INSERT INTO diagram_folders(owner_sub,name) VALUES(%s,%s) RETURNING id,name,revision,updated_at',(subject(),name)).fetchone()
+    return jsonify(serialize(row)),201
+
+@bp.put('/folders/<folder_id>')
+def rename_folder(folder_id):
+    body=request.get_json() or {};name=text(body.get('name'),100,True)
+    if type(body.get('revision'))!=int:raise InvalidDiagram()
+    with connection(subject()) as conn:
+        row=conn.execute('UPDATE diagram_folders SET name=%s,revision=revision+1,updated_at=now() WHERE id=%s AND owner_sub=%s AND revision=%s RETURNING id,name,revision,updated_at',(name,key(folder_id),subject(),body['revision'])).fetchone()
+        if not row:return jsonify(error='La carpeta cambió o ya no está disponible. Actualiza la lista.'),409
+    return jsonify(serialize(row))
+
+@bp.delete('/folders/<folder_id>')
+def delete_folder(folder_id):
+    revision=(request.get_json() or {}).get('revision')
+    if type(revision)!=int:raise InvalidDiagram()
+    with connection(subject()) as conn:
+        row=conn.execute('DELETE FROM diagram_folders WHERE id=%s AND owner_sub=%s AND revision=%s RETURNING id',(key(folder_id),subject(),revision)).fetchone()
+        if not row:return jsonify(error='La carpeta cambió o ya no está disponible. Actualiza la lista.'),409
+    return '',204
+
+@bp.post('/move')
+def move():
+    body=request.get_json() or {};items=body.get('items');destination=body.get('folder_id')
+    if not isinstance(items,list) or not 1<=len(items)<=8:raise InvalidDiagram()
+    ids=[]
+    for item in items:
+        if not isinstance(item,dict) or type(item.get('revision'))!=int:raise InvalidDiagram()
+        ids.append(key(item.get('id')))
+    if len(set(ids))!=len(ids):raise InvalidDiagram()
+    with connection(subject()) as conn:
+        if destination and not visible_folder(conn,destination):return jsonify(error='Carpeta no encontrada.'),404
+        rows=conn.execute('SELECT id,revision FROM resource_diagrams WHERE owner_sub=%s AND id=ANY(%s) ORDER BY id FOR UPDATE',(subject(),ids)).fetchall()
+        revisions={r['id']:r['revision'] for r in rows}
+        if len(rows)!=len(items) or any(revisions.get(id)!=item['revision'] for id,item in zip(ids,items)):
+            return jsonify(error='Algún diagrama cambió o ya no está disponible. Actualiza la lista antes de moverlo.'),409
+        conn.execute('UPDATE resource_diagrams SET folder_id=%s,revision=revision+1,updated_at=now() WHERE owner_sub=%s AND id=ANY(%s)',(key(destination) if destination else None,subject(),ids))
+    return jsonify(moved=len(ids))
 
 @bp.post('')
 def create():
     value=validate(dict(name=(request.get_json() or {}).get('name','Nuevo diagrama'),nodes=[],edges=[]))
+    folder_id=(request.get_json() or {}).get('folder_id')
     with connection(subject()) as conn:
-        row=conn.execute('INSERT INTO resource_diagrams(owner_sub,name,document) VALUES (%s,%s,%s) RETURNING id,name,document,revision,updated_at',(subject(),value['name'],Jsonb(value))).fetchone()
+        if folder_id and not visible_folder(conn,folder_id):return jsonify(error='Carpeta no encontrada.'),404
+        row=conn.execute('INSERT INTO resource_diagrams(owner_sub,name,document,folder_id) VALUES (%s,%s,%s,%s) RETURNING id,name,document,revision,updated_at,folder_id',(subject(),value['name'],Jsonb(value),key(folder_id) if folder_id else None)).fetchone()
     return jsonify(serialize(row)),201
 
 @bp.get('/<diagram_id>')

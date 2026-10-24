@@ -163,3 +163,16 @@ La generación ocurre en el servidor, sin navegador remoto ni recursos externos.
 La configuración OIDC/MFA permanece intacta. Despliegue y backups: `deployment.md`.
 Referencias: https://reactflow.dev/learn,
 https://www.postgresql.org/docs/17/ddl-rowsecurity.html.
+
+## Organización en carpetas
+
+`diagram_folders` almacena propietario, nombre, revisión y fecha. Cada mapa puede
+pertenecer a una carpeta mediante una FK nullable; la eliminación de una carpeta
+establece esa FK en NULL y conserva el documento. Las carpetas no cambian los
+permisos de los mapas: ambos continúan privados para el sujeto OIDC.
+
+La biblioteca muestra carpetas y mapas sin clasificar en la raíz. El filtro permite
+abrir una carpeta, Todos los diagramas o Sin carpeta. La selección se limita a la
+página visible y permite mover varios mapas con una única transacción. El servidor
+bloquea las filas, verifica dueño/revisión y destino, y aplica todos los movimientos
+o ninguno. Los mapas nuevos dentro de una carpeta heredan esa ubicación.

@@ -10,5 +10,6 @@
   "server_tests_passed": 17,
   "published_assets_match": true,
   "anonymous_api_protected": true,
-  "image": "f3575f4a7b10d79e3af21d905334df5fc924f6af119d6bcba50418956fcee6f7"
+  "image": "f3575f4a7b10d79e3af21d905334df5fc924f6af119d6bcba50418956fcee6f7",
+  "last_retested_image": "122be568878bdd87de70edb8ffe10f189e63310dd60922d80bd7b9b552509775"
 }

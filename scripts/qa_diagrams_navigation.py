@@ -12,11 +12,13 @@ with sync_playwright() as p:
  page.route('**/workspace-assets/*',lambda r:r.fulfill(path=str(root/'app/static'/r.request.url.split('/')[-1])))
  def api(route):
   key=route.request.url.split('/diagrams')[-1].split('?')[0].strip('/');method=route.request.method
+  if key=='folders':route.fulfill(json={'items':[]});return
   if method=='GET':route.fulfill(json=rows[key] if key else {'items':[dict(id=v['id'],name=v['name'],revision=v['revision'],updated_at=v['updated_at'],resources=len(v['document']['nodes'])) for v in rows.values()],'total':len(rows),'page_size':8,'page':1})
   elif method=='POST':
    name=route.request.post_data_json['name'];id=str(uuid.uuid4());rows[id]=dict(id=id,name=name,revision=1,updated_at='2026-10-23T20:00:00Z',document=dict(name=name,nodes=[],edges=[]));route.fulfill(status=201,json=rows[id])
   elif method=='PUT':route.fulfill(status=503,json={'error':'Fallo sintético de conexión.'})
  page.route('**/bienvenida/api/diagrams**',api)
+ page.route('**/bienvenida/api/diagrams/*',api)
  page.goto('https://koodaria.com/__qa/nav#/herramientas/mapeo-recursos');page.get_by_role('button',name='+ Nuevo diagrama').click();dlg=page.locator('.resource-dialog');dlg.get_by_label('Nombre del diagrama').fill('Navegación QA');dlg.get_by_role('button',name='Crear diagrama').click();page.get_by_role('button',name='+ Añadir').click();dlg.get_by_label('Nombre',exact=True).fill('Recurso QA');dlg.get_by_role('button',name='Añadir',exact=True).click();page.locator('.diagram-save-error').wait_for()
  page.once('dialog',lambda d:d.dismiss());page.locator('.workspace-rail [data-section=inicio]').click();page.wait_for_timeout(100);assert page.locator('.react-flow').count()==1
  page.once('dialog',lambda d:d.accept());page.locator('.workspace-rail [data-section=inicio]').click();page.wait_for_selector('.catalog-card');page.evaluate('location.hash="/herramientas/mapeo-recursos"');page.get_by_role('button',name='+ Nuevo diagrama').wait_for();page.wait_for_timeout(1000);assert not page.evaluate('KoodariaResourceFlow.hasUnsavedChanges()');assert not errors,errors

@@ -155,3 +155,28 @@ Imagen: `localhost/koodaria-workspace:session-recovery-20261023`.
 Rollback de unidad en `/home/mip/backups/koodaria-20261023/session-recovery/`.
 Pruebas: 17 pruebas de servidor contra base desechable, más
 `scripts/qa_session_recovery.py` (respuestas sintéticas en el navegador).
+
+## Carpetas de diagramas
+
+Imagen actual: `localhost/koodaria-workspace:folders-20261023`.
+Migración aditiva `app/migrations/002_diagram_folders.sql`: crea carpetas privadas,
+añade `folder_id` nullable y mantiene intactos los documentos existentes. Ejecutar
+como propietario en la base de aplicación antes de promover esta imagen; también
+en la base desechable antes de QA. La versión anterior es compatible con la columna
+nueva, por lo que un rollback de la aplicación no requiere revertir la migración.
+
+- Raíz: carpetas y diagramas sin clasificar, con paginación adaptable al viewport.
+- Ubicaciones: Todos los diagramas, Sin carpeta o una carpeta concreta.
+- Un nivel de carpetas; hasta 200 por cuenta, nombres únicos sin distinguir mayúsculas.
+- Nueva carpeta, renombrar, mover un mapa o una selección de la página.
+- El movimiento de varios mapas es atómico y comprueba sus revisiones.
+- Eliminar una carpeta conserva sus diagramas en Sin carpeta.
+- RLS forzado y verificación de propietario también para carpetas/asignaciones;
+  las cuentas no pueden utilizar carpetas ajenas aunque conozcan su UUID.
+- Backups de la base incluyen carpetas y relaciones automáticamente.
+- QA: `scripts/qa_diagram_folders.py`, con arnés desechable y base de prueba.
+
+Carpetas publicadas el 23 de octubre de 2026; imagen
+`122be568878bdd87de70edb8ffe10f189e63310dd60922d80bd7b9b552509775`.
+Unidad previa en `/home/mip/backups/koodaria-20261023/folders/`.
+No revertir la migración al hacer rollback de UI: conservar carpetas y relaciones.

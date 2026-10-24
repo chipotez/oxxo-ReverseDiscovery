@@ -1,0 +1,138 @@
+{
+  "synthetic_identity_only": true,
+  "real_postgresql_disposable_database": true,
+  "checks": [
+    "create_folder_bulk_select_move_and_open",
+    "folder_membership_survives_reload",
+    "new_diagram_inside_folder_and_move_to_unfiled",
+    "rename_folder_and_delete_without_losing_diagrams"
+  ],
+  "states": [
+    {
+      "theme": "light",
+      "width": 1440,
+      "height": 900,
+      "no_document_or_panel_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1366,
+      "height": 768,
+      "no_document_or_panel_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1024,
+      "height": 600,
+      "no_document_or_panel_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 768,
+      "height": 1024,
+      "no_document_or_panel_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "height": 844,
+      "no_document_or_panel_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 375,
+      "height": 667,
+      "no_document_or_panel_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 568,
+      "no_document_or_panel_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 844,
+      "height": 390,
+      "no_document_or_panel_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "height": 900,
+      "no_document_or_panel_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1366,
+      "height": 768,
+      "no_document_or_panel_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1024,
+      "height": 600,
+      "no_document_or_panel_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "height": 1024,
+      "no_document_or_panel_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "height": 844,
+      "no_document_or_panel_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 375,
+      "height": 667,
+      "no_document_or_panel_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 568,
+      "no_document_or_panel_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 844,
+      "height": 390,
+      "no_document_or_panel_overflow": true
+    }
+  ],
+  "accessibility": [
+    {
+      "theme": "light",
+      "width": 1440,
+      "violations": []
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "violations": []
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "violations": []
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "violations": []
+    }
+  ],
+  "browser_errors": [],
+  "server_tests_passed": 19,
+  "published_assets_match": true,
+  "anonymous_folder_api_protected": true,
+  "image": "122be568878bdd87de70edb8ffe10f189e63310dd60922d80bd7b9b552509775",
+  "backup_restore_verified": true,
+  "navigation_guard_regression_passed": true,
+  "session_recovery_regression_passed": true
+}

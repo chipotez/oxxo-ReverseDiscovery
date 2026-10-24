@@ -17,6 +17,7 @@ with sync_playwright() as p:
   rows=context.request.get(api).json()
   if not rows['items']:break
   for row in rows['items']:context.request.delete(api+'/'+row['id'],data={'revision':row['revision']},headers=headers)
+ for folder in context.request.get(api+'/folders').json()['items']:context.request.delete(api+'/folders/'+folder['id'],data={'revision':folder['revision']},headers=headers)
  page.goto(base+'/bienvenida/#/catalogo/observabilidad');page.locator('a[href="#/herramientas/mapeo-recursos"]').click();page.get_by_role('button',name='+ Nuevo diagrama',exact=True).wait_for();page.wait_for_timeout(400)
  def create(name):
   page.get_by_role('button',name='+ Nuevo diagrama',exact=True).click();dlg=page.locator('.resource-dialog');dlg.get_by_label('Nombre del diagrama').fill(name);dlg.get_by_role('button',name='Crear diagrama',exact=True).click();page.locator('.react-flow').wait_for()
