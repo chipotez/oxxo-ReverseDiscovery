@@ -33,6 +33,31 @@ def render_pdf(row):
         parent=by_id.get(n.get('parentId'))
         return (n['position']['x']+(parent['position']['x'] if parent else 0), n['position']['y']+(parent['position']['y'] if parent else 0))
     sizes={n['id']:(n.get('style',{}).get('width',380),n.get('style',{}).get('height',260)) if n['type']=='resourceGroup' else (190,max(95,40+len(lines(n['data']['label'],160,13))*16+len(lines(n['data'].get('address','')+' '+n['data'].get('port',''),160,10))*12)) for n in nodes}
+    # Match the derived hosting layout used by the editor, including old maps.
+    children={}
+    for edge in edges:
+        if edge.get('relation')=='hosts':children.setdefault(edge['source'],[]).append(edge['target'])
+    nested_positions={};ordered=[]
+    def size_host(key):
+        if key not in children:return sizes[key]
+        child_sizes=[size_host(k) for k in children[key]]
+        sizes[key]=(max(300,*[w for w,h in child_sizes])+32,268+sum(h+16 for w,h in child_sizes))
+        return sizes[key]
+    # Every hosted real component uses the compact node footprint.
+    if children:
+        for n in nodes:
+            if n['type']=='resource':sizes[n['id']]=(300,240)
+        targets={k for values in children.values() for k in values}
+        def place_host(key,x,y):
+            nested_positions[key]=(x,y);ordered.append(by_id[key]);cy=y+268
+            for child in children.get(key,[]):
+                place_host(child,x+16,cy);cy+=sizes[child][1]+16
+        for n in nodes:
+            if n['id'] not in targets:
+                size_host(n['id']);place_host(n['id'],*xy(n))
+        nodes=ordered
+        old_xy=xy
+        def xy(n):return nested_positions.get(n['id'],old_xy(n))
     header(row['name'])
     if nodes:
         left=min(xy(n)[0] for n in nodes)-20; top=min(xy(n)[1] for n in nodes)-20
@@ -47,6 +72,7 @@ def render_pdf(row):
             x,y,w,h=rect(n);c.setFillColor(SAGE);c.setStrokeColor(HexColor('#88ab96'));c.roundRect(x,y,w,h,16,fill=1,stroke=1);c.setFillColor(INK);c.setFont('Helvetica',13)
             for i,line in enumerate(lines(n['data']['label'],w-28,13)[:2]):c.drawString(x+14,y+h-22-i*15,line)
         for e in edges:
+            if e.get('relation')=='hosts':continue
             a,b=by_id[e['source']],by_id[e['target']];ax,ay,aw,ah=rect(a);bx,by,bw,bh=rect(b)
             x1,y1=ax+aw,ay+ah/2;x2,y2=bx,by+bh/2;mx=(x1+x2)/2
             c.setStrokeColor(GREEN);c.setLineWidth(1.5);p=c.beginPath();p.moveTo(x1,y1);p.lineTo(mx,y1);p.lineTo(mx,y2);p.lineTo(x2,y2);c.drawPath(p)

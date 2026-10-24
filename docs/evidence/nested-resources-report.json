@@ -1,0 +1,81 @@
+{
+  "synthetic_identity_only": true,
+  "states": [
+    {
+      "theme": "light",
+      "width": 1440,
+      "height": 1000
+    },
+    {
+      "theme": "light",
+      "width": 1024,
+      "height": 600
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 568
+    },
+    {
+      "theme": "light",
+      "width": 844,
+      "height": 390
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "height": 1000
+    },
+    {
+      "theme": "dark",
+      "width": 1024,
+      "height": 600
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 568
+    },
+    {
+      "theme": "dark",
+      "width": 844,
+      "height": 390
+    }
+  ],
+  "accessibility": [
+    {
+      "theme": "light",
+      "violations": []
+    },
+    {
+      "theme": "dark",
+      "violations": []
+    }
+  ],
+  "delete_host_retains_children": true,
+  "browser_errors": [],
+  "recursive_containment": true,
+  "roundtrip": true,
+  "add_inside": true,
+  "type_change_saved": true,
+  "backend_tests_passed": 49,
+  "layout_semantic_tests": true,
+  "pdf_visual_review": true,
+  "deployment": {
+    "image": "d6ca6f21fee9bfd4f2645df5d84f90f159377abd884aa4bfb1cfc993233f301f",
+    "public_assets": {
+      "resource-flow-v1.js": "eef7f4b4355244e5ffc2441799de506adc725364a989af04ce0815077a7e553a",
+      "resource-flow-v1.css": "64c5e3e011e2463cbbd303882ae58b270224fd1b7bfb3df9f08743b7f2aa759c"
+    }
+  }
+}

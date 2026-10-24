@@ -15,5 +15,5 @@ export function documentation(data,section,id,edges=[]){
  const coverage=data.standard?.coverage||[];
  const filled=fields.filter(f=>{if(section==='controls'){const c=coverage.find(v=>v.id===f.id)||values[f.id];return c&&c.status!=='unknown'&&documented(c.evidence);}return documented(values[f.id])||(section==='relationships'&&related(id,f.id,edges).length>0);}).length;
  const total=fields.length,percent=total?Math.round(100*filled/total):0;
- return {filled,total,percent,state:!filled?'empty':filled===total?'complete':percent<50?'missing':'progress',mark:!filled?'○':filled===total?'✓':percent<50?'!':'◐'};
+ return {filled,total,percent,state:total&&filled===total?'complete':percent<50?'missing':'progress',mark:total&&filled===total?'✓':percent<50?'!':'◐'};
 }

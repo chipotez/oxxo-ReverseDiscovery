@@ -133,6 +133,15 @@ class DiagramIntegrationTests(unittest.TestCase):
         doc['edges'][0].pop('type');r=self.send('put',path,dict(revision=revision,document=doc));self.assertEqual(r.status_code,200);self.assertEqual(self.send('get',path).json['document']['edges'][0]['type'],'step')
         doc['edges'][0]['type']='untrusted';self.assertEqual(self.send('put',path,dict(revision=r.json['revision'],document=doc)).status_code,400)
 
+    def test_changing_component_type_does_not_restore_incompatible_instance(self):
+        row=self.create();path='/'+row['id']
+        doc=dict(name='QA type',nodes=[dict(id='vm',type='resource',position=dict(x=0,y=0),data=dict(label='VM',kind='virtual',server_instance={'identification':{'hostname':'qa.example'}}))],edges=[])
+        saved=self.send('put',path,value=dict(revision=row['revision'],document=doc));self.assertEqual(saved.status_code,200)
+        doc['nodes'][0]['data']=dict(label='Hypervisor',kind='hipervisor')
+        result=self.send('put',path,value=dict(revision=saved.json['revision'],document=doc));self.assertEqual(result.status_code,200)
+        current=self.send('get',path).json['document']['nodes'][0]['data']
+        self.assertNotIn('server_instance',current);self.assertIn('resource_schema',current)
+
     def test_generic_instance_and_hosting_roundtrip(self):
         row=self.create();path='/'+row['id'];doc=dict(name='QA composition',nodes=[dict(id='vm',type='resource',position=dict(x=0,y=0),data=dict(label='VM',kind='virtual')),dict(id='ftp',type='resource',position=dict(x=400,y=0),data=dict(label='FTP',kind='custom_service',component_instance={'identification':{'name':'FTP','purpose':'QA transfer','owner':'QA team','technology':'SFTP'}}))],edges=[dict(id='hosts',source='vm',target='ftp',relation='hosts',label='Aloja')])
         r=self.send('put',path,dict(revision=row['revision'],document=doc));self.assertEqual(r.status_code,200,r.data)

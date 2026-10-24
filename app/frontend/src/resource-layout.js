@@ -1,0 +1,11 @@
+// Hosting is the canonical relationship; containment is a derived canvas layout.
+// Persist absolute coordinates so older clients and detached components remain usable.
+export function resourceLayout(nodes,edges){
+ const byId=new Map(nodes.map(n=>[n.id,n])),parents=new Map(),children=new Map(),sizes=new Map(),absolute=new Map(),result=[];
+ for(const e of edges)if(e.relation==='hosts'&&byId.has(e.source)&&byId.has(e.target)&&!parents.has(e.target)){parents.set(e.target,e.source);children.set(e.source,[...(children.get(e.source)||[]),e.target]);}
+ const measure=(id,trail=new Set())=>{if(sizes.has(id))return sizes.get(id);if(trail.has(id))return {width:300,height:240};const next=new Set([...trail,id]),kids=(children.get(id)||[]).map(k=>measure(k,next));const size={width:kids.length?Math.max(300,...kids.map(s=>s.width))+32:300,height:240+(kids.length?28+kids.reduce((v,s)=>v+s.height+16,0):0)};sizes.set(id,size);return size;};
+ const place=(n,parent,position,trail=new Set())=>{if(trail.has(n.id)||absolute.has(n.id))return;const size=measure(n.id),parentAbs=absolute.get(parent||n.parentId);absolute.set(n.id,{x:position.x+(parentAbs?.x||0),y:position.y+(parentAbs?.y||0)});result.push({...n,parentId:parent||n.parentId,extent:parent?'parent':n.extent,position,draggable:!parent,style:n.type==='resource'?{...n.style,...size}:n.style});let y=268;for(const child of children.get(n.id)||[]){place(byId.get(child),n.id,{x:16,y},new Set([...trail,n.id]));y+=measure(child).height+16;}};
+ for(const n of nodes)if(!parents.has(n.id))place(n,null,n.position);
+ for(const n of nodes)if(!absolute.has(n.id))place(n,null,n.position);
+ return {nodes:result,absolute,sizes,parents};
+}

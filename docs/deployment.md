@@ -678,3 +678,30 @@ anidadas visualmente y el diseñador de estándares personalizados quedan pendie
 Para revertir después de editar nuevos componentes, conservar un backend que
 entienda `custom_service`, `component_instance` y relaciones tipadas; no restaurar
 un backup de datos sobre cambios posteriores.
+
+## Contención visual de componentes — 24 de octubre de 2026
+
+Publicada `localhost/koodaria-workspace:nested-20261024`
+(`d6ca6f21fee9bfd4f2645df5d84f90f159377abd884aa4bfb1cfc993233f301f`).
+React Flow representa `hosts` como cajas anidadas de varios niveles con tamaños
+y disposición automáticos. La jerarquía visual se deriva de las relaciones;
+se guardan coordenadas absolutas, sin nuevos campos de jerarquía en PostgreSQL.
+La exportación PDF conserva la contención y el inventario de relaciones.
+
+Cabeceras compactas con resumen de identidad/contexto; iconos con tres colores
+(rojo, amarillo, verde) y símbolos. Vacío es rojo; verde indica documentación,
+no salud operativa. Los hijos conservan edición e identidad propias y se mueven
+con su contenedor. El borrado de un contenedor, incluido por teclado, conserva
+sus hijos y elimina solo las relaciones afectadas. Se corrige la restauración
+de instancias incompatibles cuando cambia el tipo de un recurso.
+
+Sin migración SQL ni cambios de autenticación/permisos. Backup previo realizado;
+unidad anterior en `/home/mip/backups/koodaria-20261024/nested/`. Se reinició
+únicamente la aplicación. Reversión posible a `composition-20261024` sin restaurar
+base de datos: esa versión mostrará alojamiento como lista en vez de contención.
+
+Validación: 49 pruebas de servidor, pruebas semánticas del layout recursivo y
+semáforo, diez estados responsive, auditorías AA de nodos en claro/oscuro,
+guardado/reapertura, alta dentro del host, cambio de tipo y borrado sin cascada.
+PDF sintético renderizado y revisado. Imagen activa y JS/CSS públicos verificados.
+Evidencia: `docs/evidence/nested-resources-report.json`.

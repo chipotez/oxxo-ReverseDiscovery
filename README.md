@@ -117,13 +117,13 @@ los avisos MIT de la dependencia permanecen en el código distribuido.
 
 ### Documentación y componentes alojados
 
-Los cuatro iconos muestran avance documental (gris, rojo, ámbar y verde), con
+Los cuatro iconos muestran avance documental (rojo, amarillo y verde), con
 símbolo y contador al enfocarlos. No representan salud del servicio. El guardado
 sigue aceptando borradores incompletos. Un control requiere un estado declarado
 y evidencia para completar su documentación.
 
-«Componentes alojados» abre una lista expandible. Desde allí se añade un recurso
-del catálogo, que conserva su identificador y sus propios cuatro bloques. La
+El botón + de cada nodo añade un componente dentro de su caja. El recurso
+conserva su identificador y sus propios cuatro bloques, incluso en varios niveles. La
 relación «Aloja / ejecuta» se guarda en el mismo grafo. Relaciones de arquitectura
 permite vincular recursos existentes y agregar dependencias sin duplicarlos.
 Servicio personalizado está en Aplicaciones e integración / Componentes

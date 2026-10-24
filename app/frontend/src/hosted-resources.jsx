@@ -1,5 +1,5 @@
-import React,{useState} from 'react';
+import React from 'react';
 export default function HostedResources({id,context}){
- const [open,setOpen]=useState(false),[page,setPage]=useState(0);const links=context.edges.filter(e=>e.source===id&&e.relation==='hosts');const current=Math.min(page,Math.max(0,Math.ceil(links.length/3)-1));
- return <div className="hosted-resources nodrag nopan" onClick={e=>e.stopPropagation()}><button className="hosted-summary" aria-expanded={open} onClick={()=>setOpen(!open)}>Componentes alojados · {links.length} <span aria-hidden="true">{open?'⌄':'›'}</span></button>{open&&<><div>{links.slice(current*3,current*3+3).map(e=><button className="hosted-child" key={e.id} onClick={()=>context.onOpen(e.target)}>{context.nodes.find(n=>n.id===e.target)?.data.label} ↗</button>)}</div>{links.length>3&&<nav><button disabled={!current} onClick={()=>setPage(current-1)}>←</button><span>{current+1} / {Math.ceil(links.length/3)}</span><button disabled={(current+1)*3>=links.length} onClick={()=>setPage(current+1)}>→</button></nav>}<button className="hosted-add" onClick={()=>context.onAdd(id)}>+ Añadir componente alojado</button></>}</div>;
+ const count=context.edges.filter(e=>e.source===id&&e.relation==='hosts').length;
+ return <div className="hosted-resources nodrag nopan" onClick={e=>e.stopPropagation()}><span className="hosted-count">{count?`${count} componente${count===1?'':'s'} dentro`:''}</span><button className="hosted-add" aria-label={'Añadir componente alojado en '+context.nodes.find(n=>n.id===id)?.data.label} title="Añadir componente alojado" onClick={()=>context.onAdd(id)}>+</button></div>;
 }

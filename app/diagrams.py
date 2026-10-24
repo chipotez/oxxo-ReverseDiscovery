@@ -282,7 +282,7 @@ def save(diagram_id):
         for node in value['nodes']:
             old=old_nodes.get(node['id'],{}).get('data',{})
             for field in ['provider','technology','location','server_instance','component_instance']:
-                if field not in node['data'] and field in old:node['data'][field]=old[field]
+                if field not in node['data'] and field in old and old.get('kind')==node['data']['kind']:node['data'][field]=old[field]
         old_edges={e['id']:e for e in original['document']['edges']}
         for edge in value['edges']:
             old=old_edges.get(edge['id'],{})

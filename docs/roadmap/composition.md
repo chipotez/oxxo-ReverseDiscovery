@@ -1,6 +1,6 @@
 # Composición y documentación de recursos
 
-## Primera etapa implementada
+## Comportamiento actual
 
 Los cuatro bloques del estándar se mantienen. Definen los datos y relaciones
 que documenta una instancia; el grafo registra las relaciones concretas.
@@ -16,9 +16,9 @@ que documenta una instancia; el grafo registra las relaciones concretas.
   Las dependencias admiten varios orígenes/destinos, incluso ciclos reales.
   «Forma parte de» refleja también el host de un recurso y «Utilizado por»
   refleja sus dependientes, sin almacenar vínculos inversos duplicados.
-- Los componentes alojados se muestran en una lista expandible de tres por
-  página. Seleccionar uno enfoca su nodo independiente; no duplica el recurso.
-- Añadir desde esa lista crea el recurso y la relación `hosts`. Quitar una
+- Los componentes alojados se muestran dentro de su contenedor, en varios
+  niveles. Seleccionar uno edita su nodo independiente; no duplica el recurso.
+- Añadir desde el botón + del contenedor crea el recurso y `hosts`. Quitar una
   relación conserva ambos recursos. Eliminar un host conserva sus alojados.
 - Relaciones paralelas entre los mismos anclajes muestran un contador para
   evitar superponer etiquetas; cada relación conserva su identidad y tipo.
@@ -34,8 +34,7 @@ y permisos del diagrama. Sin tablas nuevas, migración ni cambios de acceso.
 Son derivados, no estados de salud ni verificación de cumplimiento. Una evidencia
 que documenta un control pendiente puede completar su documentación.
 
-- Gris/círculo: sin iniciar o sin requisitos obligatorios.
-- Rojo/exclamación: avance mayor que cero y menor al 50 %.
+- Rojo/exclamación: sin iniciar o avance menor al 50 %.
 - Ámbar/semicírculo: desde 50 % y menor a 100 %.
 - Verde/check: todos los campos requeridos documentados.
 - El tooltip incluye cantidad y porcentaje. El color nunca es la única señal.
@@ -60,9 +59,8 @@ conservación del componente cuando se elimina su host o se retira el vínculo.
 
 1. Aplicabilidad condicional evaluada por ambiente, plataforma y criticidad;
    revisión explícita con requisitos antes de publicar, sin bloquear borradores.
-2. Contenedores visuales que expanden subgrafos, disposición de varios niveles,
-   búsqueda de descendientes y filtros por relación. La etapa actual es una
-   composición lógica con lista, no un lienzo recursivo dentro de cada caja.
+2. Plegado de subgrafos, búsqueda de descendientes y filtros por relación.
+   La etapa actual ya muestra las cajas dentro de su contenedor en varios niveles.
 3. Distinguir servicio lógico, clúster e instancia desplegada: una instancia tiene
    un host principal; un servicio o clúster puede agrupar muchas instancias.
 4. Diseñador de estándares personalizados por organización, versiones,
@@ -74,5 +72,22 @@ conservación del componente cuando se elimina su host o se retira el vínculo.
    si se introduce un inventario compartido. Actualmente se heredan del diagrama.
 7. Reglas semánticas configurables: «se ejecuta en» frente a «forma parte de»;
    límites de tipos; detección de inconsistencias y validación automática.
-8. Exportación visual de la composición expandida y tratamiento de relaciones
-   paralelas en PDF. El PDF actual conserva nodos y conexiones como inventario.
+8. Tratamiento de relaciones paralelas en PDF y exportación con más detalle.
+   El PDF ya conserva la composición anidada y el inventario de conexiones.
+
+## Segunda etapa: cajas anidadas
+
+La relación `hosts` gobierna también la contención visual en React Flow.
+El contenedor crece según los descendientes; cada componente interno mantiene
+sus cuatro iconos, selección, edición y puntos de conexión. Los hijos siguen
+una disposición automática, se desplazan junto al contenedor y no se arrastran
+individualmente dentro de él. Se conservan coordenadas absolutas en el documento,
+sin introducir una segunda jerarquía persistida que pueda contradecir `hosts`.
+Eliminar el contenedor conserva sus componentes. El PDF refleja esa composición.
+
+La documentación usa tres estados: rojo por debajo de 50% (incluido vacío),
+amarillo desde 50% y verde completo; el símbolo mantiene la distinción sin
+depender solo del color. La cabecera muestra tipo una vez, nombre y hasta tres
+valores de contexto, priorizando los campos canónicos del estándar. IP/puerto
+siguen siendo atributos del recurso del diagrama; no se presentan como evidencia
+ni como controles. Los tipos de estándar conservan su esquema propio.

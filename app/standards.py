@@ -172,7 +172,7 @@ def bind(conn,doc,original=None):
 
         if not value and data['kind'] in ['servidor','virtual']:
             existing=previous.get(node['id'],{}).get('data',{}).get('standard')
-            if existing:
+            if existing and previous[node['id']]['data']['kind']==data['kind']:
                 data['standard']=json.loads(json.dumps(existing));continue
         if data['kind'] not in ['servidor','virtual']:
             from diagram_catalog import resource_model
