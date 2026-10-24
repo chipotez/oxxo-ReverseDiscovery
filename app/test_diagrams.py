@@ -20,7 +20,10 @@ class DiagramValidationTests(unittest.TestCase):
 class DiagramIntegrationTests(unittest.TestCase):
     def setUp(self):
         app.config['TESTING']=True
-        self.client=app.test_client();self.owner='qa-'+str(uuid.uuid4());self.other='qa-'+str(uuid.uuid4());self.login(self.owner)
+        self.client=app.test_client();self.owner='qa-'+str(uuid.uuid4());self.other='qa-'+str(uuid.uuid4())
+        for who in [self.owner,self.other]:
+            with connection(who) as c:c.execute('SELECT qa_seed_member(%s)',(who,))
+        self.login(self.owner)
     def login(self,subject):
         with self.client.session_transaction() as s:s.update(identity={'sub':subject},expires_at=time.time()+300,csrf='qa-token')
     def tearDown(self):

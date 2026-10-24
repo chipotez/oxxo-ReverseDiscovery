@@ -194,3 +194,64 @@ entre despliegues. El cierre manual invalida la sesión. No se aumentó la durac
 del access token de Keycloak ni se modificaron MFA o el realm del laboratorio.
 Verificación: 21 pruebas de servidor y `scripts/qa_session_durability.py`, que
 recrea dos contenedores aislados con la misma cookie/volumen sintéticos.
+
+## Biblioteca compartida e invitaciones — 23 de octubre de 2026
+
+Imagen desplegada: `localhost/koodaria-workspace:sharing-20261023`, ID
+`a7f53474fde57e708a8d9b6a0459436cde3fb495ba3dc7db20f1fe744756043f`.
+Migración aditiva `003_diagram_sharing.sql`, aplicada una vez como propietario tras
+backup. Conserva los propietarios existentes como miembros; identidades nuevas
+entran como invitados. La aplicación no puede elevar ese nivel. PostgreSQL aplica
+RLS a grupos, documentos, directorio de identidades y accesos compartidos.
+
+- Mis diagramas / Compartidos conmigo; Nuevo grupo, filtros y selección compactos,
+  iconos de colección/topología, acciones secundarias en menú y bordes suaves.
+- Un invitado puede leer, editar y exportar PDF exclusivamente de los mapas con
+  una concesión activa. No crea, elimina, mueve, agrupa ni vuelve a compartir.
+- Las invitaciones pendientes se activan tras OIDC, con sujeto y correo verificado
+  coincidentes. Nunca se concede acceso por dominio ni por organización solamente.
+- Revocación inmediata para nuevas lecturas y escrituras; edición con revisión
+  optimista y registro de acciones. Límite 10 invitaciones/minuto por propietario,
+  60 segundos entre reenvíos y 100 personas por mapa. Invitación pendiente: siete
+  días; enlace de alta de Keycloak: 24 horas. Una entrega fallida no activa acceso.
+
+`/home/mip/.config/koodaria/invitation-service.env` contiene SMTP y el secreto del
+cliente `koodaria-invitations`, con permisos 600 y fuera de imágenes/Git. El cliente
+es de servicio, sin login interactivo ni grant de contraseña; sus roles son
+manage-users, query-users, view-users, manage-organizations y query-organizations
+solo en el realm Koodaria. No tiene realm-admin ni permisos de master.
+
+SMTP global autenticado con el buzón `admin@koodaria.com`, independiente de las
+organizaciones. `SMTP_VERIFIED=true` se añadió después de verificar TLS/autenticación.
+Un alias futuro `no-reply@koodaria.com` solo cambia el remitente después de crearlo y
+validar envío; no sustituye el usuario de autenticación ni exige otra organización.
+La organización Koodaria corresponde a la cuenta propietaria de la aplicación.
+Las cuentas nuevas invitadas se incorporan a la organización explícita del propietario;
+si no hay exactamente una, la invitación falla antes de crear la cuenta.
+
+Alta: correo verificado, perfil, contraseña, TOTP y códigos de recuperación. Reenviar
+un alta pendiente conserva los pasos restantes. Compartir con cuentas existentes
+no cambia sus contraseñas ni su MFA. La recuperación por correo restablece únicamente
+la contraseña; se deshabilitó reset-otp en el flujo de recuperación. Para pérdida del
+segundo factor se usa un código de recuperación previamente guardado o asistencia
+administrativa con comprobación de identidad. No hay bypass de MFA por email.
+
+El segundo factor tiene un subflujo OTP REQUIRED dentro de una alternativa, junto a
+Recovery Authentication Code. Así los usuarios sin OTP pueden matricularlo y los ya
+configurados pueden usar un código válido de recuperación. Se comprobó en un realm
+desechable: configuración inicial, siguiente login con OTP, recuperación y rechazo
+al reutilizar el mismo código. No se eliminaron credenciales MFA humanas.
+
+El tema de correo propio usa el logo textual y verdes de Koodaria. La configuración
+de códigos de recuperación presenta instrucciones, códigos paginados y confirmación
+nativa en pasos; no recorta ni escala el formulario. Los códigos/QR no forman parte
+de capturas ni evidencias. Los correos de prueba se dirigieron solo al buzón propio;
+la identidad desechable de la invitación y su enlace se invalidaron tras la prueba.
+
+Validación: 30 pruebas de servidor, PostgreSQL desechable y pruebas de navegador en
+16 estados (ocho viewports, dos temas), siete auditorías WCAG AA sin incidencias,
+edición/revocación real entre propietario e invitado. Evidencia:
+`docs/evidence/sharing-workspace-report.json` y `recovery-enrollment-report.json`.
+Sesiones de dos horas, clave de aplicación y volumen de sesiones conservados.
+Rollback UI: unidad previa en `/home/mip/backups/koodaria-20261023/sharing/`.
+No revertir la migración ni borrar concesiones/datos al revertir una imagen.

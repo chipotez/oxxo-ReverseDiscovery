@@ -176,3 +176,25 @@ abrir una carpeta, Todos los diagramas o Sin carpeta. La selección se limita a 
 página visible y permite mover varios mapas con una única transacción. El servidor
 bloquea las filas, verifica dueño/revisión y destino, y aplica todos los movimientos
 o ninguno. Los mapas nuevos dentro de una carpeta heredan esa ubicación.
+
+## Actualización: compartición e identidad de invitados
+
+La biblioteca usa ahora grupos y las vistas Mis diagramas / Compartidos conmigo.
+El nivel miembro/invitado pertenece al backend y está protegido por PostgreSQL;
+los miembros existentes se conservaron mediante migración. Las concesiones se
+asocian a un UUID de diagrama y al sujeto OIDC con correo verificado. Ser miembro
+de una organización no concede acceso a todos sus diagramas.
+
+La organización Koodaria contiene la cuenta propietaria; Kyndryl sigue separada.
+El SMTP es global y no constituye una cuenta de usuario de ninguna organización.
+El cliente confidencial de invitaciones solo tiene roles de gestión de usuarios y
+organizaciones dentro del realm Koodaria. Se eliminaron el cliente administrativo
+temporal de master y el realm de pruebas después de verificar la integración.
+
+SMTP ya está verificado; se habilitó recuperar contraseñas y se deshabilitó el paso
+que borraba OTP durante esa recuperación. El flujo de segundo factor conserva
+OTP obligatorio en su propia alternativa y admite códigos de recuperación de un
+solo uso. Las invitaciones nuevas completan correo, perfil, contraseña, TOTP y
+códigos. Las cuentas existentes conservan contraseña y MFA; si su correo todavía
+no está verificado, se solicita únicamente esa verificación adicional. La edición
+compartida y la revocación están verificadas tanto en API como mediante RLS.

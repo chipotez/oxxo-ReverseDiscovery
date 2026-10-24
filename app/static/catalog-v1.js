@@ -2,6 +2,7 @@
 (() => {
 'use strict';
 const main=document.querySelector('#contenido');
+const guest=document.querySelector('meta[name=portal-tier]')?.content==='guest';
 if(!main)return;
 const accountMenu=document.querySelector('.user-menu');
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -61,7 +62,8 @@ function paginate(){
  grid.style.setProperty('--columns',cols);
  grid.innerHTML=items.slice((page-1)*size,page*size).map(p=>{
   const href=currentMode==='catalog'?`#/catalogo/${p.id}`:p.id==='mapeo-recursos'?'#/herramientas/mapeo-recursos':`#/catalogo/observabilidad/${p.id}`;
-  return `<a class="catalog-card ${currentMode==='catalog'?'discipline-card':'product-card'} ${p.id==='mapeo-servicios'?'card-featured':''}" href="${href}">${currentMode==='catalog'?illustration(p.icon):`<div class="product-art">${productIllustration(p.icon)}</div>`}<div class="card-copy">${currentMode==='products'?`<div class="card-tags"><span>${typeLabel(p)}</span>${p.ready?'<span class="available-tag">Disponible</span>':''}</div>`:''}<h2>${esc(p.title)}</h2><p>${esc(p.description)}</p><span class="card-action">${currentMode==='catalog'?'Explorar':p.id==='mapeo-recursos'?'Mis diagramas':'Ver detalle'} ${icon('arrow')}</span></div></a>`;
+  const locked=guest&&(currentMode==='catalog'?p.id!=='observabilidad':p.id!=='mapeo-recursos');
+  return `<${locked?'div':'a'} class="catalog-card ${currentMode==='catalog'?'discipline-card':'product-card'} ${p.id==='mapeo-servicios'?'card-featured':''} ${locked?'is-locked':''}" ${locked?'aria-label="'+esc(p.title)+', sin acceso"':'href="'+href+'"'}>${currentMode==='catalog'?illustration(p.icon):`<div class="product-art">${productIllustration(p.icon)}</div>`}<div class="card-copy">${currentMode==='products'?`<div class="card-tags"><span>${typeLabel(p)}</span>${p.ready?'<span class="available-tag">Disponible</span>':''}</div>`:''}<h2>${esc(p.title)}</h2><p>${esc(p.description)}</p><span class="card-action">${locked?'Sin acceso':currentMode==='catalog'?'Explorar':p.id==='mapeo-recursos'?'Mis diagramas':'Ver detalle'} ${locked?'':icon('arrow')}</span></div></${locked?'div':'a'}>`;
  }).join('')||(currentItems.length?'<p class="catalog-empty">No encontramos coincidencias. Prueba con otro término.</p>':'<p class="catalog-empty">Este catálogo estará disponible próximamente.</p>');
  main.querySelector('#result-count').textContent=`${items.length} ${currentMode==='catalog'?'disciplinas':'opciones'}`;
  main.querySelector('#page-count').textContent=`${page} / ${pages}`;
@@ -143,6 +145,7 @@ function render(){
  document.querySelectorAll('[data-view]').forEach(b=>b.setAttribute('aria-pressed',String((route.startsWith('/cursos')?'modulos':'servicios')===b.dataset.view)));
  document.querySelectorAll('[data-section]').forEach(b=>{if(b.dataset.section===(route.startsWith('/cursos')?'aprendizaje':route.startsWith('/herramientas')?'crear':'aplicaciones'))b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');});
  const [path,params='']=route.split('?');const bits=path.split('/').filter(Boolean);
+ if(guest&&!(bits[0]==='catalogo'&&(!bits[1]||(bits[1]==='observabilidad'&&(!bits[2]||bits[2]==='mapeo-recursos'))))&&!(bits[0]==='herramientas'&&bits[1]==='mapeo-recursos')){location.hash='/catalogo';return;}
  if((bits[0]==='herramientas'&&bits[1]==='mapeo-recursos')||(bits[0]==='catalogo'&&bits[1]==='observabilidad'&&bits[2]==='mapeo-recursos')){document.body.classList.add('resource-tool-open');main.className='workspace-main resource-flow-page';main.removeAttribute('style');main.innerHTML='';window.KoodariaResourceFlow.mount(main);return;}
  if(bits[0]==='herramientas'&&bits[1]==='mapeo-servicios'){editor(bits[2]==='ejemplo');return;}
  if(bits[0]==='cursos'){listView('Cursos','Aprende observabilidad, desde sus fundamentos hasta su aplicación en operación.',products.filter(p=>p.type==='curso'),'products',[{label:'Cursos'}]);return;}
@@ -160,7 +163,8 @@ let resizeFrame;const resize=()=>{cancelAnimationFrame(resizeFrame);resizeFrame=
 window.addEventListener('resize',resize);window.visualViewport?.addEventListener('resize',resize);
 window.addEventListener('beforeunload',e=>{if(dirty){e.preventDefault();e.returnValue='';}});
 document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>{location.hash=b.dataset.view==='modulos'?'/cursos':'/catalogo';}));
-document.querySelectorAll('[data-section]').forEach(b=>b.addEventListener('click',()=>{const route={inicio:'/catalogo',aplicaciones:'/catalogo',biblioteca:'/cursos',aprendizaje:'/cursos',crear:'/herramientas/mapeo-servicios'}[b.dataset.section];if(route)location.hash=route;}));
-for(const section of ['asistente','favoritos','consola']){const button=document.querySelector(`[data-section="${section}"]`);if(button){button.disabled=true;button.title=button.getAttribute('aria-label')+' · Próximamente';}}
+document.querySelectorAll('[data-section]').forEach(b=>b.addEventListener('click',()=>{const route={inicio:'/catalogo',aplicaciones:'/catalogo',biblioteca:'/cursos',aprendizaje:'/cursos',crear:guest?'/herramientas/mapeo-recursos':'/herramientas/mapeo-servicios'}[b.dataset.section];if(route)location.hash=route;}));
+for(const section of (guest?['asistente','favoritos','consola','crear','biblioteca','aprendizaje']:['asistente','favoritos','consola'])){const button=document.querySelector(`[data-section="${section}"]`);if(button){button.disabled=true;button.title=button.getAttribute('aria-label')+' · Próximamente';}}
+if(guest)document.querySelector('[data-view=modulos]')?.setAttribute('disabled','');
 render();
 })();

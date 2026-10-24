@@ -1,0 +1,57 @@
+{
+  "synthetic_identity_only": true,
+  "no_secrets_or_screenshots_recorded": true,
+  "states": [
+    {
+      "width": 1440,
+      "height": 900,
+      "pages_verified": 4,
+      "no_overflow": true
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "pages_verified": 4,
+      "no_overflow": true
+    },
+    {
+      "width": 1024,
+      "height": 600,
+      "pages_verified": 5,
+      "no_overflow": true
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "pages_verified": 4,
+      "no_overflow": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "pages_verified": 4,
+      "no_overflow": true
+    },
+    {
+      "width": 375,
+      "height": 667,
+      "pages_verified": 5,
+      "no_overflow": true
+    },
+    {
+      "width": 320,
+      "height": 568,
+      "pages_verified": 6,
+      "no_overflow": true
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "pages_verified": 5,
+      "no_overflow": true
+    }
+  ],
+  "valid_recovery_completes_second_factor": true,
+  "used_code_rejected": true,
+  "served_theme_resources_tested_without_browser_overrides": true
+}

@@ -1,0 +1,184 @@
+{
+  "synthetic_identity_only": true,
+  "real_postgresql_disposable_database": true,
+  "checks": [
+    "semantic_icons_groups_and_compact_bulk_selection",
+    "owner_grants_edit_access_by_verified_email",
+    "guest_edits_only_granted_map_and_cannot_create_or_read_other_maps",
+    "guest_catalog_visible_but_only_observability_resource_mapping_enabled",
+    "owner_revokes_access_immediately",
+    "unconfigured_mail_does_not_claim_invitation_sent"
+  ],
+  "states": [
+    {
+      "view": "library",
+      "theme": "light",
+      "width": 1440,
+      "height": 900,
+      "no_document_or_panel_overflow": true
+    },
+    {
+      "view": "library",
+      "theme": "light",
+      "width": 1366,
+      "height": 768,
+      "no_document_or_panel_overflow": true
+    },
+    {
+      "view": "library",
+      "theme": "light",
+      "width": 1024,
+      "height": 600,
+      "no_document_or_panel_overflow": true
+    },
+    {
+      "view": "library",
+      "theme": "light",
+      "width": 768,
+      "height": 1024,
+      "no_document_or_panel_overflow": true
+    },
+    {
+      "view": "library",
+      "theme": "light",
+      "width": 390,
+      "height": 844,
+      "no_document_or_panel_overflow": true
+    },
+    {
+      "view": "library",
+      "theme": "light",
+      "width": 375,
+      "height": 667,
+      "no_document_or_panel_overflow": true
+    },
+    {
+      "view": "library",
+      "theme": "light",
+      "width": 320,
+      "height": 568,
+      "no_document_or_panel_overflow": true
+    },
+    {
+      "view": "library",
+      "theme": "light",
+      "width": 844,
+      "height": 390,
+      "no_document_or_panel_overflow": true
+    },
+    {
+      "view": "library",
+      "theme": "dark",
+      "width": 1440,
+      "height": 900,
+      "no_document_or_panel_overflow": true
+    },
+    {
+      "view": "library",
+      "theme": "dark",
+      "width": 1366,
+      "height": 768,
+      "no_document_or_panel_overflow": true
+    },
+    {
+      "view": "library",
+      "theme": "dark",
+      "width": 1024,
+      "height": 600,
+      "no_document_or_panel_overflow": true
+    },
+    {
+      "view": "library",
+      "theme": "dark",
+      "width": 768,
+      "height": 1024,
+      "no_document_or_panel_overflow": true
+    },
+    {
+      "view": "library",
+      "theme": "dark",
+      "width": 390,
+      "height": 844,
+      "no_document_or_panel_overflow": true
+    },
+    {
+      "view": "library",
+      "theme": "dark",
+      "width": 375,
+      "height": 667,
+      "no_document_or_panel_overflow": true
+    },
+    {
+      "view": "library",
+      "theme": "dark",
+      "width": 320,
+      "height": 568,
+      "no_document_or_panel_overflow": true
+    },
+    {
+      "view": "library",
+      "theme": "dark",
+      "width": 844,
+      "height": 390,
+      "no_document_or_panel_overflow": true
+    }
+  ],
+  "accessibility": [
+    {
+      "view": "library",
+      "theme": "light",
+      "width": 1440,
+      "violations": []
+    },
+    {
+      "view": "library",
+      "theme": "light",
+      "width": 320,
+      "violations": []
+    },
+    {
+      "view": "library",
+      "theme": "dark",
+      "width": 1440,
+      "violations": []
+    },
+    {
+      "view": "library",
+      "theme": "dark",
+      "width": 320,
+      "violations": []
+    },
+    {
+      "view": "share_dialog",
+      "width": 1440,
+      "violations": []
+    },
+    {
+      "view": "share_dialog",
+      "width": 320,
+      "violations": []
+    },
+    {
+      "view": "share_dialog",
+      "width": 844,
+      "violations": []
+    }
+  ],
+  "browser_errors": [],
+  "server_tests_passed": 30,
+  "identity_integration": {
+    "smtp_tls_authenticated": true,
+    "keycloak_invitation_email_accepted_for_own_mailbox": true,
+    "mailbox_receipt_not_independently_verified": true,
+    "scoped_service_lookup_create_organization_membership_and_pending_retry": true,
+    "owner_explicitly_assigned_to_koodaria_organization": true,
+    "mailbox_independent_of_organizations": true,
+    "password_recovery_does_not_reset_otp": true,
+    "runtime_service_cannot_access_master": true,
+    "disposable_realm_and_accounts_removed": true,
+    "temporary_master_service_deleted_and_new_token_denied": true,
+    "production_image": "a7f53474fde57e708a8d9b6a0459436cde3fb495ba3dc7db20f1fe744756043f",
+    "public_home_and_oidc_discovery_http_200": true,
+    "unauthenticated_private_api_http_401": true
+  }
+}

@@ -34,3 +34,5 @@
 [data-theme=dark] #node-error{color:#ffb2a8}
 .component-panel input:focus-visible,dialog input:focus-visible,dialog select:focus-visible,.filter-select select:focus-visible,.editor-canvas svg:focus-visible{outline:2px solid var(--forest);outline-offset:3px}
 body.resource-tool-open>.workspace-header{display:none}
+
+.catalog-card.is-locked{cursor:default;box-shadow:none}.catalog-card.is-locked .card-action{color:var(--muted)}.catalog-card.is-locked:hover{transform:none;border-color:var(--catalog-border)}

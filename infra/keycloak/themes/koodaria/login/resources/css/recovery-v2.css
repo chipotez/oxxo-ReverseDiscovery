@@ -1,0 +1,32 @@
+/* Recovery is a short, explicit setup flow, including on small landscape screens. */
+.login-pf-page .card-pf.recovery-enrollment { max-width:600px; padding:20px 24px; }
+.recovery-enrollment [hidden] { display:none!important; }
+.recovery-enrollment #kc-page-title { font-size:25px; margin-bottom:12px; }
+.recovery-enrollment #kc-locale { margin-bottom:10px; }
+.recovery-enrollment .login-pf-header { margin-bottom:12px; }
+.recovery-step-status { margin:0 0 12px; color:var(--muted); font-size:14px; }
+.recovery-enrollment .pf-c-alert { display:block; margin:0; padding:12px; }
+.recovery-enrollment .pf-c-alert__icon { display:none; }
+.recovery-enrollment .pf-c-alert__title { margin:0 0 6px; }
+.recovery-enrollment .pf-c-alert__description p { margin:0; font-size:14px; }
+#kc-recovery-codes-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; padding:0; list-style:none; margin:0 0 14px; }
+#kc-recovery-codes-list li { margin:0; padding:8px; border:1px solid #dce5dd; border-radius:10px; background:#f5f8f3; font:14px/1.5 ui-monospace,monospace; color:#243c39; white-space:nowrap; }
+#kc-recovery-codes-list li span { color:#576560; }
+.recovery-enrollment button.pf-m-link { padding:8px 10px; border:1px solid #cbd4c8; border-radius:10px; background:transparent; color:#2f6557; font-size:14px; cursor:pointer; }
+.recovery-enrollment label[for=kcRecoveryCodesConfirmationCheck] { display:inline; font-size:15px; }
+#kc-recovery-codes-settings-form { margin-top:12px; }
+#kc-recovery-codes-settings-form .checkbox { font-size:14px; }
+@media(max-width:480px){
+ .login-pf-page .card-pf.recovery-enrollment { padding:16px; }
+ .recovery-enrollment #kc-page-title { font-size:23px; }
+ .recovery-enrollment #kc-locale { position:fixed; top:20px; right:22px; width:auto; margin:0; }
+ #kc-recovery-codes-list { grid-template-columns:1fr; gap:6px; }
+ #kc-recovery-codes-list li { padding:6px 10px; }
+}
+@media(max-height:540px){
+ .recovery-enrollment #kc-locale { position:fixed; top:8px; right:22px; width:auto; }
+ .login-pf-page .card-pf.recovery-enrollment { padding:12px 18px; }
+ .recovery-enrollment #kc-page-title { font-size:22px; }
+ .recovery-enrollment .login-pf-header { margin-bottom:8px; }
+ .recovery-enrollment .enrollment-navigation { margin-top:10px; }
+}

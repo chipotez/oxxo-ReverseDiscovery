@@ -95,10 +95,13 @@ def callback():
     session['authenticated']=True
     session['session_policy']=SESSION_POLICY
     app.session_interface.regenerate(session)
-    session['identity']={k:identity.get(k,'') for k in ('sub','given_name','name','email')}
+    session['identity']={k:identity.get(k,'') for k in ('sub','given_name','name','email','email_verified')}
     session['id_token']=token['id_token']
     session['expires_at']=time.time()+SESSION_SECONDS
     session['csrf']=secrets.token_urlsafe(32)
+    if os.environ.get('DIAGRAM_DATABASE_URL'):
+        from access import sync_identity
+        sync_identity(identity)
     return redirect(return_to)
 
 @app.get('/bienvenida/')
@@ -106,9 +109,14 @@ def welcome():
     if not session.get('identity') or session.get('expires_at',0)<=time.time():
         return redirect('/auth/login')
     identity=session['identity']
+    member=False
+    if os.environ.get('DIAGRAM_DATABASE_URL'):
+        from diagrams import connection
+        from access import is_member
+        with connection(identity['sub']) as conn: member=is_member(conn)
     name=identity.get('name') or identity.get('given_name') or 'Mi cuenta'
     initials=''.join(word[0] for word in name.split()[:2]).upper()
-    return render_template('welcome.html', name=name, first_name=identity.get('given_name') or name.split()[0], initials=initials, csrf=session['csrf'], subject=identity['sub'], account_url=ISSUER+'/account/')
+    return render_template('welcome.html', name=name, first_name=identity.get('given_name') or name.split()[0], initials=initials, csrf=session['csrf'], subject=identity['sub'], portal_tier='member' if member else 'guest', account_url=ISSUER+'/account/')
 
 @app.post('/auth/logout')
 def logout():
