@@ -1,0 +1,19 @@
+{
+  "project_json_download": true,
+  "svg_download": true,
+  "cyclic_import_rejected": true,
+  "safe_import_roundtrip": true,
+  "mobile_filter_and_pagination": true,
+  "diagram_zoom_and_keyboard_pan": true,
+  "editing_rejects_cycles": true,
+  "component_editing_works": true,
+  "full_project_responsive": true,
+  "browser_errors": [],
+  "date": "2026-10-23",
+  "production_assets_match_source": true,
+  "authentication_configuration_unchanged": true,
+  "private_page_requires_authentication": true,
+  "test_fixture_only": true,
+  "application_unit_tests_passed": 8,
+  "public_site_tests_passed": 7
+}

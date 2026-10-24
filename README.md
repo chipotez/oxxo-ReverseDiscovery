@@ -1,6 +1,6 @@
 # Koodaria · Home pública / Fase 1
 
-Implementación propia de la Home de Koodaria. El ZIP recibido es **solo una referencia**, se conserva intacto y no se incorpora al sitio ni al historial. El Login público está conectado a Keycloak mediante `login.koodaria.com`, con contraseña y 2FA obligatorio. Incluye una bienvenida privada mínima después del acceso. Enterprise, cursos y ejecución de laboratorios siguen fuera del alcance actual.
+Implementación propia de la Home de Koodaria. El ZIP recibido es **solo una referencia**, se conserva intacto y no se incorpora al sitio ni al historial. El Login público está conectado a Keycloak mediante `login.koodaria.com`, con contraseña y 2FA obligatorio. Incluye un catálogo privado y un editor inicial para documentar servicios mediante diagramas. Enterprise, cursos y ejecución de laboratorios siguen fuera del alcance actual.
 
 ## Desarrollo local
 
@@ -46,6 +46,6 @@ La Home está publicada en **https://koodaria.com**, con certificado gratuito de
 
 ## Identidad
 
-Realm independiente `koodaria`, temas propios en `infra/keycloak/themes/koodaria`. La organización `Kyndryl` está creada sin usuarios; cada empresa cliente tendrá otra organización. El dominio del correo no concede membresía automáticamente. El destino tras autenticar es una bienvenida privada con Servicios/Módulos y menú personal. La gestión de cuenta sigue disponible desde ese menú. La autorización sobre herramientas y datos por organización queda pendiente; esta bienvenida no concede acceso a recursos empresariales.
+Realm independiente `koodaria`, temas propios en `infra/keycloak/themes/koodaria`. La organización `Kyndryl` está creada sin usuarios; cada empresa cliente tendrá otra organización. El dominio del correo no concede membresía automáticamente. El destino tras autenticar es el catálogo privado de disciplinas, con Servicios/Módulos y menú personal. Observabilidad reúne herramientas, cursos por nivel y casos de uso; Mapeo de servicios ya dispone de un editor local con exportación SVG y proyectos JSON. Los demás contenidos están identificados como En preparación. La gestión de cuenta sigue disponible desde ese menú. La autorización sobre herramientas y datos por organización queda pendiente; esta bienvenida no concede acceso a recursos empresariales.
 
 `scripts/provision_keycloak.py` y `scripts/configure_keycloak.py` validan sin cambios por defecto. La aplicación requiere `--apply --credentials-file RUTA`, con una cuenta de servicio autorizada y archivo privado 600. No hay credenciales administrativas activas en el repositorio. La prueba `tests/keycloak_live_qa.py --credentials-file RUTA` usa Playwright y crea/elimina una cuenta desechable; debe ejecutarse solo con autorización administrativa.

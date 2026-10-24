@@ -83,3 +83,38 @@ la bienvenida no concede permisos por dominio de correo ni cambia membresías.
 Referencias de implementación: [Authlib Flask](https://docs.authlib.org/en/latest/oauth2/client/web/flask.html),
 [Flask-Session](https://flask-session.readthedocs.io/en/latest/config.html),
 [Caddy log_skip](https://caddyserver.com/docs/caddyfile/directives/log_skip).
+
+## Catálogo y documentación de servicios
+
+El espacio autenticado ahora abre el catálogo de Cloud, Automatización,
+Observabilidad, DevOps, SecOps, Infraestructura como código y SRE. La navegación
+usa fragmentos bajo `/bienvenida/`, por lo que conserva la protección de sesión
+existente sin añadir rutas públicas de datos ni cambiar el flujo OIDC.
+
+Observabilidad contiene nueve fichas: tres herramientas de mapeo, tres niveles
+de cursos y tres casos de uso (Datadog + ServiceNow, Datadog + Ansible y escenarios
+de operación). Solo Mapeo de servicios está habilitado como herramienta. Los
+cursos, las otras herramientas y las integraciones muestran su alcance previsto
+y el estado En preparación. Las demás disciplinas tienen su entrada y estado
+pendiente; no se presentan contenidos o conectores inexistentes como disponibles.
+
+El editor inicial de Mapeo de servicios permite crear y editar hasta doce
+componentes, conectar un origen con otro componente, quitar nodos, consultar
+la disposición automática, ampliar/mover la vista y exportar SVG. El proyecto
+JSON versionado puede descargarse y reabrirse. Se rechazan proyectos excesivos,
+IDs duplicados, tipos desconocidos, referencias ausentes y ciclos. Los textos
+se escapan tanto en el HTML como en SVG; las importaciones se reducen al modelo
+permitido. La vista gráfica y los campos no ejecutan contenido importado.
+
+Los proyectos viven únicamente en memoria del navegador. La interfaz lo indica
+y advierte al salir con cambios sin descargar. No se envían diagramas, archivos,
+nombres de servicios o credenciales a un backend; no se conserva el proyecto
+tras recargar sin exportarlo. El servidor sigue almacenando solo la sesión de
+identidad. La persistencia compartida, los permisos por organización y los
+conectores operativos siguen siendo trabajo posterior.
+
+La paginación del catálogo calcula filas y columnas según ancho y alto reales.
+En móvil se usan un selector de contenido, vistas separadas para la ficha y
+pasos del editor; la lista de componentes también se pagina. No se oculta el
+scroll mediante recortes. Las secciones desplegadas explícitamente y la
+ampliación de accesibilidad conservan su comportamiento nativo.

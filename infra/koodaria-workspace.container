@@ -4,7 +4,7 @@ After=network-online.target themike-keycloak.service
 Wants=network-online.target
 
 [Container]
-Image=localhost/koodaria-workspace:rail-account-20261023
+Image=localhost/koodaria-workspace:catalog-20261023
 ContainerName=koodaria-workspace
 Network=themike-auth.network
 EnvironmentFile=/home/mip/.config/koodaria/workspace.env

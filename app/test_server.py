@@ -26,6 +26,8 @@ class WelcomeTests(unittest.TestCase):
         self.assertNotIn(b'Bienvenido,',response.data)
         self.assertNotIn(b'TU ESPACIO EN KOODARIA',response.data)
         self.assertIn(b'workspace-rail',response.data)
+        self.assertIn(b'catalog-v1.js',response.data)
+        self.assertIn(b'catalog-v1.css',response.data)
         self.assertNotIn(b'PRIVATE-ID-TOKEN',response.data)
         self.assertEqual(response.headers['Cache-Control'],'no-store')
     def test_expired_local_session_requires_login(self):

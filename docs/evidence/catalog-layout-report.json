@@ -1,0 +1,1293 @@
+{
+  "states": [
+    {
+      "w": 1440,
+      "h": 900,
+      "doc": [
+        1440,
+        900
+      ],
+      "main": {
+        "x": 92,
+        "y": 106,
+        "width": 1320,
+        "height": 790,
+        "top": 106,
+        "right": 1412,
+        "bottom": 896,
+        "left": 92
+      },
+      "route": "/catalogo",
+      "theme": "light"
+    },
+    {
+      "w": 1440,
+      "h": 900,
+      "doc": [
+        1440,
+        900
+      ],
+      "main": {
+        "x": 92,
+        "y": 106,
+        "width": 1320,
+        "height": 790,
+        "top": 106,
+        "right": 1412,
+        "bottom": 896,
+        "left": 92
+      },
+      "route": "/catalogo/observabilidad",
+      "theme": "light"
+    },
+    {
+      "w": 1440,
+      "h": 900,
+      "doc": [
+        1440,
+        900
+      ],
+      "main": {
+        "x": 92,
+        "y": 106,
+        "width": 1320,
+        "height": 790,
+        "top": 106,
+        "right": 1412,
+        "bottom": 896,
+        "left": 92
+      },
+      "route": "/catalogo/observabilidad/mapeo-servicios",
+      "theme": "light"
+    },
+    {
+      "w": 1440,
+      "h": 900,
+      "doc": [
+        1440,
+        900
+      ],
+      "main": {
+        "x": 92,
+        "y": 106,
+        "width": 1320,
+        "height": 790,
+        "top": 106,
+        "right": 1412,
+        "bottom": 896,
+        "left": 92
+      },
+      "route": "/herramientas/mapeo-servicios",
+      "theme": "light"
+    },
+    {
+      "w": 1366,
+      "h": 768,
+      "doc": [
+        1366,
+        768
+      ],
+      "main": {
+        "x": 92,
+        "y": 106,
+        "width": 1246,
+        "height": 658,
+        "top": 106,
+        "right": 1338,
+        "bottom": 764,
+        "left": 92
+      },
+      "route": "/catalogo",
+      "theme": "light"
+    },
+    {
+      "w": 1366,
+      "h": 768,
+      "doc": [
+        1366,
+        768
+      ],
+      "main": {
+        "x": 92,
+        "y": 106,
+        "width": 1246,
+        "height": 658,
+        "top": 106,
+        "right": 1338,
+        "bottom": 764,
+        "left": 92
+      },
+      "route": "/catalogo/observabilidad",
+      "theme": "light"
+    },
+    {
+      "w": 1366,
+      "h": 768,
+      "doc": [
+        1366,
+        768
+      ],
+      "main": {
+        "x": 92,
+        "y": 106,
+        "width": 1246,
+        "height": 658,
+        "top": 106,
+        "right": 1338,
+        "bottom": 764,
+        "left": 92
+      },
+      "route": "/catalogo/observabilidad/mapeo-servicios",
+      "theme": "light"
+    },
+    {
+      "w": 1366,
+      "h": 768,
+      "doc": [
+        1366,
+        768
+      ],
+      "main": {
+        "x": 92,
+        "y": 106,
+        "width": 1246,
+        "height": 658,
+        "top": 106,
+        "right": 1338,
+        "bottom": 764,
+        "left": 92
+      },
+      "route": "/herramientas/mapeo-servicios",
+      "theme": "light"
+    },
+    {
+      "w": 1024,
+      "h": 600,
+      "doc": [
+        1024,
+        600
+      ],
+      "main": {
+        "x": 92,
+        "y": 106,
+        "width": 904,
+        "height": 490,
+        "top": 106,
+        "right": 996,
+        "bottom": 596,
+        "left": 92
+      },
+      "route": "/catalogo",
+      "theme": "light"
+    },
+    {
+      "w": 1024,
+      "h": 600,
+      "doc": [
+        1024,
+        600
+      ],
+      "main": {
+        "x": 92,
+        "y": 106,
+        "width": 904,
+        "height": 490,
+        "top": 106,
+        "right": 996,
+        "bottom": 596,
+        "left": 92
+      },
+      "route": "/catalogo/observabilidad",
+      "theme": "light"
+    },
+    {
+      "w": 1024,
+      "h": 600,
+      "doc": [
+        1024,
+        600
+      ],
+      "main": {
+        "x": 92,
+        "y": 106,
+        "width": 904,
+        "height": 490,
+        "top": 106,
+        "right": 996,
+        "bottom": 596,
+        "left": 92
+      },
+      "route": "/catalogo/observabilidad/mapeo-servicios",
+      "theme": "light"
+    },
+    {
+      "w": 1024,
+      "h": 600,
+      "doc": [
+        1024,
+        600
+      ],
+      "main": {
+        "x": 92,
+        "y": 106,
+        "width": 904,
+        "height": 490,
+        "top": 106,
+        "right": 996,
+        "bottom": 596,
+        "left": 92
+      },
+      "route": "/herramientas/mapeo-servicios",
+      "theme": "light"
+    },
+    {
+      "w": 768,
+      "h": 1024,
+      "doc": [
+        768,
+        1024
+      ],
+      "main": {
+        "x": 84,
+        "y": 106,
+        "width": 664,
+        "height": 914,
+        "top": 106,
+        "right": 748,
+        "bottom": 1020,
+        "left": 84
+      },
+      "route": "/catalogo",
+      "theme": "light"
+    },
+    {
+      "w": 768,
+      "h": 1024,
+      "doc": [
+        768,
+        1024
+      ],
+      "main": {
+        "x": 84,
+        "y": 106,
+        "width": 664,
+        "height": 914,
+        "top": 106,
+        "right": 748,
+        "bottom": 1020,
+        "left": 84
+      },
+      "route": "/catalogo/observabilidad",
+      "theme": "light"
+    },
+    {
+      "w": 768,
+      "h": 1024,
+      "doc": [
+        768,
+        1024
+      ],
+      "main": {
+        "x": 84,
+        "y": 106,
+        "width": 664,
+        "height": 914,
+        "top": 106,
+        "right": 748,
+        "bottom": 1020,
+        "left": 84
+      },
+      "route": "/catalogo/observabilidad/mapeo-servicios",
+      "theme": "light"
+    },
+    {
+      "w": 768,
+      "h": 1024,
+      "doc": [
+        768,
+        1024
+      ],
+      "main": {
+        "x": 84,
+        "y": 106,
+        "width": 664,
+        "height": 914,
+        "top": 106,
+        "right": 748,
+        "bottom": 1020,
+        "left": 84
+      },
+      "route": "/herramientas/mapeo-servicios",
+      "theme": "light"
+    },
+    {
+      "w": 390,
+      "h": 844,
+      "doc": [
+        390,
+        844
+      ],
+      "main": {
+        "x": 64,
+        "y": 143.1875,
+        "width": 314,
+        "height": 690.8125,
+        "top": 143.1875,
+        "right": 378,
+        "bottom": 834,
+        "left": 64
+      },
+      "route": "/catalogo",
+      "theme": "light"
+    },
+    {
+      "w": 390,
+      "h": 844,
+      "doc": [
+        390,
+        844
+      ],
+      "main": {
+        "x": 64,
+        "y": 143.1875,
+        "width": 314,
+        "height": 690.8125,
+        "top": 143.1875,
+        "right": 378,
+        "bottom": 834,
+        "left": 64
+      },
+      "route": "/catalogo/observabilidad",
+      "theme": "light"
+    },
+    {
+      "w": 390,
+      "h": 844,
+      "doc": [
+        390,
+        844
+      ],
+      "main": {
+        "x": 64,
+        "y": 143.1875,
+        "width": 314,
+        "height": 690.8125,
+        "top": 143.1875,
+        "right": 378,
+        "bottom": 834,
+        "left": 64
+      },
+      "route": "/catalogo/observabilidad/mapeo-servicios",
+      "theme": "light"
+    },
+    {
+      "w": 390,
+      "h": 844,
+      "doc": [
+        390,
+        844
+      ],
+      "main": {
+        "x": 64,
+        "y": 143.1875,
+        "width": 314,
+        "height": 690.8125,
+        "top": 143.1875,
+        "right": 378,
+        "bottom": 834,
+        "left": 64
+      },
+      "route": "/herramientas/mapeo-servicios",
+      "theme": "light"
+    },
+    {
+      "w": 375,
+      "h": 667,
+      "doc": [
+        375,
+        667
+      ],
+      "main": {
+        "x": 64,
+        "y": 143.1875,
+        "width": 299,
+        "height": 513.8125,
+        "top": 143.1875,
+        "right": 363,
+        "bottom": 657,
+        "left": 64
+      },
+      "route": "/catalogo",
+      "theme": "light"
+    },
+    {
+      "w": 375,
+      "h": 667,
+      "doc": [
+        375,
+        667
+      ],
+      "main": {
+        "x": 64,
+        "y": 143.1875,
+        "width": 299,
+        "height": 513.8125,
+        "top": 143.1875,
+        "right": 363,
+        "bottom": 657,
+        "left": 64
+      },
+      "route": "/catalogo/observabilidad",
+      "theme": "light"
+    },
+    {
+      "w": 375,
+      "h": 667,
+      "doc": [
+        375,
+        667
+      ],
+      "main": {
+        "x": 64,
+        "y": 143.1875,
+        "width": 299,
+        "height": 513.8125,
+        "top": 143.1875,
+        "right": 363,
+        "bottom": 657,
+        "left": 64
+      },
+      "route": "/catalogo/observabilidad/mapeo-servicios",
+      "theme": "light"
+    },
+    {
+      "w": 375,
+      "h": 667,
+      "doc": [
+        375,
+        667
+      ],
+      "main": {
+        "x": 64,
+        "y": 143.1875,
+        "width": 299,
+        "height": 513.8125,
+        "top": 143.1875,
+        "right": 363,
+        "bottom": 657,
+        "left": 64
+      },
+      "route": "/herramientas/mapeo-servicios",
+      "theme": "light"
+    },
+    {
+      "w": 320,
+      "h": 568,
+      "doc": [
+        320,
+        568
+      ],
+      "main": {
+        "x": 64,
+        "y": 143.1875,
+        "width": 244,
+        "height": 414.8125,
+        "top": 143.1875,
+        "right": 308,
+        "bottom": 558,
+        "left": 64
+      },
+      "route": "/catalogo",
+      "theme": "light"
+    },
+    {
+      "w": 320,
+      "h": 568,
+      "doc": [
+        320,
+        568
+      ],
+      "main": {
+        "x": 64,
+        "y": 143.1875,
+        "width": 244,
+        "height": 414.8125,
+        "top": 143.1875,
+        "right": 308,
+        "bottom": 558,
+        "left": 64
+      },
+      "route": "/catalogo/observabilidad",
+      "theme": "light"
+    },
+    {
+      "w": 320,
+      "h": 568,
+      "doc": [
+        320,
+        568
+      ],
+      "main": {
+        "x": 64,
+        "y": 143.1875,
+        "width": 244,
+        "height": 414.8125,
+        "top": 143.1875,
+        "right": 308,
+        "bottom": 558,
+        "left": 64
+      },
+      "route": "/catalogo/observabilidad/mapeo-servicios",
+      "theme": "light"
+    },
+    {
+      "w": 320,
+      "h": 568,
+      "doc": [
+        320,
+        568
+      ],
+      "main": {
+        "x": 64,
+        "y": 143.1875,
+        "width": 244,
+        "height": 414.8125,
+        "top": 143.1875,
+        "right": 308,
+        "bottom": 558,
+        "left": 64
+      },
+      "route": "/herramientas/mapeo-servicios",
+      "theme": "light"
+    },
+    {
+      "w": 844,
+      "h": 390,
+      "doc": [
+        844,
+        390
+      ],
+      "main": {
+        "x": 100,
+        "y": 98,
+        "width": 724,
+        "height": 280,
+        "top": 98,
+        "right": 824,
+        "bottom": 378,
+        "left": 100
+      },
+      "route": "/catalogo",
+      "theme": "light"
+    },
+    {
+      "w": 844,
+      "h": 390,
+      "doc": [
+        844,
+        390
+      ],
+      "main": {
+        "x": 100,
+        "y": 98,
+        "width": 724,
+        "height": 280,
+        "top": 98,
+        "right": 824,
+        "bottom": 378,
+        "left": 100
+      },
+      "route": "/catalogo/observabilidad",
+      "theme": "light"
+    },
+    {
+      "w": 844,
+      "h": 390,
+      "doc": [
+        844,
+        390
+      ],
+      "main": {
+        "x": 100,
+        "y": 98,
+        "width": 724,
+        "height": 280,
+        "top": 98,
+        "right": 824,
+        "bottom": 378,
+        "left": 100
+      },
+      "route": "/catalogo/observabilidad/mapeo-servicios",
+      "theme": "light"
+    },
+    {
+      "w": 844,
+      "h": 390,
+      "doc": [
+        844,
+        390
+      ],
+      "main": {
+        "x": 100,
+        "y": 98,
+        "width": 724,
+        "height": 280,
+        "top": 98,
+        "right": 824,
+        "bottom": 378,
+        "left": 100
+      },
+      "route": "/herramientas/mapeo-servicios",
+      "theme": "light"
+    },
+    {
+      "w": 1440,
+      "h": 900,
+      "doc": [
+        1440,
+        900
+      ],
+      "main": {
+        "x": 92,
+        "y": 106,
+        "width": 1320,
+        "height": 790,
+        "top": 106,
+        "right": 1412,
+        "bottom": 896,
+        "left": 92
+      },
+      "route": "/catalogo",
+      "theme": "dark"
+    },
+    {
+      "w": 1440,
+      "h": 900,
+      "doc": [
+        1440,
+        900
+      ],
+      "main": {
+        "x": 92,
+        "y": 106,
+        "width": 1320,
+        "height": 790,
+        "top": 106,
+        "right": 1412,
+        "bottom": 896,
+        "left": 92
+      },
+      "route": "/catalogo/observabilidad",
+      "theme": "dark"
+    },
+    {
+      "w": 1440,
+      "h": 900,
+      "doc": [
+        1440,
+        900
+      ],
+      "main": {
+        "x": 92,
+        "y": 106,
+        "width": 1320,
+        "height": 790,
+        "top": 106,
+        "right": 1412,
+        "bottom": 896,
+        "left": 92
+      },
+      "route": "/catalogo/observabilidad/mapeo-servicios",
+      "theme": "dark"
+    },
+    {
+      "w": 1440,
+      "h": 900,
+      "doc": [
+        1440,
+        900
+      ],
+      "main": {
+        "x": 92,
+        "y": 106,
+        "width": 1320,
+        "height": 790,
+        "top": 106,
+        "right": 1412,
+        "bottom": 896,
+        "left": 92
+      },
+      "route": "/herramientas/mapeo-servicios",
+      "theme": "dark"
+    },
+    {
+      "w": 1366,
+      "h": 768,
+      "doc": [
+        1366,
+        768
+      ],
+      "main": {
+        "x": 92,
+        "y": 106,
+        "width": 1246,
+        "height": 658,
+        "top": 106,
+        "right": 1338,
+        "bottom": 764,
+        "left": 92
+      },
+      "route": "/catalogo",
+      "theme": "dark"
+    },
+    {
+      "w": 1366,
+      "h": 768,
+      "doc": [
+        1366,
+        768
+      ],
+      "main": {
+        "x": 92,
+        "y": 106,
+        "width": 1246,
+        "height": 658,
+        "top": 106,
+        "right": 1338,
+        "bottom": 764,
+        "left": 92
+      },
+      "route": "/catalogo/observabilidad",
+      "theme": "dark"
+    },
+    {
+      "w": 1366,
+      "h": 768,
+      "doc": [
+        1366,
+        768
+      ],
+      "main": {
+        "x": 92,
+        "y": 106,
+        "width": 1246,
+        "height": 658,
+        "top": 106,
+        "right": 1338,
+        "bottom": 764,
+        "left": 92
+      },
+      "route": "/catalogo/observabilidad/mapeo-servicios",
+      "theme": "dark"
+    },
+    {
+      "w": 1366,
+      "h": 768,
+      "doc": [
+        1366,
+        768
+      ],
+      "main": {
+        "x": 92,
+        "y": 106,
+        "width": 1246,
+        "height": 658,
+        "top": 106,
+        "right": 1338,
+        "bottom": 764,
+        "left": 92
+      },
+      "route": "/herramientas/mapeo-servicios",
+      "theme": "dark"
+    },
+    {
+      "w": 1024,
+      "h": 600,
+      "doc": [
+        1024,
+        600
+      ],
+      "main": {
+        "x": 92,
+        "y": 106,
+        "width": 904,
+        "height": 490,
+        "top": 106,
+        "right": 996,
+        "bottom": 596,
+        "left": 92
+      },
+      "route": "/catalogo",
+      "theme": "dark"
+    },
+    {
+      "w": 1024,
+      "h": 600,
+      "doc": [
+        1024,
+        600
+      ],
+      "main": {
+        "x": 92,
+        "y": 106,
+        "width": 904,
+        "height": 490,
+        "top": 106,
+        "right": 996,
+        "bottom": 596,
+        "left": 92
+      },
+      "route": "/catalogo/observabilidad",
+      "theme": "dark"
+    },
+    {
+      "w": 1024,
+      "h": 600,
+      "doc": [
+        1024,
+        600
+      ],
+      "main": {
+        "x": 92,
+        "y": 106,
+        "width": 904,
+        "height": 490,
+        "top": 106,
+        "right": 996,
+        "bottom": 596,
+        "left": 92
+      },
+      "route": "/catalogo/observabilidad/mapeo-servicios",
+      "theme": "dark"
+    },
+    {
+      "w": 1024,
+      "h": 600,
+      "doc": [
+        1024,
+        600
+      ],
+      "main": {
+        "x": 92,
+        "y": 106,
+        "width": 904,
+        "height": 490,
+        "top": 106,
+        "right": 996,
+        "bottom": 596,
+        "left": 92
+      },
+      "route": "/herramientas/mapeo-servicios",
+      "theme": "dark"
+    },
+    {
+      "w": 768,
+      "h": 1024,
+      "doc": [
+        768,
+        1024
+      ],
+      "main": {
+        "x": 84,
+        "y": 106,
+        "width": 664,
+        "height": 914,
+        "top": 106,
+        "right": 748,
+        "bottom": 1020,
+        "left": 84
+      },
+      "route": "/catalogo",
+      "theme": "dark"
+    },
+    {
+      "w": 768,
+      "h": 1024,
+      "doc": [
+        768,
+        1024
+      ],
+      "main": {
+        "x": 84,
+        "y": 106,
+        "width": 664,
+        "height": 914,
+        "top": 106,
+        "right": 748,
+        "bottom": 1020,
+        "left": 84
+      },
+      "route": "/catalogo/observabilidad",
+      "theme": "dark"
+    },
+    {
+      "w": 768,
+      "h": 1024,
+      "doc": [
+        768,
+        1024
+      ],
+      "main": {
+        "x": 84,
+        "y": 106,
+        "width": 664,
+        "height": 914,
+        "top": 106,
+        "right": 748,
+        "bottom": 1020,
+        "left": 84
+      },
+      "route": "/catalogo/observabilidad/mapeo-servicios",
+      "theme": "dark"
+    },
+    {
+      "w": 768,
+      "h": 1024,
+      "doc": [
+        768,
+        1024
+      ],
+      "main": {
+        "x": 84,
+        "y": 106,
+        "width": 664,
+        "height": 914,
+        "top": 106,
+        "right": 748,
+        "bottom": 1020,
+        "left": 84
+      },
+      "route": "/herramientas/mapeo-servicios",
+      "theme": "dark"
+    },
+    {
+      "w": 390,
+      "h": 844,
+      "doc": [
+        390,
+        844
+      ],
+      "main": {
+        "x": 64,
+        "y": 143.1875,
+        "width": 314,
+        "height": 690.8125,
+        "top": 143.1875,
+        "right": 378,
+        "bottom": 834,
+        "left": 64
+      },
+      "route": "/catalogo",
+      "theme": "dark"
+    },
+    {
+      "w": 390,
+      "h": 844,
+      "doc": [
+        390,
+        844
+      ],
+      "main": {
+        "x": 64,
+        "y": 143.1875,
+        "width": 314,
+        "height": 690.8125,
+        "top": 143.1875,
+        "right": 378,
+        "bottom": 834,
+        "left": 64
+      },
+      "route": "/catalogo/observabilidad",
+      "theme": "dark"
+    },
+    {
+      "w": 390,
+      "h": 844,
+      "doc": [
+        390,
+        844
+      ],
+      "main": {
+        "x": 64,
+        "y": 143.1875,
+        "width": 314,
+        "height": 690.8125,
+        "top": 143.1875,
+        "right": 378,
+        "bottom": 834,
+        "left": 64
+      },
+      "route": "/catalogo/observabilidad/mapeo-servicios",
+      "theme": "dark"
+    },
+    {
+      "w": 390,
+      "h": 844,
+      "doc": [
+        390,
+        844
+      ],
+      "main": {
+        "x": 64,
+        "y": 143.1875,
+        "width": 314,
+        "height": 690.8125,
+        "top": 143.1875,
+        "right": 378,
+        "bottom": 834,
+        "left": 64
+      },
+      "route": "/herramientas/mapeo-servicios",
+      "theme": "dark"
+    },
+    {
+      "w": 375,
+      "h": 667,
+      "doc": [
+        375,
+        667
+      ],
+      "main": {
+        "x": 64,
+        "y": 143.1875,
+        "width": 299,
+        "height": 513.8125,
+        "top": 143.1875,
+        "right": 363,
+        "bottom": 657,
+        "left": 64
+      },
+      "route": "/catalogo",
+      "theme": "dark"
+    },
+    {
+      "w": 375,
+      "h": 667,
+      "doc": [
+        375,
+        667
+      ],
+      "main": {
+        "x": 64,
+        "y": 143.1875,
+        "width": 299,
+        "height": 513.8125,
+        "top": 143.1875,
+        "right": 363,
+        "bottom": 657,
+        "left": 64
+      },
+      "route": "/catalogo/observabilidad",
+      "theme": "dark"
+    },
+    {
+      "w": 375,
+      "h": 667,
+      "doc": [
+        375,
+        667
+      ],
+      "main": {
+        "x": 64,
+        "y": 143.1875,
+        "width": 299,
+        "height": 513.8125,
+        "top": 143.1875,
+        "right": 363,
+        "bottom": 657,
+        "left": 64
+      },
+      "route": "/catalogo/observabilidad/mapeo-servicios",
+      "theme": "dark"
+    },
+    {
+      "w": 375,
+      "h": 667,
+      "doc": [
+        375,
+        667
+      ],
+      "main": {
+        "x": 64,
+        "y": 143.1875,
+        "width": 299,
+        "height": 513.8125,
+        "top": 143.1875,
+        "right": 363,
+        "bottom": 657,
+        "left": 64
+      },
+      "route": "/herramientas/mapeo-servicios",
+      "theme": "dark"
+    },
+    {
+      "w": 320,
+      "h": 568,
+      "doc": [
+        320,
+        568
+      ],
+      "main": {
+        "x": 64,
+        "y": 143.1875,
+        "width": 244,
+        "height": 414.8125,
+        "top": 143.1875,
+        "right": 308,
+        "bottom": 558,
+        "left": 64
+      },
+      "route": "/catalogo",
+      "theme": "dark"
+    },
+    {
+      "w": 320,
+      "h": 568,
+      "doc": [
+        320,
+        568
+      ],
+      "main": {
+        "x": 64,
+        "y": 143.1875,
+        "width": 244,
+        "height": 414.8125,
+        "top": 143.1875,
+        "right": 308,
+        "bottom": 558,
+        "left": 64
+      },
+      "route": "/catalogo/observabilidad",
+      "theme": "dark"
+    },
+    {
+      "w": 320,
+      "h": 568,
+      "doc": [
+        320,
+        568
+      ],
+      "main": {
+        "x": 64,
+        "y": 143.1875,
+        "width": 244,
+        "height": 414.8125,
+        "top": 143.1875,
+        "right": 308,
+        "bottom": 558,
+        "left": 64
+      },
+      "route": "/catalogo/observabilidad/mapeo-servicios",
+      "theme": "dark"
+    },
+    {
+      "w": 320,
+      "h": 568,
+      "doc": [
+        320,
+        568
+      ],
+      "main": {
+        "x": 64,
+        "y": 143.1875,
+        "width": 244,
+        "height": 414.8125,
+        "top": 143.1875,
+        "right": 308,
+        "bottom": 558,
+        "left": 64
+      },
+      "route": "/herramientas/mapeo-servicios",
+      "theme": "dark"
+    },
+    {
+      "w": 844,
+      "h": 390,
+      "doc": [
+        844,
+        390
+      ],
+      "main": {
+        "x": 100,
+        "y": 98,
+        "width": 724,
+        "height": 280,
+        "top": 98,
+        "right": 824,
+        "bottom": 378,
+        "left": 100
+      },
+      "route": "/catalogo",
+      "theme": "dark"
+    },
+    {
+      "w": 844,
+      "h": 390,
+      "doc": [
+        844,
+        390
+      ],
+      "main": {
+        "x": 100,
+        "y": 98,
+        "width": 724,
+        "height": 280,
+        "top": 98,
+        "right": 824,
+        "bottom": 378,
+        "left": 100
+      },
+      "route": "/catalogo/observabilidad",
+      "theme": "dark"
+    },
+    {
+      "w": 844,
+      "h": 390,
+      "doc": [
+        844,
+        390
+      ],
+      "main": {
+        "x": 100,
+        "y": 98,
+        "width": 724,
+        "height": 280,
+        "top": 98,
+        "right": 824,
+        "bottom": 378,
+        "left": 100
+      },
+      "route": "/catalogo/observabilidad/mapeo-servicios",
+      "theme": "dark"
+    },
+    {
+      "w": 844,
+      "h": 390,
+      "doc": [
+        844,
+        390
+      ],
+      "main": {
+        "x": 100,
+        "y": 98,
+        "width": 724,
+        "height": 280,
+        "top": 98,
+        "right": 824,
+        "bottom": 378,
+        "left": 100
+      },
+      "route": "/herramientas/mapeo-servicios",
+      "theme": "dark"
+    }
+  ],
+  "violations": [],
+  "browser_errors": [],
+  "date": "2026-10-23",
+  "production_assets_match_source": true,
+  "authentication_configuration_unchanged": true,
+  "private_page_requires_authentication": true,
+  "test_fixture_only": true,
+  "application_unit_tests_passed": 8,
+  "public_site_tests_passed": 7
+}

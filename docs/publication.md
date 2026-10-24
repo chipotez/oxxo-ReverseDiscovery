@@ -287,3 +287,33 @@ Retirados del header el engrane, avatar y nombre. El perfil al pie de la barra
 lateral abre el menú de cuenta y conserva Cerrar sesión con el mismo POST/CSRF.
 CSS versionado `welcome-v3.css`; imagen `rail-account-20261023`. Revisados los
 32 estados claros/oscuros y las auditorías de accesibilidad de la navegación.
+
+## Catálogo de disciplinas y Mapeo de servicios — 23 de octubre de 2026
+
+Implementadas las tres propuestas aprobadas: catálogo de siete disciplinas,
+catálogo de nueve opciones de Observabilidad y ficha de Mapeo de servicios con
+vista de ejemplo. Incluye búsqueda sin distinción de acentos, filtros, fichas,
+navegación de retorno y paginación ajustada al viewport. Los cursos aparecen
+por nivel y los casos de uso por integración; sus fichas indican En preparación.
+
+El botón Abrir herramienta lleva a un editor inicial funcional: componentes y
+conexiones, edición, validación de ciclos, zoom y desplazamiento con ratón o
+teclado, descarga SVG, guardado/reapertura de proyectos JSON. Los proyectos se
+trabajan localmente en el navegador y se conservan descargándolos; todavía no
+hay almacenamiento compartido ni conexiones a Datadog, ServiceNow o Ansible.
+
+Imagen publicada: `localhost/koodaria-workspace:catalog-20261023`. Respaldo de
+la unidad: `/home/mip/backups/koodaria-20261023/catalog/`. Rollback con la imagen
+`localhost/koodaria-workspace:rail-account-20261023`. Se mantienen el volumen de
+sesiones, los secretos, el realm, el MFA y el gateway existentes.
+
+Pruebas: 64 combinaciones de vista, tamaño y tema; sin errores de navegador ni
+overflow en las vistas predeterminadas. Auditorías axe A/AA sin incidencias en
+las cuatro vistas de escritorio de ambos temas. Se verificaron búsqueda,
+filtros móviles, paginación, edición, rechazo de ciclos, importación segura,
+exportaciones y un proyecto de doce componentes en tamaños reducidos. Las
+pruebas visuales usan el template real con identidad sintética interceptada solo
+en el navegador, con la CSP de producción; no se desplegó un acceso de prueba.
+Ocho pruebas de backend y siete de Home correctas. Evidencias reproducibles en
+`scripts/qa_catalog_layout.py`, `scripts/qa_catalog_functional.py` y los informes
+`evidence/catalog-layout-report.json`, `evidence/catalog-functional-report.json`.
