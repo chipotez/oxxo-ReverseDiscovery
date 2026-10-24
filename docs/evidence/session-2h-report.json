@@ -1,0 +1,13 @@
+{
+  "server_tests_passed": 21,
+  "synthetic_identity_only": true,
+  "session_seconds": 7200,
+  "persistent_cookie": true,
+  "absolute_expiry_tested": true,
+  "valid_legacy_session_upgraded_once": true,
+  "expired_session_not_revived": true,
+  "same_cookie_survives_container_recreation": true,
+  "existing_production_session_volume_retained": true,
+  "published_anonymous_session_endpoint_protected": true,
+  "image": "e2913f2362ea0192b7d65f950a3848128926193402cac4d13763fd79777b5590"
+}

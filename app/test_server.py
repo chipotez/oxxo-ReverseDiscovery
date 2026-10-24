@@ -1,7 +1,7 @@
 """Run with SESSION_DIR pointing to a temporary directory, not the live session store."""
 import unittest
 from unittest.mock import patch
-from server import app, oauth
+from server import app, oauth, SESSION_SECONDS, SESSION_POLICY
 
 class WelcomeTests(unittest.TestCase):
     def setUp(self):
@@ -83,5 +83,32 @@ class WelcomeTests(unittest.TestCase):
         self.assertEqual(self.client.get('/bienvenida/').status_code,200)
         with self.client.session_transaction() as s:self.assertNotIn('return_to',s)
 
-if __name__=='__main__':unittest.main()
+    def test_login_cookie_is_persistent_and_valid_for_two_hours(self):
+        import time
+        token={'userinfo':{'sub':'qa-persistent','name':'QA'},'id_token':'QA-ID-TOKEN'}
+        started=time.time()
+        with patch.object(oauth.keycloak,'authorize_access_token',return_value=token):
+            self.assertEqual(self.client.get('/auth/callback').status_code,302)
+        cookie=self.client.get_cookie('__Host-koodaria')
+        self.assertIsNotNone(cookie.expires)
+        self.assertAlmostEqual(cookie.expires.timestamp()-started,7200,delta=3)
+        with self.client.session_transaction() as s:
+            self.assertTrue(s.permanent)
+            self.assertEqual(s['session_policy'],SESSION_POLICY)
+        with patch('server.time.time',return_value=started+7190):
+            self.assertEqual(self.client.get('/auth/session').status_code,200)
+        with patch('server.time.time',return_value=started+7205):
+            self.assertEqual(self.client.get('/auth/session').status_code,401)
 
+    def test_valid_legacy_session_is_upgraded_once_without_reauthentication(self):
+        import time
+        self.authenticated()
+        with self.client.session_transaction() as s:s['expires_at']=time.time()+1200
+        self.assertEqual(self.client.get('/auth/session').status_code,200)
+        with self.client.session_transaction() as s:
+            upgraded=s['expires_at'];self.assertTrue(s.permanent)
+            self.assertAlmostEqual(upgraded-time.time(),6600,delta=3)
+        self.client.get('/auth/session')
+        with self.client.session_transaction() as s:self.assertEqual(s['expires_at'],upgraded)
+
+if __name__=='__main__':unittest.main()

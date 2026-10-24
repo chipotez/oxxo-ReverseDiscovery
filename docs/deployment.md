@@ -142,14 +142,13 @@ El gateway y Keycloak no se reconstruyeron ni reiniciaron en este cambio.
 
 ## Recuperación de sesión en herramientas
 
-La sesión local conserva su límite de 30 minutos; una pestaña abierta no equivale
+La sesión local tiene un límite de 2 horas durante las pruebas; una pestaña abierta no equivale
 por sí sola a una sesión válida. Si la API responde 401 y no hay cambios pendientes,
 la herramienta inicia OIDC con un destino local validado y vuelve a Mapeo de recursos.
 Si hay cambios pendientes, mantiene el editor abierto y ofrece acceso en otra pestaña.
 Al continuar, `/auth/session` comprueba vigencia, renueva el CSRF del cliente y exige
 la misma identidad que abrió el editor antes de reintentar el guardado. Un 403 por
-rotación de CSRF permite un único reintento con una sesión verificada. No se extiende
-la sesión ni se modifica MFA.
+rotación de CSRF permite un único reintento con una sesión verificada. La recuperación respeta el vencimiento absoluto de la sesión y no modifica MFA.
 
 Imagen: `localhost/koodaria-workspace:session-recovery-20261023`.
 Rollback de unidad en `/home/mip/backups/koodaria-20261023/session-recovery/`.
@@ -180,3 +179,18 @@ Carpetas publicadas el 23 de octubre de 2026; imagen
 `122be568878bdd87de70edb8ffe10f189e63310dd60922d80bd7b9b552509775`.
 Unidad previa en `/home/mip/backups/koodaria-20261023/folders/`.
 No revertir la migración al hacer rollback de UI: conservar carpetas y relaciones.
+
+## Sesión de pruebas de dos horas
+
+Imagen actual: `localhost/koodaria-workspace:session-2h-20261023`.
+La aplicación fija 7200 segundos desde el login, sin prórroga por actividad. La
+cookie autenticada es persistente, Secure, HttpOnly y SameSite=Lax. Las sesiones
+vigentes de la política anterior se actualizan una sola vez, conservando su hora
+original de autenticación; las vencidas no se reactivan. Para sesiones nuevas se
+marca explícitamente la persistencia después de regenerar la sesión de login.
+
+Se conserva el volumen `koodaria-workspace-sessions` y la clave privada existente
+entre despliegues. El cierre manual invalida la sesión. No se aumentó la duración
+del access token de Keycloak ni se modificaron MFA o el realm del laboratorio.
+Verificación: 21 pruebas de servidor y `scripts/qa_session_durability.py`, que
+recrea dos contenedores aislados con la misma cookie/volumen sintéticos.

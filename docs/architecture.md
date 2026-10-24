@@ -61,7 +61,7 @@ La bienvenida corre en `koodaria-workspace`, un contenedor sin puerto público,
 con filesystem de solo lectura y volumen de sesiones. Flask-Session guarda los
 datos de sesión y el ID token en el servidor. El navegador recibe únicamente un
 identificador opaco `__Host-koodaria`, Secure, HttpOnly, SameSite=Lax y sin Domain.
-La sesión local dura como máximo 30 minutos; no se conservan access/refresh tokens.
+La sesión local dura como máximo 2 horas durante las pruebas; no se conservan access/refresh tokens.
 El ID se regenera después de autenticar. Los datos visibles se escapan al renderizar.
 
 El menú permite abrir la gestión nativa de cuenta o volver a la Home. Cerrar

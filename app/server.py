@@ -11,6 +11,8 @@ from authlib.integrations.flask_client import OAuth
 
 ISSUER = 'https://login.koodaria.com/realms/koodaria'
 ORIGIN = 'https://koodaria.com'
+SESSION_SECONDS = 2 * 60 * 60
+SESSION_POLICY = 'absolute-2h-v1'
 app = Flask(__name__, static_url_path='/workspace-assets')
 app.config.update(
     SECRET_KEY=os.environ['APP_SECRET_KEY'],
@@ -18,7 +20,7 @@ app.config.update(
     SESSION_CACHELIB=FileSystemCache(os.environ.get('SESSION_DIR', '/app/sessions'), threshold=10000, mode=0o600),
     SESSION_COOKIE_NAME='__Host-koodaria', SESSION_COOKIE_SECURE=True,
     SESSION_COOKIE_HTTPONLY=True, SESSION_COOKIE_SAMESITE='Lax',
-    SESSION_COOKIE_PATH='/', PERMANENT_SESSION_LIFETIME=timedelta(minutes=30),
+    SESSION_COOKIE_PATH='/', PERMANENT_SESSION_LIFETIME=timedelta(seconds=SESSION_SECONDS),
     SESSION_REFRESH_EACH_REQUEST=False, TRUSTED_HOSTS=['koodaria.com', 'localhost', '127.0.0.1'],
     MAX_CONTENT_LENGTH=1500000,
 )
@@ -31,6 +33,15 @@ oauth.register('keycloak', client_id='koodaria-web',
     server_metadata_url=ISSUER+'/.well-known/openid-configuration',
     client_kwargs={'scope':'openid profile email', 'code_challenge_method':'S256'},
 )
+
+@app.before_request
+def upgrade_active_session():
+    # Upgrade only still-valid legacy sessions. Never revive an expired session.
+    if session.get('identity',{}).get('sub') and session.get('expires_at',0)>time.time() and session.get('session_policy')!=SESSION_POLICY:
+        authenticated_at=session['expires_at']-1800
+        session['expires_at']=authenticated_at+SESSION_SECONDS
+        session['session_policy']=SESSION_POLICY
+        session.permanent=True
 
 @app.after_request
 def secure(response):
@@ -80,11 +91,13 @@ def callback():
     return_to=safe_return_to(session.get('return_to','/bienvenida/'))
     # Invalidate the pre-authentication session to prevent session fixation.
     session.clear()
+    session.permanent=True
     session['authenticated']=True
+    session['session_policy']=SESSION_POLICY
     app.session_interface.regenerate(session)
     session['identity']={k:identity.get(k,'') for k in ('sub','given_name','name','email')}
     session['id_token']=token['id_token']
-    session['expires_at']=time.time()+1800
+    session['expires_at']=time.time()+SESSION_SECONDS
     session['csrf']=secrets.token_urlsafe(32)
     return redirect(return_to)
 
