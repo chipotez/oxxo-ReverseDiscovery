@@ -452,3 +452,16 @@ la validación de duplicados y ausencia de escrituras API. Evidencia en
 `docs/evidence/reference-tables-report.json`. Assets públicos coinciden con
 el contenedor y API privado conserva 401 sin sesión. Sin migración SQL.
 Unidad anterior en `/home/mip/backups/koodaria-20261024/reference-tables/`.
+
+## Navegación de estándares en dos paneles — 24 de octubre de 2026
+
+Imagen `localhost/koodaria-workspace:standards-split-20261024`
+(`f78eebb9ba0aae6314d1a285bddb39f91a5a3ef35779831c577cc2bf885aa7b7`).
+Estándares abre directamente Infraestructura: selector a la izquierda y
+categorías/subcategorías a la derecha. En móvil se apilan. Las vistas de
+recurso y tablas conservan el ancho completo. No se añadieron dominios nuevos
+ni se cambiaron datos, permisos o la persistencia temporal de Agregar campo.
+48 estados responsive del navegador de categorías, 72 de las tablas y diez
+auditorías WCAG AA. Evidencia `docs/evidence/standards-split-report.json`.
+Assets públicos coinciden con el contenedor. Unidad anterior en
+`/home/mip/backups/koodaria-20261024/standards-split/`.

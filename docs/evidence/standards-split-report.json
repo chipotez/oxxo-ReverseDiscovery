@@ -1,0 +1,910 @@
+{
+  "states": [
+    {
+      "theme": "light",
+      "view": "initial",
+      "width": 1440,
+      "height": 900,
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "view": "initial",
+      "width": 1366,
+      "height": 768,
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "view": "initial",
+      "width": 1024,
+      "height": 600,
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "view": "initial",
+      "width": 768,
+      "height": 1024,
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "view": "initial",
+      "width": 390,
+      "height": 844,
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "view": "initial",
+      "width": 375,
+      "height": 667,
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "view": "initial",
+      "width": 320,
+      "height": 568,
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "view": "initial",
+      "width": 844,
+      "height": 390,
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "view": "compute",
+      "width": 1440,
+      "height": 900,
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "view": "compute",
+      "width": 1366,
+      "height": 768,
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "view": "compute",
+      "width": 1024,
+      "height": 600,
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "view": "compute",
+      "width": 768,
+      "height": 1024,
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "view": "compute",
+      "width": 390,
+      "height": 844,
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "view": "compute",
+      "width": 375,
+      "height": 667,
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "view": "compute",
+      "width": 320,
+      "height": 568,
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "view": "compute",
+      "width": 844,
+      "height": 390,
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "view": "server",
+      "width": 1440,
+      "height": 900,
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "view": "server",
+      "width": 1366,
+      "height": 768,
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "view": "server",
+      "width": 1024,
+      "height": 600,
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "view": "server",
+      "width": 768,
+      "height": 1024,
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "view": "server",
+      "width": 390,
+      "height": 844,
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "view": "server",
+      "width": 375,
+      "height": 667,
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "view": "server",
+      "width": 320,
+      "height": 568,
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "view": "server",
+      "width": 844,
+      "height": 390,
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "view": "initial",
+      "width": 1440,
+      "height": 900,
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "view": "initial",
+      "width": 1366,
+      "height": 768,
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "view": "initial",
+      "width": 1024,
+      "height": 600,
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "view": "initial",
+      "width": 768,
+      "height": 1024,
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "view": "initial",
+      "width": 390,
+      "height": 844,
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "view": "initial",
+      "width": 375,
+      "height": 667,
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "view": "initial",
+      "width": 320,
+      "height": 568,
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "view": "initial",
+      "width": 844,
+      "height": 390,
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "view": "compute",
+      "width": 1440,
+      "height": 900,
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "view": "compute",
+      "width": 1366,
+      "height": 768,
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "view": "compute",
+      "width": 1024,
+      "height": 600,
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "view": "compute",
+      "width": 768,
+      "height": 1024,
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "view": "compute",
+      "width": 390,
+      "height": 844,
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "view": "compute",
+      "width": 375,
+      "height": 667,
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "view": "compute",
+      "width": 320,
+      "height": 568,
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "view": "compute",
+      "width": 844,
+      "height": 390,
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "view": "server",
+      "width": 1440,
+      "height": 900,
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "view": "server",
+      "width": 1366,
+      "height": 768,
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "view": "server",
+      "width": 1024,
+      "height": 600,
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "view": "server",
+      "width": 768,
+      "height": 1024,
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "view": "server",
+      "width": 390,
+      "height": 844,
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "view": "server",
+      "width": 375,
+      "height": 667,
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "view": "server",
+      "width": 320,
+      "height": 568,
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "view": "server",
+      "width": 844,
+      "height": 390,
+      "no_overflow": true
+    }
+  ],
+  "accessibility": [
+    {
+      "theme": "light",
+      "violations": []
+    },
+    {
+      "theme": "dark",
+      "violations": []
+    }
+  ],
+  "browser_errors": [],
+  "table_regression": {
+    "local_only": true,
+    "states": [
+      {
+        "view": "Identificaci\u00f3n de entidad",
+        "theme": "light",
+        "width": 1440,
+        "height": 900,
+        "no_overflow": true
+      },
+      {
+        "view": "Identificaci\u00f3n de entidad",
+        "theme": "light",
+        "width": 1366,
+        "height": 768,
+        "no_overflow": true
+      },
+      {
+        "view": "Identificaci\u00f3n de entidad",
+        "theme": "light",
+        "width": 1024,
+        "height": 600,
+        "no_overflow": true
+      },
+      {
+        "view": "Identificaci\u00f3n de entidad",
+        "theme": "light",
+        "width": 768,
+        "height": 1024,
+        "no_overflow": true
+      },
+      {
+        "view": "Identificaci\u00f3n de entidad",
+        "theme": "light",
+        "width": 390,
+        "height": 844,
+        "no_overflow": true
+      },
+      {
+        "view": "Identificaci\u00f3n de entidad",
+        "theme": "light",
+        "width": 375,
+        "height": 667,
+        "no_overflow": true
+      },
+      {
+        "view": "Identificaci\u00f3n de entidad",
+        "theme": "light",
+        "width": 320,
+        "height": 568,
+        "no_overflow": true
+      },
+      {
+        "view": "Identificaci\u00f3n de entidad",
+        "theme": "light",
+        "width": 844,
+        "height": 390,
+        "no_overflow": true
+      },
+      {
+        "view": "Identificaci\u00f3n de entidad",
+        "theme": "light",
+        "width": 700,
+        "height": 700,
+        "no_overflow": true
+      },
+      {
+        "view": "Identificaci\u00f3n de entidad",
+        "theme": "dark",
+        "width": 1440,
+        "height": 900,
+        "no_overflow": true
+      },
+      {
+        "view": "Identificaci\u00f3n de entidad",
+        "theme": "dark",
+        "width": 1366,
+        "height": 768,
+        "no_overflow": true
+      },
+      {
+        "view": "Identificaci\u00f3n de entidad",
+        "theme": "dark",
+        "width": 1024,
+        "height": 600,
+        "no_overflow": true
+      },
+      {
+        "view": "Identificaci\u00f3n de entidad",
+        "theme": "dark",
+        "width": 768,
+        "height": 1024,
+        "no_overflow": true
+      },
+      {
+        "view": "Identificaci\u00f3n de entidad",
+        "theme": "dark",
+        "width": 390,
+        "height": 844,
+        "no_overflow": true
+      },
+      {
+        "view": "Identificaci\u00f3n de entidad",
+        "theme": "dark",
+        "width": 375,
+        "height": 667,
+        "no_overflow": true
+      },
+      {
+        "view": "Identificaci\u00f3n de entidad",
+        "theme": "dark",
+        "width": 320,
+        "height": 568,
+        "no_overflow": true
+      },
+      {
+        "view": "Identificaci\u00f3n de entidad",
+        "theme": "dark",
+        "width": 844,
+        "height": 390,
+        "no_overflow": true
+      },
+      {
+        "view": "Identificaci\u00f3n de entidad",
+        "theme": "dark",
+        "width": 700,
+        "height": 700,
+        "no_overflow": true
+      },
+      {
+        "view": "Capacidades y controles",
+        "theme": "light",
+        "width": 1440,
+        "height": 900,
+        "no_overflow": true
+      },
+      {
+        "view": "Capacidades y controles",
+        "theme": "light",
+        "width": 1366,
+        "height": 768,
+        "no_overflow": true
+      },
+      {
+        "view": "Capacidades y controles",
+        "theme": "light",
+        "width": 1024,
+        "height": 600,
+        "no_overflow": true
+      },
+      {
+        "view": "Capacidades y controles",
+        "theme": "light",
+        "width": 768,
+        "height": 1024,
+        "no_overflow": true
+      },
+      {
+        "view": "Capacidades y controles",
+        "theme": "light",
+        "width": 390,
+        "height": 844,
+        "no_overflow": true
+      },
+      {
+        "view": "Capacidades y controles",
+        "theme": "light",
+        "width": 375,
+        "height": 667,
+        "no_overflow": true
+      },
+      {
+        "view": "Capacidades y controles",
+        "theme": "light",
+        "width": 320,
+        "height": 568,
+        "no_overflow": true
+      },
+      {
+        "view": "Capacidades y controles",
+        "theme": "light",
+        "width": 844,
+        "height": 390,
+        "no_overflow": true
+      },
+      {
+        "view": "Capacidades y controles",
+        "theme": "light",
+        "width": 700,
+        "height": 700,
+        "no_overflow": true
+      },
+      {
+        "view": "Capacidades y controles",
+        "theme": "dark",
+        "width": 1440,
+        "height": 900,
+        "no_overflow": true
+      },
+      {
+        "view": "Capacidades y controles",
+        "theme": "dark",
+        "width": 1366,
+        "height": 768,
+        "no_overflow": true
+      },
+      {
+        "view": "Capacidades y controles",
+        "theme": "dark",
+        "width": 1024,
+        "height": 600,
+        "no_overflow": true
+      },
+      {
+        "view": "Capacidades y controles",
+        "theme": "dark",
+        "width": 768,
+        "height": 1024,
+        "no_overflow": true
+      },
+      {
+        "view": "Capacidades y controles",
+        "theme": "dark",
+        "width": 390,
+        "height": 844,
+        "no_overflow": true
+      },
+      {
+        "view": "Capacidades y controles",
+        "theme": "dark",
+        "width": 375,
+        "height": 667,
+        "no_overflow": true
+      },
+      {
+        "view": "Capacidades y controles",
+        "theme": "dark",
+        "width": 320,
+        "height": 568,
+        "no_overflow": true
+      },
+      {
+        "view": "Capacidades y controles",
+        "theme": "dark",
+        "width": 844,
+        "height": 390,
+        "no_overflow": true
+      },
+      {
+        "view": "Capacidades y controles",
+        "theme": "dark",
+        "width": 700,
+        "height": 700,
+        "no_overflow": true
+      },
+      {
+        "view": "Evidencia operativa",
+        "theme": "light",
+        "width": 1440,
+        "height": 900,
+        "no_overflow": true
+      },
+      {
+        "view": "Evidencia operativa",
+        "theme": "light",
+        "width": 1366,
+        "height": 768,
+        "no_overflow": true
+      },
+      {
+        "view": "Evidencia operativa",
+        "theme": "light",
+        "width": 1024,
+        "height": 600,
+        "no_overflow": true
+      },
+      {
+        "view": "Evidencia operativa",
+        "theme": "light",
+        "width": 768,
+        "height": 1024,
+        "no_overflow": true
+      },
+      {
+        "view": "Evidencia operativa",
+        "theme": "light",
+        "width": 390,
+        "height": 844,
+        "no_overflow": true
+      },
+      {
+        "view": "Evidencia operativa",
+        "theme": "light",
+        "width": 375,
+        "height": 667,
+        "no_overflow": true
+      },
+      {
+        "view": "Evidencia operativa",
+        "theme": "light",
+        "width": 320,
+        "height": 568,
+        "no_overflow": true
+      },
+      {
+        "view": "Evidencia operativa",
+        "theme": "light",
+        "width": 844,
+        "height": 390,
+        "no_overflow": true
+      },
+      {
+        "view": "Evidencia operativa",
+        "theme": "light",
+        "width": 700,
+        "height": 700,
+        "no_overflow": true
+      },
+      {
+        "view": "Evidencia operativa",
+        "theme": "dark",
+        "width": 1440,
+        "height": 900,
+        "no_overflow": true
+      },
+      {
+        "view": "Evidencia operativa",
+        "theme": "dark",
+        "width": 1366,
+        "height": 768,
+        "no_overflow": true
+      },
+      {
+        "view": "Evidencia operativa",
+        "theme": "dark",
+        "width": 1024,
+        "height": 600,
+        "no_overflow": true
+      },
+      {
+        "view": "Evidencia operativa",
+        "theme": "dark",
+        "width": 768,
+        "height": 1024,
+        "no_overflow": true
+      },
+      {
+        "view": "Evidencia operativa",
+        "theme": "dark",
+        "width": 390,
+        "height": 844,
+        "no_overflow": true
+      },
+      {
+        "view": "Evidencia operativa",
+        "theme": "dark",
+        "width": 375,
+        "height": 667,
+        "no_overflow": true
+      },
+      {
+        "view": "Evidencia operativa",
+        "theme": "dark",
+        "width": 320,
+        "height": 568,
+        "no_overflow": true
+      },
+      {
+        "view": "Evidencia operativa",
+        "theme": "dark",
+        "width": 844,
+        "height": 390,
+        "no_overflow": true
+      },
+      {
+        "view": "Evidencia operativa",
+        "theme": "dark",
+        "width": 700,
+        "height": 700,
+        "no_overflow": true
+      },
+      {
+        "view": "Relaciones de arquitectura",
+        "theme": "light",
+        "width": 1440,
+        "height": 900,
+        "no_overflow": true
+      },
+      {
+        "view": "Relaciones de arquitectura",
+        "theme": "light",
+        "width": 1366,
+        "height": 768,
+        "no_overflow": true
+      },
+      {
+        "view": "Relaciones de arquitectura",
+        "theme": "light",
+        "width": 1024,
+        "height": 600,
+        "no_overflow": true
+      },
+      {
+        "view": "Relaciones de arquitectura",
+        "theme": "light",
+        "width": 768,
+        "height": 1024,
+        "no_overflow": true
+      },
+      {
+        "view": "Relaciones de arquitectura",
+        "theme": "light",
+        "width": 390,
+        "height": 844,
+        "no_overflow": true
+      },
+      {
+        "view": "Relaciones de arquitectura",
+        "theme": "light",
+        "width": 375,
+        "height": 667,
+        "no_overflow": true
+      },
+      {
+        "view": "Relaciones de arquitectura",
+        "theme": "light",
+        "width": 320,
+        "height": 568,
+        "no_overflow": true
+      },
+      {
+        "view": "Relaciones de arquitectura",
+        "theme": "light",
+        "width": 844,
+        "height": 390,
+        "no_overflow": true
+      },
+      {
+        "view": "Relaciones de arquitectura",
+        "theme": "light",
+        "width": 700,
+        "height": 700,
+        "no_overflow": true
+      },
+      {
+        "view": "Relaciones de arquitectura",
+        "theme": "dark",
+        "width": 1440,
+        "height": 900,
+        "no_overflow": true
+      },
+      {
+        "view": "Relaciones de arquitectura",
+        "theme": "dark",
+        "width": 1366,
+        "height": 768,
+        "no_overflow": true
+      },
+      {
+        "view": "Relaciones de arquitectura",
+        "theme": "dark",
+        "width": 1024,
+        "height": 600,
+        "no_overflow": true
+      },
+      {
+        "view": "Relaciones de arquitectura",
+        "theme": "dark",
+        "width": 768,
+        "height": 1024,
+        "no_overflow": true
+      },
+      {
+        "view": "Relaciones de arquitectura",
+        "theme": "dark",
+        "width": 390,
+        "height": 844,
+        "no_overflow": true
+      },
+      {
+        "view": "Relaciones de arquitectura",
+        "theme": "dark",
+        "width": 375,
+        "height": 667,
+        "no_overflow": true
+      },
+      {
+        "view": "Relaciones de arquitectura",
+        "theme": "dark",
+        "width": 320,
+        "height": 568,
+        "no_overflow": true
+      },
+      {
+        "view": "Relaciones de arquitectura",
+        "theme": "dark",
+        "width": 844,
+        "height": 390,
+        "no_overflow": true
+      },
+      {
+        "view": "Relaciones de arquitectura",
+        "theme": "dark",
+        "width": 700,
+        "height": 700,
+        "no_overflow": true
+      }
+    ],
+    "accessibility": [
+      {
+        "view": "Identificaci\u00f3n de entidad",
+        "theme": "light",
+        "violations": []
+      },
+      {
+        "view": "Identificaci\u00f3n de entidad",
+        "theme": "dark",
+        "violations": []
+      },
+      {
+        "view": "Capacidades y controles",
+        "theme": "light",
+        "violations": []
+      },
+      {
+        "view": "Capacidades y controles",
+        "theme": "dark",
+        "violations": []
+      },
+      {
+        "view": "Evidencia operativa",
+        "theme": "light",
+        "violations": []
+      },
+      {
+        "view": "Evidencia operativa",
+        "theme": "dark",
+        "violations": []
+      },
+      {
+        "view": "Relaciones de arquitectura",
+        "theme": "light",
+        "violations": []
+      },
+      {
+        "view": "Relaciones de arquitectura",
+        "theme": "dark",
+        "violations": []
+      }
+    ],
+    "checks": [
+      "four_sections_render_as_tables",
+      "temporary_addition_and_duplicate_validation",
+      "preview_fields_reset_on_navigation",
+      "no_api_writes"
+    ],
+    "browser_errors": []
+  },
+  "image": "f78eebb9ba0aae6314d1a285bddb39f91a5a3ef35779831c577cc2bf885aa7b7"
+}
