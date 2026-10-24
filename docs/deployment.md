@@ -564,3 +564,15 @@ bloques, en dos temas y ocho tamaños. Reapertura y guardado online con datos
 sintéticos en la base QA. Evidencia `docs/evidence/server-instances-report.json`.
 Backup previo y unidad anterior en
 `/home/mip/backups/koodaria-20261024/server-instances/`.
+
+## Fila de iconos del estándar — 24 de octubre de 2026
+
+Publicada `localhost/koodaria-workspace:server-icon-row-20261024`
+(`2385b23b5721c194ddebf705c9a7de96a933817a168eda86dc5e4d5dffc97531`).
+Los cuatro bloques del nodo se sustituyen por una fila horizontal de iconos,
+con nombre al pasar el mouse o enfocar por teclado. Cada botón conserva el
+acceso al bloque de captura correspondiente. Sin cambios de datos, esquema ni
+permisos. Verificados los cuatro accesos en cinco tamaños y ambos temas,
+incluidos tooltip y foco; assets públicos comparados con el contenedor.
+Evidencia `docs/evidence/server-icon-row-report.json`. Unidad anterior en
+`/home/mip/backups/koodaria-20261024/server-icon-row/`.

@@ -82,8 +82,8 @@ omite. El guardado online, los grupos y la descarga PDF se mantienen.
 ### Instancias de servidor en el diagrama
 
 Servidor físico y Máquina virtual muestran cuatro bloques del modelo de
-Estándares. «Ver campos» permite consultar su estructura y cada cabecera abre
-la captura por campo. Los valores de identificación, evidencia y relaciones,
+Estándares. Una fila de cuatro iconos abre la captura por bloque. El nombre de cada
+sección aparece al pasar el mouse o enfocar el icono con el teclado. Los valores de identificación, evidencia y relaciones,
 y los estados declarados de los controles se guardan con el diagrama en
 PostgreSQL (`server_instance`, dentro del documento JSONB). No modifican la
 política ni crean una nueva definición.

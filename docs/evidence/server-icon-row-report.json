@@ -1,0 +1,77 @@
+{
+  "states": [
+    {
+      "theme": "light",
+      "width": 1440,
+      "height": 900,
+      "icons_in_one_row": true,
+      "hover_focus_and_click": true
+    },
+    {
+      "theme": "light",
+      "width": 1024,
+      "height": 600,
+      "icons_in_one_row": true,
+      "hover_focus_and_click": true
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "height": 844,
+      "icons_in_one_row": true,
+      "hover_focus_and_click": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 568,
+      "icons_in_one_row": true,
+      "hover_focus_and_click": true
+    },
+    {
+      "theme": "light",
+      "width": 844,
+      "height": 390,
+      "icons_in_one_row": true,
+      "hover_focus_and_click": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "height": 900,
+      "icons_in_one_row": true,
+      "hover_focus_and_click": true
+    },
+    {
+      "theme": "dark",
+      "width": 1024,
+      "height": 600,
+      "icons_in_one_row": true,
+      "hover_focus_and_click": true
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "height": 844,
+      "icons_in_one_row": true,
+      "hover_focus_and_click": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 568,
+      "icons_in_one_row": true,
+      "hover_focus_and_click": true
+    },
+    {
+      "theme": "dark",
+      "width": 844,
+      "height": 390,
+      "icons_in_one_row": true,
+      "hover_focus_and_click": true
+    }
+  ],
+  "synthetic_identity_only": true,
+  "browser_errors": [],
+  "public_assets_verified": true
+}
