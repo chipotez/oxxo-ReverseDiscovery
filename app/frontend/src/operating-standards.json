@@ -100,7 +100,8 @@
   "levels": {
     "required": "Obligatorio",
     "recommended": "Recomendado",
-    "na": "No aplica"
+    "na": "No aplica",
+    "conditional": "Condicional"
   },
   "states": {
     "unknown": "Sin verificar",

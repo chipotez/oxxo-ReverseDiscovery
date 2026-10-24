@@ -1,0 +1,129 @@
+{
+  "sections": [
+    {
+      "id": "identification",
+      "label": "Identificación de entidad",
+      "icon": "identity",
+      "description": "Los datos que permiten identificar y localizar cada servidor.",
+      "fields": [
+        {
+          "id": "ci",
+          "label": "ID único / CI",
+          "description": "Identificador del activo en el inventario o CMDB."
+        },
+        {
+          "id": "hostname",
+          "label": "Hostname / FQDN",
+          "description": "Nombre del equipo y dominio completo."
+        },
+        {
+          "id": "manufacturer",
+          "label": "Fabricante y modelo",
+          "description": "Fabricante y modelo del hardware o plataforma."
+        },
+        {
+          "id": "serial",
+          "label": "Número de serie",
+          "description": "Identificador del hardware; puede no aplicar a una máquina virtual."
+        },
+        {
+          "id": "location",
+          "label": "Datacenter / rack / ubicación",
+          "description": "Ubicación física o lógica del servidor."
+        },
+        {
+          "id": "context",
+          "label": "Entorno y criticidad",
+          "description": "Ambiente y criticidad del servicio."
+        },
+        {
+          "id": "owner",
+          "label": "Responsable técnico",
+          "description": "Equipo o persona responsable de la operación."
+        }
+      ]
+    },
+    {
+      "id": "controls",
+      "label": "Capacidades y controles",
+      "icon": "shield",
+      "description": "Las funciones que debe cubrir el servidor, con o sin agentes.",
+      "fields": []
+    },
+    {
+      "id": "evidence",
+      "label": "Evidencia operativa",
+      "icon": "note",
+      "description": "Qué se debe documentar para verificar la implementación.",
+      "fields": [
+        {
+          "id": "product",
+          "label": "Producto / tecnología",
+          "description": "Marca, solución y versión que cubren la capacidad."
+        },
+        {
+          "id": "implementation",
+          "label": "Implementación",
+          "description": "Agente, sin agente, API o mecanismo nativo."
+        },
+        {
+          "id": "state",
+          "label": "Estado operativo",
+          "description": "Operativo, inactivo o desconocido; independiente del cumplimiento."
+        },
+        {
+          "id": "evidence",
+          "label": "Evidencia",
+          "description": "Fuente, fecha y última validación."
+        },
+        {
+          "id": "compliance",
+          "label": "Cumplimiento",
+          "description": "Cumple, no cumple, excepción o no aplica, con su justificación."
+        }
+      ]
+    },
+    {
+      "id": "relationships",
+      "label": "Relaciones de arquitectura",
+      "icon": "topology",
+      "description": "Las relaciones que conectan el servidor con el resto del servicio.",
+      "fields": [
+        {
+          "id": "hosts",
+          "label": "Aloja / ejecuta",
+          "description": "Aplicaciones, procesos y servicios."
+        },
+        {
+          "id": "connected",
+          "label": "Conectado a",
+          "description": "Red, switches, firewalls y balanceadores."
+        },
+        {
+          "id": "storage",
+          "label": "Consume almacenamiento",
+          "description": "Volúmenes, SAN y NAS."
+        },
+        {
+          "id": "depends",
+          "label": "Depende de",
+          "description": "DNS, identidad, bases de datos y otros servicios."
+        },
+        {
+          "id": "managed",
+          "label": "Monitoreado / protegido por",
+          "description": "Plataformas corporativas de monitoreo, seguridad y respaldo."
+        }
+      ]
+    }
+  ],
+  "criteria": [
+    "Obligatorio exige una capacidad del perfil; no obliga a comprar un producto concreto.",
+    "Condicional depende del sistema operativo, la criticidad, la carga y la política. Documenta cuándo aplica.",
+    "No todos los controles requieren un agente local.",
+    "Un mismo producto puede cubrir varias capacidades.",
+    "La definición esperada y el estado observado se documentan por separado.",
+    "Los agentes y controles son detalle del recurso; no necesitan ser nodos del mapa ejecutivo.",
+    "Toda relación debe indicar su fuente y grado de confianza."
+  ]
+}

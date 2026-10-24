@@ -411,3 +411,29 @@ del catálogo con cuentas sintéticas. Evidencias: `infrastructure-catalog-repor
 y `infrastructure-accessibility-report.json` en `docs/evidence/`; script
 `scripts/qa_infrastructure_catalog.py` usa el harness descartable en localhost.
 Unidad anterior respaldada en `/home/mip/backups/koodaria-20261024/infrastructure-catalog/`.
+
+## Modelo de servidor — 24 de octubre de 2026
+
+Imagen `localhost/koodaria-workspace:server-model-20261024`
+(`e71c9a3bb30a679e050bfdb6adc8b1a1c6849dd708daee5ec0c2ec4f52986e40`).
+Servidores abre cuatro bloques: Identificación de entidad, Capacidades y
+controles, Evidencia operativa y Relaciones de arquitectura. Criterios incluye
+las reglas de interpretación del modelo. Definiciones conserva las bases y
+publicaciones Linux/Windows. Estructura edita la exigencia y regla esperada
+de 17 campos; Requisitos admite controles Condicionales y su condición.
+
+El nuevo `server_model` es opcional en el JSONB del borrador/publicación.
+La validación exige todos los campos conocidos, sin duplicados, y límites de
+longitud. Los clientes antiguos que omiten el modelo o la condición no borran
+esos datos. Las publicaciones históricas no se reescriben; el diagrama conserva
+la versión y copia canónica del estándar que ya usa. No se registran valores
+observados ni se afirma cumplimiento por completar el estándar.
+Sin migración SQL ni cambios de permisos, identidad o duración de sesión.
+
+40 pruebas de servidor y 256 estados responsive, con cuatro auditorías WCAG AA.
+Evidencia: `docs/evidence/server-model-report.json`; script
+`scripts/qa_server_model.py`. Se comprobó guardar, publicar, reabrir, conservar
+versiones anteriores y usar el modelo en la copia del estándar dentro del diagrama.
+Backup de la base completado antes de publicar. Unidad anterior en
+`/home/mip/backups/koodaria-20261024/server-model/`. Assets públicos verificados
+contra el contenedor; el API de estándares sigue respondiendo 401 sin sesión.

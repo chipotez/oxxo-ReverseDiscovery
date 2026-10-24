@@ -70,3 +70,11 @@ una versión posterior se aplica solo tras confirmación y reinicia sus estados 
 Sin verificar. Los indicadores registran declaraciones manuales, no instalan
 agentes ni simulan comprobaciones. Los invitados consultan la definición copiada
 en el diagrama que se les comparte, sin acceso al catálogo privado del propietario.
+
+Al entrar en **Servidores**, el modelo se divide en Identificación de entidad,
+Capacidades y controles, Evidencia operativa y Relaciones de arquitectura.
+**Definiciones → Estructura** permite configurar la exigencia y la regla de
+documentación de cada campo; **Requisitos** conserva los controles y añade
+la exigencia Condicional con su condición de aplicación. Todo se guarda en
+PostgreSQL como borrador y publicación versionada. Los campos del modelo
+definen lo esperado, sin afirmar que exista evidencia operativa real.

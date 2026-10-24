@@ -59,6 +59,33 @@ class StandardsTests(unittest.TestCase):
         self.assertEqual(self.send('get','/published').status_code,403)
         node['data']['standard']['version']=2
         self.assertEqual(self.map('put','/'+created['id'],{'revision':2,'document':doc}).status_code,400)
+    def server_model(self):
+        from standards import SERVER_MODEL
+        return {s['id']:[dict(id=f['id'],level='required',rule='QA expected rule') for f in s['fields']] for s in SERVER_MODEL['sections'] if s['id']!='controls'}
+    def test_server_model_publication_snapshot_and_legacy_preservation(self):
+        row=self.create();doc=row['draft'];doc['server_model']=self.server_model();doc['requirements'][0].update(level='conditional',condition='Only production')
+        saved=self.send('put','/'+row['id'],{'revision':row['revision'],'definition':doc});self.assertEqual(saved.status_code,200,saved.data)
+        published=self.publish(saved.json)
+        mapped=self.map('post',body={'name':'QA server model','template_id':'infrastructure','standard':{'id':row['id'],'version':1}});self.assertEqual(mapped.status_code,201,mapped.data)
+        bound=next(n['data']['standard'] for n in mapped.json['document']['nodes'] if n['data'].get('standard'))
+        self.assertEqual(bound['definition']['server_model'],doc['server_model']);self.assertEqual(bound['definition']['requirements'][0]['condition'],'Only production')
+        legacy=published['draft'];legacy.pop('server_model')
+        for control in legacy['requirements']:control.pop('condition',None)
+        saved=self.send('put','/'+row['id'],{'revision':published['revision'],'definition':legacy});self.assertEqual(saved.status_code,200,saved.data)
+        self.assertEqual(saved.json['draft']['server_model'],doc['server_model']);self.assertEqual(saved.json['draft']['requirements'][0]['condition'],'Only production')
+        updated=saved.json['draft'];updated['server_model']['evidence'][0]['rule']='QA revised rule'
+        saved=self.send('put','/'+row['id'],{'revision':saved.json['revision'],'definition':updated});self.assertEqual(saved.status_code,200)
+        self.publish(saved.json);versions=self.send('get','/'+row['id']+'/versions').json['items'];self.assertEqual(versions[1]['definition']['server_model'],doc['server_model'])
+    def test_server_model_validation_rejects_incomplete_duplicate_and_oversized_rules(self):
+        row=self.create()
+        import copy
+        for invalid in ['missing','duplicate','oversized','unknown']:
+            doc=copy.deepcopy(row['draft']);doc['server_model']=self.server_model()
+            if invalid=='missing':doc['server_model']['identification'].pop()
+            if invalid=='duplicate':doc['server_model']['identification'][1]=doc['server_model']['identification'][0]
+            if invalid=='oversized':doc['server_model']['evidence'][0]['rule']='x'*501
+            if invalid=='unknown':doc['server_model']['evidence'][0]['level']='pretend-verified'
+            self.assertEqual(self.send('put','/'+row['id'],{'revision':row['revision'],'definition':doc}).status_code,400,invalid)
     def test_validation_rejects_missing_controls_and_bad_status(self):
         row=self.create();doc=row['draft'];doc['requirements']=[]
         self.assertEqual(self.send('put','/'+row['id'],{'revision':1,'definition':doc}).status_code,400)

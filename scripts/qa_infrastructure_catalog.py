@@ -18,7 +18,7 @@ with sync_playwright() as p:
   if view=='categories':return
   entry('Cómputo').click()
   if view=='compute':return
-  entry('Servidores').click()
+  entry('Servidores').click();page.get_by_role('button',name='Definiciones',exact=True).click()
   if view=='servers':return
   # find synthetic definition with pagination
   for i in range(20):
@@ -52,7 +52,7 @@ with sync_playwright() as p:
     if entry(category['label']).count():break
     page.get_by_role('navigation',name='Páginas de estándares').get_by_role('button').last.click()
    entry(category['label']).click();entry(sub['label']).click()
-   if sub['id']=='servers':entry('Servidor Linux').wait_for()
+   if sub['id']=='servers':page.get_by_role('heading',name='Servidores',level=1).wait_for()
    else:page.get_by_role('heading',name=sub['types'][0],exact=True).wait_for()
  report['checks'].append('all_domains_subcategories_and_types_reachable')
  # cancel, save failure, save and leave, internal route guard, discard

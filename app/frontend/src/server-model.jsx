@@ -1,0 +1,12 @@
+import React,{useState} from 'react';
+import model from './server-standard-model.json';
+import catalog from './operating-standards.json';
+export const defaultServerModel=()=>Object.fromEntries(model.sections.filter(s=>s.id!=='controls').map(s=>[s.id,s.fields.map(f=>({id:f.id,level:s.id==='identification'?'required':'recommended',rule:s.id==='relationships'?'Documentar la fuente y el grado de confianza.':''}))]));
+export function ServerPolicyEditor({data,onChange,disabled,preview,Glyph}){
+ const [section,setSection]=useState('identification'),[index,setIndex]=useState(0),[step,setStep]=useState('field');
+ const spec=model.sections.find(s=>s.id===section),field=spec.fields[index];
+ const policy=data.server_model||defaultServerModel();const value=policy[section].find(v=>v.id===field.id);
+ const edit=patch=>onChange({...policy,[section]:policy[section].map(v=>v.id===field.id?{...v,...patch}:v)});
+ return <><nav className="standard-subnav" aria-label="Editar estructura">{[['field','Campo'],['level','Exigencia'],['rule','Regla']].map(([id,label])=><button key={id} aria-pressed={step===id} onClick={()=>setStep(id)}>{label}</button>)}</nav>{step==='field'?<><div className="standard-requirement-select"><label>Bloque del servidor<select aria-label="Bloque del servidor" value={section} onChange={e=>{setSection(e.target.value);setIndex(0);}}>{model.sections.filter(s=>s.id!=='controls').map(s=><option key={s.id} value={s.id}>{s.label}</option>)}</select></label><label>Campo del estándar<select aria-label="Campo del estándar" value={index} onChange={e=>setIndex(Number(e.target.value))}>{spec.fields.map((f,i)=><option key={f.id} value={i}>{f.label}</option>)}</select></label></div><p className="server-model-note">{field.description}</p></>:<><p className="server-model-note">{spec.label} · {field.label}</p>{preview&&!data.server_model?<p role="status">Esta versión no incluye reglas para estos campos.</p>:step==='level'?<label>Exigencia del campo<select aria-label="Exigencia del campo" disabled={disabled} value={value.level} onChange={e=>edit({level:e.target.value})}>{Object.entries(catalog.levels).map(([id,label])=><option key={id} value={id}>{label}</option>)}</select></label>:<label>Regla de documentación<textarea aria-label="Regla de documentación" maxLength={500} rows={2} disabled={disabled} value={value.rule} onChange={e=>edit({rule:e.target.value})}/></label>}</>}</>;
+}
+export default model;

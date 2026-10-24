@@ -8,6 +8,9 @@ from diagrams import authorize,failure,connection,subject,require_member,key,tex
 
 path=Path(__file__).with_name('operating-standards.json')
 if not path.exists():path=Path(__file__).parent/'frontend/src/operating-standards.json'
+model_path=path.with_name('server-standard-model.json')
+if not model_path.exists():model_path=Path(__file__).parent/'frontend/src/server-standard-model.json'
+SERVER_MODEL=json.loads(model_path.read_text())
 CATALOG=json.loads(path.read_text());FUNCTIONS={f['id']:f for f in CATALOG['functions']}
 bp=Blueprint('standards',__name__,url_prefix='/bienvenida/api/standards')
 bp.before_request(authorize);bp.register_error_handler(Exception,failure)
@@ -29,8 +32,21 @@ def definition(value):
     for control in controls:
         if not isinstance(control,dict) or control.get('id') not in FUNCTIONS or control['id'] in seen or control.get('level') not in CATALOG['levels']:raise InvalidDiagram()
         seen.add(control['id']);out={'id':control['id'],'label':FUNCTIONS[control['id']]['label'],'level':control['level']}
-        for field,limit in [('tool',120),('responsible',120),('configuration',500),('evidence',500),('frequency',100)]:out[field]=text(control.get(field,''),limit)
+        for field,limit in [('condition',500),('tool',120),('responsible',120),('configuration',500),('evidence',500),('frequency',100)]:out[field]=text(control.get(field,''),limit)
         result['requirements'].append(out)
+    if 'server_model' in value:
+        model=value['server_model']
+        if not isinstance(model,dict) or set(model)!={'identification','evidence','relationships'}:raise InvalidDiagram()
+        result['server_model']={}
+        for section in SERVER_MODEL['sections']:
+            if section['id']=='controls':continue
+            entries=model[section['id']];allowed={f['id'] for f in section['fields']}
+            if not isinstance(entries,list) or len(entries)!=len(allowed):raise InvalidDiagram()
+            seen=set();clean=[]
+            for entry in entries:
+                if not isinstance(entry,dict) or entry.get('id') not in allowed or entry['id'] in seen or entry.get('level') not in CATALOG['levels']:raise InvalidDiagram()
+                seen.add(entry['id']);clean.append(dict(id=entry['id'],level=entry['level'],rule=text(entry.get('rule',''),500)))
+            result['server_model'][section['id']]=clean
     return result
 
 def initial(family,name):
@@ -74,6 +90,13 @@ def save(standard_id):
     if type(body.get('revision'))!=int:raise InvalidDiagram()
     with connection(subject()) as conn:
         require_member(conn)
+        previous=conn.execute('SELECT draft FROM resource_standards WHERE id=%s AND owner_sub=%s',(key(standard_id),subject())).fetchone()
+        if previous:
+            if 'server_model' not in value and 'server_model' in previous['draft']:value['server_model']=previous['draft']['server_model']
+            old={c['id']:c for c in previous['draft']['requirements']}
+            submitted={c['id']:c for c in body['definition']['requirements']}
+            for control in value['requirements']:
+                if 'condition' not in submitted[control['id']]:control['condition']=old[control['id']].get('condition','')
         row=conn.execute('UPDATE resource_standards SET name=%s,draft=%s,revision=revision+1,updated_at=now() WHERE id=%s AND owner_sub=%s AND revision=%s RETURNING id,name,draft,revision,published_version,updated_at',(value['name'],Jsonb(value),key(standard_id),subject(),body['revision'])).fetchone()
         if not row:return jsonify(error='La definición cambió o ya no está disponible. Vuelve a abrirla antes de guardar.'),409
     return jsonify(serial(row))

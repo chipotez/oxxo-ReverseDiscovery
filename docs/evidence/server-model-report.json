@@ -1,0 +1,1826 @@
+{
+  "states": [
+    {
+      "theme": "light",
+      "width": 1440,
+      "height": 900,
+      "view": "server-overview",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1366,
+      "height": 768,
+      "view": "server-overview",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1024,
+      "height": 600,
+      "view": "server-overview",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 768,
+      "height": 1024,
+      "view": "server-overview",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "height": 844,
+      "view": "server-overview",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 375,
+      "height": 667,
+      "view": "server-overview",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 568,
+      "view": "server-overview",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 844,
+      "height": 390,
+      "view": "server-overview",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "height": 900,
+      "view": "identification",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1366,
+      "height": 768,
+      "view": "identification",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1024,
+      "height": 600,
+      "view": "identification",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 768,
+      "height": 1024,
+      "view": "identification",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "height": 844,
+      "view": "identification",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 375,
+      "height": 667,
+      "view": "identification",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 568,
+      "view": "identification",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 844,
+      "height": 390,
+      "view": "identification",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "height": 900,
+      "view": "controls",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1366,
+      "height": 768,
+      "view": "controls",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1024,
+      "height": 600,
+      "view": "controls",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 768,
+      "height": 1024,
+      "view": "controls",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "height": 844,
+      "view": "controls",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 375,
+      "height": 667,
+      "view": "controls",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 568,
+      "view": "controls",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 844,
+      "height": 390,
+      "view": "controls",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "height": 900,
+      "view": "evidence",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1366,
+      "height": 768,
+      "view": "evidence",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1024,
+      "height": 600,
+      "view": "evidence",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 768,
+      "height": 1024,
+      "view": "evidence",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "height": 844,
+      "view": "evidence",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 375,
+      "height": 667,
+      "view": "evidence",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 568,
+      "view": "evidence",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 844,
+      "height": 390,
+      "view": "evidence",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "height": 900,
+      "view": "relationships",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1366,
+      "height": 768,
+      "view": "relationships",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1024,
+      "height": 600,
+      "view": "relationships",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 768,
+      "height": 1024,
+      "view": "relationships",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "height": 844,
+      "view": "relationships",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 375,
+      "height": 667,
+      "view": "relationships",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 568,
+      "view": "relationships",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 844,
+      "height": 390,
+      "view": "relationships",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "height": 900,
+      "view": "criteria",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1366,
+      "height": 768,
+      "view": "criteria",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1024,
+      "height": 600,
+      "view": "criteria",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 768,
+      "height": 1024,
+      "view": "criteria",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "height": 844,
+      "view": "criteria",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 375,
+      "height": 667,
+      "view": "criteria",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 568,
+      "view": "criteria",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 844,
+      "height": 390,
+      "view": "criteria",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "height": 900,
+      "view": "server-overview",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1366,
+      "height": 768,
+      "view": "server-overview",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1024,
+      "height": 600,
+      "view": "server-overview",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "height": 1024,
+      "view": "server-overview",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "height": 844,
+      "view": "server-overview",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 375,
+      "height": 667,
+      "view": "server-overview",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 568,
+      "view": "server-overview",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 844,
+      "height": 390,
+      "view": "server-overview",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "height": 900,
+      "view": "identification",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1366,
+      "height": 768,
+      "view": "identification",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1024,
+      "height": 600,
+      "view": "identification",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "height": 1024,
+      "view": "identification",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "height": 844,
+      "view": "identification",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 375,
+      "height": 667,
+      "view": "identification",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 568,
+      "view": "identification",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 844,
+      "height": 390,
+      "view": "identification",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "height": 900,
+      "view": "controls",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1366,
+      "height": 768,
+      "view": "controls",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1024,
+      "height": 600,
+      "view": "controls",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "height": 1024,
+      "view": "controls",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "height": 844,
+      "view": "controls",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 375,
+      "height": 667,
+      "view": "controls",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 568,
+      "view": "controls",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 844,
+      "height": 390,
+      "view": "controls",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "height": 900,
+      "view": "evidence",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1366,
+      "height": 768,
+      "view": "evidence",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1024,
+      "height": 600,
+      "view": "evidence",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "height": 1024,
+      "view": "evidence",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "height": 844,
+      "view": "evidence",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 375,
+      "height": 667,
+      "view": "evidence",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 568,
+      "view": "evidence",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 844,
+      "height": 390,
+      "view": "evidence",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "height": 900,
+      "view": "relationships",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1366,
+      "height": 768,
+      "view": "relationships",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1024,
+      "height": 600,
+      "view": "relationships",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "height": 1024,
+      "view": "relationships",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "height": 844,
+      "view": "relationships",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 375,
+      "height": 667,
+      "view": "relationships",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 568,
+      "view": "relationships",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 844,
+      "height": 390,
+      "view": "relationships",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "height": 900,
+      "view": "criteria",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1366,
+      "height": 768,
+      "view": "criteria",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1024,
+      "height": 600,
+      "view": "criteria",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "height": 1024,
+      "view": "criteria",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "height": 844,
+      "view": "criteria",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 375,
+      "height": 667,
+      "view": "criteria",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 568,
+      "view": "criteria",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 844,
+      "height": 390,
+      "view": "criteria",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "height": 900,
+      "view": "policy-identification-Campo",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1366,
+      "height": 768,
+      "view": "policy-identification-Campo",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1024,
+      "height": 600,
+      "view": "policy-identification-Campo",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 768,
+      "height": 1024,
+      "view": "policy-identification-Campo",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "height": 844,
+      "view": "policy-identification-Campo",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 375,
+      "height": 667,
+      "view": "policy-identification-Campo",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 568,
+      "view": "policy-identification-Campo",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 844,
+      "height": 390,
+      "view": "policy-identification-Campo",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "height": 900,
+      "view": "policy-identification-Exigencia",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1366,
+      "height": 768,
+      "view": "policy-identification-Exigencia",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1024,
+      "height": 600,
+      "view": "policy-identification-Exigencia",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 768,
+      "height": 1024,
+      "view": "policy-identification-Exigencia",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "height": 844,
+      "view": "policy-identification-Exigencia",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 375,
+      "height": 667,
+      "view": "policy-identification-Exigencia",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 568,
+      "view": "policy-identification-Exigencia",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 844,
+      "height": 390,
+      "view": "policy-identification-Exigencia",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "height": 900,
+      "view": "policy-identification-Regla",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1366,
+      "height": 768,
+      "view": "policy-identification-Regla",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1024,
+      "height": 600,
+      "view": "policy-identification-Regla",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 768,
+      "height": 1024,
+      "view": "policy-identification-Regla",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "height": 844,
+      "view": "policy-identification-Regla",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 375,
+      "height": 667,
+      "view": "policy-identification-Regla",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 568,
+      "view": "policy-identification-Regla",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 844,
+      "height": 390,
+      "view": "policy-identification-Regla",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "height": 900,
+      "view": "policy-evidence-Campo",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1366,
+      "height": 768,
+      "view": "policy-evidence-Campo",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1024,
+      "height": 600,
+      "view": "policy-evidence-Campo",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 768,
+      "height": 1024,
+      "view": "policy-evidence-Campo",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "height": 844,
+      "view": "policy-evidence-Campo",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 375,
+      "height": 667,
+      "view": "policy-evidence-Campo",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 568,
+      "view": "policy-evidence-Campo",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 844,
+      "height": 390,
+      "view": "policy-evidence-Campo",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "height": 900,
+      "view": "policy-evidence-Exigencia",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1366,
+      "height": 768,
+      "view": "policy-evidence-Exigencia",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1024,
+      "height": 600,
+      "view": "policy-evidence-Exigencia",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 768,
+      "height": 1024,
+      "view": "policy-evidence-Exigencia",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "height": 844,
+      "view": "policy-evidence-Exigencia",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 375,
+      "height": 667,
+      "view": "policy-evidence-Exigencia",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 568,
+      "view": "policy-evidence-Exigencia",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 844,
+      "height": 390,
+      "view": "policy-evidence-Exigencia",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "height": 900,
+      "view": "policy-evidence-Regla",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1366,
+      "height": 768,
+      "view": "policy-evidence-Regla",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1024,
+      "height": 600,
+      "view": "policy-evidence-Regla",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 768,
+      "height": 1024,
+      "view": "policy-evidence-Regla",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "height": 844,
+      "view": "policy-evidence-Regla",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 375,
+      "height": 667,
+      "view": "policy-evidence-Regla",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 568,
+      "view": "policy-evidence-Regla",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 844,
+      "height": 390,
+      "view": "policy-evidence-Regla",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "height": 900,
+      "view": "policy-relationships-Campo",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1366,
+      "height": 768,
+      "view": "policy-relationships-Campo",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1024,
+      "height": 600,
+      "view": "policy-relationships-Campo",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 768,
+      "height": 1024,
+      "view": "policy-relationships-Campo",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "height": 844,
+      "view": "policy-relationships-Campo",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 375,
+      "height": 667,
+      "view": "policy-relationships-Campo",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 568,
+      "view": "policy-relationships-Campo",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 844,
+      "height": 390,
+      "view": "policy-relationships-Campo",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "height": 900,
+      "view": "policy-relationships-Exigencia",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1366,
+      "height": 768,
+      "view": "policy-relationships-Exigencia",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1024,
+      "height": 600,
+      "view": "policy-relationships-Exigencia",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 768,
+      "height": 1024,
+      "view": "policy-relationships-Exigencia",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "height": 844,
+      "view": "policy-relationships-Exigencia",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 375,
+      "height": 667,
+      "view": "policy-relationships-Exigencia",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 568,
+      "view": "policy-relationships-Exigencia",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 844,
+      "height": 390,
+      "view": "policy-relationships-Exigencia",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "height": 900,
+      "view": "policy-relationships-Regla",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1366,
+      "height": 768,
+      "view": "policy-relationships-Regla",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1024,
+      "height": 600,
+      "view": "policy-relationships-Regla",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 768,
+      "height": 1024,
+      "view": "policy-relationships-Regla",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "height": 844,
+      "view": "policy-relationships-Regla",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 375,
+      "height": 667,
+      "view": "policy-relationships-Regla",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 568,
+      "view": "policy-relationships-Regla",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 844,
+      "height": 390,
+      "view": "policy-relationships-Regla",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "height": 900,
+      "view": "policy-identification-Campo",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1366,
+      "height": 768,
+      "view": "policy-identification-Campo",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1024,
+      "height": 600,
+      "view": "policy-identification-Campo",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "height": 1024,
+      "view": "policy-identification-Campo",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "height": 844,
+      "view": "policy-identification-Campo",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 375,
+      "height": 667,
+      "view": "policy-identification-Campo",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 568,
+      "view": "policy-identification-Campo",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 844,
+      "height": 390,
+      "view": "policy-identification-Campo",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "height": 900,
+      "view": "policy-identification-Exigencia",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1366,
+      "height": 768,
+      "view": "policy-identification-Exigencia",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1024,
+      "height": 600,
+      "view": "policy-identification-Exigencia",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "height": 1024,
+      "view": "policy-identification-Exigencia",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "height": 844,
+      "view": "policy-identification-Exigencia",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 375,
+      "height": 667,
+      "view": "policy-identification-Exigencia",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 568,
+      "view": "policy-identification-Exigencia",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 844,
+      "height": 390,
+      "view": "policy-identification-Exigencia",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "height": 900,
+      "view": "policy-identification-Regla",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1366,
+      "height": 768,
+      "view": "policy-identification-Regla",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1024,
+      "height": 600,
+      "view": "policy-identification-Regla",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "height": 1024,
+      "view": "policy-identification-Regla",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "height": 844,
+      "view": "policy-identification-Regla",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 375,
+      "height": 667,
+      "view": "policy-identification-Regla",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 568,
+      "view": "policy-identification-Regla",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 844,
+      "height": 390,
+      "view": "policy-identification-Regla",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "height": 900,
+      "view": "policy-evidence-Campo",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1366,
+      "height": 768,
+      "view": "policy-evidence-Campo",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1024,
+      "height": 600,
+      "view": "policy-evidence-Campo",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "height": 1024,
+      "view": "policy-evidence-Campo",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "height": 844,
+      "view": "policy-evidence-Campo",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 375,
+      "height": 667,
+      "view": "policy-evidence-Campo",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 568,
+      "view": "policy-evidence-Campo",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 844,
+      "height": 390,
+      "view": "policy-evidence-Campo",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "height": 900,
+      "view": "policy-evidence-Exigencia",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1366,
+      "height": 768,
+      "view": "policy-evidence-Exigencia",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1024,
+      "height": 600,
+      "view": "policy-evidence-Exigencia",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "height": 1024,
+      "view": "policy-evidence-Exigencia",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "height": 844,
+      "view": "policy-evidence-Exigencia",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 375,
+      "height": 667,
+      "view": "policy-evidence-Exigencia",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 568,
+      "view": "policy-evidence-Exigencia",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 844,
+      "height": 390,
+      "view": "policy-evidence-Exigencia",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "height": 900,
+      "view": "policy-evidence-Regla",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1366,
+      "height": 768,
+      "view": "policy-evidence-Regla",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1024,
+      "height": 600,
+      "view": "policy-evidence-Regla",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "height": 1024,
+      "view": "policy-evidence-Regla",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "height": 844,
+      "view": "policy-evidence-Regla",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 375,
+      "height": 667,
+      "view": "policy-evidence-Regla",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 568,
+      "view": "policy-evidence-Regla",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 844,
+      "height": 390,
+      "view": "policy-evidence-Regla",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "height": 900,
+      "view": "policy-relationships-Campo",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1366,
+      "height": 768,
+      "view": "policy-relationships-Campo",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1024,
+      "height": 600,
+      "view": "policy-relationships-Campo",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "height": 1024,
+      "view": "policy-relationships-Campo",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "height": 844,
+      "view": "policy-relationships-Campo",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 375,
+      "height": 667,
+      "view": "policy-relationships-Campo",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 568,
+      "view": "policy-relationships-Campo",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 844,
+      "height": 390,
+      "view": "policy-relationships-Campo",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "height": 900,
+      "view": "policy-relationships-Exigencia",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1366,
+      "height": 768,
+      "view": "policy-relationships-Exigencia",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1024,
+      "height": 600,
+      "view": "policy-relationships-Exigencia",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "height": 1024,
+      "view": "policy-relationships-Exigencia",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "height": 844,
+      "view": "policy-relationships-Exigencia",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 375,
+      "height": 667,
+      "view": "policy-relationships-Exigencia",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 568,
+      "view": "policy-relationships-Exigencia",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 844,
+      "height": 390,
+      "view": "policy-relationships-Exigencia",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "height": 900,
+      "view": "policy-relationships-Regla",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1366,
+      "height": 768,
+      "view": "policy-relationships-Regla",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1024,
+      "height": 600,
+      "view": "policy-relationships-Regla",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "height": 1024,
+      "view": "policy-relationships-Regla",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "height": 844,
+      "view": "policy-relationships-Regla",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 375,
+      "height": 667,
+      "view": "policy-relationships-Regla",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 568,
+      "view": "policy-relationships-Regla",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 844,
+      "height": 390,
+      "view": "policy-relationships-Regla",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "height": 900,
+      "view": "conditional-control",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1366,
+      "height": 768,
+      "view": "conditional-control",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1024,
+      "height": 600,
+      "view": "conditional-control",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 768,
+      "height": 1024,
+      "view": "conditional-control",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "height": 844,
+      "view": "conditional-control",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 375,
+      "height": 667,
+      "view": "conditional-control",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 568,
+      "view": "conditional-control",
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 844,
+      "height": 390,
+      "view": "conditional-control",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "height": 900,
+      "view": "conditional-control",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1366,
+      "height": 768,
+      "view": "conditional-control",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1024,
+      "height": 600,
+      "view": "conditional-control",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "height": 1024,
+      "view": "conditional-control",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "height": 844,
+      "view": "conditional-control",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 375,
+      "height": 667,
+      "view": "conditional-control",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 568,
+      "view": "conditional-control",
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 844,
+      "height": 390,
+      "view": "conditional-control",
+      "no_overflow": true
+    }
+  ],
+  "checks": [
+    "four_server_blocks_fields_controls_and_criteria_reachable",
+    "three_policy_sections_and_conditional_control_saved_published_and_reopened"
+  ],
+  "accessibility": [
+    {
+      "view": "server-overview",
+      "theme": "light",
+      "violations": []
+    },
+    {
+      "view": "server-overview",
+      "theme": "dark",
+      "violations": []
+    },
+    {
+      "view": "policy-editor",
+      "theme": "light",
+      "violations": []
+    },
+    {
+      "view": "policy-editor",
+      "theme": "dark",
+      "violations": []
+    }
+  ],
+  "synthetic_identity_only": true,
+  "browser_errors": [],
+  "backend_tests": 40,
+  "image": "e71c9a3bb30a679e050bfdb6adc8b1a1c6849dd708daee5ec0c2ec4f52986e40"
+}
