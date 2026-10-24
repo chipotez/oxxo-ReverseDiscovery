@@ -1,0 +1,1903 @@
+{
+  "version": 1,
+  "categories": [
+    {
+      "id": "people",
+      "label": "Personas y organización",
+      "icon": "people",
+      "children": [
+        {
+          "id": "users",
+          "label": "Personas",
+          "kinds": [
+            "origen",
+            "persona",
+            "rol"
+          ]
+        },
+        {
+          "id": "teams",
+          "label": "Equipos y organizaciones",
+          "kinds": [
+            "equipo",
+            "area",
+            "organizacion",
+            "proveedor"
+          ]
+        }
+      ],
+      "capabilities": [
+        {
+          "id": "0",
+          "label": "Identidad y acceso",
+          "description": "Identificación, roles y permisos autorizados."
+        },
+        {
+          "id": "1",
+          "label": "Responsabilidad",
+          "description": "Propietario y equipo de atención."
+        },
+        {
+          "id": "2",
+          "label": "Auditoría",
+          "description": "Registro de acciones y revisiones de acceso."
+        }
+      ]
+    },
+    {
+      "id": "facilities",
+      "label": "Ubicaciones e instalaciones",
+      "icon": "building",
+      "children": [
+        {
+          "id": "space",
+          "label": "Espacio físico",
+          "kinds": [
+            "datacenter",
+            "sede",
+            "sala",
+            "rack",
+            "gabinete"
+          ]
+        },
+        {
+          "id": "power",
+          "label": "Energía",
+          "kinds": [
+            "pdu",
+            "ups",
+            "generador"
+          ]
+        },
+        {
+          "id": "cooling",
+          "label": "Climatización",
+          "kinds": [
+            "enfriamiento",
+            "sensor"
+          ]
+        },
+        {
+          "id": "cabling",
+          "label": "Cableado",
+          "kinds": [
+            "patchpanel",
+            "cobre",
+            "fibra"
+          ]
+        },
+        {
+          "id": "locations",
+          "label": "Ubicaciones lógicas",
+          "kinds": [
+            "nube",
+            "region",
+            "zona"
+          ]
+        }
+      ],
+      "capabilities": [
+        {
+          "id": "0",
+          "label": "Disponibilidad",
+          "description": "Estado de instalaciones y suministro."
+        },
+        {
+          "id": "1",
+          "label": "Capacidad",
+          "description": "Ocupación, energía y capacidad disponible."
+        },
+        {
+          "id": "2",
+          "label": "Condiciones ambientales",
+          "description": "Temperatura, humedad y condiciones de operación."
+        },
+        {
+          "id": "3",
+          "label": "Continuidad",
+          "description": "Redundancia y recuperación del suministro."
+        }
+      ]
+    },
+    {
+      "id": "compute",
+      "label": "Cómputo y plataformas",
+      "icon": "server",
+      "children": [
+        {
+          "id": "servers",
+          "label": "Servidores",
+          "kinds": [
+            "servidor",
+            "virtual"
+          ]
+        },
+        {
+          "id": "virtualization",
+          "label": "Virtualización",
+          "kinds": [
+            "hipervisor",
+            "cluster_virtual"
+          ]
+        },
+        {
+          "id": "specialized",
+          "label": "Cómputo especializado",
+          "kinds": [
+            "gpu",
+            "hpc"
+          ]
+        },
+        {
+          "id": "os",
+          "label": "Sistemas operativos",
+          "kinds": [
+            "sistema_operativo"
+          ]
+        },
+        {
+          "id": "containers",
+          "label": "Contenedores y ejecución",
+          "kinds": [
+            "contenedor",
+            "kubernetes",
+            "registro",
+            "funcion"
+          ]
+        }
+      ],
+      "capabilities": [
+        {
+          "id": "0",
+          "label": "Monitoreo",
+          "description": "Disponibilidad, rendimiento y capacidad."
+        },
+        {
+          "id": "1",
+          "label": "Seguridad",
+          "description": "Protección, acceso y configuración segura."
+        },
+        {
+          "id": "2",
+          "label": "Respaldo",
+          "description": "Respaldo y recuperación según criticidad."
+        },
+        {
+          "id": "3",
+          "label": "Configuración",
+          "description": "Inventario, parches y cambios autorizados."
+        }
+      ]
+    },
+    {
+      "id": "network",
+      "label": "Redes y conectividad",
+      "icon": "network",
+      "children": [
+        {
+          "id": "datacenter",
+          "label": "Red de datacenter",
+          "kinds": [
+            "red",
+            "switch",
+            "segmento",
+            "vlan"
+          ]
+        },
+        {
+          "id": "wan",
+          "label": "WAN y enlaces",
+          "kinds": [
+            "router",
+            "enlace",
+            "sdwan"
+          ]
+        },
+        {
+          "id": "balancing",
+          "label": "Balanceo y resolución",
+          "kinds": [
+            "balanceador",
+            "dns"
+          ]
+        },
+        {
+          "id": "wireless",
+          "label": "Red inalámbrica",
+          "kinds": [
+            "accesspoint",
+            "controlador_wifi"
+          ]
+        }
+      ],
+      "capabilities": [
+        {
+          "id": "0",
+          "label": "Disponibilidad",
+          "description": "Estado de equipos y enlaces."
+        },
+        {
+          "id": "1",
+          "label": "Rendimiento",
+          "description": "Latencia, pérdida de paquetes y errores."
+        },
+        {
+          "id": "2",
+          "label": "Capacidad",
+          "description": "Uso de interfaces, ancho de banda y sesiones."
+        },
+        {
+          "id": "3",
+          "label": "Configuración",
+          "description": "Cambios, respaldo de configuración y acceso."
+        }
+      ]
+    },
+    {
+      "id": "security",
+      "label": "Seguridad e identidad",
+      "icon": "shield",
+      "children": [
+        {
+          "id": "network-security",
+          "label": "Protección de red",
+          "kinds": [
+            "firewall",
+            "ids",
+            "vpn"
+          ]
+        },
+        {
+          "id": "application-security",
+          "label": "Protección de aplicaciones",
+          "kinds": [
+            "waf",
+            "secrets"
+          ]
+        },
+        {
+          "id": "secure-access",
+          "label": "Identidad y acceso",
+          "kinds": [
+            "identidad",
+            "directorio",
+            "bastion",
+            "pam"
+          ]
+        }
+      ],
+      "capabilities": [
+        {
+          "id": "0",
+          "label": "Acceso",
+          "description": "Autenticación, autorización y privilegios."
+        },
+        {
+          "id": "1",
+          "label": "Auditoría",
+          "description": "Eventos de seguridad, trazabilidad y conservación."
+        },
+        {
+          "id": "2",
+          "label": "Protección",
+          "description": "Cobertura y estado de los controles."
+        },
+        {
+          "id": "3",
+          "label": "Vulnerabilidades",
+          "description": "Evaluación, seguimiento y remediación."
+        }
+      ]
+    },
+    {
+      "id": "applications",
+      "label": "Aplicaciones e integración",
+      "icon": "application",
+      "children": [
+        {
+          "id": "applications",
+          "label": "Aplicaciones y servicios",
+          "kinds": [
+            "aplicacion",
+            "servicio",
+            "externo",
+            "proceso"
+          ]
+        },
+        {
+          "id": "apis",
+          "label": "APIs",
+          "kinds": [
+            "api",
+            "api_gateway"
+          ]
+        },
+        {
+          "id": "middleware",
+          "label": "Middleware",
+          "kinds": [
+            "servidor_web",
+            "servidor_app",
+            "integracion"
+          ]
+        },
+        {
+          "id": "messaging",
+          "label": "Mensajería y eventos",
+          "kinds": [
+            "cola",
+            "broker",
+            "eventos"
+          ]
+        }
+      ],
+      "capabilities": [
+        {
+          "id": "0",
+          "label": "Disponibilidad y errores",
+          "description": "Estado del servicio y tasa de errores."
+        },
+        {
+          "id": "1",
+          "label": "Tiempo de respuesta",
+          "description": "Latencia de solicitudes y operaciones."
+        },
+        {
+          "id": "2",
+          "label": "Trazabilidad",
+          "description": "Métricas, logs y trazas correlacionadas."
+        },
+        {
+          "id": "3",
+          "label": "Dependencias",
+          "description": "Servicios consumidos y efectos de sus fallas."
+        }
+      ]
+    },
+    {
+      "id": "data",
+      "label": "Datos y bases de datos",
+      "icon": "database",
+      "children": [
+        {
+          "id": "databases",
+          "label": "Bases de datos",
+          "kinds": [
+            "datos",
+            "instancia_db",
+            "cluster"
+          ]
+        },
+        {
+          "id": "cache",
+          "label": "Caché",
+          "kinds": [
+            "cache"
+          ]
+        },
+        {
+          "id": "analytics",
+          "label": "Analítica",
+          "kinds": [
+            "warehouse",
+            "lake",
+            "dataset"
+          ]
+        }
+      ],
+      "capabilities": [
+        {
+          "id": "0",
+          "label": "Conexiones y consultas",
+          "description": "Sesiones, consultas lentas y rendimiento."
+        },
+        {
+          "id": "1",
+          "label": "Bloqueos",
+          "description": "Contención, bloqueos y tiempos de espera."
+        },
+        {
+          "id": "2",
+          "label": "Replicación",
+          "description": "Estado y retraso de las réplicas."
+        },
+        {
+          "id": "3",
+          "label": "Protección y capacidad",
+          "description": "Respaldo, acceso, espacio y crecimiento."
+        }
+      ]
+    },
+    {
+      "id": "storage",
+      "label": "Almacenamiento",
+      "icon": "storage",
+      "children": [
+        {
+          "id": "block",
+          "label": "Bloque",
+          "kinds": [
+            "almacenamiento",
+            "disco",
+            "volumen",
+            "cabina"
+          ]
+        },
+        {
+          "id": "files",
+          "label": "Archivos",
+          "kinds": [
+            "nas",
+            "servidor_archivos"
+          ]
+        },
+        {
+          "id": "objects",
+          "label": "Objetos",
+          "kinds": [
+            "objetos"
+          ]
+        },
+        {
+          "id": "san",
+          "label": "Conectividad SAN",
+          "kinds": [
+            "fc_switch",
+            "hba"
+          ]
+        }
+      ],
+      "capabilities": [
+        {
+          "id": "0",
+          "label": "Disponibilidad",
+          "description": "Estado de volúmenes, cabinas y rutas."
+        },
+        {
+          "id": "1",
+          "label": "Rendimiento",
+          "description": "Latencia, operaciones por segundo y errores."
+        },
+        {
+          "id": "2",
+          "label": "Capacidad",
+          "description": "Espacio utilizado, crecimiento y umbrales."
+        },
+        {
+          "id": "3",
+          "label": "Protección",
+          "description": "Redundancia y acceso al almacenamiento."
+        }
+      ]
+    },
+    {
+      "id": "observability",
+      "label": "Observabilidad",
+      "icon": "observe",
+      "children": [
+        {
+          "id": "monitoring",
+          "label": "Monitoreo",
+          "kinds": [
+            "plataforma_monitoreo",
+            "agente",
+            "colector"
+          ]
+        },
+        {
+          "id": "signals",
+          "label": "Señales y destinos",
+          "kinds": [
+            "metricas",
+            "logs",
+            "trazas"
+          ]
+        },
+        {
+          "id": "experience",
+          "label": "Experiencia",
+          "kinds": [
+            "sintetico",
+            "rum",
+            "dashboard"
+          ]
+        }
+      ],
+      "capabilities": [
+        {
+          "id": "0",
+          "label": "Cobertura",
+          "description": "Recursos y servicios con señales disponibles."
+        },
+        {
+          "id": "1",
+          "label": "Calidad de telemetría",
+          "description": "Atributos, correlación y consistencia."
+        },
+        {
+          "id": "2",
+          "label": "Retención",
+          "description": "Muestreo, conservación y consumo."
+        },
+        {
+          "id": "3",
+          "label": "Alertamiento",
+          "description": "Severidad, responsable y atención."
+        }
+      ]
+    },
+    {
+      "id": "automation",
+      "label": "Automatización y entrega",
+      "icon": "code",
+      "children": [
+        {
+          "id": "delivery",
+          "label": "Entrega",
+          "kinds": [
+            "repositorio",
+            "pipeline",
+            "runner"
+          ]
+        },
+        {
+          "id": "automation",
+          "label": "Automatización",
+          "kinds": [
+            "controlador",
+            "automatizacion",
+            "iac"
+          ]
+        }
+      ],
+      "capabilities": [
+        {
+          "id": "0",
+          "label": "Ejecución",
+          "description": "Resultado, duración y errores."
+        },
+        {
+          "id": "1",
+          "label": "Acceso",
+          "description": "Permisos y manejo de credenciales."
+        },
+        {
+          "id": "2",
+          "label": "Trazabilidad",
+          "description": "Cambios, aprobaciones y auditoría."
+        },
+        {
+          "id": "3",
+          "label": "Recuperación",
+          "description": "Reintento y reversión de cambios."
+        }
+      ]
+    },
+    {
+      "id": "recovery",
+      "label": "Respaldo y recuperación",
+      "icon": "collection",
+      "children": [
+        {
+          "id": "backup",
+          "label": "Backup",
+          "kinds": [
+            "servidor_backup",
+            "repositorio_backup",
+            "appliance_backup"
+          ]
+        },
+        {
+          "id": "archive",
+          "label": "Archivo",
+          "kinds": [
+            "cintas",
+            "archivo"
+          ]
+        },
+        {
+          "id": "disaster",
+          "label": "Recuperación",
+          "kinds": [
+            "replica",
+            "replicacion",
+            "sitio_dr",
+            "orquestador_dr"
+          ]
+        }
+      ],
+      "capabilities": [
+        {
+          "id": "0",
+          "label": "Respaldo",
+          "description": "Resultado, antigüedad y cobertura de copias."
+        },
+        {
+          "id": "1",
+          "label": "Recuperación",
+          "description": "Pruebas de restauración y evidencia."
+        },
+        {
+          "id": "2",
+          "label": "Objetivos de continuidad",
+          "description": "Objetivos de pérdida de datos y recuperación."
+        },
+        {
+          "id": "3",
+          "label": "Protección",
+          "description": "Acceso y conservación de las copias."
+        }
+      ]
+    },
+    {
+      "id": "business",
+      "label": "Servicios de negocio",
+      "icon": "business",
+      "children": [
+        {
+          "id": "business-services",
+          "label": "Servicios",
+          "kinds": [
+            "servicio_negocio",
+            "transaccion",
+            "proceso_negocio",
+            "canal"
+          ]
+        }
+      ],
+      "capabilities": [
+        {
+          "id": "0",
+          "label": "Experiencia",
+          "description": "Resultado y tiempo de las transacciones críticas."
+        },
+        {
+          "id": "1",
+          "label": "Disponibilidad",
+          "description": "Objetivos y ventanas del servicio."
+        },
+        {
+          "id": "2",
+          "label": "Dependencias",
+          "description": "Aplicaciones y componentes que lo soportan."
+        },
+        {
+          "id": "3",
+          "label": "Responsabilidad",
+          "description": "Propietario y atención ante incidentes."
+        }
+      ]
+    }
+  ],
+  "resources": [
+    {
+      "kind": "origen",
+      "label": "Origen / usuario",
+      "category": "people",
+      "subcategory": "users",
+      "icon": "endpoint",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "persona",
+      "label": "Persona",
+      "category": "people",
+      "subcategory": "users",
+      "icon": "people",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "rol",
+      "label": "Rol",
+      "category": "people",
+      "subcategory": "users",
+      "icon": "identity",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "equipo",
+      "label": "Equipo de trabajo",
+      "category": "people",
+      "subcategory": "teams",
+      "icon": "people",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "area",
+      "label": "Área de negocio",
+      "category": "people",
+      "subcategory": "teams",
+      "icon": "collection",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "organizacion",
+      "label": "Organización",
+      "category": "people",
+      "subcategory": "teams",
+      "icon": "collection",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "proveedor",
+      "label": "Proveedor externo",
+      "category": "people",
+      "subcategory": "teams",
+      "icon": "people",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "datacenter",
+      "label": "Datacenter",
+      "category": "facilities",
+      "subcategory": "space",
+      "icon": "building",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "sede",
+      "label": "Sede",
+      "category": "facilities",
+      "subcategory": "space",
+      "icon": "building",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "sala",
+      "label": "Sala de equipos",
+      "category": "facilities",
+      "subcategory": "space",
+      "icon": "building",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "rack",
+      "label": "Rack",
+      "category": "facilities",
+      "subcategory": "space",
+      "icon": "rack",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "gabinete",
+      "label": "Gabinete",
+      "category": "facilities",
+      "subcategory": "space",
+      "icon": "rack",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "pdu",
+      "label": "PDU",
+      "category": "facilities",
+      "subcategory": "power",
+      "icon": "power",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "ups",
+      "label": "UPS",
+      "category": "facilities",
+      "subcategory": "power",
+      "icon": "power",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "generador",
+      "label": "Generador",
+      "category": "facilities",
+      "subcategory": "power",
+      "icon": "power",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "enfriamiento",
+      "label": "Unidad de enfriamiento",
+      "category": "facilities",
+      "subcategory": "cooling",
+      "icon": "cooling",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "sensor",
+      "label": "Sensor ambiental",
+      "category": "facilities",
+      "subcategory": "cooling",
+      "icon": "observe",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "patchpanel",
+      "label": "Panel de parcheo",
+      "category": "facilities",
+      "subcategory": "cabling",
+      "icon": "network",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "cobre",
+      "label": "Cableado de cobre",
+      "category": "facilities",
+      "subcategory": "cabling",
+      "icon": "network",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "fibra",
+      "label": "Fibra óptica",
+      "category": "facilities",
+      "subcategory": "cabling",
+      "icon": "network",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "nube",
+      "label": "Entorno cloud",
+      "category": "facilities",
+      "subcategory": "locations",
+      "icon": "cloud",
+      "technologies": [],
+      "providers": [
+        "AWS",
+        "Azure",
+        "GCP",
+        "IBM"
+      ]
+    },
+    {
+      "kind": "region",
+      "label": "Región",
+      "category": "facilities",
+      "subcategory": "locations",
+      "icon": "cloud",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "zona",
+      "label": "Zona de disponibilidad",
+      "category": "facilities",
+      "subcategory": "locations",
+      "icon": "cloud",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "servidor",
+      "label": "Servidor físico",
+      "category": "compute",
+      "subcategory": "servers",
+      "icon": "server",
+      "technologies": [],
+      "providers": [
+        "Cisco",
+        "Dell",
+        "HPE",
+        "IBM",
+        "Lenovo"
+      ]
+    },
+    {
+      "kind": "virtual",
+      "label": "Máquina virtual",
+      "category": "compute",
+      "subcategory": "servers",
+      "icon": "virtual",
+      "technologies": [],
+      "providers": [
+        "VMware",
+        "Microsoft",
+        "AWS",
+        "Azure",
+        "GCP",
+        "IBM"
+      ]
+    },
+    {
+      "kind": "hipervisor",
+      "label": "Hipervisor",
+      "category": "compute",
+      "subcategory": "virtualization",
+      "icon": "virtual",
+      "technologies": [
+        "VMware ESXi",
+        "Hyper-V",
+        "KVM"
+      ],
+      "providers": [
+        "VMware",
+        "Microsoft",
+        "Open source"
+      ]
+    },
+    {
+      "kind": "cluster_virtual",
+      "label": "Clúster de virtualización",
+      "category": "compute",
+      "subcategory": "virtualization",
+      "icon": "cluster",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "gpu",
+      "label": "Servidor GPU",
+      "category": "compute",
+      "subcategory": "specialized",
+      "icon": "server",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "hpc",
+      "label": "Plataforma HPC",
+      "category": "compute",
+      "subcategory": "specialized",
+      "icon": "cluster",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "sistema_operativo",
+      "label": "Sistema operativo",
+      "category": "compute",
+      "subcategory": "os",
+      "icon": "terminal",
+      "technologies": [
+        "Linux",
+        "Windows",
+        "Unix"
+      ],
+      "providers": [
+        "Microsoft",
+        "IBM",
+        "Open source"
+      ]
+    },
+    {
+      "kind": "contenedor",
+      "label": "Contenedor",
+      "category": "compute",
+      "subcategory": "containers",
+      "icon": "container",
+      "technologies": [
+        "Docker",
+        "Podman"
+      ],
+      "providers": [
+        "Open source"
+      ]
+    },
+    {
+      "kind": "kubernetes",
+      "label": "Clúster Kubernetes",
+      "category": "compute",
+      "subcategory": "containers",
+      "icon": "cluster",
+      "technologies": [
+        "Kubernetes",
+        "OpenShift",
+        "EKS",
+        "AKS",
+        "GKE"
+      ],
+      "providers": [
+        "AWS",
+        "Azure",
+        "GCP",
+        "IBM",
+        "Open source"
+      ]
+    },
+    {
+      "kind": "registro",
+      "label": "Registro de imágenes",
+      "category": "compute",
+      "subcategory": "containers",
+      "icon": "container",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "funcion",
+      "label": "Función serverless",
+      "category": "compute",
+      "subcategory": "containers",
+      "icon": "code",
+      "technologies": [],
+      "providers": [
+        "AWS",
+        "Azure",
+        "GCP",
+        "IBM"
+      ]
+    },
+    {
+      "kind": "red",
+      "label": "Red",
+      "category": "network",
+      "subcategory": "datacenter",
+      "icon": "network",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "switch",
+      "label": "Switch",
+      "category": "network",
+      "subcategory": "datacenter",
+      "icon": "network",
+      "technologies": [],
+      "providers": [
+        "Cisco",
+        "Juniper",
+        "HPE"
+      ]
+    },
+    {
+      "kind": "segmento",
+      "label": "Segmento de red",
+      "category": "network",
+      "subcategory": "datacenter",
+      "icon": "network",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "vlan",
+      "label": "VLAN",
+      "category": "network",
+      "subcategory": "datacenter",
+      "icon": "network",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "router",
+      "label": "Router",
+      "category": "network",
+      "subcategory": "wan",
+      "icon": "network",
+      "technologies": [],
+      "providers": [
+        "Cisco",
+        "Juniper",
+        "HPE"
+      ]
+    },
+    {
+      "kind": "enlace",
+      "label": "Enlace WAN",
+      "category": "network",
+      "subcategory": "wan",
+      "icon": "network",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "sdwan",
+      "label": "Equipo SD-WAN",
+      "category": "network",
+      "subcategory": "wan",
+      "icon": "network",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "balanceador",
+      "label": "Balanceador",
+      "category": "network",
+      "subcategory": "balancing",
+      "icon": "balance",
+      "technologies": [
+        "F5",
+        "HAProxy",
+        "NGINX"
+      ],
+      "providers": [
+        "F5",
+        "Open source"
+      ]
+    },
+    {
+      "kind": "dns",
+      "label": "DNS",
+      "category": "network",
+      "subcategory": "balancing",
+      "icon": "network",
+      "technologies": [
+        "BIND",
+        "Windows DNS"
+      ],
+      "providers": [
+        "Microsoft",
+        "Open source"
+      ]
+    },
+    {
+      "kind": "accesspoint",
+      "label": "Punto de acceso",
+      "category": "network",
+      "subcategory": "wireless",
+      "icon": "wireless",
+      "technologies": [],
+      "providers": [
+        "Cisco",
+        "HPE",
+        "Ubiquiti"
+      ]
+    },
+    {
+      "kind": "controlador_wifi",
+      "label": "Controlador Wi-Fi",
+      "category": "network",
+      "subcategory": "wireless",
+      "icon": "wireless",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "firewall",
+      "label": "Firewall",
+      "category": "security",
+      "subcategory": "network-security",
+      "icon": "shield",
+      "technologies": [],
+      "providers": [
+        "Cisco",
+        "Palo Alto",
+        "Fortinet"
+      ]
+    },
+    {
+      "kind": "ids",
+      "label": "IDS / IPS",
+      "category": "security",
+      "subcategory": "network-security",
+      "icon": "shield",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "vpn",
+      "label": "Concentrador VPN",
+      "category": "security",
+      "subcategory": "network-security",
+      "icon": "shield",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "waf",
+      "label": "WAF",
+      "category": "security",
+      "subcategory": "application-security",
+      "icon": "shield",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "secrets",
+      "label": "Gestor de secretos",
+      "category": "security",
+      "subcategory": "application-security",
+      "icon": "identity",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "identidad",
+      "label": "Proveedor de identidad",
+      "category": "security",
+      "subcategory": "secure-access",
+      "icon": "identity",
+      "technologies": [
+        "Keycloak",
+        "Entra ID",
+        "Active Directory"
+      ],
+      "providers": [
+        "Microsoft",
+        "Open source"
+      ]
+    },
+    {
+      "kind": "directorio",
+      "label": "Directorio",
+      "category": "security",
+      "subcategory": "secure-access",
+      "icon": "identity",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "bastion",
+      "label": "Bastión",
+      "category": "security",
+      "subcategory": "secure-access",
+      "icon": "endpoint",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "pam",
+      "label": "Plataforma PAM",
+      "category": "security",
+      "subcategory": "secure-access",
+      "icon": "identity",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "aplicacion",
+      "label": "Aplicación",
+      "category": "applications",
+      "subcategory": "applications",
+      "icon": "application",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "servicio",
+      "label": "Servicio técnico",
+      "category": "applications",
+      "subcategory": "applications",
+      "icon": "topology",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "externo",
+      "label": "Sistema externo",
+      "category": "applications",
+      "subcategory": "applications",
+      "icon": "cloud",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "proceso",
+      "label": "Proceso",
+      "category": "applications",
+      "subcategory": "applications",
+      "icon": "application",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "api",
+      "label": "API",
+      "category": "applications",
+      "subcategory": "apis",
+      "icon": "code",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "api_gateway",
+      "label": "API gateway",
+      "category": "applications",
+      "subcategory": "apis",
+      "icon": "code",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "servidor_web",
+      "label": "Servidor web",
+      "category": "applications",
+      "subcategory": "middleware",
+      "icon": "application",
+      "technologies": [
+        "NGINX",
+        "Apache",
+        "IIS"
+      ],
+      "providers": [
+        "Microsoft",
+        "Open source"
+      ]
+    },
+    {
+      "kind": "servidor_app",
+      "label": "Servidor de aplicaciones",
+      "category": "applications",
+      "subcategory": "middleware",
+      "icon": "application",
+      "technologies": [
+        "WebLogic",
+        "WebSphere",
+        "Tomcat"
+      ],
+      "providers": [
+        "Oracle",
+        "IBM",
+        "Open source"
+      ]
+    },
+    {
+      "kind": "integracion",
+      "label": "Plataforma de integración",
+      "category": "applications",
+      "subcategory": "middleware",
+      "icon": "topology",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "cola",
+      "label": "Cola de mensajes",
+      "category": "applications",
+      "subcategory": "messaging",
+      "icon": "queue",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "broker",
+      "label": "Broker de mensajes",
+      "category": "applications",
+      "subcategory": "messaging",
+      "icon": "queue",
+      "technologies": [
+        "RabbitMQ",
+        "IBM MQ"
+      ],
+      "providers": [
+        "IBM",
+        "Open source"
+      ]
+    },
+    {
+      "kind": "eventos",
+      "label": "Plataforma de eventos",
+      "category": "applications",
+      "subcategory": "messaging",
+      "icon": "queue",
+      "technologies": [
+        "Kafka"
+      ],
+      "providers": [
+        "Open source"
+      ]
+    },
+    {
+      "kind": "datos",
+      "label": "Base de datos",
+      "category": "data",
+      "subcategory": "databases",
+      "icon": "database",
+      "technologies": [
+        "Oracle",
+        "PostgreSQL",
+        "SQL Server",
+        "MySQL",
+        "MongoDB"
+      ],
+      "providers": [
+        "Oracle",
+        "Microsoft",
+        "IBM",
+        "AWS",
+        "Azure",
+        "GCP",
+        "Open source"
+      ]
+    },
+    {
+      "kind": "instancia_db",
+      "label": "Instancia de base de datos",
+      "category": "data",
+      "subcategory": "databases",
+      "icon": "database",
+      "technologies": [
+        "Oracle",
+        "PostgreSQL",
+        "SQL Server",
+        "MySQL"
+      ],
+      "providers": [
+        "Oracle",
+        "Microsoft",
+        "IBM",
+        "AWS",
+        "Azure",
+        "GCP",
+        "Open source"
+      ]
+    },
+    {
+      "kind": "cluster",
+      "label": "Clúster de datos",
+      "category": "data",
+      "subcategory": "databases",
+      "icon": "cluster",
+      "technologies": [
+        "Oracle RAC",
+        "PostgreSQL",
+        "SQL Server"
+      ],
+      "providers": [
+        "Oracle",
+        "Microsoft",
+        "Open source"
+      ]
+    },
+    {
+      "kind": "cache",
+      "label": "Caché",
+      "category": "data",
+      "subcategory": "cache",
+      "icon": "cache",
+      "technologies": [
+        "Redis",
+        "Memcached"
+      ],
+      "providers": [
+        "Open source",
+        "AWS",
+        "Azure",
+        "GCP"
+      ]
+    },
+    {
+      "kind": "warehouse",
+      "label": "Almacén analítico",
+      "category": "data",
+      "subcategory": "analytics",
+      "icon": "database",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "lake",
+      "label": "Lago de datos",
+      "category": "data",
+      "subcategory": "analytics",
+      "icon": "database",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "dataset",
+      "label": "Conjunto de datos",
+      "category": "data",
+      "subcategory": "analytics",
+      "icon": "database",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "almacenamiento",
+      "label": "Almacenamiento",
+      "category": "storage",
+      "subcategory": "block",
+      "icon": "storage",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "disco",
+      "label": "Disco",
+      "category": "storage",
+      "subcategory": "block",
+      "icon": "storage",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "volumen",
+      "label": "Volumen",
+      "category": "storage",
+      "subcategory": "block",
+      "icon": "storage",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "cabina",
+      "label": "Cabina SAN",
+      "category": "storage",
+      "subcategory": "block",
+      "icon": "storage",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "nas",
+      "label": "NAS",
+      "category": "storage",
+      "subcategory": "files",
+      "icon": "storage",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "servidor_archivos",
+      "label": "Servidor de archivos",
+      "category": "storage",
+      "subcategory": "files",
+      "icon": "storage",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "objetos",
+      "label": "Almacenamiento de objetos",
+      "category": "storage",
+      "subcategory": "objects",
+      "icon": "storage",
+      "technologies": [],
+      "providers": [
+        "AWS",
+        "Azure",
+        "GCP",
+        "IBM"
+      ]
+    },
+    {
+      "kind": "fc_switch",
+      "label": "Switch Fibre Channel",
+      "category": "storage",
+      "subcategory": "san",
+      "icon": "network",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "hba",
+      "label": "Adaptador HBA",
+      "category": "storage",
+      "subcategory": "san",
+      "icon": "network",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "plataforma_monitoreo",
+      "label": "Plataforma de monitoreo",
+      "category": "observability",
+      "subcategory": "monitoring",
+      "icon": "observe",
+      "technologies": [
+        "Datadog",
+        "Zabbix",
+        "Prometheus",
+        "Dynatrace",
+        "CloudWatch",
+        "Azure Monitor"
+      ],
+      "providers": [
+        "Datadog",
+        "Dynatrace",
+        "AWS",
+        "Azure",
+        "Open source"
+      ]
+    },
+    {
+      "kind": "agente",
+      "label": "Agente de telemetría",
+      "category": "observability",
+      "subcategory": "monitoring",
+      "icon": "observe",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "colector",
+      "label": "Colector",
+      "category": "observability",
+      "subcategory": "monitoring",
+      "icon": "topology",
+      "technologies": [
+        "OpenTelemetry Collector"
+      ],
+      "providers": [
+        "Open source"
+      ]
+    },
+    {
+      "kind": "metricas",
+      "label": "Almacén de métricas",
+      "category": "observability",
+      "subcategory": "signals",
+      "icon": "observe",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "logs",
+      "label": "Destino de logs",
+      "category": "observability",
+      "subcategory": "signals",
+      "icon": "note",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "trazas",
+      "label": "Backend de trazas",
+      "category": "observability",
+      "subcategory": "signals",
+      "icon": "topology",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "sintetico",
+      "label": "Prueba sintética",
+      "category": "observability",
+      "subcategory": "experience",
+      "icon": "endpoint",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "rum",
+      "label": "Monitoreo de experiencia real",
+      "category": "observability",
+      "subcategory": "experience",
+      "icon": "people",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "dashboard",
+      "label": "Dashboard",
+      "category": "observability",
+      "subcategory": "experience",
+      "icon": "observe",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "repositorio",
+      "label": "Repositorio",
+      "category": "automation",
+      "subcategory": "delivery",
+      "icon": "code",
+      "technologies": [
+        "Git"
+      ],
+      "providers": [
+        "Open source"
+      ]
+    },
+    {
+      "kind": "pipeline",
+      "label": "Pipeline",
+      "category": "automation",
+      "subcategory": "delivery",
+      "icon": "code",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "runner",
+      "label": "Runner",
+      "category": "automation",
+      "subcategory": "delivery",
+      "icon": "terminal",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "controlador",
+      "label": "Controlador de automatización",
+      "category": "automation",
+      "subcategory": "automation",
+      "icon": "code",
+      "technologies": [
+        "Ansible",
+        "AWX",
+        "Automation Controller"
+      ],
+      "providers": [
+        "Open source"
+      ]
+    },
+    {
+      "kind": "automatizacion",
+      "label": "Automatización",
+      "category": "automation",
+      "subcategory": "automation",
+      "icon": "code",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "iac",
+      "label": "Configuración como código",
+      "category": "automation",
+      "subcategory": "automation",
+      "icon": "code",
+      "technologies": [
+        "Terraform",
+        "OpenTofu",
+        "Ansible"
+      ],
+      "providers": [
+        "Open source"
+      ]
+    },
+    {
+      "kind": "servidor_backup",
+      "label": "Servidor de backup",
+      "category": "recovery",
+      "subcategory": "backup",
+      "icon": "server",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "repositorio_backup",
+      "label": "Repositorio de backup",
+      "category": "recovery",
+      "subcategory": "backup",
+      "icon": "storage",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "appliance_backup",
+      "label": "Appliance de backup",
+      "category": "recovery",
+      "subcategory": "backup",
+      "icon": "storage",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "cintas",
+      "label": "Librería de cintas",
+      "category": "recovery",
+      "subcategory": "archive",
+      "icon": "storage",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "archivo",
+      "label": "Repositorio de archivo",
+      "category": "recovery",
+      "subcategory": "archive",
+      "icon": "storage",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "replica",
+      "label": "Réplica",
+      "category": "recovery",
+      "subcategory": "disaster",
+      "icon": "database",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "replicacion",
+      "label": "Plataforma de replicación",
+      "category": "recovery",
+      "subcategory": "disaster",
+      "icon": "cluster",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "sitio_dr",
+      "label": "Sitio de recuperación",
+      "category": "recovery",
+      "subcategory": "disaster",
+      "icon": "building",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "orquestador_dr",
+      "label": "Orquestador de recuperación",
+      "category": "recovery",
+      "subcategory": "disaster",
+      "icon": "code",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "servicio_negocio",
+      "label": "Servicio de negocio",
+      "category": "business",
+      "subcategory": "business-services",
+      "icon": "business",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "transaccion",
+      "label": "Transacción de negocio",
+      "category": "business",
+      "subcategory": "business-services",
+      "icon": "business",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "proceso_negocio",
+      "label": "Proceso de negocio",
+      "category": "business",
+      "subcategory": "business-services",
+      "icon": "business",
+      "technologies": [],
+      "providers": []
+    },
+    {
+      "kind": "canal",
+      "label": "Canal",
+      "category": "business",
+      "subcategory": "business-services",
+      "icon": "endpoint",
+      "technologies": [],
+      "providers": []
+    }
+  ],
+  "providers": [
+    "AWS",
+    "Azure",
+    "Cisco",
+    "Datadog",
+    "Dell",
+    "Dynatrace",
+    "F5",
+    "Fortinet",
+    "GCP",
+    "HPE",
+    "IBM",
+    "Juniper",
+    "Lenovo",
+    "Microsoft",
+    "Open source",
+    "Oracle",
+    "Palo Alto",
+    "Ubiquiti",
+    "VMware"
+  ]
+}

@@ -50,31 +50,31 @@ Realm independiente `koodaria`, temas propios en `infra/keycloak/themes/koodaria
 
 `scripts/provision_keycloak.py` y `scripts/configure_keycloak.py` validan sin cambios por defecto. La aplicación requiere `--apply --credentials-file RUTA`, con una cuenta de servicio autorizada y archivo privado 600. No hay credenciales administrativas activas en el repositorio. La prueba `tests/keycloak_live_qa.py --credentials-file RUTA` usa Playwright y crea/elimina una cuenta desechable; debe ejecutarse solo con autorización administrativa.
 
-## Estándares operativos
+## Catálogo de componentes y estándares
 
-El nuevo icono **Estándares** de la barra lateral abre el catálogo privado del
-espacio. Infraestructura se organiza en ocho categorías, con subcategorías y
-tipos de recurso. Las definiciones editables siguen en Cómputo / Servidores:
-bases Linux y Windows con dieciséis funciones: monitoreo, seguridad de
-endpoints, backup, logs, CMDB, configuración, parches, vulnerabilidades,
-cumplimiento, identidad, auditoría, APM, automatización, gestión remota,
-integridad de archivos y protección de datos.
+El inicio autenticado muestra **Tu espacio de trabajo**, con una tarjeta y un
+icono por área. Estándares y Diagramas comparten `component-catalog.json`:
+12 categorías y 110 tipos de componente, más tres elementos de organización
+visual exclusivos del editor. Proveedor y tecnología son atributos y filtros,
+sin duplicar un tipo por cada fabricante. Se conservan los identificadores de
+los recursos y plantillas anteriores.
 
-1. Crear una definición y adaptar su alcance y requisitos.
-2. Guardar el borrador y publicar una versión.
-3. En Diagramas, añadir un servidor y elegir la definición publicada.
-4. Abrir sus indicadores para documentar estado y evidencia.
+El árbol permite recorrer categorías, familias y tipos. Cada tipo expone
+Identificación de entidad, Capacidades y controles, Evidencia operativa y
+Relaciones de arquitectura. Bases de datos incluye conexiones y consultas,
+bloqueos, replicación, protección y capacidad en sus controles. Los valores
+reales se documentan en el recurso; completar una referencia no demuestra
+cumplimiento ni instala agentes.
 
-Las publicaciones no cambian retroactivamente. El nodo conserva su versión;
-una versión posterior se aplica solo tras confirmación y reinicia sus estados a
-Sin verificar. Los indicadores registran declaraciones manuales, no instalan
-agentes ni simulan comprobaciones. Los invitados consultan la definición copiada
-en el diagrama que se les comparte, sin acceso al catálogo privado del propietario.
+Las referencias nuevas son un catálogo compartido de consulta. Agregar campo
+continúa como vista previa temporal, sin persistencia. Las definiciones y
+publicaciones existentes de Linux/Windows se conservan en PostgreSQL; los
+accesos Definiciones y Criterios siguen retirados por decisión del usuario.
+Sus versiones ligadas a diagramas no cambian retroactivamente. Los invitados
+solo pueden editar mapas compartidos explícitamente; no acceden al catálogo
+privado de estándares ni pueden crear diagramas nuevos.
 
-Al entrar en **Servidores**, el modelo se divide en Identificación de entidad,
-Capacidades y controles, Evidencia operativa y Relaciones de arquitectura.
-**Definiciones → Estructura** permite configurar la exigencia y la regla de
-documentación de cada campo; **Requisitos** conserva los controles y añade
-la exigencia Condicional con su condición de aplicación. Todo se guarda en
-PostgreSQL como borrador y publicación versionada. Los campos del modelo
-definen lo esperado, sin afirmar que exista evidencia operativa real.
+El editor usa los mismos componentes y permite guardar proveedor, tecnología
+/ versión y ubicación / región junto a cada nodo, en el documento JSONB.
+El servidor valida estos campos y los conserva cuando un cliente antiguo los
+omite. El guardado online, los grupos y la descarga PDF se mantienen.

@@ -7,6 +7,14 @@ from server import app
 from diagrams import connection,validate,InvalidDiagram
 
 class DiagramValidationTests(unittest.TestCase):
+    def test_shared_component_catalog_has_unique_complete_classification(self):
+        from diagram_catalog import COMPONENTS,CATALOG
+        kinds=[r['kind'] for r in COMPONENTS['resources']]
+        self.assertEqual(len(COMPONENTS['categories']),12);self.assertEqual(len(kinds),len(set(kinds)))
+        classified=[k for c in COMPONENTS['categories'] for sub in c['children'] for k in sub['kinds']]
+        self.assertCountEqual(classified,kinds)
+        self.assertTrue({'servidor','virtual','datos','cluster','cache','cola','origen','firewall','grupo'}<=set(r['kind'] for r in CATALOG['resources']))
+
     def test_untrusted_document_rejected(self):
         for value in [None,[],{},dict(name='x',nodes=[{}],edges=[]),dict(name='x',nodes=[],edges=[{}])]:
             with self.assertRaises(InvalidDiagram):validate(value)
@@ -32,6 +40,16 @@ class DiagramIntegrationTests(unittest.TestCase):
                 c.execute('DELETE FROM resource_diagrams WHERE owner_sub=%s',(owner,))
                 c.execute('DELETE FROM diagram_folders WHERE owner_sub=%s',(owner,))
     def send(self,method,path='',value=None):return getattr(self.client,method)('/bienvenida/api/diagrams'+path,json=value,headers={'X-CSRF-Token':'qa-token'})
+    def test_component_context_roundtrip_legacy_preservation_and_validation(self):
+        row=self.create();doc=row['document'];doc['nodes']=[dict(id='qa-db',type='resource',position=dict(x=0,y=0),data=dict(kind='instancia_db',label='QA DB',provider='Oracle',technology='Oracle 19c',location='QA región'))]
+        saved=self.send('put','/'+row['id'],{'revision':row['revision'],'document':doc});self.assertEqual(saved.status_code,200,saved.data)
+        loaded=self.send('get','/'+row['id']).json;self.assertEqual(loaded['document']['nodes'][0]['data']['technology'],'Oracle 19c')
+        legacy=loaded['document']
+        for field in ['provider','technology','location']:legacy['nodes'][0]['data'].pop(field)
+        saved=self.send('put','/'+row['id'],{'revision':loaded['revision'],'document':legacy});self.assertEqual(saved.status_code,200,saved.data)
+        loaded=self.send('get','/'+row['id']).json;self.assertEqual(loaded['document']['nodes'][0]['data']['provider'],'Oracle')
+        loaded['document']['nodes'][0]['data']['provider']='x'*121
+        self.assertEqual(self.send('put','/'+row['id'],{'revision':loaded['revision'],'document':loaded['document']}).status_code,400)
     def create(self):
         r=self.send('post',value={'name':'Diagrama QA'});self.assertEqual(r.status_code,201,r.data);return r.json
     def test_folder_bulk_move_filter_rename_delete_preserves_diagrams(self):

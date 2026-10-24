@@ -45,7 +45,8 @@ with sync_playwright() as p:
     if view=='dialog':page.get_by_role('button',name='Salir sin guardar',exact=True).click();entry('Servidor Linux').wait_for()
  # Verify each domain and every subcategory, including paginated catalogue entries
  page.set_viewport_size({'width':1440,'height':900})
- for category in json.loads(Path('app/frontend/src/infrastructure-taxonomy.json').read_text()):
+ catalog=json.loads(Path('app/frontend/src/component-catalog.json').read_text());by_kind={r['kind']:r for r in catalog['resources']}
+ for category in catalog['categories']:
   for sub in category['children']:
    root();entry('Infraestructura').click()
    for i in range(3):
@@ -53,7 +54,7 @@ with sync_playwright() as p:
     page.get_by_role('navigation',name='Páginas de estándares').get_by_role('button').last.click()
    entry(category['label']).click();entry(sub['label']).click()
    if sub['id']=='servers':page.get_by_role('heading',name='Servidores',level=1).wait_for()
-   else:page.get_by_role('heading',name=sub['types'][0],exact=True).wait_for()
+   else:page.get_by_role('heading',name=by_kind[sub['kinds'][0]]['label'],exact=True).wait_for()
  report['checks'].append('all_domains_subcategories_and_types_reachable')
  # cancel, save failure, save and leave, internal route guard, discard
  go('dialog');page.get_by_role('button',name='Seguir editando',exact=True).click();assert page.get_by_label('Nombre de la definición',exact=True).input_value()==name+' editado'

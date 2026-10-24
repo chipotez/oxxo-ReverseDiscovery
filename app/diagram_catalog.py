@@ -4,6 +4,10 @@ from pathlib import Path
 path=Path(__file__).with_name('diagram-catalog.json')
 if not path.exists():path=Path(__file__).parent/'frontend/src/diagram-catalog.json'
 CATALOG=json.loads(path.read_text())
+component_path=path.with_name('component-catalog.json')
+COMPONENTS=json.loads(component_path.read_text())
+CATALOG['categories']=[dict(id=c['id'],label=c['label'],icon=c['icon']) for c in COMPONENTS['categories']]+[dict(id='visual',label='Organización visual',icon='collection')]
+CATALOG['resources']=COMPONENTS['resources']+CATALOG['visualResources']
 LABELS={item['kind']:item['label'] for item in CATALOG['resources']}
 TEMPLATES={item['id']:item for item in CATALOG['templates']}
 def starter(template_id,name):

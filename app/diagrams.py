@@ -46,6 +46,8 @@ def validate(value):
         if key in ids or kind not in ('resource', 'resourceGroup') or not isinstance(data, dict) or not isinstance(pos, dict): raise InvalidDiagram()
         if data.get('kind') not in KINDS or (kind=='resourceGroup') != (data['kind']=='grupo'): raise InvalidDiagram()
         out = dict(id=key, type=kind, position=dict(x=number(pos.get('x'),-100000,100000),y=number(pos.get('y'),-100000,100000)), data=dict(label=text(data.get('label'),100,True),kind=data['kind'],address=text(data.get('address',''),120),port=text(data.get('port',''),40)))
+        for field in ['provider','technology','location']:
+            if field in data:out['data'][field]=text(data[field],120)
         if data.get('standard') is not None:
             from standards import reference
             out['data']['standard']=reference(data['standard'])
@@ -245,6 +247,11 @@ def save(diagram_id):
         original=fetch(conn,diagram_id)
         if not original:return jsonify(error='Diagrama no encontrado.'),404
         from standards import bind
+        old_nodes={n['id']:n for n in original['document']['nodes']}
+        for node in value['nodes']:
+            old=old_nodes.get(node['id'],{}).get('data',{})
+            for field in ['provider','technology','location']:
+                if field not in node['data'] and field in old:node['data'][field]=old[field]
         value=bind(conn,value,original['document'])
         row=conn.execute('UPDATE resource_diagrams SET name=%s,document=%s,revision=revision+1,updated_at=now() WHERE id=%s AND (owner_sub=%s OR diagram_granted(id)) AND revision=%s RETURNING id,name,revision,updated_at',(value['name'],Jsonb(value),key(diagram_id),subject(),revision)).fetchone()
         if not row:

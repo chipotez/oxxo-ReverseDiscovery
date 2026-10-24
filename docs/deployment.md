@@ -494,3 +494,31 @@ bloques de Servidores. Sin borrar estándares, versiones ni datos. Compilación
 y navegación verificadas en escritorio y móvil; bundle público coincide con
 el contenedor. Unidad anterior en
 `/home/mip/backups/koodaria-20261024/standards-four-blocks/`.
+
+## Catálogo compartido de componentes — 24 de octubre de 2026
+
+Publicada `localhost/koodaria-workspace:component-catalog-20261024`
+(`7b9d28466fd147d36209ee37cdf2f39e4fb40c1f6c1379e76a665d7e0666d690`).
+El inicio del workspace muestra «Tu espacio de trabajo», tarjetas compactas y
+un icono por área. Estándares y el editor comparten 12 categorías y 110 tipos
+de componentes desde `component-catalog.json`. Proveedor y tecnología son
+atributos y filtros; no crean copias del tipo de recurso. Cada tipo ofrece
+cuatro bloques de referencia. Se conservan los estándares publicados de
+servidores y permanecen ocultos los accesos Definiciones y Criterios.
+
+Los nodos guardan proveedor, tecnología y ubicación en el documento existente.
+Clientes anteriores que omiten esos campos conservan sus valores. No hubo
+migración SQL ni modificación de permisos. Agregar campos sigue siendo una
+vista previa temporal; las referencias de otros tipos no se presentan como
+políticas publicadas.
+
+Validación: 42 pruebas de servidor, 144 estados responsive, seis auditorías
+WCAG AA y guardado real con datos sintéticos en la base QA. Assets públicos
+comparados con el contenedor y APIs sin sesión responden 401. Evidencia:
+`docs/evidence/component-catalog-report.json`. Backup de base completado antes
+del reinicio y unidad anterior en
+`/home/mip/backups/koodaria-20261024/component-catalog/`.
+
+Para revertir después de utilizar tipos nuevos, conservar un catálogo compatible:
+las versiones anteriores no reconocen esos identificadores al editar. No
+restaurar la base de datos sobre cambios posteriores de los usuarios.
