@@ -27,6 +27,8 @@ app.config.update(
 Session(app)
 from diagrams import bp as diagrams_blueprint
 app.register_blueprint(diagrams_blueprint)
+from standards import bp as standards_blueprint
+app.register_blueprint(standards_blueprint)
 oauth = OAuth(app)
 oauth.register('keycloak', client_id='koodaria-web',
     client_secret=os.environ['OIDC_CLIENT_SECRET'],

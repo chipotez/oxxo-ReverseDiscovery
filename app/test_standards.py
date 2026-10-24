@@ -1,0 +1,66 @@
+"""Operating standards against a disposable database; no real identity or mail."""
+import os,time,uuid,unittest
+from server import app
+from diagrams import connection
+from standards import CATALOG
+
+@unittest.skipUnless(os.environ.get('DIAGRAM_TEST_DATABASE')=='disposable','Disposable database required')
+class StandardsTests(unittest.TestCase):
+    def setUp(self):
+        app.config['TESTING']=True;self.client=app.test_client();self.owner='qa-std-'+uuid.uuid4().hex;self.other='qa-std-'+uuid.uuid4().hex;self.guest='qa-std-'+uuid.uuid4().hex
+        for who in [self.owner,self.other]:
+            with connection(who) as c:c.execute('SELECT qa_seed_member(%s)',(who,))
+        self.login(self.owner)
+    def login(self,who):
+        with self.client.session_transaction() as s:s.clear();s.update(identity={'sub':who},expires_at=time.time()+7200,session_policy='absolute-2h-v1',csrf='qa-standard')
+    def send(self,method,path='',body=None):return getattr(self.client,method)('/bienvenida/api/standards'+path,json=body,headers={'X-CSRF-Token':'qa-standard'})
+    def map(self,method,path='',body=None):return getattr(self.client,method)('/bienvenida/api/diagrams'+path,json=body,headers={'X-CSRF-Token':'qa-standard'})
+    def create(self):
+        r=self.send('post',body={'name':'QA Linux','family':'linux'});self.assertEqual(r.status_code,201,r.data);return r.json
+    def publish(self,row):
+        r=self.send('post','/'+row['id']+'/publish',{'revision':row['revision']});self.assertEqual(r.status_code,201,r.data);return r.json
+    def test_draft_publication_immutable_history_and_conflict(self):
+        row=self.create();self.assertEqual(len(row['draft']['requirements']),16);self.assertEqual(self.send('get','/published').json['items'],[])
+        one=self.publish(row);draft=one['draft'];draft['requirements'][0]['tool']='QA monitor'
+        saved=self.send('put','/'+row['id'],{'revision':one['revision'],'definition':draft});self.assertEqual(saved.status_code,200)
+        self.assertEqual(self.send('put','/'+row['id'],{'revision':one['revision'],'definition':draft}).status_code,409)
+        two=self.publish(saved.json);self.assertEqual(two['published_version'],2)
+        versions=self.send('get','/'+row['id']+'/versions').json['items'];self.assertEqual([v['version'] for v in versions],[2,1]);self.assertEqual(versions[1]['definition']['requirements'][0]['tool'],'')
+        import psycopg
+        with self.assertRaises(psycopg.errors.InsufficientPrivilege):
+            with connection(self.owner) as c:c.execute('UPDATE resource_standard_versions SET definition=%s WHERE standard_id=%s',('{}',row['id']))
+    def test_private_catalog_and_guest_cannot_publish(self):
+        row=self.publish(self.create());self.login(self.other)
+        self.assertEqual(self.send('get').json['items'],[]);self.assertEqual(self.send('get','/'+row['id']+'/versions').json['items'],[])
+        self.assertEqual(self.send('post','/'+row['id']+'/publish',{'revision':row['revision']}).status_code,404)
+        self.login(self.guest)
+        self.assertEqual(self.send('get').status_code,403);self.assertEqual(self.send('post',body={'name':'Denied'}).status_code,403)
+    def test_bound_snapshot_stays_pinned_and_unknown_and_legacy_save_preserves_it(self):
+        row=self.publish(self.create());created=self.map('post',body={'name':'QA binding','template_id':'infrastructure','standard':{'id':row['id'],'version':1}});self.assertEqual(created.status_code,201,created.data)
+        doc=created.json['document'];bound=[n for n in doc['nodes'] if n['data'].get('standard')];self.assertEqual(len(bound),2)
+        self.assertTrue(all(c['status']=='unknown' for n in bound for c in n['data']['standard']['coverage']))
+        edited=row['draft'];edited['requirements'][0]['tool']='Version 2';updated=self.send('put','/'+row['id'],{'revision':row['revision'],'definition':edited}).json;self.publish(updated)
+        saved=self.map('get','/'+created.json['id']).json;self.assertEqual(saved['document']['nodes'][1]['data']['standard']['version'],1)
+        for n in doc['nodes']:n['data'].pop('standard',None)
+        self.assertEqual(self.map('put','/'+created.json['id'],{'revision':1,'document':doc}).status_code,200)
+        self.assertTrue(any(n['data'].get('standard') for n in self.map('get','/'+created.json['id']).json['document']['nodes']))
+    def test_shared_snapshot_edit_does_not_expose_catalog_or_allow_forged_reference(self):
+        row=self.publish(self.create());created=self.map('post',body={'name':'QA shared','template_id':'infrastructure','standard':{'id':row['id'],'version':1}}).json
+        from access import sync_identity
+        sync_identity({'sub':self.guest,'email':'qa-'+uuid.uuid4().hex+'@example.invalid','email_verified':True})
+        # Use verified recipient lookup through the same API, without sending mail.
+        from unittest.mock import patch
+        guest_email=None
+        with connection(self.guest) as c:guest_email=c.execute('SELECT email FROM workspace_principals').fetchone()['email']
+        with patch('diagrams.notify_existing',return_value=False):self.assertEqual(self.map('post','/'+created['id']+'/shares',{'email':guest_email}).status_code,201)
+        self.login(self.guest);doc=self.map('get','/'+created['id']).json['document'];node=next(n for n in doc['nodes'] if n['data'].get('standard'));node['data']['standard']['coverage'][0].update(status='configured',evidence='QA evidence',source='verified');node['data']['standard']['definition']['name']='Forged'
+        self.assertEqual(self.map('put','/'+created['id'],{'revision':1,'document':doc}).status_code,200)
+        result=self.map('get','/'+created['id']).json['document'];bound=next(n for n in result['nodes'] if n['data'].get('standard'))['data']['standard'];self.assertEqual(bound['name'],'QA Linux');self.assertEqual(bound['coverage'][0]['source'],'declared')
+        self.assertEqual(self.send('get','/published').status_code,403)
+        node['data']['standard']['version']=2
+        self.assertEqual(self.map('put','/'+created['id'],{'revision':2,'document':doc}).status_code,400)
+    def test_validation_rejects_missing_controls_and_bad_status(self):
+        row=self.create();doc=row['draft'];doc['requirements']=[]
+        self.assertEqual(self.send('put','/'+row['id'],{'revision':1,'definition':doc}).status_code,400)
+        self.assertEqual(self.send('post',body={'name':'Bad','family':'arbitrary'}).status_code,400)
+        self.assertEqual(self.client.post('/bienvenida/api/standards',json={'name':'No csrf'}).status_code,403)

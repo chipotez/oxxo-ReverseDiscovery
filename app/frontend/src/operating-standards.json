@@ -1,0 +1,131 @@
+{
+  "functions": [
+    {
+      "id": "monitoring",
+      "label": "Monitoreo",
+      "icon": "topology",
+      "description": "Disponibilidad, rendimiento y capacidad."
+    },
+    {
+      "id": "endpoint",
+      "label": "Seguridad de endpoints",
+      "icon": "shield",
+      "description": "Protección de endpoints o EDR."
+    },
+    {
+      "id": "backup",
+      "label": "Backup y recuperación",
+      "icon": "storage",
+      "description": "Respaldo y comprobación de recuperación."
+    },
+    {
+      "id": "logs",
+      "label": "Recolección de logs",
+      "icon": "note",
+      "description": "Registros operativos y su destino."
+    },
+    {
+      "id": "cmdb",
+      "label": "Inventario y CMDB",
+      "icon": "collection",
+      "description": "Identificación y registro del activo."
+    },
+    {
+      "id": "configuration",
+      "label": "Gestión de configuración",
+      "icon": "code",
+      "description": "Configuración administrada y detección de cambios."
+    },
+    {
+      "id": "patching",
+      "label": "Gestión de parches",
+      "icon": "server",
+      "description": "Actualización del sistema y paquetes."
+    },
+    {
+      "id": "vulnerability",
+      "label": "Vulnerabilidades",
+      "icon": "shield",
+      "description": "Evaluación y seguimiento de vulnerabilidades."
+    },
+    {
+      "id": "compliance",
+      "label": "Cumplimiento",
+      "icon": "select",
+      "description": "Revisión de controles y configuraciones."
+    },
+    {
+      "id": "identity",
+      "label": "Identidad y acceso",
+      "icon": "identity",
+      "description": "Directorio y administración del acceso."
+    },
+    {
+      "id": "audit",
+      "label": "Auditoría del sistema",
+      "icon": "note",
+      "description": "Registro de acciones y eventos."
+    },
+    {
+      "id": "apm",
+      "label": "APM y trazas",
+      "icon": "topology",
+      "description": "Rendimiento y trazabilidad de aplicaciones."
+    },
+    {
+      "id": "automation",
+      "label": "Automatización",
+      "icon": "code",
+      "description": "Tareas operativas autorizadas."
+    },
+    {
+      "id": "remote",
+      "label": "Gestión remota",
+      "icon": "endpoint",
+      "description": "Administración remota autorizada."
+    },
+    {
+      "id": "integrity",
+      "label": "Integridad de archivos",
+      "icon": "shield",
+      "description": "Seguimiento de cambios en archivos relevantes."
+    },
+    {
+      "id": "dlp",
+      "label": "Protección de datos",
+      "icon": "database",
+      "description": "Prevención de fugas y controles de datos."
+    }
+  ],
+  "levels": {
+    "required": "Obligatorio",
+    "recommended": "Recomendado",
+    "na": "No aplica"
+  },
+  "states": {
+    "unknown": "Sin verificar",
+    "configured": "Configurado",
+    "pending": "Pendiente",
+    "na": "No aplica"
+  },
+  "families": {
+    "linux": "Linux",
+    "windows": "Windows"
+  },
+  "platforms": {
+    "any": "Físico o virtual",
+    "physical": "Físico",
+    "virtual": "Virtual"
+  },
+  "environments": {
+    "all": "Todos",
+    "production": "Producción",
+    "nonproduction": "No productivo"
+  },
+  "criticalities": {
+    "unspecified": "Por definir",
+    "high": "Alta",
+    "medium": "Media",
+    "low": "Baja"
+  }
+}

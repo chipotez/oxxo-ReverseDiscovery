@@ -95,8 +95,9 @@ function render(){
  window.KoodariaResourceFlow?.unmount();document.body.classList.remove('resource-tool-open');
  const route=location.hash.slice(1)||'/catalogo';
  document.querySelectorAll('[data-view]').forEach(b=>b.setAttribute('aria-pressed',String((route.startsWith('/cursos')?'modulos':'servicios')===b.dataset.view)));
- document.querySelectorAll('[data-section]').forEach(b=>{if(b.dataset.section===(route.startsWith('/cursos')?'aprendizaje':route.startsWith('/herramientas')?'crear':'aplicaciones'))b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');});
+ document.querySelectorAll('[data-section]').forEach(b=>{if(b.dataset.section===(route.startsWith('/estandares')?'estandares':route.startsWith('/cursos')?'aprendizaje':route.startsWith('/herramientas')?'crear':'aplicaciones'))b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');});
  const [path,params='']=route.split('?');const bits=path.split('/').filter(Boolean);
+ if(bits[0]==='estandares'&&!guest){document.body.classList.add('resource-tool-open');main.className='workspace-main resource-flow-page';main.removeAttribute('style');main.innerHTML='';window.KoodariaResourceFlow.mountStandards(main);return;}
  const diagramAliases=['diagramas','mapeo-recursos','mapeo-servicios','mapeo-dependencias'];
  if((bits[0]==='herramientas'&&diagramAliases.includes(bits[1]))||(bits[0]==='catalogo'&&bits[1]==='observabilidad'&&diagramAliases.includes(bits[2]))){if(path!=='/herramientas/diagramas'){location.replace('#/herramientas/diagramas');return;}document.body.classList.add('resource-tool-open');main.className='workspace-main resource-flow-page';main.removeAttribute('style');main.innerHTML='';window.KoodariaResourceFlow.mount(main);return;}
  if(guest&&!(bits[0]==='catalogo'&&(!bits[1]||(bits[1]==='observabilidad'&&!bits[2])))){location.hash='/catalogo';return;}
@@ -114,8 +115,8 @@ window.addEventListener('hashchange',render);
 let resizeFrame;const resize=()=>{cancelAnimationFrame(resizeFrame);resizeFrame=requestAnimationFrame(()=>{if(main.querySelector('#catalog-grid'))paginate();else fitShell();});};
 window.addEventListener('resize',resize);window.visualViewport?.addEventListener('resize',resize);
 document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>{location.hash=b.dataset.view==='modulos'?'/cursos':'/catalogo';}));
-document.querySelectorAll('[data-section]').forEach(b=>b.addEventListener('click',()=>{const route={inicio:'/catalogo',aplicaciones:'/catalogo',biblioteca:'/cursos',aprendizaje:'/cursos',crear:'/herramientas/diagramas'}[b.dataset.section];if(route)location.hash=route;}));
-for(const section of (guest?['asistente','favoritos','consola','crear','biblioteca','aprendizaje']:['asistente','favoritos','consola'])){const button=document.querySelector(`[data-section="${section}"]`);if(button){button.disabled=true;button.title=button.getAttribute('aria-label')+' · Próximamente';}}
+document.querySelectorAll('[data-section]').forEach(b=>b.addEventListener('click',()=>{const route={inicio:'/catalogo',aplicaciones:'/catalogo',biblioteca:'/cursos',aprendizaje:'/cursos',crear:'/herramientas/diagramas',estandares:'/estandares'}[b.dataset.section];if(route)location.hash=route;}));
+for(const section of (guest?['asistente','favoritos','consola','crear','biblioteca','aprendizaje','estandares']:['asistente','favoritos','consola'])){const button=document.querySelector(`[data-section="${section}"]`);if(button){button.disabled=true;button.title=button.getAttribute('aria-label')+' · Próximamente';}}
 if(guest)document.querySelector('[data-view=modulos]')?.setAttribute('disabled','');
 render();
 })();

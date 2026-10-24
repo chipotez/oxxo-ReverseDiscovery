@@ -327,3 +327,45 @@ Imagen publicada y verificada:
 Resultado: 33 pruebas de servidor, 56 estados responsive, ocho auditorías WCAG AA
 sin incidencias y vista previa del clúster dentro de sus límites. Se compararon
 los hashes públicos de JavaScript/CSS con los archivos del contenedor activo.
+
+## Estándares operativos — 24 de octubre de 2026
+
+Imagen `localhost/koodaria-workspace:standards-20261024`. Aplicar una vez la
+migración aditiva `004_resource_standards.sql` como propietario, primero en QA y
+luego en producción, tras backup. Crea borradores y versiones publicadas, sin
+alterar diagramas existentes. Las publicaciones tienen permiso SELECT/INSERT
+para la aplicación y carecen de UPDATE/DELETE. Ambas tablas fuerzan RLS.
+
+API privada `/bienvenida/api/standards`: sesión y CSRF, acceso solo a miembros,
+propiedad por sujeto OIDC y límites de 200 definiciones / 100 versiones por
+definición. El API no ofrece borrar publicaciones. Los nodos pueden referirse a
+una publicación propia o a una copia ya presente en el diagrama autorizado;
+ningún sujeto puede obtener un catálogo ajeno mediante esa referencia.
+
+La incorporación de nodos pasa por la validación de documentos existente. Los
+estados admitidos son Sin verificar, Configurado, Pendiente y No aplica; la fuente
+se fija en `declared` y el servidor registra fecha de cambio. El verde significa
+una declaración de configuración, no una comprobación técnica del agente.
+No se modifican el realm, SMTP, Caddy, contraseñas ni la política de sesión de 2h.
+
+El contenedor debe conservar las mismas claves privadas y el volumen de sesiones.
+Los backups habituales de PostgreSQL incluyen las tablas nuevas automáticamente.
+No restaurar datos antiguos para revertir la interfaz. Una imagen anterior a esta
+función desconoce las referencias de estándares; después de guardar cobertura,
+preferir una corrección compatible hacia adelante en lugar de una imagen que
+pueda descartar metadatos al editar.
+
+QA: `test_standards` junto con servidor, diagramas e invitaciones en la base
+`koodaria_diagrams_qa`; `scripts/qa_resource_standards.py` prueba el flujo real de
+borrador, publicación, inserción, cobertura manual, actualización explícita y
+adaptación de formularios en ocho viewports y ambos temas. Las identidades y
+evidencias de QA son sintéticas; no se envían correos ni se usa MFA de personas.
+
+Publicado y verificado con imagen
+`d07e143d0415024573c1f1412b485b31f24ad4689b0ea222adf03ae3f70634b4`.
+38 pruebas de servidor, 144 estados responsive y ocho auditorías WCAG AA sin
+incidencias. Se probó además que un invitado puede reutilizar una definición ya
+copiada en su diagrama compartido, conservando el bloqueo del catálogo privado.
+JavaScript/CSS públicos coinciden con el contenedor desplegado; ambos API privados
+responden 401 sin sesión. Unidad anterior en
+`/home/mip/backups/koodaria-20261024/resource-standards/`.

@@ -49,3 +49,23 @@ La Home está publicada en **https://koodaria.com**, con certificado gratuito de
 Realm independiente `koodaria`, temas propios en `infra/keycloak/themes/koodaria`. Existen `Kyndryl` y `Koodaria`; esta última contiene la cuenta propietaria. Cada empresa cliente tiene su organización; el buzón SMTP es global e independiente. El dominio del correo no concede membresía automáticamente. El destino tras autenticar es el catálogo privado de disciplinas, con Servicios/Módulos y menú personal. Observabilidad reúne Diagramas, cursos por nivel y casos de uso. Diagramas abre una biblioteca única con Mis diagramas / Compartidos conmigo, grupos e invitaciones. Puedes comenzar en blanco o con una de cinco plantillas, añadir componentes desde un panel flotante por categorías y editarlos en React Flow. El guardado es automático en PostgreSQL y la descarga es PDF. Los enlaces antiguos de mapeo abren esta misma biblioteca. Los demás contenidos están identificados como En preparación. La gestión de cuenta sigue disponible desde ese menú. Los invitados externos solo pueden utilizar Observabilidad > Diagramas y editar los diagramas compartidos explícitamente, sin crear otros. La organización no concede acceso implícito a diagramas. Las invitaciones verifican correo, perfil, contraseña y MFA; la recuperación de contraseña no elimina el segundo factor.
 
 `scripts/provision_keycloak.py` y `scripts/configure_keycloak.py` validan sin cambios por defecto. La aplicación requiere `--apply --credentials-file RUTA`, con una cuenta de servicio autorizada y archivo privado 600. No hay credenciales administrativas activas en el repositorio. La prueba `tests/keycloak_live_qa.py --credentials-file RUTA` usa Playwright y crea/elimina una cuenta desechable; debe ejecutarse solo con autorización administrativa.
+
+## Estándares operativos
+
+El nuevo icono **Estándares** de la barra lateral abre el catálogo privado del
+espacio. En esta primera versión incluye Infraestructura / Servidores y bases
+editables Linux y Windows con dieciséis funciones: monitoreo, seguridad de
+endpoints, backup, logs, CMDB, configuración, parches, vulnerabilidades,
+cumplimiento, identidad, auditoría, APM, automatización, gestión remota,
+integridad de archivos y protección de datos.
+
+1. Crear una definición y adaptar su alcance y requisitos.
+2. Guardar el borrador y publicar una versión.
+3. En Diagramas, añadir un servidor y elegir la definición publicada.
+4. Abrir sus indicadores para documentar estado y evidencia.
+
+Las publicaciones no cambian retroactivamente. El nodo conserva su versión;
+una versión posterior se aplica solo tras confirmación y reinicia sus estados a
+Sin verificar. Los indicadores registran declaraciones manuales, no instalan
+agentes ni simulan comprobaciones. Los invitados consultan la definición copiada
+en el diagrama que se les comparte, sin acceso al catálogo privado del propietario.

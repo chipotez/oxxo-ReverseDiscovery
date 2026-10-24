@@ -211,3 +211,39 @@ UI y servidor consumen el mismo catálogo JSON de componentes. La ampliación de
 tipos mantiene compatibles los nodos y grupos anteriores. El panel flotante y la
 galería paginan según ancho y alto; en móvil la inserción por toque es una
 alternativa al arrastre. Los cursos permanecen separados de la herramienta.
+
+## Estándares operativos — primera implementación
+
+Estándares tiene acceso propio en la barra lateral. El catálogo inicial se centra
+en Infraestructura / Servidores Linux y Windows, con bases editables para dieciséis
+funciones operativas. Las bases son borradores de referencia, no políticas aprobadas.
+La definición guarda alcance físico/virtual, ambiente, criticidad, responsable y,
+por función, exigencia, herramienta, configuración, evidencia y frecuencia.
+
+En esta fase los catálogos son privados por propietario del espacio, con RLS;
+no constituyen todavía un catálogo administrado conjuntamente por toda una
+organización. No se infiere pertenencia a una organización por correo o dominio.
+Los invitados a diagramas no pueden listar, editar ni publicar estos catálogos.
+
+Se separan borradores editables de publicaciones inmutables, con revisión
+optimista y publicación serializada. Un nodo guarda la referencia de versión y
+una copia de la definición publicada, además de estados/evidencias declarados.
+No hay agentes instalados, comprobación automática ni resultados de integraciones
+simulados. El backend reconstruye la definición a partir de la versión autorizada;
+ignora copias de definición y fuentes de verificación que envíe el navegador.
+
+Al insertar servidores en el editor se elige una definición publicada. Las
+plantillas con servidores también permiten asignar esa definición. Un servidor
+anterior sin estándar sigue disponible y puede vincularse desde Propiedades.
+Publicar v2 no modifica nodos existentes. La actualización requiere revisión
+explícita por nodo y reinicia su cobertura a Sin verificar. Si un cliente anterior
+guarda un nodo ligado sin enviar estos campos, el servidor conserva su definición.
+Los invitados pueden editar la cobertura de un nodo de su diagrama concedido y
+consultar esa copia; no pueden descubrir publicaciones privadas por UUID.
+
+Las funciones/estados del catálogo proceden de `operating-standards.json` compartido
+por backend y UI. La vista principal y el panel de cobertura usan pestañas y
+formularios cortos para mantener las acciones visibles. Los iconos incorporan
+símbolos y etiquetas accesibles, además del color. La exportación PDF existente
+sigue mostrando topología e inventario; el detalle de cobertura se consulta online
+en esta primera versión.

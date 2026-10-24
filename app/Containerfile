@@ -10,8 +10,9 @@ ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
 WORKDIR /app
 COPY requirements.lock .
 RUN pip install --no-cache-dir -r requirements.lock && useradd --uid 1000 --create-home koodaria && mkdir /app/sessions && chown 1000:1000 /app/sessions
-COPY --chown=1000:1000 server.py diagrams.py diagram_pdf.py diagram_catalog.py access.py invitations.py test_server.py test_diagrams.py test_sharing.py ./
+COPY --chown=1000:1000 server.py diagrams.py diagram_pdf.py diagram_catalog.py standards.py access.py invitations.py test_server.py test_diagrams.py test_sharing.py test_standards.py ./
 COPY --chown=1000:1000 frontend/src/diagram-catalog.json ./diagram-catalog.json
+COPY --chown=1000:1000 frontend/src/operating-standards.json ./operating-standards.json
 COPY --chown=1000:1000 templates/ ./templates/
 COPY --chown=1000:1000 static/ ./static/
 COPY --from=flow-build --chown=1000:1000 /ui/dist/ ./static/

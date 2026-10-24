@@ -46,6 +46,9 @@ def validate(value):
         if key in ids or kind not in ('resource', 'resourceGroup') or not isinstance(data, dict) or not isinstance(pos, dict): raise InvalidDiagram()
         if data.get('kind') not in KINDS or (kind=='resourceGroup') != (data['kind']=='grupo'): raise InvalidDiagram()
         out = dict(id=key, type=kind, position=dict(x=number(pos.get('x'),-100000,100000),y=number(pos.get('y'),-100000,100000)), data=dict(label=text(data.get('label'),100,True),kind=data['kind'],address=text(data.get('address',''),120),port=text(data.get('port',''),40)))
+        if data.get('standard') is not None:
+            from standards import reference
+            out['data']['standard']=reference(data['standard'])
         if kind=='resourceGroup':
             style=n.get('style',{})
             if not isinstance(style,dict) or n.get('parentId'): raise InvalidDiagram()
@@ -212,6 +215,11 @@ def create():
     folder_id=(request.get_json() or {}).get('folder_id')
     with connection(subject()) as conn:
         require_member(conn)
+        from standards import bind,reference
+        if body.get('standard'):
+            for node in value['nodes']:
+                if node['data']['kind'] in ['servidor','virtual']:node['data']['standard']=reference(body['standard'])
+        value=bind(conn,value)
         if folder_id and not visible_folder(conn,folder_id):return jsonify(error='Carpeta no encontrada.'),404
         row=conn.execute('INSERT INTO resource_diagrams(owner_sub,name,document,folder_id) VALUES (%s,%s,%s,%s) RETURNING id,name,document,revision,updated_at,folder_id',(subject(),value['name'],Jsonb(value),key(folder_id) if folder_id else None)).fetchone()
     return jsonify(serialize(row)),201
@@ -234,6 +242,10 @@ def save(diagram_id):
     if type(revision)!=int or revision<1: raise InvalidDiagram()
     value=validate(body.get('document'))
     with connection(subject()) as conn:
+        original=fetch(conn,diagram_id)
+        if not original:return jsonify(error='Diagrama no encontrado.'),404
+        from standards import bind
+        value=bind(conn,value,original['document'])
         row=conn.execute('UPDATE resource_diagrams SET name=%s,document=%s,revision=revision+1,updated_at=now() WHERE id=%s AND (owner_sub=%s OR diagram_granted(id)) AND revision=%s RETURNING id,name,revision,updated_at',(value['name'],Jsonb(value),key(diagram_id),subject(),revision)).fetchone()
         if not row:
             if not fetch(conn,diagram_id): return jsonify(error='Diagrama no encontrado.'),404

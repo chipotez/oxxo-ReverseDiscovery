@@ -1,0 +1,1059 @@
+{
+  "synthetic_identity_only": true,
+  "checks": [
+    "sidebar_catalog_linux_draft_edited_saved_and_published",
+    "new_server_requires_publication_unknown_indicators_manual_coverage_persists",
+    "new_publication_pinned_until_review_and_update_resets_unverified",
+    "guest_reuses_authorized_snapshot_without_private_catalog_access",
+    "public_assets_match_production_image",
+    "unauthenticated_apis_return_401"
+  ],
+  "states": [
+    {
+      "view": "Definici\u00f3n Datos",
+      "theme": "light",
+      "width": 1440,
+      "height": 900,
+      "no_overflow": true
+    },
+    {
+      "view": "Definici\u00f3n Datos",
+      "theme": "light",
+      "width": 1366,
+      "height": 768,
+      "no_overflow": true
+    },
+    {
+      "view": "Definici\u00f3n Datos",
+      "theme": "light",
+      "width": 1024,
+      "height": 600,
+      "no_overflow": true
+    },
+    {
+      "view": "Definici\u00f3n Datos",
+      "theme": "light",
+      "width": 768,
+      "height": 1024,
+      "no_overflow": true
+    },
+    {
+      "view": "Definici\u00f3n Datos",
+      "theme": "light",
+      "width": 390,
+      "height": 844,
+      "no_overflow": true
+    },
+    {
+      "view": "Definici\u00f3n Datos",
+      "theme": "light",
+      "width": 375,
+      "height": 667,
+      "no_overflow": true
+    },
+    {
+      "view": "Definici\u00f3n Datos",
+      "theme": "light",
+      "width": 320,
+      "height": 568,
+      "no_overflow": true
+    },
+    {
+      "view": "Definici\u00f3n Datos",
+      "theme": "light",
+      "width": 844,
+      "height": 390,
+      "no_overflow": true
+    },
+    {
+      "view": "Definici\u00f3n Aplicaci\u00f3n",
+      "theme": "light",
+      "width": 1440,
+      "height": 900,
+      "no_overflow": true
+    },
+    {
+      "view": "Definici\u00f3n Aplicaci\u00f3n",
+      "theme": "light",
+      "width": 1366,
+      "height": 768,
+      "no_overflow": true
+    },
+    {
+      "view": "Definici\u00f3n Aplicaci\u00f3n",
+      "theme": "light",
+      "width": 1024,
+      "height": 600,
+      "no_overflow": true
+    },
+    {
+      "view": "Definici\u00f3n Aplicaci\u00f3n",
+      "theme": "light",
+      "width": 768,
+      "height": 1024,
+      "no_overflow": true
+    },
+    {
+      "view": "Definici\u00f3n Aplicaci\u00f3n",
+      "theme": "light",
+      "width": 390,
+      "height": 844,
+      "no_overflow": true
+    },
+    {
+      "view": "Definici\u00f3n Aplicaci\u00f3n",
+      "theme": "light",
+      "width": 375,
+      "height": 667,
+      "no_overflow": true
+    },
+    {
+      "view": "Definici\u00f3n Aplicaci\u00f3n",
+      "theme": "light",
+      "width": 320,
+      "height": 568,
+      "no_overflow": true
+    },
+    {
+      "view": "Definici\u00f3n Aplicaci\u00f3n",
+      "theme": "light",
+      "width": 844,
+      "height": 390,
+      "no_overflow": true
+    },
+    {
+      "view": "Requisitos Regla",
+      "theme": "light",
+      "width": 1440,
+      "height": 900,
+      "no_overflow": true
+    },
+    {
+      "view": "Requisitos Regla",
+      "theme": "light",
+      "width": 1366,
+      "height": 768,
+      "no_overflow": true
+    },
+    {
+      "view": "Requisitos Regla",
+      "theme": "light",
+      "width": 1024,
+      "height": 600,
+      "no_overflow": true
+    },
+    {
+      "view": "Requisitos Regla",
+      "theme": "light",
+      "width": 768,
+      "height": 1024,
+      "no_overflow": true
+    },
+    {
+      "view": "Requisitos Regla",
+      "theme": "light",
+      "width": 390,
+      "height": 844,
+      "no_overflow": true
+    },
+    {
+      "view": "Requisitos Regla",
+      "theme": "light",
+      "width": 375,
+      "height": 667,
+      "no_overflow": true
+    },
+    {
+      "view": "Requisitos Regla",
+      "theme": "light",
+      "width": 320,
+      "height": 568,
+      "no_overflow": true
+    },
+    {
+      "view": "Requisitos Regla",
+      "theme": "light",
+      "width": 844,
+      "height": 390,
+      "no_overflow": true
+    },
+    {
+      "view": "Requisitos Validaci\u00f3n",
+      "theme": "light",
+      "width": 1440,
+      "height": 900,
+      "no_overflow": true
+    },
+    {
+      "view": "Requisitos Validaci\u00f3n",
+      "theme": "light",
+      "width": 1366,
+      "height": 768,
+      "no_overflow": true
+    },
+    {
+      "view": "Requisitos Validaci\u00f3n",
+      "theme": "light",
+      "width": 1024,
+      "height": 600,
+      "no_overflow": true
+    },
+    {
+      "view": "Requisitos Validaci\u00f3n",
+      "theme": "light",
+      "width": 768,
+      "height": 1024,
+      "no_overflow": true
+    },
+    {
+      "view": "Requisitos Validaci\u00f3n",
+      "theme": "light",
+      "width": 390,
+      "height": 844,
+      "no_overflow": true
+    },
+    {
+      "view": "Requisitos Validaci\u00f3n",
+      "theme": "light",
+      "width": 375,
+      "height": 667,
+      "no_overflow": true
+    },
+    {
+      "view": "Requisitos Validaci\u00f3n",
+      "theme": "light",
+      "width": 320,
+      "height": 568,
+      "no_overflow": true
+    },
+    {
+      "view": "Requisitos Validaci\u00f3n",
+      "theme": "light",
+      "width": 844,
+      "height": 390,
+      "no_overflow": true
+    },
+    {
+      "view": "Requisitos Gesti\u00f3n",
+      "theme": "light",
+      "width": 1440,
+      "height": 900,
+      "no_overflow": true
+    },
+    {
+      "view": "Requisitos Gesti\u00f3n",
+      "theme": "light",
+      "width": 1366,
+      "height": 768,
+      "no_overflow": true
+    },
+    {
+      "view": "Requisitos Gesti\u00f3n",
+      "theme": "light",
+      "width": 1024,
+      "height": 600,
+      "no_overflow": true
+    },
+    {
+      "view": "Requisitos Gesti\u00f3n",
+      "theme": "light",
+      "width": 768,
+      "height": 1024,
+      "no_overflow": true
+    },
+    {
+      "view": "Requisitos Gesti\u00f3n",
+      "theme": "light",
+      "width": 390,
+      "height": 844,
+      "no_overflow": true
+    },
+    {
+      "view": "Requisitos Gesti\u00f3n",
+      "theme": "light",
+      "width": 375,
+      "height": 667,
+      "no_overflow": true
+    },
+    {
+      "view": "Requisitos Gesti\u00f3n",
+      "theme": "light",
+      "width": 320,
+      "height": 568,
+      "no_overflow": true
+    },
+    {
+      "view": "Requisitos Gesti\u00f3n",
+      "theme": "light",
+      "width": 844,
+      "height": 390,
+      "no_overflow": true
+    },
+    {
+      "view": "Versiones None",
+      "theme": "light",
+      "width": 1440,
+      "height": 900,
+      "no_overflow": true
+    },
+    {
+      "view": "Versiones None",
+      "theme": "light",
+      "width": 1366,
+      "height": 768,
+      "no_overflow": true
+    },
+    {
+      "view": "Versiones None",
+      "theme": "light",
+      "width": 1024,
+      "height": 600,
+      "no_overflow": true
+    },
+    {
+      "view": "Versiones None",
+      "theme": "light",
+      "width": 768,
+      "height": 1024,
+      "no_overflow": true
+    },
+    {
+      "view": "Versiones None",
+      "theme": "light",
+      "width": 390,
+      "height": 844,
+      "no_overflow": true
+    },
+    {
+      "view": "Versiones None",
+      "theme": "light",
+      "width": 375,
+      "height": 667,
+      "no_overflow": true
+    },
+    {
+      "view": "Versiones None",
+      "theme": "light",
+      "width": 320,
+      "height": 568,
+      "no_overflow": true
+    },
+    {
+      "view": "Versiones None",
+      "theme": "light",
+      "width": 844,
+      "height": 390,
+      "no_overflow": true
+    },
+    {
+      "view": "Definici\u00f3n Datos",
+      "theme": "dark",
+      "width": 1440,
+      "height": 900,
+      "no_overflow": true
+    },
+    {
+      "view": "Definici\u00f3n Datos",
+      "theme": "dark",
+      "width": 1366,
+      "height": 768,
+      "no_overflow": true
+    },
+    {
+      "view": "Definici\u00f3n Datos",
+      "theme": "dark",
+      "width": 1024,
+      "height": 600,
+      "no_overflow": true
+    },
+    {
+      "view": "Definici\u00f3n Datos",
+      "theme": "dark",
+      "width": 768,
+      "height": 1024,
+      "no_overflow": true
+    },
+    {
+      "view": "Definici\u00f3n Datos",
+      "theme": "dark",
+      "width": 390,
+      "height": 844,
+      "no_overflow": true
+    },
+    {
+      "view": "Definici\u00f3n Datos",
+      "theme": "dark",
+      "width": 375,
+      "height": 667,
+      "no_overflow": true
+    },
+    {
+      "view": "Definici\u00f3n Datos",
+      "theme": "dark",
+      "width": 320,
+      "height": 568,
+      "no_overflow": true
+    },
+    {
+      "view": "Definici\u00f3n Datos",
+      "theme": "dark",
+      "width": 844,
+      "height": 390,
+      "no_overflow": true
+    },
+    {
+      "view": "Definici\u00f3n Aplicaci\u00f3n",
+      "theme": "dark",
+      "width": 1440,
+      "height": 900,
+      "no_overflow": true
+    },
+    {
+      "view": "Definici\u00f3n Aplicaci\u00f3n",
+      "theme": "dark",
+      "width": 1366,
+      "height": 768,
+      "no_overflow": true
+    },
+    {
+      "view": "Definici\u00f3n Aplicaci\u00f3n",
+      "theme": "dark",
+      "width": 1024,
+      "height": 600,
+      "no_overflow": true
+    },
+    {
+      "view": "Definici\u00f3n Aplicaci\u00f3n",
+      "theme": "dark",
+      "width": 768,
+      "height": 1024,
+      "no_overflow": true
+    },
+    {
+      "view": "Definici\u00f3n Aplicaci\u00f3n",
+      "theme": "dark",
+      "width": 390,
+      "height": 844,
+      "no_overflow": true
+    },
+    {
+      "view": "Definici\u00f3n Aplicaci\u00f3n",
+      "theme": "dark",
+      "width": 375,
+      "height": 667,
+      "no_overflow": true
+    },
+    {
+      "view": "Definici\u00f3n Aplicaci\u00f3n",
+      "theme": "dark",
+      "width": 320,
+      "height": 568,
+      "no_overflow": true
+    },
+    {
+      "view": "Definici\u00f3n Aplicaci\u00f3n",
+      "theme": "dark",
+      "width": 844,
+      "height": 390,
+      "no_overflow": true
+    },
+    {
+      "view": "Requisitos Regla",
+      "theme": "dark",
+      "width": 1440,
+      "height": 900,
+      "no_overflow": true
+    },
+    {
+      "view": "Requisitos Regla",
+      "theme": "dark",
+      "width": 1366,
+      "height": 768,
+      "no_overflow": true
+    },
+    {
+      "view": "Requisitos Regla",
+      "theme": "dark",
+      "width": 1024,
+      "height": 600,
+      "no_overflow": true
+    },
+    {
+      "view": "Requisitos Regla",
+      "theme": "dark",
+      "width": 768,
+      "height": 1024,
+      "no_overflow": true
+    },
+    {
+      "view": "Requisitos Regla",
+      "theme": "dark",
+      "width": 390,
+      "height": 844,
+      "no_overflow": true
+    },
+    {
+      "view": "Requisitos Regla",
+      "theme": "dark",
+      "width": 375,
+      "height": 667,
+      "no_overflow": true
+    },
+    {
+      "view": "Requisitos Regla",
+      "theme": "dark",
+      "width": 320,
+      "height": 568,
+      "no_overflow": true
+    },
+    {
+      "view": "Requisitos Regla",
+      "theme": "dark",
+      "width": 844,
+      "height": 390,
+      "no_overflow": true
+    },
+    {
+      "view": "Requisitos Validaci\u00f3n",
+      "theme": "dark",
+      "width": 1440,
+      "height": 900,
+      "no_overflow": true
+    },
+    {
+      "view": "Requisitos Validaci\u00f3n",
+      "theme": "dark",
+      "width": 1366,
+      "height": 768,
+      "no_overflow": true
+    },
+    {
+      "view": "Requisitos Validaci\u00f3n",
+      "theme": "dark",
+      "width": 1024,
+      "height": 600,
+      "no_overflow": true
+    },
+    {
+      "view": "Requisitos Validaci\u00f3n",
+      "theme": "dark",
+      "width": 768,
+      "height": 1024,
+      "no_overflow": true
+    },
+    {
+      "view": "Requisitos Validaci\u00f3n",
+      "theme": "dark",
+      "width": 390,
+      "height": 844,
+      "no_overflow": true
+    },
+    {
+      "view": "Requisitos Validaci\u00f3n",
+      "theme": "dark",
+      "width": 375,
+      "height": 667,
+      "no_overflow": true
+    },
+    {
+      "view": "Requisitos Validaci\u00f3n",
+      "theme": "dark",
+      "width": 320,
+      "height": 568,
+      "no_overflow": true
+    },
+    {
+      "view": "Requisitos Validaci\u00f3n",
+      "theme": "dark",
+      "width": 844,
+      "height": 390,
+      "no_overflow": true
+    },
+    {
+      "view": "Requisitos Gesti\u00f3n",
+      "theme": "dark",
+      "width": 1440,
+      "height": 900,
+      "no_overflow": true
+    },
+    {
+      "view": "Requisitos Gesti\u00f3n",
+      "theme": "dark",
+      "width": 1366,
+      "height": 768,
+      "no_overflow": true
+    },
+    {
+      "view": "Requisitos Gesti\u00f3n",
+      "theme": "dark",
+      "width": 1024,
+      "height": 600,
+      "no_overflow": true
+    },
+    {
+      "view": "Requisitos Gesti\u00f3n",
+      "theme": "dark",
+      "width": 768,
+      "height": 1024,
+      "no_overflow": true
+    },
+    {
+      "view": "Requisitos Gesti\u00f3n",
+      "theme": "dark",
+      "width": 390,
+      "height": 844,
+      "no_overflow": true
+    },
+    {
+      "view": "Requisitos Gesti\u00f3n",
+      "theme": "dark",
+      "width": 375,
+      "height": 667,
+      "no_overflow": true
+    },
+    {
+      "view": "Requisitos Gesti\u00f3n",
+      "theme": "dark",
+      "width": 320,
+      "height": 568,
+      "no_overflow": true
+    },
+    {
+      "view": "Requisitos Gesti\u00f3n",
+      "theme": "dark",
+      "width": 844,
+      "height": 390,
+      "no_overflow": true
+    },
+    {
+      "view": "Versiones None",
+      "theme": "dark",
+      "width": 1440,
+      "height": 900,
+      "no_overflow": true
+    },
+    {
+      "view": "Versiones None",
+      "theme": "dark",
+      "width": 1366,
+      "height": 768,
+      "no_overflow": true
+    },
+    {
+      "view": "Versiones None",
+      "theme": "dark",
+      "width": 1024,
+      "height": 600,
+      "no_overflow": true
+    },
+    {
+      "view": "Versiones None",
+      "theme": "dark",
+      "width": 768,
+      "height": 1024,
+      "no_overflow": true
+    },
+    {
+      "view": "Versiones None",
+      "theme": "dark",
+      "width": 390,
+      "height": 844,
+      "no_overflow": true
+    },
+    {
+      "view": "Versiones None",
+      "theme": "dark",
+      "width": 375,
+      "height": 667,
+      "no_overflow": true
+    },
+    {
+      "view": "Versiones None",
+      "theme": "dark",
+      "width": 320,
+      "height": 568,
+      "no_overflow": true
+    },
+    {
+      "view": "Versiones None",
+      "theme": "dark",
+      "width": 844,
+      "height": 390,
+      "no_overflow": true
+    },
+    {
+      "view": "coverage Estado documentado",
+      "theme": "light",
+      "width": 1440,
+      "height": 900,
+      "no_overflow": true
+    },
+    {
+      "view": "coverage Estado documentado",
+      "theme": "light",
+      "width": 1366,
+      "height": 768,
+      "no_overflow": true
+    },
+    {
+      "view": "coverage Estado documentado",
+      "theme": "light",
+      "width": 1024,
+      "height": 600,
+      "no_overflow": true
+    },
+    {
+      "view": "coverage Estado documentado",
+      "theme": "light",
+      "width": 768,
+      "height": 1024,
+      "no_overflow": true
+    },
+    {
+      "view": "coverage Estado documentado",
+      "theme": "light",
+      "width": 390,
+      "height": 844,
+      "no_overflow": true
+    },
+    {
+      "view": "coverage Estado documentado",
+      "theme": "light",
+      "width": 375,
+      "height": 667,
+      "no_overflow": true
+    },
+    {
+      "view": "coverage Estado documentado",
+      "theme": "light",
+      "width": 320,
+      "height": 568,
+      "no_overflow": true
+    },
+    {
+      "view": "coverage Estado documentado",
+      "theme": "light",
+      "width": 844,
+      "height": 390,
+      "no_overflow": true
+    },
+    {
+      "view": "coverage Evidencia",
+      "theme": "light",
+      "width": 1440,
+      "height": 900,
+      "no_overflow": true
+    },
+    {
+      "view": "coverage Evidencia",
+      "theme": "light",
+      "width": 1366,
+      "height": 768,
+      "no_overflow": true
+    },
+    {
+      "view": "coverage Evidencia",
+      "theme": "light",
+      "width": 1024,
+      "height": 600,
+      "no_overflow": true
+    },
+    {
+      "view": "coverage Evidencia",
+      "theme": "light",
+      "width": 768,
+      "height": 1024,
+      "no_overflow": true
+    },
+    {
+      "view": "coverage Evidencia",
+      "theme": "light",
+      "width": 390,
+      "height": 844,
+      "no_overflow": true
+    },
+    {
+      "view": "coverage Evidencia",
+      "theme": "light",
+      "width": 375,
+      "height": 667,
+      "no_overflow": true
+    },
+    {
+      "view": "coverage Evidencia",
+      "theme": "light",
+      "width": 320,
+      "height": 568,
+      "no_overflow": true
+    },
+    {
+      "view": "coverage Evidencia",
+      "theme": "light",
+      "width": 844,
+      "height": 390,
+      "no_overflow": true
+    },
+    {
+      "view": "coverage Requisito",
+      "theme": "light",
+      "width": 1440,
+      "height": 900,
+      "no_overflow": true
+    },
+    {
+      "view": "coverage Requisito",
+      "theme": "light",
+      "width": 1366,
+      "height": 768,
+      "no_overflow": true
+    },
+    {
+      "view": "coverage Requisito",
+      "theme": "light",
+      "width": 1024,
+      "height": 600,
+      "no_overflow": true
+    },
+    {
+      "view": "coverage Requisito",
+      "theme": "light",
+      "width": 768,
+      "height": 1024,
+      "no_overflow": true
+    },
+    {
+      "view": "coverage Requisito",
+      "theme": "light",
+      "width": 390,
+      "height": 844,
+      "no_overflow": true
+    },
+    {
+      "view": "coverage Requisito",
+      "theme": "light",
+      "width": 375,
+      "height": 667,
+      "no_overflow": true
+    },
+    {
+      "view": "coverage Requisito",
+      "theme": "light",
+      "width": 320,
+      "height": 568,
+      "no_overflow": true
+    },
+    {
+      "view": "coverage Requisito",
+      "theme": "light",
+      "width": 844,
+      "height": 390,
+      "no_overflow": true
+    },
+    {
+      "view": "coverage Estado documentado",
+      "theme": "dark",
+      "width": 1440,
+      "height": 900,
+      "no_overflow": true
+    },
+    {
+      "view": "coverage Estado documentado",
+      "theme": "dark",
+      "width": 1366,
+      "height": 768,
+      "no_overflow": true
+    },
+    {
+      "view": "coverage Estado documentado",
+      "theme": "dark",
+      "width": 1024,
+      "height": 600,
+      "no_overflow": true
+    },
+    {
+      "view": "coverage Estado documentado",
+      "theme": "dark",
+      "width": 768,
+      "height": 1024,
+      "no_overflow": true
+    },
+    {
+      "view": "coverage Estado documentado",
+      "theme": "dark",
+      "width": 390,
+      "height": 844,
+      "no_overflow": true
+    },
+    {
+      "view": "coverage Estado documentado",
+      "theme": "dark",
+      "width": 375,
+      "height": 667,
+      "no_overflow": true
+    },
+    {
+      "view": "coverage Estado documentado",
+      "theme": "dark",
+      "width": 320,
+      "height": 568,
+      "no_overflow": true
+    },
+    {
+      "view": "coverage Estado documentado",
+      "theme": "dark",
+      "width": 844,
+      "height": 390,
+      "no_overflow": true
+    },
+    {
+      "view": "coverage Evidencia",
+      "theme": "dark",
+      "width": 1440,
+      "height": 900,
+      "no_overflow": true
+    },
+    {
+      "view": "coverage Evidencia",
+      "theme": "dark",
+      "width": 1366,
+      "height": 768,
+      "no_overflow": true
+    },
+    {
+      "view": "coverage Evidencia",
+      "theme": "dark",
+      "width": 1024,
+      "height": 600,
+      "no_overflow": true
+    },
+    {
+      "view": "coverage Evidencia",
+      "theme": "dark",
+      "width": 768,
+      "height": 1024,
+      "no_overflow": true
+    },
+    {
+      "view": "coverage Evidencia",
+      "theme": "dark",
+      "width": 390,
+      "height": 844,
+      "no_overflow": true
+    },
+    {
+      "view": "coverage Evidencia",
+      "theme": "dark",
+      "width": 375,
+      "height": 667,
+      "no_overflow": true
+    },
+    {
+      "view": "coverage Evidencia",
+      "theme": "dark",
+      "width": 320,
+      "height": 568,
+      "no_overflow": true
+    },
+    {
+      "view": "coverage Evidencia",
+      "theme": "dark",
+      "width": 844,
+      "height": 390,
+      "no_overflow": true
+    },
+    {
+      "view": "coverage Requisito",
+      "theme": "dark",
+      "width": 1440,
+      "height": 900,
+      "no_overflow": true
+    },
+    {
+      "view": "coverage Requisito",
+      "theme": "dark",
+      "width": 1366,
+      "height": 768,
+      "no_overflow": true
+    },
+    {
+      "view": "coverage Requisito",
+      "theme": "dark",
+      "width": 1024,
+      "height": 600,
+      "no_overflow": true
+    },
+    {
+      "view": "coverage Requisito",
+      "theme": "dark",
+      "width": 768,
+      "height": 1024,
+      "no_overflow": true
+    },
+    {
+      "view": "coverage Requisito",
+      "theme": "dark",
+      "width": 390,
+      "height": 844,
+      "no_overflow": true
+    },
+    {
+      "view": "coverage Requisito",
+      "theme": "dark",
+      "width": 375,
+      "height": 667,
+      "no_overflow": true
+    },
+    {
+      "view": "coverage Requisito",
+      "theme": "dark",
+      "width": 320,
+      "height": 568,
+      "no_overflow": true
+    },
+    {
+      "view": "coverage Requisito",
+      "theme": "dark",
+      "width": 844,
+      "height": 390,
+      "no_overflow": true
+    }
+  ],
+  "accessibility": [
+    {
+      "view": "standards light 1440",
+      "violations": []
+    },
+    {
+      "view": "standards light 320",
+      "violations": []
+    },
+    {
+      "view": "standards dark 1440",
+      "violations": []
+    },
+    {
+      "view": "standards dark 320",
+      "violations": []
+    },
+    {
+      "view": "coverage light 1440",
+      "violations": []
+    },
+    {
+      "view": "coverage light 320",
+      "violations": []
+    },
+    {
+      "view": "coverage dark 1440",
+      "violations": []
+    },
+    {
+      "view": "coverage dark 320",
+      "violations": []
+    }
+  ],
+  "browser_errors": [],
+  "server_tests_passed": 38,
+  "production_image": "d07e143d0415024573c1f1412b485b31f24ad4689b0ea222adf03ae3f70634b4",
+  "migration_applied_after_backup": true
+}
