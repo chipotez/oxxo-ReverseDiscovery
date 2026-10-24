@@ -1,0 +1,105 @@
+{
+  "states": [
+    {
+      "theme": "light",
+      "width": 1440,
+      "height": 900,
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1366,
+      "height": 768,
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1024,
+      "height": 600,
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 768,
+      "height": 1024,
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "height": 844,
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 375,
+      "height": 667,
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 568,
+      "no_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 844,
+      "height": 390,
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "height": 900,
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1366,
+      "height": 768,
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1024,
+      "height": 600,
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "height": 1024,
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "height": 844,
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 375,
+      "height": 667,
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 568,
+      "no_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 844,
+      "height": 390,
+      "no_overflow": true
+    }
+  ],
+  "checks": [
+    "parent_card_three_children_and_return_navigation",
+    "guest_standards_locked_and_diagrams_access_preserved"
+  ],
+  "browser_errors": []
+}

@@ -381,3 +381,13 @@ Verificación: navegación, restricciones de invitado, 16 estados responsive
 y auditorías WCAG AA; evidencia en `evidence/diagrams-hub-report.json`.
 Los assets públicos coinciden con el contenedor. Unidad anterior respaldada en
 `/home/mip/backups/koodaria-20261024/diagrams-hub/`.
+
+## Gobierno en Observabilidad — 24 de octubre de 2026
+
+Imagen `localhost/koodaria-workspace:governance-hub-20261024`
+(`133fb26053c193abc8dc5c5064be0eb5c72fd9bc11473517e191303e9f79bb92`).
+La sección Gobierno reúne Estándares, Diagramas y Blueprints. El catálogo
+de Blueprints está identificado como en preparación; no implementa CRUD.
+La ruta anterior de la subsección Diagramas redirige a Gobierno.
+Permisos de invitados sin cambios. Navegación, retornos, Blueprints y 16 estados
+responsive verificados; evidencia `evidence/governance-hub-report.json`.

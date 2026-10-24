@@ -20,16 +20,17 @@ const disciplines=[
 {id:'infraestructura-como-codigo',title:'Infraestructura como código',description:'Infraestructura definida y versionada.',icon:'code'},
 {id:'sre',title:'SRE',description:'Confiabilidad y continuidad de los servicios.',icon:'sre'}];
 const products=[
-{id:'diagramas',ready:true,title:'Diagramas',description:'Documenta recursos, servicios y dependencias en un solo lugar.',type:'herramienta',icon:'map',outcome:'Diagramas guardados en línea, con plantillas y acceso compartido.'},
+{id:'gobierno',ready:true,title:'Gobierno',description:'Estándares, diagramas y blueprints para documentar tu operación.',type:'herramienta',icon:'checklist',href:'#/catalogo/observabilidad/gobierno',outcome:'Diagramas guardados en línea, con plantillas y acceso compartido.'},
 {id:'fundamentos',title:'Fundamentos de observabilidad',description:'Métricas, registros y trazas.',type:'curso',level:1,icon:'book',outcome:'Reconocer las señales que permiten investigar un servicio.',topics:['Métricas y señales de salud','Registros y contexto de un evento','Trazas y recorrido de una solicitud']},
 {id:'investiga-servicios',title:'Investiga tus servicios',description:'De una señal a una causa probable.',type:'curso',level:2,icon:'observe',outcome:'Relacionar señales para construir un diagnóstico con evidencia.',topics:['Preguntas para empezar una investigación','Correlación de métricas, registros y trazas','Hipótesis y comprobación de causas']},
 {id:'observabilidad-avanzada',title:'Observabilidad avanzada',description:'Diseño, correlación y operación.',type:'curso',level:3,icon:'sre',outcome:'Diseñar una estrategia de observabilidad acorde con el servicio.',topics:['Indicadores y objetivos de servicio','Diseño de alertas y señales útiles','Contexto, costo y operación']},
 {id:'datadog-servicenow',title:'Datadog + ServiceNow',description:'De una alerta a un incidente.',type:'caso',icon:'integration',outcome:'Relacionar un evento de monitoreo con su incidente operativo.',topics:['Señal y contexto del evento en Datadog','Campos y ciclo de vida del incidente','Correlación, deduplicación y seguimiento']},
 {id:'datadog-ansible',title:'Datadog + Ansible',description:'De la detección a una acción automatizada.',type:'caso',icon:'automation',outcome:'Definir una respuesta controlada a un evento de monitoreo.',topics:['Condiciones para iniciar una acción','Ejecución autorizada del playbook','Verificación del resultado y registro de evidencia']},
 {id:'escenarios-operacion',title:'Escenarios de operación',description:'Aplica lo aprendido a situaciones reales.',type:'caso',icon:'code',outcome:'Investigar un servicio y documentar el razonamiento utilizado.',topics:['Un servicio dejó de responder','Una dependencia presenta latencia','Un cambio afecta el comportamiento del servicio']}];
-const diagramOptions=[
+const governanceOptions=[
 {id:'estandares',title:'Estándares',description:'Define lo que deben cumplir tus recursos antes de incorporarlos al diagrama.',type:'herramienta',icon:'checklist',ready:true,href:'#/estandares',action:'Definir estándares'},
-{id:'diagramas',title:'Diagramas',description:'Crea, organiza y comparte tus diagramas con las definiciones de tu espacio.',type:'herramienta',icon:'map',ready:true,href:'#/herramientas/diagramas',action:'Mis diagramas'}];
+{id:'diagramas',title:'Diagramas',description:'Crea, organiza y comparte tus diagramas con las definiciones de tu espacio.',type:'herramienta',icon:'map',ready:true,href:'#/herramientas/diagramas',action:'Mis diagramas'},
+{id:'blueprints',title:'Blueprints',description:'Modelos de referencia para diseñar y documentar tu infraestructura.',type:'herramienta',icon:'code',href:'#/catalogo/observabilidad/gobierno/blueprints',action:'Explorar blueprints'}];
 const typeLabel=p=>p.type==='curso'?`Curso · Nivel ${p.level}`:p.type==='caso'?'Caso de uso':'Herramienta';
 let page=1,query='',filter='todo',currentItems=[],currentMode='catalog';
 const crumbs=parts=>`<nav class="breadcrumbs" aria-label="Ruta de navegación"><a href="#/catalogo">Catálogo</a>${parts.map(p=>`<span aria-hidden="true">/</span>${p.href?`<a href="${p.href}">${esc(p.label)}</a>`:`<span aria-current="page">${esc(p.label)}</span>`}`).join('')}</nav>`;
@@ -53,7 +54,7 @@ function paginate(){
  const grid=main.querySelector('#catalog-grid');if(!grid)return;
  fitShell();
  const width=grid.getBoundingClientRect().width;
- const cols=currentMode==='diagram-hub'?(width>=580?2:1):currentMode==='catalog'?(width>=1050?4:width>=780?3:width>=490?2:1):(width>=950?3:width>=580?2:1);
+ const cols=currentMode==='diagram-hub'?(width>=950?3:width>=580?2:1):currentMode==='catalog'?(width>=1050?4:width>=780?3:width>=490?2:1):(width>=950?3:width>=580?2:1);
  const available=(window.visualViewport?.height||innerHeight)-grid.getBoundingClientRect().top-62;
  const minHeight=main.dataset.density==='compact'?140:(currentMode==='catalog'?245:170);
  const rows=Math.max(1,Math.min(3,Math.floor((available+14)/(minHeight+14))));
@@ -64,7 +65,7 @@ function paginate(){
  grid.style.gridAutoRows=currentMode==='diagram-hub'?`${Math.min(280,Math.max(140,(available-14*(rows-1))/rows))}px`:'';
  grid.innerHTML=items.slice((page-1)*size,page*size).map(p=>{
   const href=currentMode==='catalog'?`#/catalogo/${p.id}`:p.href||(p.id==='diagramas'?'#/catalogo/observabilidad/diagramas':`#/catalogo/observabilidad/${p.id}`);
-  const locked=guest&&(currentMode==='catalog'?p.id!=='observabilidad':p.id!=='diagramas');
+  const locked=guest&&(currentMode==='catalog'?p.id!=='observabilidad':!['diagramas','gobierno'].includes(p.id));
   return `<${locked?'div':'a'} class="catalog-card ${currentMode==='catalog'?'discipline-card':'product-card'} ${p.id==='mapeo-servicios'?'card-featured':''} ${locked?'is-locked':''}" ${locked?'aria-label="'+esc(p.title)+', sin acceso"':'href="'+href+'"'}>${currentMode==='catalog'?illustration(p.icon):`<div class="product-art">${productIllustration(p.icon)}</div>`}<div class="card-copy">${currentMode!=='catalog'?`<div class="card-tags"><span>${typeLabel(p)}</span>${p.ready?'<span class="available-tag">Disponible</span>':''}</div>`:''}<h2>${esc(p.title)}</h2><p>${esc(p.description)}</p><span class="card-action">${locked?'Sin acceso':currentMode==='catalog'?'Explorar':p.action||(p.id==='diagramas'?'Explorar':'Ver detalle')} ${locked?'':icon('arrow')}</span></div></${locked?'div':'a'}>`;
  }).join('')||(currentItems.length?'<p class="catalog-empty">No encontramos coincidencias. Prueba con otro término.</p>':'<p class="catalog-empty">Este catálogo estará disponible próximamente.</p>');
  main.querySelector('#result-count').textContent=`${items.length} ${currentMode==='catalog'?'disciplinas':'opciones'}`;
@@ -101,7 +102,9 @@ function render(){
  document.querySelectorAll('[data-view]').forEach(b=>b.setAttribute('aria-pressed',String((route.startsWith('/cursos')?'modulos':'servicios')===b.dataset.view)));
  document.querySelectorAll('[data-section]').forEach(b=>{if(b.dataset.section===(route.startsWith('/estandares')?'estandares':route.startsWith('/cursos')?'aprendizaje':route.startsWith('/herramientas')?'crear':'aplicaciones'))b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');});
  const [path,params='']=route.split('?');const bits=path.split('/').filter(Boolean);
- if(path==='/catalogo/observabilidad/diagramas'){listView('Diagramas','Define tus estándares y documenta tus recursos.',diagramOptions,'diagram-hub',[{label:'Observabilidad',href:'#/catalogo/observabilidad'},{label:'Diagramas'}]);return;}
+ if(path==='/catalogo/observabilidad/diagramas'){location.replace('#/catalogo/observabilidad/gobierno');return;}
+ if(path==='/catalogo/observabilidad/gobierno'){listView('Gobierno','Define estándares, documenta tu operación y consulta modelos de referencia.',governanceOptions,'diagram-hub',[{label:'Observabilidad',href:'#/catalogo/observabilidad'},{label:'Gobierno'}]);return;}
+ if(path==='/catalogo/observabilidad/gobierno/blueprints'&&!guest){listView('Blueprints','Modelos de referencia para tu infraestructura. Estamos preparando este catálogo.',[],'diagram-hub',[{label:'Observabilidad',href:'#/catalogo/observabilidad'},{label:'Gobierno',href:'#/catalogo/observabilidad/gobierno'},{label:'Blueprints'}]);return;}
  if(bits[0]==='estandares'&&!guest){document.body.classList.add('resource-tool-open');main.className='workspace-main resource-flow-page';main.removeAttribute('style');main.innerHTML='';window.KoodariaResourceFlow.mountStandards(main);return;}
  const diagramAliases=['diagramas','mapeo-recursos','mapeo-servicios','mapeo-dependencias'];
  if((bits[0]==='herramientas'&&diagramAliases.includes(bits[1]))||(bits[0]==='catalogo'&&bits[1]==='observabilidad'&&diagramAliases.includes(bits[2]))){if(path!=='/herramientas/diagramas'){location.replace('#/herramientas/diagramas');return;}document.body.classList.add('resource-tool-open');main.className='workspace-main resource-flow-page';main.removeAttribute('style');main.innerHTML='';window.KoodariaResourceFlow.mount(main);return;}
