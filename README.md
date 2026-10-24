@@ -78,3 +78,19 @@ El editor usa los mismos componentes y permite guardar proveedor, tecnología
 / versión y ubicación / región junto a cada nodo, en el documento JSONB.
 El servidor valida estos campos y los conserva cuando un cliente antiguo los
 omite. El guardado online, los grupos y la descarga PDF se mantienen.
+
+### Instancias de servidor en el diagrama
+
+Servidor físico y Máquina virtual muestran cuatro bloques del modelo de
+Estándares. «Ver campos» permite consultar su estructura y cada cabecera abre
+la captura por campo. Los valores de identificación, evidencia y relaciones,
+y los estados declarados de los controles se guardan con el diagrama en
+PostgreSQL (`server_instance`, dentro del documento JSONB). No modifican la
+política ni crean una nueva definición.
+
+El servidor asigna `resource_schema` desde el modelo compartido y conserva su
+versión en cada nodo; ignora esquemas enviados por el navegador. Si hay una
+única publicación compatible se vincula al añadir el servidor. Sin ella se
+utiliza la estructura base de Servidores, sin inventar una política publicada.
+La selección de una publicación sigue disponible en Propiedades. Los clientes
+anteriores que omiten los datos de instancia no los borran al guardar.

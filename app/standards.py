@@ -135,12 +135,33 @@ def reference(value):
         seen.add(item['id']);clean.append(dict(id=item['id'],status=item['status'],evidence=text(item.get('evidence',''),500)))
     return dict(id=sid,version=version,coverage=clean)
 
+def instance(value):
+    """Observed server values; the schema and policy are never client-controlled."""
+    if not isinstance(value,dict):raise InvalidDiagram()
+    allowed={s['id']:{f['id'] for f in s['fields']} for s in SERVER_MODEL['sections']}
+    allowed['controls']=set(FUNCTIONS)
+    if set(value)-set(allowed):raise InvalidDiagram()
+    result={}
+    for section,fields in value.items():
+        if not isinstance(fields,dict) or set(fields)-allowed[section]:raise InvalidDiagram()
+        result[section]={}
+        for fid,entry in fields.items():
+            if section=='controls':
+                if not isinstance(entry,dict) or entry.get('status') not in CATALOG['states']:raise InvalidDiagram()
+                result[section][fid]=dict(status=entry['status'],evidence=text(entry.get('evidence',''),500))
+            else:result[section][fid]=text(entry,500)
+    return result
+
 def bind(conn,doc,original=None):
     """Only owner-visible publications or snapshots already in this authorized map."""
     previous={n['id']:n for n in (original or {}).get('nodes',[])}
     snapshots={(n['data']['standard']['id'],n['data']['standard']['version']):n['data']['standard'] for n in previous.values() if n['data'].get('standard')}
     for node in doc['nodes']:
         data=node['data'];value=data.get('standard')
+        if data['kind'] in ['servidor','virtual']:
+            prior_schema=previous.get(node['id'],{}).get('data',{}).get('resource_schema')
+            data['resource_schema']=prior_schema or dict(version=1,sections=SERVER_MODEL['sections'])
+
         if not value and data['kind'] in ['servidor','virtual']:
             existing=previous.get(node['id'],{}).get('data',{}).get('standard')
             if existing:

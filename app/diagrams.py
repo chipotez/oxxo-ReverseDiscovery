@@ -48,6 +48,10 @@ def validate(value):
         out = dict(id=key, type=kind, position=dict(x=number(pos.get('x'),-100000,100000),y=number(pos.get('y'),-100000,100000)), data=dict(label=text(data.get('label'),100,True),kind=data['kind'],address=text(data.get('address',''),120),port=text(data.get('port',''),40)))
         for field in ['provider','technology','location']:
             if field in data:out['data'][field]=text(data[field],120)
+        if 'server_instance' in data:
+            from standards import instance
+            if data['kind'] not in ['servidor','virtual']:raise InvalidDiagram()
+            out['data']['server_instance']=instance(data['server_instance'])
         if data.get('standard') is not None:
             from standards import reference
             out['data']['standard']=reference(data['standard'])
@@ -250,7 +254,7 @@ def save(diagram_id):
         old_nodes={n['id']:n for n in original['document']['nodes']}
         for node in value['nodes']:
             old=old_nodes.get(node['id'],{}).get('data',{})
-            for field in ['provider','technology','location']:
+            for field in ['provider','technology','location','server_instance']:
                 if field not in node['data'] and field in old:node['data'][field]=old[field]
         value=bind(conn,value,original['document'])
         row=conn.execute('UPDATE resource_diagrams SET name=%s,document=%s,revision=revision+1,updated_at=now() WHERE id=%s AND (owner_sub=%s OR diagram_granted(id)) AND revision=%s RETURNING id,name,revision,updated_at',(value['name'],Jsonb(value),key(diagram_id),subject(),revision)).fetchone()

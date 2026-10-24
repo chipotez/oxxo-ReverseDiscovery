@@ -540,3 +540,27 @@ de datos. Validación: 42 pruebas de servidor, 144 estados responsive, seis
 auditorías AA y comprobación específica de llenado de pantalla, Persona y
 árbol de recursos (`scripts/qa_catalog_navigation.py`). Backup previo y unidad
 anterior en `/home/mip/backups/koodaria-20261024/catalog-tree/`.
+
+## Instancias de servidor con cuatro bloques — 24 de octubre de 2026
+
+Imagen `localhost/koodaria-workspace:server-instances-20261024`
+(`ea74ddd8ae2483046b27624137489b99b135d78f43751ffbd76c5b7d3361e618`).
+Servidor físico y Máquina virtual se insertan directamente con los cuatro
+bloques de Estándares. «Ver campos» muestra las etiquetas y valores dentro
+del nodo; cada cabecera abre captura por campo, con instrucciones y paginación.
+Controles conservan sus estados declarados, sin presentarse como verificados.
+
+`resource_schema` es asignado por el servidor desde el modelo compartido;
+los valores son `server_instance` en el documento PostgreSQL JSONB. El backend
+valida secciones, identificadores, estados y límites, ignora esquemas enviados
+por el cliente y conserva los valores omitidos por clientes anteriores.
+Una única publicación compatible se vincula automáticamente; sin ella se usa
+la estructura base, sin atribuirle una política publicada. Una publicación
+puede seleccionarse en Propiedades. No hubo migración SQL ni cambios de
+identidad, sesiones o permisos.
+
+Validación: 43 pruebas de servidor y 64 estados de captura de los cuatro
+bloques, en dos temas y ocho tamaños. Reapertura y guardado online con datos
+sintéticos en la base QA. Evidencia `docs/evidence/server-instances-report.json`.
+Backup previo y unidad anterior en
+`/home/mip/backups/koodaria-20261024/server-instances/`.

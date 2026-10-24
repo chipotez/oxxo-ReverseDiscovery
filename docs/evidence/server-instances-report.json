@@ -1,0 +1,394 @@
+{
+  "states": [
+    {
+      "theme": "light",
+      "section": "identification",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "theme": "light",
+      "section": "identification",
+      "width": 1366,
+      "height": 768
+    },
+    {
+      "theme": "light",
+      "section": "identification",
+      "width": 1024,
+      "height": 600
+    },
+    {
+      "theme": "light",
+      "section": "identification",
+      "width": 768,
+      "height": 1024
+    },
+    {
+      "theme": "light",
+      "section": "identification",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "theme": "light",
+      "section": "identification",
+      "width": 375,
+      "height": 667
+    },
+    {
+      "theme": "light",
+      "section": "identification",
+      "width": 320,
+      "height": 568
+    },
+    {
+      "theme": "light",
+      "section": "identification",
+      "width": 844,
+      "height": 390
+    },
+    {
+      "theme": "light",
+      "section": "controls",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "theme": "light",
+      "section": "controls",
+      "width": 1366,
+      "height": 768
+    },
+    {
+      "theme": "light",
+      "section": "controls",
+      "width": 1024,
+      "height": 600
+    },
+    {
+      "theme": "light",
+      "section": "controls",
+      "width": 768,
+      "height": 1024
+    },
+    {
+      "theme": "light",
+      "section": "controls",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "theme": "light",
+      "section": "controls",
+      "width": 375,
+      "height": 667
+    },
+    {
+      "theme": "light",
+      "section": "controls",
+      "width": 320,
+      "height": 568
+    },
+    {
+      "theme": "light",
+      "section": "controls",
+      "width": 844,
+      "height": 390
+    },
+    {
+      "theme": "light",
+      "section": "evidence",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "theme": "light",
+      "section": "evidence",
+      "width": 1366,
+      "height": 768
+    },
+    {
+      "theme": "light",
+      "section": "evidence",
+      "width": 1024,
+      "height": 600
+    },
+    {
+      "theme": "light",
+      "section": "evidence",
+      "width": 768,
+      "height": 1024
+    },
+    {
+      "theme": "light",
+      "section": "evidence",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "theme": "light",
+      "section": "evidence",
+      "width": 375,
+      "height": 667
+    },
+    {
+      "theme": "light",
+      "section": "evidence",
+      "width": 320,
+      "height": 568
+    },
+    {
+      "theme": "light",
+      "section": "evidence",
+      "width": 844,
+      "height": 390
+    },
+    {
+      "theme": "light",
+      "section": "relationships",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "theme": "light",
+      "section": "relationships",
+      "width": 1366,
+      "height": 768
+    },
+    {
+      "theme": "light",
+      "section": "relationships",
+      "width": 1024,
+      "height": 600
+    },
+    {
+      "theme": "light",
+      "section": "relationships",
+      "width": 768,
+      "height": 1024
+    },
+    {
+      "theme": "light",
+      "section": "relationships",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "theme": "light",
+      "section": "relationships",
+      "width": 375,
+      "height": 667
+    },
+    {
+      "theme": "light",
+      "section": "relationships",
+      "width": 320,
+      "height": 568
+    },
+    {
+      "theme": "light",
+      "section": "relationships",
+      "width": 844,
+      "height": 390
+    },
+    {
+      "theme": "dark",
+      "section": "identification",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "theme": "dark",
+      "section": "identification",
+      "width": 1366,
+      "height": 768
+    },
+    {
+      "theme": "dark",
+      "section": "identification",
+      "width": 1024,
+      "height": 600
+    },
+    {
+      "theme": "dark",
+      "section": "identification",
+      "width": 768,
+      "height": 1024
+    },
+    {
+      "theme": "dark",
+      "section": "identification",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "theme": "dark",
+      "section": "identification",
+      "width": 375,
+      "height": 667
+    },
+    {
+      "theme": "dark",
+      "section": "identification",
+      "width": 320,
+      "height": 568
+    },
+    {
+      "theme": "dark",
+      "section": "identification",
+      "width": 844,
+      "height": 390
+    },
+    {
+      "theme": "dark",
+      "section": "controls",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "theme": "dark",
+      "section": "controls",
+      "width": 1366,
+      "height": 768
+    },
+    {
+      "theme": "dark",
+      "section": "controls",
+      "width": 1024,
+      "height": 600
+    },
+    {
+      "theme": "dark",
+      "section": "controls",
+      "width": 768,
+      "height": 1024
+    },
+    {
+      "theme": "dark",
+      "section": "controls",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "theme": "dark",
+      "section": "controls",
+      "width": 375,
+      "height": 667
+    },
+    {
+      "theme": "dark",
+      "section": "controls",
+      "width": 320,
+      "height": 568
+    },
+    {
+      "theme": "dark",
+      "section": "controls",
+      "width": 844,
+      "height": 390
+    },
+    {
+      "theme": "dark",
+      "section": "evidence",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "theme": "dark",
+      "section": "evidence",
+      "width": 1366,
+      "height": 768
+    },
+    {
+      "theme": "dark",
+      "section": "evidence",
+      "width": 1024,
+      "height": 600
+    },
+    {
+      "theme": "dark",
+      "section": "evidence",
+      "width": 768,
+      "height": 1024
+    },
+    {
+      "theme": "dark",
+      "section": "evidence",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "theme": "dark",
+      "section": "evidence",
+      "width": 375,
+      "height": 667
+    },
+    {
+      "theme": "dark",
+      "section": "evidence",
+      "width": 320,
+      "height": 568
+    },
+    {
+      "theme": "dark",
+      "section": "evidence",
+      "width": 844,
+      "height": 390
+    },
+    {
+      "theme": "dark",
+      "section": "relationships",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "theme": "dark",
+      "section": "relationships",
+      "width": 1366,
+      "height": 768
+    },
+    {
+      "theme": "dark",
+      "section": "relationships",
+      "width": 1024,
+      "height": 600
+    },
+    {
+      "theme": "dark",
+      "section": "relationships",
+      "width": 768,
+      "height": 1024
+    },
+    {
+      "theme": "dark",
+      "section": "relationships",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "theme": "dark",
+      "section": "relationships",
+      "width": 375,
+      "height": 667
+    },
+    {
+      "theme": "dark",
+      "section": "relationships",
+      "width": 320,
+      "height": 568
+    },
+    {
+      "theme": "dark",
+      "section": "relationships",
+      "width": 844,
+      "height": 390
+    }
+  ],
+  "synthetic_identity_only": true,
+  "browser_errors": [],
+  "roundtrip_all_blocks": true,
+  "backend_tests": 43,
+  "public_assets_verified": true,
+  "deployed_image": "ea74ddd8ae2483046b27624137489b99b135d78f43751ffbd76c5b7d3361e618"
+}

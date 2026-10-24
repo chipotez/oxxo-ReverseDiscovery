@@ -59,6 +59,20 @@ class StandardsTests(unittest.TestCase):
         self.assertEqual(self.send('get','/published').status_code,403)
         node['data']['standard']['version']=2
         self.assertEqual(self.map('put','/'+created['id'],{'revision':2,'document':doc}).status_code,400)
+    def test_server_instance_roundtrip_schema_authority_and_old_client(self):
+        from standards import SERVER_MODEL
+        created=self.map('post',body={'name':'QA instance','template_id':'blank'}).json
+        doc=created['document'];doc['nodes']=[dict(id='qa-vm',type='resource',position=dict(x=0,y=0),data=dict(label='QA VM',kind='virtual',resource_schema={'sections':[]},server_instance={'identification':{'ci':'QA-CI-1','hostname':'qa.internal'},'controls':{'monitoring':{'status':'configured','evidence':'QA declared'}},'evidence':{'state':'Operativo'},'relationships':{'depends':'QA DNS'}}))]
+        saved=self.map('put','/'+created['id'],{'revision':created['revision'],'document':doc});self.assertEqual(saved.status_code,200,saved.data)
+        saved_doc=self.map('get','/'+created['id']).json['document'];data=saved_doc['nodes'][0]['data'];self.assertEqual(data['resource_schema']['sections'],SERVER_MODEL['sections']);self.assertEqual(data['server_instance']['identification']['ci'],'QA-CI-1')
+        import copy
+        doc=copy.deepcopy(saved_doc);doc['nodes'][0]['data'].pop('server_instance');doc['nodes'][0]['data']['label']='QA renamed'
+        again=self.map('put','/'+created['id'],{'revision':saved.json['revision'],'document':doc});self.assertEqual(again.status_code,200,again.data);self.assertEqual(self.map('get','/'+created['id']).json['document']['nodes'][0]['data']['server_instance'],data['server_instance'])
+        doc=self.map('get','/'+created['id']).json['document'];doc['nodes'][0]['data']['server_instance']['identification']['invented']='Bad'
+        self.assertEqual(self.map('put','/'+created['id'],{'revision':again.json['revision'],'document':doc}).status_code,400)
+        doc['nodes'][0]['data']['server_instance']={'identification':{'hostname':'x'*501}}
+        self.assertEqual(self.map('put','/'+created['id'],{'revision':again.json['revision'],'document':doc}).status_code,400)
+
     def server_model(self):
         from standards import SERVER_MODEL
         return {s['id']:[dict(id=f['id'],level='required',rule='QA expected rule') for f in s['fields']] for s in SERVER_MODEL['sections'] if s['id']!='controls'}
