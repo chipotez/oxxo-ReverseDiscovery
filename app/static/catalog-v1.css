@@ -33,3 +33,4 @@
 @media(max-width:600px),(max-height:500px){.catalog-empty{padding:14px;font-size:14px;line-height:1.5}}
 [data-theme=dark] #node-error{color:#ffb2a8}
 .component-panel input:focus-visible,dialog input:focus-visible,dialog select:focus-visible,.filter-select select:focus-visible,.editor-canvas svg:focus-visible{outline:2px solid var(--forest);outline-offset:3px}
+body.resource-tool-open>.workspace-header{display:none}

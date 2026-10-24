@@ -19,7 +19,7 @@ const disciplines=[
 {id:'infraestructura-como-codigo',title:'Infraestructura como código',description:'Infraestructura definida y versionada.',icon:'code'},
 {id:'sre',title:'SRE',description:'Confiabilidad y continuidad de los servicios.',icon:'sre'}];
 const products=[
-{id:'mapeo-recursos',title:'Mapeo de recursos',description:'Identifica los componentes de tu entorno.',type:'herramienta',icon:'resource',outcome:'Un inventario de recursos con su función y contexto.'},
+{id:'mapeo-recursos',ready:true,title:'Mapeo de recursos',description:'Identifica los componentes de tu entorno.',type:'herramienta',icon:'resource',outcome:'Un inventario de recursos con su función y contexto.'},
 {id:'mapeo-servicios',title:'Mapeo de servicios',description:'Documenta tus servicios mediante diagramas.',type:'herramienta',icon:'map',ready:true,outcome:'Un diagrama de los componentes y dependencias de tu servicio.'},
 {id:'mapeo-dependencias',title:'Mapeo de dependencias',description:'Visualiza qué depende de qué.',type:'herramienta',icon:'dependency',outcome:'Una vista de las relaciones entre aplicaciones y servicios.'},
 {id:'fundamentos',title:'Fundamentos de observabilidad',description:'Métricas, registros y trazas.',type:'curso',level:1,icon:'book',outcome:'Reconocer las señales que permiten investigar un servicio.',topics:['Métricas y señales de salud','Registros y contexto de un evento','Trazas y recorrido de una solicitud']},
@@ -60,8 +60,8 @@ function paginate(){
  const pages=Math.max(1,Math.ceil(items.length/size));page=Math.max(1,Math.min(page,pages));
  grid.style.setProperty('--columns',cols);
  grid.innerHTML=items.slice((page-1)*size,page*size).map(p=>{
-  const href=currentMode==='catalog'?`#/catalogo/${p.id}`:`#/catalogo/observabilidad/${p.id}`;
-  return `<a class="catalog-card ${currentMode==='catalog'?'discipline-card':'product-card'} ${p.id==='mapeo-servicios'?'card-featured':''}" href="${href}">${currentMode==='catalog'?illustration(p.icon):`<div class="product-art">${productIllustration(p.icon)}</div>`}<div class="card-copy">${currentMode==='products'?`<div class="card-tags"><span>${typeLabel(p)}</span>${p.ready?'<span class="available-tag">Disponible</span>':''}</div>`:''}<h2>${esc(p.title)}</h2><p>${esc(p.description)}</p><span class="card-action">${currentMode==='catalog'?'Explorar':'Ver detalle'} ${icon('arrow')}</span></div></a>`;
+  const href=currentMode==='catalog'?`#/catalogo/${p.id}`:p.id==='mapeo-recursos'?'#/herramientas/mapeo-recursos':`#/catalogo/observabilidad/${p.id}`;
+  return `<a class="catalog-card ${currentMode==='catalog'?'discipline-card':'product-card'} ${p.id==='mapeo-servicios'?'card-featured':''}" href="${href}">${currentMode==='catalog'?illustration(p.icon):`<div class="product-art">${productIllustration(p.icon)}</div>`}<div class="card-copy">${currentMode==='products'?`<div class="card-tags"><span>${typeLabel(p)}</span>${p.ready?'<span class="available-tag">Disponible</span>':''}</div>`:''}<h2>${esc(p.title)}</h2><p>${esc(p.description)}</p><span class="card-action">${currentMode==='catalog'?'Explorar':p.id==='mapeo-recursos'?'Abrir editor':'Ver detalle'} ${icon('arrow')}</span></div></a>`;
  }).join('')||(currentItems.length?'<p class="catalog-empty">No encontramos coincidencias. Prueba con otro término.</p>':'<p class="catalog-empty">Este catálogo estará disponible próximamente.</p>');
  main.querySelector('#result-count').textContent=`${items.length} ${currentMode==='catalog'?'disciplinas':'opciones'}`;
  main.querySelector('#page-count').textContent=`${page} / ${pages}`;
@@ -134,10 +134,12 @@ function editor(loadExample=false){
 }
 function render(){
  accountMenu?.removeAttribute('open');
+ window.KoodariaResourceFlow?.unmount();document.body.classList.remove('resource-tool-open');
  const route=location.hash.slice(1)||'/catalogo';
  document.querySelectorAll('[data-view]').forEach(b=>b.setAttribute('aria-pressed',String((route.startsWith('/cursos')?'modulos':'servicios')===b.dataset.view)));
  document.querySelectorAll('[data-section]').forEach(b=>{if(b.dataset.section===(route.startsWith('/cursos')?'aprendizaje':route.startsWith('/herramientas')?'crear':'aplicaciones'))b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');});
  const [path,params='']=route.split('?');const bits=path.split('/').filter(Boolean);
+ if((bits[0]==='herramientas'&&bits[1]==='mapeo-recursos')||(bits[0]==='catalogo'&&bits[1]==='observabilidad'&&bits[2]==='mapeo-recursos')){document.body.classList.add('resource-tool-open');main.className='workspace-main resource-flow-page';main.removeAttribute('style');main.innerHTML='';window.KoodariaResourceFlow.mount(main);return;}
  if(bits[0]==='herramientas'&&bits[1]==='mapeo-servicios'){editor(bits[2]==='ejemplo');return;}
  if(bits[0]==='cursos'){listView('Cursos','Aprende observabilidad, desde sus fundamentos hasta su aplicación en operación.',products.filter(p=>p.type==='curso'),'products',[{label:'Cursos'}]);return;}
  if(bits[0]==='catalogo'&&bits[1]){

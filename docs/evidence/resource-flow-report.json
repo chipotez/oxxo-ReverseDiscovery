@@ -1,0 +1,264 @@
+{
+  "states": [
+    {
+      "theme": "light",
+      "width": 1440,
+      "height": 900,
+      "properties_open": false,
+      "no_document_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "height": 900,
+      "properties_open": true,
+      "no_document_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1366,
+      "height": 768,
+      "properties_open": false,
+      "no_document_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1366,
+      "height": 768,
+      "properties_open": true,
+      "no_document_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1024,
+      "height": 600,
+      "properties_open": false,
+      "no_document_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1024,
+      "height": 600,
+      "properties_open": true,
+      "no_document_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 768,
+      "height": 1024,
+      "properties_open": false,
+      "no_document_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 768,
+      "height": 1024,
+      "properties_open": true,
+      "no_document_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "height": 844,
+      "properties_open": false,
+      "no_document_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "height": 844,
+      "properties_open": true,
+      "no_document_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 375,
+      "height": 667,
+      "properties_open": false,
+      "no_document_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 375,
+      "height": 667,
+      "properties_open": true,
+      "no_document_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 568,
+      "properties_open": false,
+      "no_document_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 568,
+      "properties_open": true,
+      "no_document_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 844,
+      "height": 390,
+      "properties_open": false,
+      "no_document_overflow": true
+    },
+    {
+      "theme": "light",
+      "width": 844,
+      "height": 390,
+      "properties_open": true,
+      "no_document_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "height": 900,
+      "properties_open": false,
+      "no_document_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "height": 900,
+      "properties_open": true,
+      "no_document_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1366,
+      "height": 768,
+      "properties_open": false,
+      "no_document_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1366,
+      "height": 768,
+      "properties_open": true,
+      "no_document_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1024,
+      "height": 600,
+      "properties_open": false,
+      "no_document_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1024,
+      "height": 600,
+      "properties_open": true,
+      "no_document_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "height": 1024,
+      "properties_open": false,
+      "no_document_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "height": 1024,
+      "properties_open": true,
+      "no_document_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "height": 844,
+      "properties_open": false,
+      "no_document_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "height": 844,
+      "properties_open": true,
+      "no_document_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 375,
+      "height": 667,
+      "properties_open": false,
+      "no_document_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 375,
+      "height": 667,
+      "properties_open": true,
+      "no_document_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 568,
+      "properties_open": false,
+      "no_document_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 568,
+      "properties_open": true,
+      "no_document_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 844,
+      "height": 390,
+      "properties_open": false,
+      "no_document_overflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 844,
+      "height": 390,
+      "properties_open": true,
+      "no_document_overflow": true
+    }
+  ],
+  "accessibility": [
+    {
+      "theme": "light",
+      "width": 1440,
+      "violations": []
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "violations": []
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "violations": []
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "violations": []
+    }
+  ],
+  "synthetic_identity_only": true,
+  "card_opens_react_flow_directly": true,
+  "connect_handles_works": true,
+  "editable_nodes_edges_and_json_export": true,
+  "grouping_works": true,
+  "json_reopens": true,
+  "malformed_import_rejected": true,
+  "browser_errors": [],
+  "date": "2026-10-23",
+  "react_flow_version": "12.12.0",
+  "production_assets_match_reviewed_build": true,
+  "authentication_still_required": true,
+  "application_unit_tests_passed": 8,
+  "public_site_tests_passed": 7
+}

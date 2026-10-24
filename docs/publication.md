@@ -317,3 +317,27 @@ en el navegador, con la CSP de producción; no se desplegó un acceso de prueba.
 Ocho pruebas de backend y siete de Home correctas. Evidencias reproducibles en
 `scripts/qa_catalog_layout.py`, `scripts/qa_catalog_functional.py` y los informes
 `evidence/catalog-layout-report.json`, `evidence/catalog-functional-report.json`.
+
+## Mapeo de recursos abre directamente React Flow — 23 de octubre de 2026
+
+Tarjeta conectada a la herramienta sin ficha intermedia; acción Abrir editor.
+Se incorporó el lienzo real de React Flow, con recursos, grupos, relaciones y
+propiedades editables, navegación y controles de zoom. Se oculta el header
+superior del catálogo mientras se utiliza la herramienta. El resto del catálogo
+y el editor de servicios mantienen su navegación.
+
+Imagen: `localhost/koodaria-workspace:react-flow-20261023`. Construcción Node
+multietapa y bundles propios, con lock de npm. Respaldo de la unidad anterior:
+`/home/mip/backups/koodaria-20261023/react-flow/`. Rollback con
+`localhost/koodaria-workspace:catalog-20261023`. Mismo volumen de sesiones,
+secretos y gateway; no se cambiaron cuentas ni MFA.
+
+Verificados conexión mediante handles, arrastre, edición de propiedades y
+etiquetas, agrupación, exportación/reapertura JSON y rechazo de importaciones
+malformadas. Treinta y dos estados de viewport/tema/propiedades, sin scroll de
+documento ni del panel de propiedades en los tamaños probados. Cuatro auditorías
+axe A/AA correctas. Las pruebas usan identidad sintética y la CSP de producción
+solo dentro del navegador de QA, sin publicar ningún acceso alternativo.
+Evidencia: `evidence/resource-flow-report.json`; script reproducible
+`scripts/qa_resource_flow.py`. Las exportaciones son locales y no equivalen a
+almacenamiento compartido en servidor.

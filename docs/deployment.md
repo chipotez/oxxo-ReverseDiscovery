@@ -68,7 +68,7 @@ Dado que esta fase produce archivos estáticos, la integración aplicada incorpo
 
 ## Aplicación de bienvenida
 
-- Fuente: `app/`; imagen `localhost/koodaria-workspace:catalog-20261023`.
+- Fuente: `app/`; imagen `localhost/koodaria-workspace:react-flow-20261023`.
 - Construcción reproducible con `app/requirements.lock`; rangos de mantenimiento
   en `app/requirements.txt`. Gunicorn escucha solo dentro de la red de Podman.
 - Unidad: `infra/koodaria-workspace.container`; montada en systemd de mip.
@@ -86,3 +86,12 @@ Dado que esta fase produce archivos estáticos, la integración aplicada incorpo
   la imagen anterior `localhost/themike-site:koodaria-identity-20261023`.
   La base previa está en `before-welcome.dump`, pero no restaurarla sobre cambios
   posteriores sin revisión. El cliente nuevo puede deshabilitarse independientemente.
+
+## Compilación del editor React Flow
+
+La imagen de la aplicación compila `app/frontend/` con Node 22, `npm ci` y
+esbuild; copia solamente los bundles finales al runtime Python. No se necesita
+Node en producción durante la ejecución. Los bundles generados están ignorados
+en Git y la imagen los reconstruye a partir del lock. Para reproducir la QA local,
+extraer `resource-flow-v1.js` y `.css` de `/app/static/` de la imagen compilada
+hacia `app/static/`, y ejecutar `scripts/qa_resource_flow.py` con Playwright.

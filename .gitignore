@@ -10,3 +10,8 @@ koodaria-v2-standalone.zip
 .env.*
 
 !.env.example
+# React Flow build output is produced by the Node build stage.
+app/frontend/node_modules/
+app/frontend/dist/
+app/static/resource-flow-v1.js
+app/static/resource-flow-v1.css

@@ -118,3 +118,31 @@ En móvil se usan un selector de contenido, vistas separadas para la ficha y
 pasos del editor; la lista de componentes también se pagina. No se oculta el
 scroll mediante recortes. Las secciones desplegadas explícitamente y la
 ampliación de accesibilidad conservan su comportamiento nativo.
+
+## Editor de recursos con React Flow
+
+La tarjeta Mapeo de recursos abre directamente `#/herramientas/mapeo-recursos`.
+El antiguo enlace a su ficha también resuelve al editor. En esta vista se oculta
+el header del catálogo y el lienzo ocupa el área de trabajo junto a la navegación
+lateral. El editor previo de Mapeo de servicios se conserva por separado.
+
+Implementación real con React 19 y `@xyflow/react` 12, compilada por esbuild en
+una etapa Node de la imagen. Dependencias bloqueadas en
+`app/frontend/package-lock.json`; los bundles JS/CSS se sirven desde el propio
+dominio, sin CDN ni scripts externos. La atribución de React Flow se conserva.
+
+Permite añadir recursos y grupos, arrastrar nodos, conectar puntos, editar
+nombre/tipo/IP/puerto y etiquetas de conexión, agrupar y redimensionar, eliminar,
+acercar/alejar y ajustar la vista. El lienzo se reajusta al cambiar de tamaño.
+Las propiedades tienen una distribución compacta en ventanas bajas. Las paletas
+clara y oscura siguen la preferencia de Koodaria.
+
+El formato JSON `koodaria-resource-flow`, versión 1, conserva posiciones, grupos,
+conexiones y etiquetas. Se limita a 200 nodos, 500 conexiones y archivos de
+1,5 MB. La importación valida el modelo y reconstruye únicamente propiedades
+permitidas: no admite componentes React arbitrarios, HTML, estilos libres ni
+URLs ejecutables. Los textos se renderizan mediante el escape de React.
+
+Los mapas siguen trabajando en memoria del navegador y se conservan mediante
+la descarga del proyecto. No se cambiaron la sesión, el MFA ni la autorización.
+Referencia oficial: https://reactflow.dev/learn.
