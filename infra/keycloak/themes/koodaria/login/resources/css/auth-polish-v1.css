@@ -1,0 +1,32 @@
+/* A single input boundary is also the keyboard focus indicator. */
+#otp:focus, #otp:focus-visible {
+ outline:none!important; outline-offset:0; box-shadow:none!important;
+ border:2px solid #2f6557!important;
+ padding-inline:15px;
+}
+#otp {
+ text-align:center; font:500 24px/1.4 ui-monospace,SFMono-Regular,Consolas,monospace;
+ font-variant-numeric:tabular-nums; letter-spacing:.26em;
+ border:2px solid #738779; min-height:60px; padding:12px 15px;
+ border-radius:14px; background:#f5f8f3; color:#243c39;
+ caret-color:#2f6557;
+}
+#otp[aria-invalid=true] { border-color:#9f2828!important; }
+#kc-otp-login-form label[for=otp] { font-size:15px; font-weight:400; margin-bottom:10px; }
+#kc-otp-login-form #kc-form-buttons { margin-top:24px; }
+#kc-username { display:flex; align-items:center; justify-content:center; gap:12px; margin:12px 0 24px; min-width:0; }
+#kc-username #kc-attempted-username { margin:0; font-size:clamp(16px,2.2vw,20px); line-height:1.5; overflow-wrap:anywhere; }
+#reset-login { display:inline-flex; align-items:center; justify-content:center; width:36px; height:36px; flex:none; border:1px solid #dce5dd; border-radius:50%; background:#f3f7f2; }
+#reset-login .kc-login-tooltip { display:flex; align-items:center; justify-content:center; }
+#reset-login i { display:block; width:22px; height:22px; background:url('../img/user-switch.svg') center/22px no-repeat; }
+#reset-login i::before { content:none!important; }
+#reset-login .kc-tooltip-text { display:none; }
+#reset-login:hover { background:#e7f0e9; }
+#kc-current-locale-link { display:inline-flex; align-items:center; gap:8px; text-decoration:none; }
+#kc-current-locale-link::before { content:''; display:inline-block; width:20px; height:20px; background:url('../img/language.svg') center/20px no-repeat; }
+#kc-current-locale-link::after { content:none!important; }
+@media(max-height:600px) {
+ #kc-username { margin-block:6px 14px; }
+ #otp { min-height:48px; padding-block:8px; font-size:22px; }
+ #kc-otp-login-form #kc-form-buttons { margin-top:16px; }
+}

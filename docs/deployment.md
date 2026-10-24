@@ -255,3 +255,21 @@ edición/revocación real entre propietario e invitado. Evidencia:
 Sesiones de dos horas, clave de aplicación y volumen de sesiones conservados.
 Rollback UI: unidad previa en `/home/mip/backups/koodaria-20261023/sharing/`.
 No revertir la migración ni borrar concesiones/datos al revertir una imagen.
+
+## Ajustes visuales de MFA — 24 de octubre de 2026
+
+El tema agrega `auth-polish-v1.css` y dos SVG locales: traducción y cambio de
+cuenta. El campo OTP usa un solo borde continuo de 2 px para el foco, sin outline
+ni sombra duplicados; el resto de controles conserva su foco de teclado. Código
+centrado, números monoespaciados, teclado numérico móvil y etiqueta «Código de
+verificación» / «Verification code». El selector de idioma conserva su menú nativo
+con nombre accesible; cambiar de cuenta conserva el enlace nativo de Keycloak.
+
+Solo presentación y mensajes: no cambia validación, credenciales, flujo MFA ni
+sesiones. Copia previa del manifiesto y mensajes en
+`/home/mip/backups/koodaria-20261024/otp-polish/`. Se reinició únicamente Keycloak
+para invalidar la caché del tema. QA de la presentación OTP con markup nativo
+reconstruido y usuario sintético, usando el shell público real: ocho viewports por
+cada preferencia de color, foco único y botones visibles, sin scroll. No se usó
+la cuenta real ni se capturaron códigos. Ver `otp-polish-report.json`. La pantalla
+de login y los recursos publicados se verificaron también por HTTPS.

@@ -1,0 +1,153 @@
+{
+  "native_public_login_shell": true,
+  "synthetic_otp_markup_from_keycloak_26_8_1_template": true,
+  "no_identity_or_mfa_changes": true,
+  "states": [
+    {
+      "theme": "light",
+      "width": 1440,
+      "height": 900,
+      "single_input_boundary": true,
+      "keyboard_focus_preserved": true,
+      "no_overflow": true,
+      "submit_visible": true
+    },
+    {
+      "theme": "light",
+      "width": 1366,
+      "height": 768,
+      "single_input_boundary": true,
+      "keyboard_focus_preserved": true,
+      "no_overflow": true,
+      "submit_visible": true
+    },
+    {
+      "theme": "light",
+      "width": 1024,
+      "height": 600,
+      "single_input_boundary": true,
+      "keyboard_focus_preserved": true,
+      "no_overflow": true,
+      "submit_visible": true
+    },
+    {
+      "theme": "light",
+      "width": 768,
+      "height": 1024,
+      "single_input_boundary": true,
+      "keyboard_focus_preserved": true,
+      "no_overflow": true,
+      "submit_visible": true
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "height": 844,
+      "single_input_boundary": true,
+      "keyboard_focus_preserved": true,
+      "no_overflow": true,
+      "submit_visible": true
+    },
+    {
+      "theme": "light",
+      "width": 375,
+      "height": 667,
+      "single_input_boundary": true,
+      "keyboard_focus_preserved": true,
+      "no_overflow": true,
+      "submit_visible": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 568,
+      "single_input_boundary": true,
+      "keyboard_focus_preserved": true,
+      "no_overflow": true,
+      "submit_visible": true
+    },
+    {
+      "theme": "light",
+      "width": 844,
+      "height": 390,
+      "single_input_boundary": true,
+      "keyboard_focus_preserved": true,
+      "no_overflow": true,
+      "submit_visible": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "height": 900,
+      "single_input_boundary": true,
+      "keyboard_focus_preserved": true,
+      "no_overflow": true,
+      "submit_visible": true
+    },
+    {
+      "theme": "dark",
+      "width": 1366,
+      "height": 768,
+      "single_input_boundary": true,
+      "keyboard_focus_preserved": true,
+      "no_overflow": true,
+      "submit_visible": true
+    },
+    {
+      "theme": "dark",
+      "width": 1024,
+      "height": 600,
+      "single_input_boundary": true,
+      "keyboard_focus_preserved": true,
+      "no_overflow": true,
+      "submit_visible": true
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "height": 1024,
+      "single_input_boundary": true,
+      "keyboard_focus_preserved": true,
+      "no_overflow": true,
+      "submit_visible": true
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "height": 844,
+      "single_input_boundary": true,
+      "keyboard_focus_preserved": true,
+      "no_overflow": true,
+      "submit_visible": true
+    },
+    {
+      "theme": "dark",
+      "width": 375,
+      "height": 667,
+      "single_input_boundary": true,
+      "keyboard_focus_preserved": true,
+      "no_overflow": true,
+      "submit_visible": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 568,
+      "single_input_boundary": true,
+      "keyboard_focus_preserved": true,
+      "no_overflow": true,
+      "submit_visible": true
+    },
+    {
+      "theme": "dark",
+      "width": 844,
+      "height": 390,
+      "single_input_boundary": true,
+      "keyboard_focus_preserved": true,
+      "no_overflow": true,
+      "submit_visible": true
+    }
+  ],
+  "published_assets_verified": true,
+  "live_login_form_verified": true
+}
