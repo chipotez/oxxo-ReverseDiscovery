@@ -107,3 +107,16 @@ Los formularios siguen usando el guardado existente en PostgreSQL. No hay nuevas
 tablas ni permisos. Cada estándar conserva sus propios campos y denominadores;
 compartir cuatro apartados no implica medir productos distintos con iguales requisitos.
 Los colores y fracciones se derivan, no se persisten como un estado operativo.
+
+## Puntos de conexión y densidad
+
+Los anclajes se mantienen montados para conservar la geometría de las conexiones,
+pero son transparentes y no interactivos mientras el recurso no está seleccionado.
+Durante un arrastre de conexión, entrar en el recurso destino lo selecciona y
+habilita sus anclajes; al terminar solo ese recurso conserva los puntos visibles.
+Hacer clic en el lienzo limpia la selección. Las líneas guardadas siguen visibles.
+
+Ancho base de 320 px, margen horizontal de anidación de 10 px y separación
+vertical de 8 px. La altura base depende de las líneas de contexto realmente
+visibles, sin repetir como subtítulo un tipo idéntico al nombre del recurso.
+Se conserva el tamaño de la tipografía; no se usa zoom CSS para compactar.

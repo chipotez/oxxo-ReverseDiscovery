@@ -749,3 +749,29 @@ recorrido con teclado, guardado/reapertura desde una celda y búsqueda/paginaci�
 con 33 recursos sintéticos. Separación entre nodo y resumen comprobada por
 geometría. Imagen activa y assets públicos verificados. Evidencia:
 `docs/evidence/documentation-journey-report.json`.
+
+## Anclajes por selección y nodos más estrechos — 24 de octubre de 2026
+
+Publicada `localhost/koodaria-workspace:selected-ports-20261024`
+(`55207dd30f17444a5981b3adbab58b96296b578f731a9125bedbc3d8a59e6601`).
+Los anclajes solo se muestran/activan en el recurso seleccionado, conservando
+su geometría interna para que las líneas existentes no cambien. Durante un
+arrastre, entrar en el destino lo selecciona y habilita sus anclajes. La selección
+visual y la del editor permanecen sincronizadas; clic en el lienzo oculta puntos.
+
+Ancho base de 320 px frente a 360 px, altura ajustada a líneas visibles, margen
+horizontal de anidación de 10 px y separación vertical de 8 px. Se retira el
+subtítulo de tipo si repite exactamente el nombre y su espacio reservado. No
+se reduce la tipografía. La geometría del PDF conserva las mismas dimensiones.
+Sin migración SQL ni cambios de permisos, identidad o secretos. Backup previo y
+unidad anterior en `/home/mip/backups/koodaria-20261024/selected-ports/`.
+Solo se reinició la aplicación; reversión a `documentation-journey-20261024`.
+
+49 pruebas de servidor y semántica/layout; seis estados responsive/tema con
+selección, líneas previas, unión sur/norte mediante arrastre y reapertura.
+Regresión del recorrido completo en veinte estados responsive y cuatro auditorías
+AA. Las aserciones y evidencias de navegador terminaron correctamente; su cierre
+concurrente se bloqueó y se terminaron los procesos QA después de guardar reportes.
+Revisión visual de mapa compacto y conexiones sin puntos. Imagen activa y assets
+públicos verificados. Evidencia: `docs/evidence/selected-ports-report.json` y
+`docs/evidence/compact-journey-report.json`.

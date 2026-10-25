@@ -144,3 +144,9 @@
 @media(max-height:500px) and (min-width:600px){.resource-summary{width:480px!important}.resource-summary .summary-sections{grid-template-columns:1fr 1fr}.resource-summary footer{grid-template-columns:1fr auto;align-items:center}.resource-summary footer button{width:auto}.resource-summary .summary-sections>button{gap:6px}.resource-summary .documentation-chip{padding:3px 6px}}
 @media(max-width:740px){.coverage-matrix>header{display:grid;grid-template-columns:28px minmax(0,1fr);align-items:center;gap:8px}.coverage-matrix>header>button{width:28px;min-height:28px;padding:3px}.matrix-back-label{display:none}.coverage-matrix h2{font-size:16px}.coverage-matrix header p{display:none}.coverage-matrix .matrix-search{grid-column:1/-1}.coverage-matrix .matrix-search input{min-width:0;box-sizing:border-box}}
 .narrative-node>header>div.standard-ribbon{flex:0 0 auto}
+/* Keep anchors mounted for saved edges; only the selected resource exposes ports. */
+.resource-node .resource-port{transition:opacity .12s ease}.resource-node .resource-port[data-active=false]{opacity:0;pointer-events:none}.resource-node .resource-port[data-active=true]{opacity:1;pointer-events:auto}
+@media(prefers-reduced-motion:reduce){.resource-node .resource-port{transition:none}}
+/* Tighter content-driven footprint without reducing text size. */
+.resource-node.narrative-node{padding:10px}.narrative-node>header{min-height:32px;gap:7px}.narrative-node>header>svg{width:22px;height:22px}.narrative-node .node-summary{margin:4px 0;line-height:14px}.resource-tool .narrative-node .hosted-resources .hosted-add{width:24px;height:24px;min-height:24px}.narrative-node>header .hosted-resources{height:24px}
+.narrative-node .node-summary:empty{display:none}

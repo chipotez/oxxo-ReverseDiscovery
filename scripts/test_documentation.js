@@ -10,12 +10,12 @@ const result=resourceLayout(nodes,[{source:'a',target:'b',relation:'hosts'},{sou
 check(result.nodes.map(n=>n.id).join('')==='abc','parent-first');
 check(result.nodes[1].parentId==='a'&&result.nodes[2].parentId==='b','recursive containment');
 check(result.sizes.get('a').width>result.sizes.get('b').width&&result.sizes.get('a').height>result.sizes.get('b').height,'recursive bounds');
-check(result.absolute.get('c').x===24&&result.absolute.get('c').y===232,'absolute coordinates');
+check(result.absolute.get('c').x===20&&result.absolute.get('c').y===168,'absolute coordinates');
 console.log('PASS recursive matryoshka layout and absolute positions');
 const shortNode={id:'short',type:'resource',position:{x:0,y:0},data:{kind:'virtual',label:'QA'}};
 const detailed={...shortNode,data:{...shortNode.data,server_instance:{identification:{hostname:'qa.example',environment:'QA',criticality:'Alta'}}}};
-check(resourceLayout([shortNode],[]).sizes.get('short').height===104,'one-line compact footprint');
-check(resourceLayout([detailed],[]).sizes.get('short').height===118,'summary grows only with visible distinct values');
+check(resourceLayout([shortNode],[]).sizes.get('short').height===76,'one-line compact footprint');
+check(resourceLayout([detailed],[]).sizes.get('short').height===90,'summary grows only with visible distinct values');
 console.log('PASS content-aware compact node height');
 
 import {overall} from '../app/frontend/src/documentation-views.jsx';
@@ -23,3 +23,7 @@ check(overall({kind:'custom_service'},'custom',[]).label==='Pendiente','empty ov
 check(documentation({kind:'custom_service'},'identification','custom').total===4,'custom own identity schema');
 check(documentation({kind:'virtual'},'identification','vm').total===8,'server own identity schema');
 console.log('PASS summary uses each resource standard');
+const defaultName={...shortNode,data:{kind:'virtual',label:'Máquina virtual'}};
+check(resourceLayout([defaultName],[]).sizes.get('short').height===62,'no duplicate type caption or empty metadata reservation');
+check(resourceLayout([defaultName],[]).sizes.get('short').width===320,'narrower node width');
+console.log('PASS duplicate caption removal and narrow geometry');
