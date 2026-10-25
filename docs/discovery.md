@@ -67,3 +67,24 @@ fecha y total reportado; no es un inventario completo ni una sincronización.
   claves en la aplicación; no se presupone éxito con un proveedor real.
 - La organización es una frontera de acceso. Invitados de diagramas no obtienen
   acceso a conectores, muestras ni claves.
+
+## Diagnóstico de conexión
+
+Cada etapa conserva endpoint GET, servidor API, código HTTP, duración total de
+etapa, tiempo hasta recibir cabeceras y tamaño del cuerpo consultado. El tiempo
+se mide desde el servidor Koodaria; no representa latencia del navegador ni RTT.
+Las etapas comprueban HTTPS con certificado válido y, cuando hay autenticación,
+Content-Type JSON, objeto JSON y el contrato mínimo de la respuesta.
+
+Solo se conservan los nombres de las cabeceras de solicitud, nunca sus valores.
+De respuesta se admiten Content-Type normalizado y límites numéricos conocidos
+X-RateLimit/Retry-After. Cookies y cabeceras arbitrarias quedan excluidas.
+La etapa sin credenciales puede recibir 401/403 y confirmar conectividad; las
+etapas autenticadas rechazan esos códigos. Permisos requiere host_list válido.
+
+El fondo de puntos pertenece únicamente al recorrido de comprobación. La etapa
+activa pulsa y el enlace entrante anima un paquete mientras espera la respuesta;
+no hay progreso simulado ni afirmaciones sobre distancia o saltos de red. Se
+respeta prefers-reduced-motion. El detalle se pliega inicialmente en móvil y
+pantallas bajas. Pruebas anteriores requieren ejecutarse de nuevo para obtener
+estos diagnósticos. Se guardan en stages JSONB sin migración adicional.

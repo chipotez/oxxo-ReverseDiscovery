@@ -43,7 +43,11 @@ def input_values(body,old=None):
  if set(secrets)!={'api_key','app_key'}:raise Fault('KOD-CON-006')
  return name.strip(),site,cipher().encrypt(json.dumps(secrets).encode()).decode()
 
-def call_provider(site,path,keys=None,params=None):
+def call_provider(site,path,keys=None,params=None,diagnostics=None):
+ # Diagnostic values are explicitly allowlisted; never return credentials or raw headers.
+ trace=diagnostics if diagnostics is not None else {}
+ trace.update(method='GET',endpoint=path,host=SITES[site].split('://',1)[1],request_headers=['Accept']+(['DD-API-KEY','DD-APPLICATION-KEY'] if keys else []),parameters=params or {},checks={'https_verified':False},response_headers={})
+ began=time.monotonic()
  # No redirects, proxies from process environment, arbitrary hosts or caller URLs.
  try:
   with requests.Session() as client:
@@ -51,30 +55,47 @@ def call_provider(site,path,keys=None,params=None):
    headers={'Accept':'application/json'}
    if keys:headers.update({'DD-API-KEY':keys['api_key'],'DD-APPLICATION-KEY':keys['app_key']})
    with client.get(SITES[site]+path,params=params,headers=headers,timeout=(3,6),allow_redirects=False,stream=True) as r:
-    if keys is None and r.status_code in [200,401,403]:return {}
+    trace.update(http_status=r.status_code,headers_ms=round((time.monotonic()-began)*1000))
+    trace['checks']['https_verified']=True
+    content_type=r.headers.get('Content-Type','').split(';',1)[0].strip().lower()
+    trace['response_headers']['content_type']=content_type if content_type in ['application/json','application/problem+json','text/html'] else 'No informado u otro'
+    for header in ['X-RateLimit-Limit','X-RateLimit-Remaining','X-RateLimit-Period','X-RateLimit-Reset','Retry-After']:
+     value=r.headers.get(header,'')
+     if isinstance(value,str) and value.isdigit() and len(value)<=12:trace['response_headers'][header]=int(value)
+    if keys is None and r.status_code in [200,401,403]:
+     trace['checks']['http_reachable']=True
+     trace['note']='Respuesta HTTPS recibida sin enviar credenciales; 401/403 puede ser esperado.'
+     return {}
     if r.status_code==429:raise Fault('KOD-CON-004',status=429)
     if r.status_code in [401,403]:raise Fault('KOD-CON-002' if path.endswith('/validate') else 'KOD-CON-003')
     if r.status_code>=300:raise Fault('KOD-CON-001',status=502)
     if keys is None:return {} # HTTPS reachability only; no body needed.
+    trace['checks']['json_content_type']=content_type in ['application/json','application/problem+json'] or content_type.endswith('+json')
+    if not trace['checks']['json_content_type']:raise Fault('KOD-CON-005',status=502)
     content=bytearray();deadline=time.monotonic()+10
     for chunk in r.iter_content(16384):
      content.extend(chunk)
      if len(content)>1000000 or time.monotonic()>deadline:raise Fault('KOD-CON-005',status=502)
+    trace['response_bytes']=len(content)
     result=json.loads(content)
     if not isinstance(result,dict):raise ValueError()
+    trace['checks']['json_object']=True
     return result
  except Fault:raise
  except (requests.RequestException,ValueError):raise Fault('KOD-CON-001',status=502) from None
 
-def perform(stage,row):
+def perform(stage,row,diagnostics=None):
  try:keys=json.loads(cipher().decrypt(row['credentials'].encode()))
  except (InvalidToken,ValueError):raise Fault('KOD-CON-007',status=503) from None
- if stage==0:call_provider(row['site'],'/api/v1/validate');return None
+ def probe(path,keys=None,params=None):return call_provider(row['site'],path,keys,params,diagnostics=diagnostics)
+ if stage==0:probe('/api/v1/validate');return None
  if stage==1:
-  if call_provider(row['site'],'/api/v1/validate',keys).get('valid') is not True:raise Fault('KOD-CON-002')
+  if probe('/api/v1/validate',keys).get('valid') is not True:raise Fault('KOD-CON-002')
   return None
- if stage==2:call_provider(row['site'],'/api/v1/hosts',keys,{'count':1,'start':0});return None
- result=call_provider(row['site'],'/api/v1/hosts',keys,{'count':25,'start':0,'include_hosts_metadata':'true'})
+ if stage==2:
+  if not isinstance(probe('/api/v1/hosts',keys,{'count':1,'start':0}).get('host_list'),list):raise Fault('KOD-CON-005',status=502)
+  return None
+ result=probe('/api/v1/hosts',keys,{'count':25,'start':0,'include_hosts_metadata':'true'})
  hosts=result.get('host_list')
  if not isinstance(hosts,list):raise Fault('KOD-CON-005',status=502)
  sample=[]
@@ -130,14 +151,15 @@ def step(cid):
  with connection(subject()) as c:
   require_member(c);row=owned(c,cid,True)
   if row['status']!='testing' or str(row['run_id'])!=body.get('run_id') or (type(body.get('stage'))!=int or body['stage']!=len(row['stages'])):raise Fault('KOD-CON-008',status=409)
-  stage=len(row['stages']);stages=row['stages'];began=time.monotonic();sample=row['sample'];total=row['sample_total']
+  stage=len(row['stages']);stages=row['stages'];began=time.monotonic();sample=row['sample'];total=row['sample_total'];trace={}
   try:
-   result=perform(stage,row)
+   result=perform(stage,row,trace)
+   trace.setdefault('checks',{})['response_contract']=True
    if stage==3:sample,total=result
-   stages.append(dict(label=STAGES[stage],status='complete',duration_ms=round((time.monotonic()-began)*1000)))
+   stages.append(dict(label=STAGES[stage],status='complete',duration_ms=round((time.monotonic()-began)*1000),diagnostics=trace))
    status='verified' if stage==3 else 'testing'
   except Fault as exc:
-   error=exc;status='failed';stages.append(dict(label=STAGES[stage],status='failed',code=exc.code,duration_ms=round((time.monotonic()-began)*1000)))
+   error=exc;status='failed';trace.setdefault('checks',{})['response_contract']=False;stages.append(dict(label=STAGES[stage],status='failed',code=exc.code,duration_ms=round((time.monotonic()-began)*1000),diagnostics=trace))
   row=c.execute('UPDATE discovery_connections SET stages=%s,sample=%s,sample_total=%s,status=%s,tested_at=now(),updated_at=now(),revision=revision+1 WHERE id=%s RETURNING *',(Jsonb(stages),Jsonb(sample),total,status,key(cid))).fetchone()
  if error:return jsonify(**serial(row),error=str(error),error_code=error.code),error.status
  return jsonify(serial(row))

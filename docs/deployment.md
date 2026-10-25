@@ -1029,3 +1029,22 @@ Para la prueba posterior de Datadog se preparó `.secrets/datadog.env` privado 6
 ignorado por Git, con DD_API_KEY, DD_APP_KEY y DD_URL vacíos. No se han leído ni
 probado claves reales del cliente. La URL deberá corresponder a su consola real;
 «headquarters» por sí solo no identifica una región de Datadog.
+
+## Connection diagnostics — 2026-10-25
+
+Deployed `localhost/koodaria-workspace:connection-diagnostics-20261025`, image
+`d8c547c4b26b3a3ef81d789d207722f1332b03a25ae4a3145244669629b16aa9`.
+Dotted test-only surface, actual-stage packet animation and persisted allowlisted
+HTTP diagnostics. No schema migration; existing stages JSONB accepts diagnostics.
+Retained encryption key and session environment; only workspace restarted.
+Database backup completed; previous Quadlet saved under
+`/home/mip/backups/koodaria-20261025/connection-diagnostics/`.
+
+Validation: 76 backend tests; synthetic browser journey with failure path,
+persistence, reduced motion and desktop/mobile/short-landscape light/dark action
+visibility. Evidence: `evidence/connection-diagnostics-report.json`. No real
+customer credentials or sample hosts used for this QA. Public asset hashes match
+container output:
+
+- JS: `739cc1ef06498ea367ba0c10f32ff144849e0b119e1682298daba24c99323bf1`
+- CSS: `efd9df42121c9f51089004741d43d027bdeb7c3308fb24654e91814b4b4a7c33`

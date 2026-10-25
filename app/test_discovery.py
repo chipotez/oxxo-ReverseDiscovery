@@ -67,3 +67,30 @@ class DiscoveryTests(unittest.TestCase):
   with connection(self.owner) as c:
    c.execute('SELECT qa_model_organization(%s,%s)',(self.owner,org));c.execute('SELECT qa_model_organization(%s,%s)',(self.other,org))
   row=self.create();self.login(self.other);self.assertEqual(self.call('get').json['items'][0]['id'],row['id'])
+
+ def test_diagnostics_allowlist_and_json_validation(self):
+  import json
+  headers={'Content-Type':'application/json; charset=utf-8','X-RateLimit-Remaining':'42','Set-Cookie':'qa-sensitive-cookie','X-Datadog-Secret':'qa-hidden'}
+  with patch('discovery.requests.Session') as session:
+   client=session.return_value.__enter__.return_value;r=client.get.return_value.__enter__.return_value;r.status_code=200;r.headers=headers;r.iter_content.return_value=[b'{"valid":true}'];trace={}
+   self.assertTrue(call_provider('datadoghq.com','/api/v1/validate',dict(api_key='qa-key-private',app_key='qa-app-private'),diagnostics=trace)['valid'])
+   self.assertEqual(trace['http_status'],200);self.assertEqual(trace['response_headers']['X-RateLimit-Remaining'],42);self.assertEqual(trace['response_bytes'],14)
+   for secret in ['qa-sensitive-cookie','qa-hidden','qa-key-private','qa-app-private','Set-Cookie']:self.assertNotIn(secret,json.dumps(trace))
+   self.assertTrue(trace['checks']['https_verified']);self.assertTrue(trace['checks']['json_object']);self.assertIn('DD-API-KEY',trace['request_headers'])
+   r.headers={'Content-Type':'text/html'}
+   with self.assertRaises(Fault) as exc:call_provider('datadoghq.com','/api/v1/hosts',dict(api_key='qa',app_key='qa'),diagnostics={})
+   self.assertEqual(exc.exception.code,'KOD-CON-005')
+ def test_connectivity_401_is_not_authenticated_success(self):
+  with patch('discovery.requests.Session') as session:
+   client=session.return_value.__enter__.return_value;r=client.get.return_value.__enter__.return_value;r.status_code=401;r.headers={'Content-Type':'application/json'};trace={}
+   self.assertEqual(call_provider('datadoghq.com','/api/v1/validate',diagnostics=trace),{})
+   self.assertEqual(trace['http_status'],401);self.assertEqual(trace['request_headers'],['Accept']);self.assertTrue(trace['checks']['http_reachable'])
+   with self.assertRaises(Fault) as exc:call_provider('datadoghq.com','/api/v1/validate',dict(api_key='qa',app_key='qa'),diagnostics={})
+   self.assertEqual(exc.exception.code,'KOD-CON-002')
+ def test_diagnostics_persist_for_failed_permission_step(self):
+  row=self.create();cid='/'+row['id'];run=self.call('post',cid+'/test/start',{}).json
+  def probe(stage,row,trace):
+   trace.update(http_status=403,endpoint='/api/v1/hosts',method='GET',checks={'https_verified':True})
+   raise Fault('KOD-CON-003')
+  with patch('discovery.perform',side_effect=probe):r=self.call('post',cid+'/test/step',dict(run_id=run['run_id'],stage=0))
+  self.assertEqual(r.status_code,400);stage=self.call('get').json['items'][0]['stages'][0];self.assertEqual(stage['diagnostics']['http_status'],403);self.assertFalse(stage['diagnostics']['checks']['response_contract'])
