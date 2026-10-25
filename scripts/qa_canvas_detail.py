@@ -32,7 +32,7 @@ with sync_playwright() as p:
   close=panel.get_by_role('button',name='Cerrar relaciones' if section=='Relaciones de arquitectura' else 'Cerrar panel del servidor',exact=True);close.click();page.wait_for_timeout(250)
  vm.locator('header').dblclick();summary=page.get_by_role('dialog',name='Resumen del recurso');summary.get_by_text('Identificador del componente',exact=True).click();assert summary.locator('code').inner_text()=='vm';summary.get_by_role('button',name='Comparar recursos',exact=True).click();matrix=page.get_by_role('region',name='Cobertura del diagrama');matrix.wait_for();names=matrix.locator('tbody th').all_inner_texts();assert names==['QA VM','QA Oracle','QA Instancia'],names;matrix.get_by_role('button',name='Volver al mapa',exact=True).click()
  page.get_by_role('button',name='Cobertura',exact=True).click();matrix.wait_for();assert matrix.locator('tbody th').count()==4;matrix.get_by_role('button',name='Volver al mapa',exact=True).click()
- page.get_by_role('button',name='Diagrama',exact=True).click();panel=page.get_by_role('complementary',name='Propiedades del diagrama');assert panel.get_by_text(row['id'].split('-')[-1],exact=True).count()==1;panel.get_by_role('button',name='Cerrar propiedades',exact=True).click()
+ page.locator('.diagram-title-edit').dblclick();panel=page.get_by_role('complementary',name='Propiedades del diagrama');assert panel.get_by_text(row['id'].split('-')[-1],exact=True).count()==1;panel.get_by_role('button',name='Cerrar propiedades',exact=True).click()
  captures=[]
  def capture(request):
   if request.method=='POST' and request.url.endswith('/pdf'):captures.append(request.post_data_json['image'])

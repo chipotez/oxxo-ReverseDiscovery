@@ -92,8 +92,8 @@
     "action": "Revisa la API Key y la Application Key."
   },
   "KOD-CON-003": {
-    "message": "La conexión no tiene permisos para consultar hosts.",
-    "action": "Asigna permisos de lectura de hosts a la Application Key."
+    "message": "La conexión no tiene permisos para consultar esta API.",
+    "action": "Revisa los permisos de lectura de la Application Key para este endpoint."
   },
   "KOD-CON-004": {
     "message": "Espera antes de volver a consultar.",

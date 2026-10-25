@@ -1,6 +1,6 @@
 """Organization-scoped, read-only discovery. Provider endpoints never come from clients."""
 import base64,json,os,time,uuid
-from datetime import datetime,timezone
+from datetime import datetime,timezone,timedelta
 import requests
 from cryptography.fernet import Fernet,InvalidToken
 from flask import Blueprint,jsonify,request,abort
@@ -43,7 +43,7 @@ def input_values(body,old=None):
  if set(secrets)!={'api_key','app_key'}:raise Fault('KOD-CON-006')
  return name.strip(),site,cipher().encrypt(json.dumps(secrets).encode()).decode()
 
-def call_provider(site,path,keys=None,params=None,diagnostics=None):
+def call_provider(site,path,keys=None,params=None,diagnostics=None,accept_list=False):
  # Diagnostic values are explicitly allowlisted; never return credentials or raw headers.
  trace=diagnostics if diagnostics is not None else {}
  trace.update(method='GET',endpoint=path,host=SITES[site].split('://',1)[1],request_headers=['Accept']+(['DD-API-KEY','DD-APPLICATION-KEY'] if keys else []),parameters=params or {},checks={'https_verified':False},response_headers={})
@@ -78,8 +78,9 @@ def call_provider(site,path,keys=None,params=None,diagnostics=None):
      if len(content)>1000000 or time.monotonic()>deadline:raise Fault('KOD-CON-005',status=502)
     trace['response_bytes']=len(content)
     result=json.loads(content)
-    if not isinstance(result,dict):raise ValueError()
-    trace['checks']['json_object']=True
+    if not isinstance(result,(dict,list) if accept_list else dict):raise Fault('KOD-CON-005',status=502)
+    trace['checks']['json_object']=isinstance(result,dict)
+    if accept_list:trace['checks']['json_collection']=isinstance(result,(dict,list))
     return result
  except Fault:raise
  except (requests.RequestException,ValueError):raise Fault('KOD-CON-001',status=502) from None
@@ -129,6 +130,7 @@ def update(cid):
   require_member(c);old=owned(c,cid,True)
   if body.get('revision')!=old['revision']:raise Fault('KOD-CON-008',status=409)
   name,site,secret=input_values(body,old)
+  c.execute('DELETE FROM discovery_capabilities WHERE connection_id=%s',(key(cid),))
   row=c.execute("UPDATE discovery_connections SET name=%s,site=%s,credentials=%s,revision=revision+1,status='draft',run_id=NULL,stages='[]',sample='[]',sample_total=0,tested_at=NULL,updated_at=now() WHERE id=%s RETURNING *",(name,site,secret,key(cid))).fetchone()
  return jsonify(serial(row))
 
@@ -180,3 +182,82 @@ def cancel(cid):
   if str(row['run_id'])!=body.get('run_id'):raise Fault('KOD-CON-008',status=409)
   row=c.execute("UPDATE discovery_connections SET status='draft',run_id=NULL,updated_at=now(),revision=revision+1 WHERE id=%s RETURNING *",(key(cid),)).fetchone()
  return jsonify(serial(row))
+
+# A curated set of concrete read endpoints, not an assertion of all Datadog APIs.
+FAMILIES={
+ 'hosts':dict(label='Hosts',path='/api/v1/hosts',collection='host_list',mode='offset',note='Hosts reportados por Datadog en su ventana reciente (2 horas por defecto). No equivale a un inventario histórico completo.'),
+ 'monitors':dict(label='Monitores y alertas',path='/api/v1/monitor',collection=None,mode='page',note='Configuración de monitores, estados y mensajes de notificación devueltos por esta API.'),
+ 'dashboards':dict(label='Dashboards',path='/api/v1/dashboard',collection='dashboards',mode='offset',note='Listado de dashboards. Esta consulta no carga los widgets de cada dashboard.'),
+ 'logs':dict(label='Logs',path='/api/v2/logs/events',collection='data',mode='cursor',note='Eventos de logs de los últimos 15 minutos. Puede contener datos sensibles de tu organización.'),
+ 'events':dict(label='Eventos',path='/api/v2/events',collection='data',mode='cursor',note='Eventos de los últimos 15 minutos. No representa todos los canales de notificación.'),
+ 'users':dict(label='Personas',path='/api/v2/users',collection='data',mode='number',note='Usuarios visibles para esta cuenta. Solo lectura; no crea ni invita personas.'),
+ 'services':dict(label='Catálogo de servicios',path='/api/v2/services/definitions',collection='data',mode='number',note='Definiciones del catálogo de servicios; no implica acceso a todas las trazas APM.'),
+ 'apm':dict(label='APM · trazas',path='/api/v2/spans/events',collection='data',mode='cursor',note='Spans indexados de los últimos 15 minutos. Esta consulta no incluye todas las métricas o configuraciones APM.')}
+
+def provider_keys(row):
+ try:return json.loads(cipher().decrypt(row['credentials'].encode()))
+ except (InvalidToken,ValueError):raise Fault('KOD-CON-007',status=503) from None
+
+def require_verified(row):
+ if row['status'] not in ['verified','saved'] and not (len(row['stages'])>1 and row['stages'][1].get('status')=='complete'):raise Fault('KOD-CON-008','Comprueba primero la conexión.',409)
+
+def family_config(family):
+ if family not in FAMILIES:raise Fault('KOD-CON-006','Familia de API no admitida.',400)
+ return FAMILIES[family]
+
+def family_params(family,page=0,query='',cursor='',limit=25):
+ if family=='hosts':return dict(start=page*limit,count=limit,include_hosts_metadata='true',include_muted_hosts_data='true',**({'filter':query} if query else {}))
+ if family=='dashboards':return dict(start=page*limit,count=limit)
+ if family=='monitors':return dict(page=page,page_size=limit,**({'name':query} if query else {}))
+ if family in ['users','services']:return {'page[size]':limit,'page[number]':page,**({'filter':query} if query and family=='users' else {})}
+ if family in ['logs','events','apm']:return {'filter[from]':(datetime.now(timezone.utc)-timedelta(minutes=15)).isoformat(),'filter[to]':datetime.now(timezone.utc).isoformat(),'page[limit]':limit,**({'page[cursor]':cursor} if cursor else {}),**({'filter[query]':query} if query else {})}
+ return {}
+
+def family_items(data,config):
+ items=data if config['collection'] is None else data.get(config['collection']) if isinstance(data,dict) else None
+ if not isinstance(items,list):raise Fault('KOD-CON-005',status=502)
+ return items
+
+@bp.get('/<cid>/capabilities')
+def capabilities(cid):
+ with connection(subject()) as c:
+  require_member(c);row=owned(c,cid);require_verified(row)
+  checks={r['family']:r for r in c.execute('SELECT family,status,diagnostics,checked_at FROM discovery_capabilities WHERE connection_id=%s',(key(cid),)).fetchall()}
+ return jsonify(items=[dict(id=f,label=v['label'],endpoint=v['path'],note=v['note'],status=checks[f]['status'] if f in checks else 'unchecked',diagnostics=checks[f]['diagnostics'] if f in checks else {},checked_at=checks[f]['checked_at'].isoformat() if f in checks else None) for f,v in FAMILIES.items()])
+
+@bp.post('/<cid>/capabilities/<family>/probe')
+def probe_family(cid,family):
+ config=family_config(family);trace={};began=time.monotonic();status='unknown';code=None
+ with connection(subject()) as c:
+  require_member(c);row=owned(c,cid,True);require_verified(row)
+  previous=c.execute('SELECT checked_at FROM discovery_capabilities WHERE connection_id=%s AND family=%s',(key(cid),family)).fetchone()
+  if previous and (datetime.now(timezone.utc)-previous['checked_at']).total_seconds()<3:raise Fault('KOD-CON-004',status=429)
+  try:
+   data=call_provider(row['site'],config['path'],provider_keys(row),family_params(family,limit=1),diagnostics=trace,accept_list=config['collection'] is None)
+   family_items(data,config);status='available'
+  except Fault as exc:
+   code=exc.code;http=trace.get('http_status');status='denied' if http in [401,403] else 'unavailable' if http in [404,405,410] else 'unknown'
+  trace.update(duration_ms=round((time.monotonic()-began)*1000),error_code=code)
+  c.execute('INSERT INTO discovery_capabilities(connection_id,scope_key,family,status,diagnostics) VALUES(%s,%s,%s,%s,%s) ON CONFLICT(connection_id,family) DO UPDATE SET status=EXCLUDED.status,diagnostics=EXCLUDED.diagnostics,checked_at=now()',(key(cid),row['scope_key'],family,status,Jsonb(trace)))
+ return jsonify(id=family,label=config['label'],endpoint=config['path'],note=config['note'],status=status,diagnostics=trace,checked_at=datetime.now(timezone.utc).isoformat())
+
+@bp.get('/<cid>/resources/<family>')
+def family_resources(cid,family):
+ config=family_config(family)
+ try:page=int(request.args.get('page','0'));limit=int(request.args.get('limit','5'))
+ except ValueError:raise Fault('KOD-CON-006') from None
+ query=request.args.get('query','').strip();cursor=request.args.get('cursor','')
+ if not 1<=limit<=25 or page<0 or page>100000 or len(query)>250 or len(cursor)>4096:raise Fault('KOD-CON-006')
+ # Local-only filters cannot be presented as searches over all remote records.
+ if query and family not in ['hosts','monitors','users','logs','events','apm']:raise Fault('KOD-CON-006','Esta API no admite búsqueda en esta vista.')
+ with connection(subject()) as c:
+  require_member(c);row=owned(c,cid);require_verified(row)
+  checked=c.execute('SELECT status FROM discovery_capabilities WHERE connection_id=%s AND family=%s',(key(cid),family)).fetchone()
+  if not checked or checked['status']!='available':raise Fault('KOD-CON-003','Identifica primero el acceso a esta API.',403)
+  trace={};data=call_provider(row['site'],config['path'],provider_keys(row),family_params(family,page,query,cursor,limit),diagnostics=trace,accept_list=config['collection'] is None)
+  items=family_items(data,config);total=data.get('total_matching') if family=='hosts' else None
+  after=data.get('meta',{}).get('page',{}).get('after') if config['mode']=='cursor' else None
+  if not isinstance(after,str):after=None
+  if config['mode']=='local':total=len(items);items=items[page*limit:(page+1)*limit]
+  more=bool(after) if config['mode']=='cursor' else (page+1)*limit<total if type(total)==int else len(items)==limit
+ return jsonify(items=items,page=page,total=total if type(total)==int else None,has_more=more,next_cursor=after,endpoint=config['path'],note=config['note'],queried_at=datetime.now(timezone.utc).isoformat())

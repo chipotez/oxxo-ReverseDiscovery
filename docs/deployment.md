@@ -1048,3 +1048,31 @@ container output:
 
 - JS: `739cc1ef06498ea367ba0c10f32ff144849e0b119e1682298daba24c99323bf1`
 - CSS: `efd9df42121c9f51089004741d43d027bdeb7c3308fb24654e91814b4b4a7c33`
+
+## Read-only API explorer — 2026-10-25
+
+Published `localhost/koodaria-workspace:api-explorer-20261025`, image
+`c2aa9b30e74f2992a395a08323133089f674992ee4d4abf0490ae5e3476a0b4b`.
+Applied additive migration `007_discovery_capabilities.sql` to disposable QA and
+production after a successful database backup. Previous Quadlet retained under
+`/home/mip/backups/koodaria-20261025/api-explorer/`. Existing encrypted credentials
+and session environment retained; workspace alone restarted.
+
+Eight concrete Datadog read endpoints can be checked independently, persisted
+per connection/scope and browsed with remote pagination/search where supported.
+A valid credential stage can explore families even if the legacy hosts-only
+sample lacks permission. No graph imports or automatic reconciliation occurs.
+Diagram title double-click/Enter opens diagram properties; the former Diagram
+button opens saved integrations in an isolated overlay with canvas/history
+interaction disabled while browsing.
+
+Validation: 81 backend tests (authorization, scoped persistence, credential-change
+invalidation, contract checks, pagination, full host metadata and cursor handling),
+synthetic API-explorer journey in six light/dark layouts plus three editor layouts,
+and nested graph/connector/inspector regression. Primary data actions and pagination
+verified inside viewport. No customer keys or records used in QA. Evidence:
+`evidence/api-explorer-report.json`, `evidence/scoped-inspectors-report.json`.
+Production health HTTP 200, anonymous discovery HTTP 401. Public hashes match:
+
+- JS: `fb6503284a15b65da664ad67d6241ef0aaf2974300356ecc0b6844de8ec40a2f`
+- CSS: `10210cd36a722499c88439ec8067be92822392c3cc9ff55d03662e6c9d228e21`

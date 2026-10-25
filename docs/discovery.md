@@ -88,3 +88,53 @@ no hay progreso simulado ni afirmaciones sobre distancia o saltos de red. Se
 respeta prefers-reduced-motion. El detalle se pliega inicialmente en móvil y
 pantallas bajas. Pruebas anteriores requieren ejecutarse de nuevo para obtener
 estos diagnósticos. Se guardan en stages JSONB sin migración adicional.
+
+## Exploración de APIs e integración con Diagramas
+
+Tras comprobar las credenciales, «Identificar APIs disponibles» ejecuta una
+consulta mínima y secuencial por cada endpoint del catálogo. Un resultado vacío
+válido también confirma acceso. 401/403 se registra como «Sin permiso»; 404/405/410
+como «No disponible»; red, contrato inválido y límites como «No comprobada». Un
+429 detiene el recorrido; no se presenta como falta de permisos. El catálogo es
+una selección explícita, no una enumeración de todas las APIs o scopes Datadog.
+
+| Familia | GET consultado | Datos y paginación |
+| --- | --- | --- |
+| Hosts | `/api/v1/hosts` | Hosts y metadata, offset/count, búsqueda remota por filtro |
+| Monitores y alertas | `/api/v1/monitor` | Configuración, estados y mensajes, page/page_size |
+| Dashboards | `/api/v1/dashboard` | Resúmenes, start/count; no incluye widgets |
+| Logs | `/api/v2/logs/events` | Últimos 15 minutos, cursor y consulta remota |
+| Eventos | `/api/v2/events` | Últimos 15 minutos, cursor y consulta remota |
+| Personas | `/api/v2/users` | Usuarios, page[number]/page[size] y filtro |
+| Catálogo de servicios | `/api/v2/services/definitions` | Definiciones, paginación por número |
+| APM · trazas | `/api/v2/spans/events` | Spans indexados de 15 minutos, cursor y consulta |
+
+Los campos y parámetros se contrastaron con el cliente oficial de Datadog:
+[API v1](https://github.com/DataDog/datadog-api-client-python/tree/master/src/datadog_api_client/v1/api),
+[API v2](https://github.com/DataDog/datadog-api-client-python/tree/master/src/datadog_api_client/v2/api).
+La autorización corresponde únicamente al endpoint probado. Monitores incluye
+sus mensajes de notificación, no una comprobación de todos los canales de envío.
+
+La migración 007 guarda estado, diagnóstico y fecha por conexión/familia, con
+RLS de organización y FK compuesta que impide asociar otro alcance. Cambiar la
+conexión elimina estas comprobaciones. Las consultas de recursos vuelven a usar
+las credenciales en servidor; los datos completos del registro se entregan solo
+a miembros autorizados de ese alcance, sin persistir un nuevo inventario. Los
+usuarios invitados a diagramas siguen excluidos. No se solicita gestionar claves
+ni permisos administrativos de Datadog para identificar capacidades.
+
+Un rechazo al consultar hosts ya no impide explorar otras APIs cuando la etapa
+de credenciales fue satisfactoria. La fase de muestra anterior puede seguir
+mostrando fallo de hosts: no se convierte en un éxito ficticio.
+
+Diagramas abre «Integraciones / conciliaciones» sin abandonar ni modificar el
+grafo. Dos paneles de igual ancho presentan consultas y registros; móvil cambia
+entre APIs/Datos. Se pagina por 5 registros, o 2 en pantallas bajas, hasta recorrer
+los resultados disponibles. Hosts usa la ventana predeterminada de Datadog
+(2 horas recientes); no promete todos los activos históricos o apagados. El
+registro seleccionado muestra íntegramente los campos devueltos por ese
+endpoint, no atributos inexistentes o de otras APIs. No hay importación ni
+conciliación automática en esta fase.
+
+Las propiedades del diagrama se abren con doble clic en su título, o Enter con
+el título enfocado. Los inspectores de recursos y conexiones conservan su alcance.

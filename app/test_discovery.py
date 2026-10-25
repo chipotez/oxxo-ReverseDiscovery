@@ -94,3 +94,52 @@ class DiscoveryTests(unittest.TestCase):
    raise Fault('KOD-CON-003')
   with patch('discovery.perform',side_effect=probe):r=self.call('post',cid+'/test/step',dict(run_id=run['run_id'],stage=0))
   self.assertEqual(r.status_code,400);stage=self.call('get').json['items'][0]['stages'][0];self.assertEqual(stage['diagnostics']['http_status'],403);self.assertFalse(stage['diagnostics']['checks']['response_contract'])
+
+ def verified(self):
+  row=self.create()
+  with connection(self.owner) as c:c.execute("UPDATE discovery_connections SET status='saved' WHERE id=%s",(row['id'],))
+  return row
+ def test_capability_probe_persists_scope_and_host_records(self):
+  row=self.verified();cid='/'+row['id'];listed=self.call('get',cid+'/capabilities');self.assertEqual(len(listed.json['items']),8)
+  def provider(site,path,keys,params,diagnostics=None,accept_list=False):
+   diagnostics.update(http_status=200,endpoint=path)
+   return dict(host_list=[dict(id=123,name='qa-complete-host',meta=dict(platform='Linux',cpuCores=8),tags_by_source={'agent':['env:qa']},apps=['postgres'])],total_matching=605)
+  with patch('discovery.call_provider',side_effect=provider) as remote:
+   result=self.call('post',cid+'/capabilities/hosts/probe',{});self.assertEqual(result.json['status'],'available')
+   result=self.call('get',cid+'/resources/hosts?query=qa-host&page=2&limit=5');self.assertEqual(result.status_code,200,result.json)
+   self.assertEqual(result.json['items'][0]['meta']['cpuCores'],8);self.assertEqual(result.json['total'],605);self.assertTrue(result.json['has_more'])
+   self.assertEqual(remote.call_args.args[3]['start'],10);self.assertEqual(remote.call_args.args[3]['filter'],'qa-host')
+  self.assertEqual(self.call('get',cid+'/capabilities').json['items'][0]['status'],'available')
+  self.login(self.other);self.assertEqual(self.call('get',cid+'/capabilities').status_code,404);self.assertEqual(self.call('get',cid+'/resources/hosts').status_code,404)
+  self.login('qa-unknown-guest');self.assertEqual(self.call('get',cid+'/capabilities').status_code,403)
+ def test_capability_denial_is_not_a_transport_failure(self):
+  row=self.verified();cid='/'+row['id']
+  def denied(site,path,keys,params,diagnostics=None,**kwargs):
+   diagnostics['http_status']=403;raise Fault('KOD-CON-003')
+  with patch('discovery.call_provider',side_effect=denied):
+   result=self.call('post',cid+'/capabilities/users/probe',{});self.assertEqual(result.status_code,200);self.assertEqual(result.json['status'],'denied')
+  self.assertEqual(self.call('get',cid+'/resources/users').status_code,403)
+  with patch('discovery.call_provider',side_effect=Fault('KOD-CON-001')):
+   result=self.call('post',cid+'/capabilities/apm/probe',{});self.assertEqual(result.json['status'],'unknown')
+  self.assertEqual(self.call('post',cid+'/capabilities/arbitrary/probe',{}).status_code,400)
+  self.assertEqual(self.call('get',cid+'/resources/hosts?limit=10000').status_code,400)
+ def test_capabilities_invalidated_by_connection_change(self):
+  row=self.verified();cid='/'+row['id']
+  with patch('discovery.call_provider',return_value={'host_list':[]}):self.assertEqual(self.call('post',cid+'/capabilities/hosts/probe',{}).json['status'],'available')
+  self.assertEqual(self.call('put',cid,dict(name=row['name'],site=row['site'],revision=row['revision'])).status_code,200)
+  with connection(self.owner) as c:self.assertEqual(c.execute('SELECT count(*) AS n FROM discovery_capabilities WHERE connection_id=%s',(row['id'],)).fetchone()['n'],0)
+  self.assertEqual(self.call('get',cid+'/capabilities').status_code,409)
+ def test_api_collection_contracts_and_cursor(self):
+  row=self.verified();cid='/'+row['id']
+  with patch('discovery.call_provider',return_value=[]) as remote:
+   self.assertEqual(self.call('post',cid+'/capabilities/monitors/probe',{}).json['status'],'available');self.assertTrue(remote.call_args.kwargs['accept_list'])
+  with patch('discovery.call_provider',return_value={'wrong':[]}):self.assertEqual(self.call('post',cid+'/capabilities/logs/probe',{}).json['status'],'unknown')
+  with patch('discovery.call_provider',return_value={'data':[]}):self.assertEqual(self.call('post',cid+'/capabilities/events/probe',{}).json['status'],'available')
+  with patch('discovery.call_provider',return_value={'data':[{'id':'qa-event'}],'meta':{'page':{'after':'qa-cursor'}}}) as remote:
+   result=self.call('get',cid+'/resources/events?cursor=before&limit=5');self.assertEqual(result.json['next_cursor'],'qa-cursor');self.assertTrue(result.json['has_more']);self.assertEqual(remote.call_args.args[3]['page[cursor]'],'before')
+ def test_other_families_can_be_probed_when_hosts_denied(self):
+  row=self.create();cid='/'+row['id']
+  with connection(self.owner) as c:
+   from psycopg.types.json import Jsonb
+   c.execute("UPDATE discovery_connections SET status='failed',stages=%s WHERE id=%s",(Jsonb([{'status':'complete'},{'status':'complete'},{'status':'failed'}]),row['id']))
+  with patch('discovery.call_provider',return_value={'data':[]}):self.assertEqual(self.call('post',cid+'/capabilities/apm/probe',{}).json['status'],'available')
