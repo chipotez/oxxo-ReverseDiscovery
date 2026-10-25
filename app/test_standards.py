@@ -19,6 +19,11 @@ class StandardsTests(unittest.TestCase):
         r=self.send('post',body={'name':'QA Linux','family':'linux'});self.assertEqual(r.status_code,201,r.data);return r.json
     def publish(self,row):
         r=self.send('post','/'+row['id']+'/publish',{'revision':row['revision']});self.assertEqual(r.status_code,201,r.data);return r.json
+    def test_server_schema_exposes_the_same_control_catalog_as_validation(self):
+        from standards import SERVER_MODEL,FUNCTIONS
+        controls=next(s for s in SERVER_MODEL['sections'] if s['id']=='controls')['fields']
+        self.assertEqual({f['id'] for f in controls},set(FUNCTIONS))
+
     def test_draft_publication_immutable_history_and_conflict(self):
         row=self.create();self.assertEqual(len(row['draft']['requirements']),16);self.assertEqual(self.send('get','/published').json['items'],[])
         one=self.publish(row);draft=one['draft'];draft['requirements'][0]['tool']='QA monitor'

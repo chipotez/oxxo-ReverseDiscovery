@@ -12,6 +12,9 @@ model_path=path.with_name('server-standard-model.json')
 if not model_path.exists():model_path=Path(__file__).parent/'frontend/src/server-standard-model.json'
 SERVER_MODEL=json.loads(model_path.read_text())
 CATALOG=json.loads(path.read_text());FUNCTIONS={f['id']:f for f in CATALOG['functions']}
+# Expand the shared control catalog into the authoritative schema metadata too.
+for section in SERVER_MODEL['sections']:
+    if section['id']=='controls':section['fields']=CATALOG['functions']
 bp=Blueprint('standards',__name__,url_prefix='/bienvenida/api/standards')
 bp.before_request(authorize);bp.register_error_handler(Exception,failure)
 from psycopg.errors import UniqueViolation

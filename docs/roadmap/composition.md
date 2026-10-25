@@ -120,3 +120,51 @@ Ancho base de 320 px, margen horizontal de anidación de 10 px y separación
 vertical de 8 px. La altura base depende de las líneas de contexto realmente
 visibles, sin repetir como subtítulo un tipo idéntico al nombre del recurso.
 Se conserva el tamaño de la tipografía; no se usa zoom CSS para compactar.
+
+## Revisión del contrato de datos y propiedades
+
+- El botón «Diagrama» edita el documento. La conexión edita etiqueta, relación
+  y representación. El doble clic en un recurso abre únicamente las secciones
+  de su esquema. Ya no hay un formulario paralelo de atributos ni selector de
+  tipo sobre una instancia existente. El servidor también rechaza reutilizar
+  un ID existente con otro tipo, evitando mezclar estándares o descartar datos.
+- ID técnico del nodo/conexión y CI de inventario tienen propósitos distintos.
+  El ID técnico es metadata persistente del grafo; CI es un dato del estándar.
+  Al copiar un grafo se regeneran IDs técnicos y se remapean todos los extremos
+  y grupos. Los CI documentados se conservan: copiar una vista no crea por sí
+  mismo un nuevo activo físico en un inventario corporativo.
+- `resource_diagrams.document` es un grafo JSONB guardado atómicamente en
+  PostgreSQL, no un inventario independiente de activos. El servidor valida
+  IDs únicos en el documento, extremos existentes, tipos, campos, alojamiento
+  sin ciclos/segundo padre, revisión concurrente y autorización/RLS. Las
+  dependencias admiten relaciones muchos-a-muchos. Los colores no alteran la
+  semántica de esas relaciones ni representan salud operativa.
+- `resource_standards` y `resource_standard_versions` guardan políticas y
+  publicaciones. Los modelos base/taxonomía todavía son archivos compartidos
+  entre editor y servidor; `resource_schema` se reconstruye en el servidor,
+  nunca se confía en un esquema arbitrario enviado por el navegador.
+- La incorporación de campos de catálogo sigue siendo una vista previa no
+  persistente por el alcance anterior. Para convertirla en una función real
+  se necesita un registro de esquemas por organización, versiones inmutables,
+  tipos/reglas de campos, permisos de publicación y migración explícita de las
+  instancias. Crear solo una tabla sin cambiar lectura, validación y formularios
+  no resolvería ese requisito. No se presenta esta capacidad como implementada.
+- No se crea una tabla por servidor o tipo. Si se decide reutilizar el mismo
+  activo entre diagramas, hará falta un registro de recursos independiente y
+  separar referencias al activo de su representación en cada diagrama. En la
+  etapa actual cada diagrama conserva sus instancias; no se impone unicidad
+  global de CI ni se fusionan recursos por hostname.
+
+La prueba de persistencia confirma extremos/IDs y campos canónicos después de
+cerrar y reabrir. Un guardado inválido no modifica la revisión ni reemplaza el
+último documento válido. La exportación PDF aún no replica los estilos nuevos
+ni todos los detalles de formularios: pendiente explícito, no validado por una
+captura del editor. El motivo exacto del rechazo original del usuario tampoco
+se atribuye a una causa sin contar con la solicitud que falló.
+
+Se corrigió asimismo una discrepancia de metadata: `resource_schema` del servidor
+incluía el bloque de controles con `fields: []`, aunque formulario/validación ya
+consumían las 16 capacidades. El modelo autoritativo y el renderer ahora expanden
+ese mismo catálogo; la metadata guardada refleja los campos realmente aceptados.
+Las políticas publicadas mantienen su versión y exigencias; no se inventa una
+nueva versión de política ni se sobrescriben estados declarados de controles.

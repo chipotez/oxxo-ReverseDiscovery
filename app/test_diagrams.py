@@ -26,10 +26,10 @@ class DiagramValidationTests(unittest.TestCase):
 
     def test_connection_styles_and_long_endpoint_ids(self):
         nodes=[dict(id=i*100,type='resource',position=dict(x=0,y=0),data=dict(label=i,kind='virtual')) for i in ['a','b']]
-        edge=dict(id='xy-edge__'+nodes[0]['id']+'south-'+nodes[1]['id']+'north',source=nodes[0]['id'],target=nodes[1]['id'],sourceHandle='south',targetHandle='north',type='default',pattern='dotted',arrows='both')
+        edge=dict(id='xy-edge__'+nodes[0]['id']+'south-'+nodes[1]['id']+'north',source=nodes[0]['id'],target=nodes[1]['id'],sourceHandle='south',targetHandle='north',type='default',pattern='dotted',arrows='both',color='blue')
         doc=dict(name='QA',nodes=nodes,edges=[edge])
         self.assertEqual(validate(doc)['edges'][0]['pattern'],'dotted')
-        for field in ['pattern','arrows','type']:
+        for field in ['pattern','arrows','type','color']:
             invalid=dict(edge,**{field:'url(javascript:invalid)'})
             with self.assertRaises(InvalidDiagram):validate(dict(doc,edges=[invalid]))
         edge['target']='missing'
@@ -60,12 +60,22 @@ class DiagramIntegrationTests(unittest.TestCase):
                 c.execute('DELETE FROM resource_diagrams WHERE owner_sub=%s',(owner,))
                 c.execute('DELETE FROM diagram_folders WHERE owner_sub=%s',(owner,))
     def send(self,method,path='',value=None):return getattr(self.client,method)('/bienvenida/api/diagrams'+path,json=value,headers={'X-CSRF-Token':'qa-token'})
+    def test_relation_clear_and_standard_only_component_values(self):
+        row=self.create();doc=dict(name='QA',nodes=[dict(id=i,type='resource',position=dict(x=0,y=0),data=dict(kind='virtual',label=i)) for i in ['a','b']],edges=[dict(id='link',source='a',target='b',relation='depends',color='rose',pattern='dashdot')])
+        r=self.send('put','/'+row['id'],dict(revision=row['revision'],document=doc));self.assertEqual(r.status_code,200,r.data)
+        row=self.send('get','/'+row['id']).json;row['document']['edges'][0]['relation']=''
+        r=self.send('put','/'+row['id'],dict(revision=row['revision'],document=row['document']));self.assertEqual(r.status_code,200,r.data)
+        saved=self.send('get','/'+row['id']).json;self.assertNotIn('relation',saved['document']['edges'][0]);self.assertEqual(saved['document']['edges'][0]['color'],'rose')
+        saved['document']['nodes'][0]['data']['server_instance']={'identification':{'outside_standard':'invalid'}}
+        r=self.send('put','/'+row['id'],dict(revision=saved['revision'],document=saved['document']));self.assertEqual(r.status_code,400);self.assertIn('Recurso 1',r.json['error'])
+        self.assertEqual(self.send('get','/'+row['id']).json['revision'],saved['revision'])
+
     def test_nested_connection_styles_roundtrip(self):
         row=self.create();doc=row['document'];doc['nodes']=[dict(id=i,type='resource',position=dict(x=0,y=0),data=dict(kind=k,label=i)) for i,k in [('vm','virtual'),('db','datos'),('other','virtual')]]
-        doc['edges']=[dict(id='host',source='vm',target='db',relation='hosts'),dict(id='line',source='db',target='other',pattern='dashed',arrows='both',type='default')]
+        doc['edges']=[dict(id='host',source='vm',target='db',relation='hosts'),dict(id='line',source='db',target='other',pattern='dashed',arrows='both',type='default',color='blue')]
         saved=self.send('put','/'+row['id'],dict(revision=row['revision'],document=doc));self.assertEqual(saved.status_code,200,saved.data)
         row=self.send('get','/'+row['id']).json;line=row['document']['edges'][1];self.assertEqual(line['arrows'],'both')
-        for field in ['pattern','arrows','type']:line.pop(field)
+        for field in ['pattern','arrows','type','color']:line.pop(field)
         saved=self.send('put','/'+row['id'],dict(revision=row['revision'],document=row['document']));self.assertEqual(saved.status_code,200,saved.data)
         line=self.send('get','/'+row['id']).json['document']['edges'][1];self.assertEqual((line['pattern'],line['arrows'],line['type']),('dashed','both','default'))
 
@@ -153,11 +163,14 @@ class DiagramIntegrationTests(unittest.TestCase):
         doc['edges'][0].pop('type');r=self.send('put',path,dict(revision=revision,document=doc));self.assertEqual(r.status_code,200);self.assertEqual(self.send('get',path).json['document']['edges'][0]['type'],'step')
         doc['edges'][0]['type']='untrusted';self.assertEqual(self.send('put',path,dict(revision=r.json['revision'],document=doc)).status_code,400)
 
-    def test_changing_component_type_does_not_restore_incompatible_instance(self):
+    def test_existing_component_type_is_immutable_and_replacement_is_explicit(self):
         row=self.create();path='/'+row['id']
         doc=dict(name='QA type',nodes=[dict(id='vm',type='resource',position=dict(x=0,y=0),data=dict(label='VM',kind='virtual',server_instance={'identification':{'hostname':'qa.example'}}))],edges=[])
         saved=self.send('put',path,value=dict(revision=row['revision'],document=doc));self.assertEqual(saved.status_code,200)
         doc['nodes'][0]['data']=dict(label='Hypervisor',kind='hipervisor')
+        result=self.send('put',path,value=dict(revision=saved.json['revision'],document=doc));self.assertEqual(result.status_code,400)
+        current=self.send('get',path).json['document']['nodes'][0]['data'];self.assertEqual(current['kind'],'virtual');self.assertEqual(current['server_instance']['identification']['hostname'],'qa.example')
+        doc['nodes'][0]['id']='new-hypervisor'
         result=self.send('put',path,value=dict(revision=saved.json['revision'],document=doc));self.assertEqual(result.status_code,200)
         current=self.send('get',path).json['document']['nodes'][0]['data']
         self.assertNotIn('server_instance',current);self.assertIn('resource_schema',current)

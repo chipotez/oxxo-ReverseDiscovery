@@ -1,0 +1,70 @@
+{
+  "synthetic_identity_only": true,
+  "states": [
+    {
+      "theme": "light",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "theme": "light",
+      "width": 844,
+      "height": 390
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "theme": "dark",
+      "width": 844,
+      "height": 390
+    }
+  ],
+  "browser_errors": [],
+  "nested_save_roundtrip": true,
+  "styles_roundtrip": true,
+  "centered_toolbar": true,
+  "isolated_inspectors": true,
+  "canonical_hostname_roundtrip": true,
+  "stable_ids": true,
+  "image": "2a147ea08eaf0f6e66b84cb04615338e4af072c9ad6b85843739d222e77a33c0",
+  "public_assets": {
+    "js": "758645f68ff2b7a8591d0be79a65fd03e9363dcd0233dec538ce35f154d4e5ec",
+    "css": "4e46d615c1e652f51acb6d1d5d1ab4c308a8acc22fd31f95f58fac3c9cb72159"
+  },
+  "backend_tests": 53,
+  "audit": {
+    "fixed": [
+      "mixed diagram/resource/connection editor",
+      "mutable existing node kind",
+      "relation classification restored after explicit removal",
+      "empty control-schema metadata despite 16 accepted controls",
+      "copied graph IDs reused"
+    ],
+    "verified": [
+      "PostgreSQL roundtrip",
+      "invalid document rollback",
+      "canonical schema authority",
+      "hosting forest",
+      "many-to-many dependencies",
+      "authorization and revision tests"
+    ],
+    "pending": [
+      "persistent editable component catalog",
+      "independent shared asset registry if product requires it",
+      "PDF parity with connector styles"
+    ]
+  }
+}

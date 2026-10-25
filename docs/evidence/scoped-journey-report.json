@@ -1,0 +1,152 @@
+{
+  "synthetic_identity_only": true,
+  "states": [
+    {
+      "view": "matrix",
+      "theme": "light",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "view": "matrix",
+      "theme": "light",
+      "width": 1024,
+      "height": 600
+    },
+    {
+      "view": "matrix",
+      "theme": "light",
+      "width": 768,
+      "height": 700
+    },
+    {
+      "view": "matrix",
+      "theme": "light",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "view": "matrix",
+      "theme": "light",
+      "width": 320,
+      "height": 568
+    },
+    {
+      "view": "matrix",
+      "theme": "light",
+      "width": 844,
+      "height": 390
+    },
+    {
+      "view": "summary",
+      "theme": "light",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "view": "summary",
+      "theme": "light",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "view": "summary",
+      "theme": "light",
+      "width": 320,
+      "height": 568
+    },
+    {
+      "view": "summary",
+      "theme": "light",
+      "width": 844,
+      "height": 390
+    },
+    {
+      "view": "matrix",
+      "theme": "dark",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "view": "matrix",
+      "theme": "dark",
+      "width": 1024,
+      "height": 600
+    },
+    {
+      "view": "matrix",
+      "theme": "dark",
+      "width": 768,
+      "height": 700
+    },
+    {
+      "view": "matrix",
+      "theme": "dark",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "view": "matrix",
+      "theme": "dark",
+      "width": 320,
+      "height": 568
+    },
+    {
+      "view": "matrix",
+      "theme": "dark",
+      "width": 844,
+      "height": 390
+    },
+    {
+      "view": "summary",
+      "theme": "dark",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "view": "summary",
+      "theme": "dark",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "view": "summary",
+      "theme": "dark",
+      "width": 320,
+      "height": 568
+    },
+    {
+      "view": "summary",
+      "theme": "dark",
+      "width": 844,
+      "height": 390
+    }
+  ],
+  "accessibility": [
+    {
+      "view": "matrix",
+      "theme": "light",
+      "violations": []
+    },
+    {
+      "view": "summary",
+      "theme": "light",
+      "violations": []
+    },
+    {
+      "view": "matrix",
+      "theme": "dark",
+      "violations": []
+    },
+    {
+      "view": "summary",
+      "theme": "dark",
+      "violations": []
+    }
+  ],
+  "search_and_pagination": true,
+  "browser_errors": [],
+  "canonical_edit_roundtrip": true,
+  "own_standard_counts": true,
+  "selected_ribbon_only": true
+}

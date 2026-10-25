@@ -38,39 +38,42 @@ def validate(value):
     if not isinstance(nodes, list) or not isinstance(edges, list) or len(nodes)>200 or len(edges)>500:
         raise InvalidDiagram()
     clean, ids = [], {}
-    for n in nodes:
-        if not isinstance(n, dict): raise InvalidDiagram()
-        key = text(n.get('id'), 100, True)
-        kind = n.get('type')
-        data, pos = n.get('data'), n.get('position')
-        if key in ids or kind not in ('resource', 'resourceGroup') or not isinstance(data, dict) or not isinstance(pos, dict): raise InvalidDiagram()
-        if data.get('kind') not in KINDS or (kind=='resourceGroup') != (data['kind']=='grupo'): raise InvalidDiagram()
-        out = dict(id=key, type=kind, position=dict(x=number(pos.get('x'),-100000,100000),y=number(pos.get('y'),-100000,100000)), data=dict(label=text(data.get('label'),100,True),kind=data['kind'],address=text(data.get('address',''),120),port=text(data.get('port',''),40)))
-        for field in ['provider','technology','location']:
-            if field in data:out['data'][field]=text(data[field],120)
-        if 'server_instance' in data:
-            from standards import instance
-            if data['kind'] not in ['servidor','virtual']:raise InvalidDiagram()
-            try:out['data']['server_instance']=instance(data['server_instance'])
-            except InvalidDiagram:raise InvalidDiagram('Los datos de un servidor no coinciden con los campos o formatos de su estándar. Revisa sus cuatro secciones.')
-        if 'component_instance' in data:
-            from standards import instance
-            from diagram_catalog import resource_model
-            schema=resource_model(data['kind'])
-            if not schema or data['kind'] in ['servidor','virtual']:raise InvalidDiagram()
-            try:out['data']['component_instance']=instance(data['component_instance'],schema)
-            except InvalidDiagram:raise InvalidDiagram('Los datos de un componente no coinciden con su estándar. Revisa sus cuatro secciones.')
-        if data.get('standard') is not None:
-            from standards import reference
-            out['data']['standard']=reference(data['standard'])
-        if kind=='resourceGroup':
-            style=n.get('style',{})
-            if not isinstance(style,dict) or n.get('parentId'): raise InvalidDiagram()
-            out['style']=dict(width=number(style.get('width',380),260,3000),height=number(style.get('height',260),180,3000))
-        if n.get('parentId'):
-            out.update(parentId=text(n['parentId'],100,True),extent='parent')
-        ids[key]=out
-        clean.append(out)
+    for index,n in enumerate(nodes,1):
+        try:
+            if not isinstance(n, dict): raise InvalidDiagram()
+            key = text(n.get('id'), 100, True)
+            kind = n.get('type')
+            data, pos = n.get('data'), n.get('position')
+            if key in ids or kind not in ('resource', 'resourceGroup') or not isinstance(data, dict) or not isinstance(pos, dict): raise InvalidDiagram()
+            if data.get('kind') not in KINDS or (kind=='resourceGroup') != (data['kind']=='grupo'): raise InvalidDiagram()
+            out = dict(id=key, type=kind, position=dict(x=number(pos.get('x'),-100000,100000),y=number(pos.get('y'),-100000,100000)), data=dict(label=text(data.get('label'),100,True),kind=data['kind'],address=text(data.get('address',''),120),port=text(data.get('port',''),40)))
+            for field in ['provider','technology','location']:
+                if field in data:out['data'][field]=text(data[field],120)
+            if 'server_instance' in data:
+                from standards import instance
+                if data['kind'] not in ['servidor','virtual']:raise InvalidDiagram()
+                try:out['data']['server_instance']=instance(data['server_instance'])
+                except InvalidDiagram:raise InvalidDiagram('Los datos de un servidor no coinciden con los campos o formatos de su estándar. Revisa sus cuatro secciones.')
+            if 'component_instance' in data:
+                from standards import instance
+                from diagram_catalog import resource_model
+                schema=resource_model(data['kind'])
+                if not schema or data['kind'] in ['servidor','virtual']:raise InvalidDiagram()
+                try:out['data']['component_instance']=instance(data['component_instance'],schema)
+                except InvalidDiagram:raise InvalidDiagram('Los datos de un componente no coinciden con su estándar. Revisa sus cuatro secciones.')
+            if data.get('standard') is not None:
+                from standards import reference
+                out['data']['standard']=reference(data['standard'])
+            if kind=='resourceGroup':
+                style=n.get('style',{})
+                if not isinstance(style,dict) or n.get('parentId'): raise InvalidDiagram()
+                out['style']=dict(width=number(style.get('width',380),260,3000),height=number(style.get('height',260),180,3000))
+            if n.get('parentId'):
+                out.update(parentId=text(n['parentId'],100,True),extent='parent')
+            ids[key]=out
+            clean.append(out)
+        except InvalidDiagram as exc:
+            raise InvalidDiagram(f'Recurso {index}: '+(str(exc) or 'revisa el tipo, los campos del estándar y los límites de sus valores.')) from None
     for n in clean:
         if n.get('parentId') and ids.get(n['parentId'],{}).get('type')!='resourceGroup': raise InvalidDiagram()
     connections, seen = [], set()
@@ -87,13 +90,13 @@ def validate(value):
             if handle is not None:
                 if handle not in ['north','south'] or ids[node_id]['data']['kind'] in ['grupo','nota','etiqueta']:raise InvalidDiagram('Una conexión usa un punto de unión no disponible para ese recurso.')
                 item[field]=handle
-        if 'relation' in e:
+        if e.get('relation'):
             if e['relation'] not in ['hosts','belongs','depends','connected','storage','managed','used']:raise InvalidDiagram()
             item['relation']=e['relation']
         if 'type' in e:
             if e['type'] not in ['straight','default','smoothstep','step']:raise InvalidDiagram()
             item['type']=e['type']
-        for field,options in [('pattern',['solid','dashed','dotted']),('arrows',['none','start','end','both'])]:
+        for field,options in [('pattern',['solid','dashed','dotted','dashdot','longdash']),('arrows',['none','start','end','both']),('color',['auto','forest','graphite','blue','purple','amber','rose'])]:
             if field in e:
                 if e[field] not in options:raise InvalidDiagram('Revisa el estilo de la conexión.')
                 item[field]=e[field]
@@ -289,14 +292,17 @@ def save(diagram_id):
         old_nodes={n['id']:n for n in original['document']['nodes']}
         for node in value['nodes']:
             old=old_nodes.get(node['id'],{}).get('data',{})
+            if old and old.get('kind')!=node['data']['kind']:
+                raise InvalidDiagram('El tipo de un componente existente no se puede cambiar. Crea el componente correcto y vuelve a vincularlo; sus datos pertenecen a otro estándar.')
             for field in ['provider','technology','location','server_instance','component_instance']:
                 if field not in node['data'] and field in old and old.get('kind')==node['data']['kind']:node['data'][field]=old[field]
         old_edges={e['id']:e for e in original['document']['edges']}
         for edge in value['edges']:
             old=old_edges.get(edge['id'],{})
-            for field in ['type','pattern','arrows']:
+            for field in ['type','pattern','arrows','color']:
                 if field not in edge and field in old:edge[field]=old[field]
-            if 'relation' not in edge and 'relation' in old and old.get('source')==edge['source'] and old.get('target')==edge['target']:edge['relation']=old['relation']
+            incoming=next(e for e in body['document']['edges'] if e['id']==edge['id'])
+            if 'relation' not in incoming and 'relation' in old and old.get('source')==edge['source'] and old.get('target')==edge['target']:edge['relation']=old['relation']
             for field,endpoint in [('sourceHandle','source'),('targetHandle','target')]:
                 incoming=next(e for e in body['document']['edges'] if e['id']==edge['id'])
                 if field not in incoming and old.get(endpoint)==edge[endpoint] and field in old and next(n for n in value['nodes'] if n['id']==edge[endpoint])['data']['kind'] in ['servidor','virtual']:edge[field]=old[field]

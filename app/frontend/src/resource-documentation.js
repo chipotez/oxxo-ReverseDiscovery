@@ -3,7 +3,7 @@ import operating from './operating-standards.json';
 import {resourcesByKind,componentSections} from './component-catalog.js';
 export const serverKind=kind=>['servidor','virtual'].includes(kind);
 export const instanceKey=data=>serverKind(data.kind)?'server_instance':'component_instance';
-export const sectionsFor=data=>serverKind(data.kind)?model.sections:resourcesByKind[data.kind]?componentSections(resourcesByKind[data.kind]):[];
+export const sectionsFor=data=>serverKind(data.kind)?model.sections.map(s=>s.id==='controls'?{...s,fields:operating.functions}:s):resourcesByKind[data.kind]?componentSections(resourcesByKind[data.kind]):[];
 export const documented=v=>typeof v==='string'&&!!v.trim()&&!/^(no aplica|n\/a|na)\s*[:\-]?\s*$/i.test(v.trim())&&!['sin documentar','desconocido'].includes(v.trim().toLowerCase());
 export const related=(id,field,edges)=>edges.filter(e=>field==='belongs'?(e.relation==='hosts'&&e.target===id)||(e.relation==='belongs'&&e.source===id):field==='used'?(e.relation==='used'&&e.source===id)||(e.relation==='depends'&&e.target===id):e.relation===field&&(e.source===id||(field==='connected'&&e.target===id)));
 export function documentation(data,section,id,edges=[]){

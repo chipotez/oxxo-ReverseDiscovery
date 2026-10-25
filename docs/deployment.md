@@ -804,3 +804,37 @@ Imagen activa y hashes JS/CSS públicos verificados.
 Alcance: edición visual de conexiones en línea. El exportador PDF existente aún
 utiliza su trazado ortogonal; sincronizar estos estilos con PDF y permitir puntos
 de control manuales queda para una siguiente iteración.
+
+## 2026-10-24 · Inspectores por contexto y revisión del modelo
+
+Imagen `localhost/koodaria-workspace:scoped-inspectors-20261024`,
+ID `2a147ea08eaf0f6e66b84cb04615338e4af072c9ad6b85843739d222e77a33c0`.
+Barra de líneas centrada bajo la cabecera, títulos centrados, color y patrones
+adicionales. «Conexión» se aclara como etiqueta opcional de la línea, independiente
+de su relación de arquitectura. Las propiedades muestran origen, destino e ID.
+El botón «Diagrama» queda separado; doble clic en un recurso abre las cuatro
+secciones del esquema, sin editar el documento ni cambiar el tipo de instancia.
+IDs existentes conservados; las copias remapean IDs y extremos con nuevos UUID.
+
+Revisión de raíz: el servidor bloquea reutilizar un nodo con otro tipo, rechaza
+campos de instancia ajenos al estándar, conserva el documento anterior si falla,
+y respeta quitar explícitamente la clasificación de una relación (antes podía
+restaurarla). Se expandió también el catálogo de controles en `resource_schema`:
+la metadata ya no declara cero campos mientras UI/validación usan 16 capacidades.
+Alojamiento validado como bosque; dependencias muchos-a-muchos y autorización/RLS
+sin cambios. No se añadió una tabla por nodo: persistencia atómica del grafo JSONB.
+
+Limitaciones revisadas y documentadas en `docs/roadmap/composition.md`: catálogo
+base en archivos, alta de campos todavía de vista previa, ausencia de inventario
+independiente compartido entre diagramas y PDF sin réplica de nuevos estilos.
+No se declara implementado un catálogo dinámico/versionado por organización.
+
+Pruebas: 53 de servidor, semántica/layout y remapeo de identidades; navegador con
+seis tamaños/temas, centrado, separación de inspectores, campo canónico y guardado/
+reapertura. Recorrido completo de resumen/matriz en 20 estados y auditorías AA
+antes de la corrección final de metadata (sin cambio de representación del control).
+Reportes `docs/evidence/scoped-inspectors-report.json` y
+`docs/evidence/scoped-journey-report.json`.
+Backup y unidad anterior en `/home/mip/backups/koodaria-20261024/scoped-inspectors/`.
+Solo se reinicia workspace; sin migración SQL, sin modificar secretos ni identidad.
+Reversión a `connection-tools-20261024`.
