@@ -150,3 +150,5 @@
 /* Tighter content-driven footprint without reducing text size. */
 .resource-node.narrative-node{padding:10px}.narrative-node>header{min-height:32px;gap:7px}.narrative-node>header>svg{width:22px;height:22px}.narrative-node .node-summary{margin:4px 0;line-height:14px}.resource-tool .narrative-node .hosted-resources .hosted-add{width:24px;height:24px;min-height:24px}.narrative-node>header .hosted-resources{height:24px}
 .narrative-node .node-summary:empty{display:none}
+
+.connection-toolbar{position:absolute;z-index:12;display:flex;align-items:end;flex-wrap:wrap;gap:8px;width:min(460px,calc(100% - 16px));padding:12px;border:1px solid var(--catalog-border,#dce7df);border-radius:16px;background:var(--card-bg,#fff);box-shadow:0 8px 28px -14px #193a3755;color:var(--ink)}.connection-toolbar label{flex:1;min-width:100px;font-size:12px;margin:0;line-height:1.4}.resource-tool .connection-toolbar select{width:100%;margin-top:4px;font-size:13px;padding:6px;min-height:34px}.resource-tool .connection-toolbar button{padding:6px;min-width:32px;min-height:34px}.connection-toolbar:focus-within{outline:1px solid var(--forest)}

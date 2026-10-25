@@ -51,13 +51,15 @@ def validate(value):
         if 'server_instance' in data:
             from standards import instance
             if data['kind'] not in ['servidor','virtual']:raise InvalidDiagram()
-            out['data']['server_instance']=instance(data['server_instance'])
+            try:out['data']['server_instance']=instance(data['server_instance'])
+            except InvalidDiagram:raise InvalidDiagram('Los datos de un servidor no coinciden con los campos o formatos de su estándar. Revisa sus cuatro secciones.')
         if 'component_instance' in data:
             from standards import instance
             from diagram_catalog import resource_model
             schema=resource_model(data['kind'])
             if not schema or data['kind'] in ['servidor','virtual']:raise InvalidDiagram()
-            out['data']['component_instance']=instance(data['component_instance'],schema)
+            try:out['data']['component_instance']=instance(data['component_instance'],schema)
+            except InvalidDiagram:raise InvalidDiagram('Los datos de un componente no coinciden con su estándar. Revisa sus cuatro secciones.')
         if data.get('standard') is not None:
             from standards import reference
             out['data']['standard']=reference(data['standard'])
@@ -74,15 +76,16 @@ def validate(value):
     connections, seen = [], set()
     for e in edges:
         if not isinstance(e,dict): raise InvalidDiagram()
-        key=text(e.get('id'),120,True)
+        try:key=text(e.get('id'),240,True)
+        except InvalidDiagram:raise InvalidDiagram('Una conexión tiene un identificador inválido. Elimínala y vuelve a conectarla.')
         source, target=e.get('source'),e.get('target')
-        if not isinstance(source,str) or not isinstance(target,str) or key in seen or source==target or ids.get(source,{}).get('type')!='resource' or ids.get(target,{}).get('type')!='resource': raise InvalidDiagram()
+        if not isinstance(source,str) or not isinstance(target,str) or key in seen or source==target or ids.get(source,{}).get('type')!='resource' or ids.get(target,{}).get('type')!='resource': raise InvalidDiagram('Una conexión tiene extremos inexistentes, repetidos o iguales. Revisa sus recursos.')
         seen.add(key)
         item=dict(id=key,source=source,target=target,label=text(e.get('label',''),100))
         for field,node_id in [('sourceHandle',source),('targetHandle',target)]:
             handle=e.get(field)
             if handle is not None:
-                if handle not in ['north','south'] or ids[node_id]['data']['kind'] in ['grupo','nota','etiqueta']:raise InvalidDiagram()
+                if handle not in ['north','south'] or ids[node_id]['data']['kind'] in ['grupo','nota','etiqueta']:raise InvalidDiagram('Una conexión usa un punto de unión no disponible para ese recurso.')
                 item[field]=handle
         if 'relation' in e:
             if e['relation'] not in ['hosts','belongs','depends','connected','storage','managed','used']:raise InvalidDiagram()
@@ -90,14 +93,18 @@ def validate(value):
         if 'type' in e:
             if e['type'] not in ['straight','default','smoothstep','step']:raise InvalidDiagram()
             item['type']=e['type']
+        for field,options in [('pattern',['solid','dashed','dotted']),('arrows',['none','start','end','both'])]:
+            if field in e:
+                if e[field] not in options:raise InvalidDiagram('Revisa el estilo de la conexión.')
+                item[field]=e[field]
         connections.append(item)
     hosting={};children={}
     for edge in connections:
         if edge.get('relation')!='hosts':continue
-        if edge['target'] in hosting:raise InvalidDiagram()
+        if edge['target'] in hosting:raise InvalidDiagram('Un componente no puede estar dentro de dos recursos. Usa una relación de dependencia para el segundo vínculo.')
         hosting[edge['target']]=edge['source'];children.setdefault(edge['source'],[]).append(edge['target'])
     def visit(n,trail):
-        if n in trail:raise InvalidDiagram()
+        if n in trail:raise InvalidDiagram('El alojamiento forma un ciclo: un componente no puede contener a su propio contenedor.')
         for child in children.get(n,[]):visit(child,trail|{n})
     for root in children:visit(root,set())
     clean.sort(key=lambda n:n['type']!='resourceGroup')
@@ -125,6 +132,7 @@ def failure(exc):
     if isinstance(exc, InvitationUnavailable): return jsonify(error=str(exc)),503
     if isinstance(exc, psycopg.errors.UniqueViolation): return jsonify(error='Ya existe una carpeta con ese nombre.'),409
     if isinstance(exc, HTTPException): return jsonify(error='La solicitud no es válida.'),exc.code
+    if isinstance(exc,InvalidDiagram) and str(exc):return jsonify(error=str(exc)),400
     if isinstance(exc,(InvalidDiagram,TypeError,KeyError,ValueError)): return jsonify(error='El diagrama no es válido. Revisa sus datos.'),400
     # No connection strings, diagram data or credentials in errors/logs.
     return jsonify(error='No se pudo acceder al guardado. Tus cambios siguen en esta pestaña; vuelve a intentarlo.'),503
@@ -286,7 +294,8 @@ def save(diagram_id):
         old_edges={e['id']:e for e in original['document']['edges']}
         for edge in value['edges']:
             old=old_edges.get(edge['id'],{})
-            if 'type' not in edge and 'type' in old:edge['type']=old['type']
+            for field in ['type','pattern','arrows']:
+                if field not in edge and field in old:edge[field]=old[field]
             if 'relation' not in edge and 'relation' in old and old.get('source')==edge['source'] and old.get('target')==edge['target']:edge['relation']=old['relation']
             for field,endpoint in [('sourceHandle','source'),('targetHandle','target')]:
                 incoming=next(e for e in body['document']['edges'] if e['id']==edge['id'])

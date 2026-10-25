@@ -24,6 +24,17 @@ class DiagramValidationTests(unittest.TestCase):
         edges=[dict(id=a+b,source=a,target=b,relation='depends') for a,b in [('a','b'),('b','a'),('c','b'),('a','c')]]
         self.assertEqual(len(validate(dict(name='QA',nodes=nodes,edges=edges))['edges']),4)
 
+    def test_connection_styles_and_long_endpoint_ids(self):
+        nodes=[dict(id=i*100,type='resource',position=dict(x=0,y=0),data=dict(label=i,kind='virtual')) for i in ['a','b']]
+        edge=dict(id='xy-edge__'+nodes[0]['id']+'south-'+nodes[1]['id']+'north',source=nodes[0]['id'],target=nodes[1]['id'],sourceHandle='south',targetHandle='north',type='default',pattern='dotted',arrows='both')
+        doc=dict(name='QA',nodes=nodes,edges=[edge])
+        self.assertEqual(validate(doc)['edges'][0]['pattern'],'dotted')
+        for field in ['pattern','arrows','type']:
+            invalid=dict(edge,**{field:'url(javascript:invalid)'})
+            with self.assertRaises(InvalidDiagram):validate(dict(doc,edges=[invalid]))
+        edge['target']='missing'
+        with self.assertRaisesRegex(InvalidDiagram,'extremos'):validate(doc)
+
     def test_untrusted_document_rejected(self):
         for value in [None,[],{},dict(name='x',nodes=[{}],edges=[]),dict(name='x',nodes=[],edges=[{}])]:
             with self.assertRaises(InvalidDiagram):validate(value)
@@ -49,6 +60,15 @@ class DiagramIntegrationTests(unittest.TestCase):
                 c.execute('DELETE FROM resource_diagrams WHERE owner_sub=%s',(owner,))
                 c.execute('DELETE FROM diagram_folders WHERE owner_sub=%s',(owner,))
     def send(self,method,path='',value=None):return getattr(self.client,method)('/bienvenida/api/diagrams'+path,json=value,headers={'X-CSRF-Token':'qa-token'})
+    def test_nested_connection_styles_roundtrip(self):
+        row=self.create();doc=row['document'];doc['nodes']=[dict(id=i,type='resource',position=dict(x=0,y=0),data=dict(kind=k,label=i)) for i,k in [('vm','virtual'),('db','datos'),('other','virtual')]]
+        doc['edges']=[dict(id='host',source='vm',target='db',relation='hosts'),dict(id='line',source='db',target='other',pattern='dashed',arrows='both',type='default')]
+        saved=self.send('put','/'+row['id'],dict(revision=row['revision'],document=doc));self.assertEqual(saved.status_code,200,saved.data)
+        row=self.send('get','/'+row['id']).json;line=row['document']['edges'][1];self.assertEqual(line['arrows'],'both')
+        for field in ['pattern','arrows','type']:line.pop(field)
+        saved=self.send('put','/'+row['id'],dict(revision=row['revision'],document=row['document']));self.assertEqual(saved.status_code,200,saved.data)
+        line=self.send('get','/'+row['id']).json['document']['edges'][1];self.assertEqual((line['pattern'],line['arrows'],line['type']),('dashed','both','default'))
+
     def test_component_context_roundtrip_legacy_preservation_and_validation(self):
         row=self.create();doc=row['document'];doc['nodes']=[dict(id='qa-db',type='resource',position=dict(x=0,y=0),data=dict(kind='instancia_db',label='QA DB',provider='Oracle',technology='Oracle 19c',location='QA región'))]
         saved=self.send('put','/'+row['id'],{'revision':row['revision'],'document':doc});self.assertEqual(saved.status_code,200,saved.data)

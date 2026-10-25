@@ -1,0 +1,45 @@
+{
+  "synthetic_identity_only": true,
+  "states": [
+    {
+      "theme": "light",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "theme": "light",
+      "width": 844,
+      "height": 390
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "theme": "dark",
+      "width": 844,
+      "height": 390
+    }
+  ],
+  "browser_errors": [],
+  "nested_save_roundtrip": true,
+  "styles_roundtrip": true,
+  "image": "5d0f5a4b75b28925c14772d48688031f303c2215f4128533dc9af35ed96e8579",
+  "public_assets": {
+    "js": "d7ea101ae77a926c774b6809d42efb5cdbe7898d4f886729d9ae9b2ba8a3bb18",
+    "css": "a6b2425e6c42bb176071b1b4e1addbf43de1ec2ebefded1fc94f3717bb5cd725"
+  },
+  "backend_tests": 51,
+  "original_failure": "Exact rejected browser payload unavailable; nested structure and connector successfully reproduced. Fixed identifier limit mismatch and added safe validation diagnostics."
+}

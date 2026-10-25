@@ -775,3 +775,32 @@ concurrente se bloqueó y se terminaron los procesos QA después de guardar repo
 Revisión visual de mapa compacto y conexiones sin puntos. Imagen activa y assets
 públicos verificados. Evidencia: `docs/evidence/selected-ports-report.json` y
 `docs/evidence/compact-journey-report.json`.
+
+## 2026-10-24 · Conexiones editables en el lienzo
+
+Imagen `localhost/koodaria-workspace:connection-tools-20261024`,
+ID `5d0f5a4b75b28925c14772d48688031f303c2215f4128533dc9af35ed96e8579`.
+Menú contextual compacto al seleccionar una conexión, también con teclado:
+recorrido recto, Bézier, ortogonal y redondeado; continua, discontinua y punteada;
+flechas inicial/final/ambas/ninguna. Opciones semánticas validadas en servidor y
+persistidas en PostgreSQL; versiones anteriores conservan los estilos omitidos.
+El menú se reposiciona al cambiar ancho y alto del lienzo.
+
+Se corrigió el límite de identificadores de conexión: 120 caracteres no admitían
+los IDs derivados de dos extremos válidos de hasta 100 caracteres más sus puertos.
+Se admiten 240 y las nuevas conexiones reciben UUID independiente. No se confirmó
+que esta incompatibilidad causara el error de la captura del usuario: la solicitud
+rechazada no está disponible. La estructura anidada y conexión a otro servidor
+pasan la reproducción sintética. Se añadieron diagnósticos seguros de validación,
+sin registrar datos del documento. No se relajan las restricciones de alojamiento.
+
+51 pruebas de servidor y recorrido navegador con conexión por arrastre, edición,
+guardado/reapertura y seis estados de tamaño/tema. Revisión visual de menú y líneas.
+Evidencia `docs/evidence/connection-tools-report.json`.
+Backup y unidad previa en `/home/mip/backups/koodaria-20261024/connection-tools/`;
+solo se reinició workspace, sin migración SQL. Reversión a `selected-ports-20261024`.
+Imagen activa y hashes JS/CSS públicos verificados.
+
+Alcance: edición visual de conexiones en línea. El exportador PDF existente aún
+utiliza su trazado ortogonal; sincronizar estos estilos con PDF y permitir puntos
+de control manuales queda para una siguiente iteración.
