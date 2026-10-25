@@ -1008,3 +1008,24 @@ clave de cifrado para revertir una interfaz. Hashes públicos iguales al contene
 - resource-flow CSS: `eb50874b4a93cb322806bf18e3efc9dc377f4c74c3d37f69c7c870a3f17fae53`.
 - catalog JS: `2e531614fdd98f8cf38ef872f546ed5b20e5742f6cb26cabf381414f3994f09f`.
 - catalog CSS: `f359b831cd25799cafbc30d43d13e6d18e10087e67e218d6e16f814109572098`.
+
+## 2026-10-25 · Visibilidad de contraseña integrada
+
+El tema de login agrega `password-field-v1.css` y SVG locales eye/eye-off.
+El grupo nativo de Keycloak comparte un contorno; input y botón no dibujan cajas
+separadas. El ojo queda dentro del campo, sin reemplazar el script nativo ni sus
+etiquetas accesibles. Aplica a grupos de contraseña de login y cambio/confirmación.
+En pantallas bajas el selector de idioma ocupa el espacio del encabezado y se
+reduce el margen del título; el botón de acceso queda visible sin escalar texto.
+
+Publicado sobre el tema montado, con copia previa en
+`/home/mip/backups/koodaria-20261025/password-field/`. Se reinició únicamente
+Keycloak para renovar caché. QA sobre login público nativo: ojo dentro del borde,
+mostrar/ocultar con clic y teclado, campo conservado, seis tamaños/temas y acceso
+visible. Sin intento de autenticación, contraseñas reales ni capturas de secretos.
+Evidencia `password-field-report.json`.
+
+Para la prueba posterior de Datadog se preparó `.secrets/datadog.env` privado 600,
+ignorado por Git, con DD_API_KEY, DD_APP_KEY y DD_URL vacíos. No se han leído ni
+probado claves reales del cliente. La URL deberá corresponder a su consola real;
+«headquarters» por sí solo no identifica una región de Datadog.
