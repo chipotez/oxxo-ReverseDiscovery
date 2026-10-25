@@ -38,7 +38,7 @@ with sync_playwright() as p:
    report['states'].append(dict(theme=theme,width=w,height=h))
  page.set_viewport_size({'width':1440,'height':900});page.evaluate('document.documentElement.dataset.theme="light"');page.wait_for_timeout(200);page.screenshot(path='.artifacts/nesting/scoped-inspectors.png')
  page.get_by_role('button',name='Más propiedades de la conexión',exact=True).click();panel=page.get_by_role('complementary',name='Propiedades de la conexión');assert panel.get_by_label('Nombre del diagrama',exact=True).count()==0
- assert panel.get_by_label('Etiqueta visible (opcional)',exact=True).count()==1;assert panel.get_by_text(line['id'].split('-')[0],exact=True).count()==1
+ assert panel.get_by_label('Etiqueta visible (opcional)',exact=True).count()==1;assert panel.get_by_text(line['id'].split('-')[-1],exact=True).count()==1
  panel.get_by_label('Etiqueta visible (opcional)',exact=True).fill('SSH · TCP 22');page.wait_for_timeout(1200);panel.get_by_role('button',name='Cerrar propiedades',exact=True).click()
  page.locator('.react-flow__node[data-id="b"] header').dblclick();summary=page.get_by_role('dialog',name='Resumen del recurso');summary.wait_for();summary.get_by_text('Identificador del componente',exact=True).click();assert summary.locator('code').inner_text()=='b'
  assert summary.get_by_label('Nombre del diagrama',exact=True).count()==0;assert page.get_by_label('Tipo de recurso',exact=True).count()==0

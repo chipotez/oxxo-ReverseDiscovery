@@ -107,3 +107,32 @@ def render_pdf(row):
             y-=12;c.setStrokeColor(HexColor('#d9e4dc'));c.line(36,y,width-36,y);y-=20
         c.showPage()
     c.save();buffer.seek(0);return buffer
+
+
+def _render_canvas_pdf(row,payload):
+    """Embed the editor's rendered scene; never reinterpret paths or node styles."""
+    import base64,binascii
+    from PIL import Image,UnidentifiedImageError
+    from reportlab.lib.utils import ImageReader
+    from faults import Fault
+    value=payload.get('image')
+    if not isinstance(value,str) or not value.startswith('data:image/png;base64,') or len(value)>8500000:raise Fault('KOD-PDF-001','La captura del diagrama no es válida.')
+    try:
+        raw=base64.b64decode(value.split(',',1)[1],validate=True)
+        if len(raw)>6300000:raise ValueError()
+        image=Image.open(BytesIO(raw));w,h=image.size
+        if image.format!='PNG' or w<1 or h<1 or w>8000 or h>8000 or w*h>8000000:raise ValueError()
+        image.verify();image=Image.open(BytesIO(raw)).convert('RGB')
+    except (ValueError,binascii.Error,UnidentifiedImageError,OSError,Image.DecompressionBombError):raise Fault('KOD-PDF-001','La captura del diagrama no es válida.') from None
+    # The page has the scene aspect ratio; no layout is recomputed or cropped.
+    scale=min(1,14000/max(w,h));page_w,page_h=w*scale,h*scale
+    out=BytesIO();c=Canvas(out,pagesize=(page_w,page_h));c.setTitle(row['name']);c.setAuthor('Koodaria');c.drawImage(ImageReader(image),0,0,width=page_w,height=page_h);c.showPage();c.save();out.seek(0);return out
+
+
+def render_canvas_pdf(row,payload):
+    # Bound peak image memory across Gunicorn workers in the 384 MB container.
+    import fcntl
+    with open('/tmp/koodaria-pdf-export.lock','a') as lock:
+        fcntl.flock(lock,fcntl.LOCK_EX)
+        try:return _render_canvas_pdf(row,payload)
+        finally:fcntl.flock(lock,fcntl.LOCK_UN)

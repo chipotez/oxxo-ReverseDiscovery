@@ -163,9 +163,9 @@ Se conserva el tamaño de la tipografía; no se usa zoom CSS para compactar.
 
 La prueba de persistencia confirma extremos/IDs y campos canónicos después de
 cerrar y reabrir. Un guardado inválido no modifica la revisión ni reemplaza el
-último documento válido. La exportación PDF aún no replica los estilos nuevos
-ni todos los detalles de formularios: pendiente explícito, no validado por una
-captura del editor. El motivo exacto del rechazo original del usuario tampoco
+último documento válido. El botón PDF del editor exporta ahora la escena renderizada, con sus estilos y
+recorridos, mediante captura PNG sin pérdida; no incluye formularios abiertos.
+El endpoint GET anterior conserva el renderer básico por compatibilidad. El motivo exacto del rechazo original del usuario tampoco
 se atribuye a una causa sin contar con la solicitud que falló.
 
 Se corrigió asimismo una discrepancia de metadata: `resource_schema` del servidor
@@ -206,3 +206,29 @@ Los anclajes de la línea seleccionada permiten reconectar ambos extremos; cance
 el arrastre mantiene la conexión anterior. Se conservan ID, estilo y semántica.
 Esto permite cambiar los extremos, no dibujar puntos de control intermedios libres;
 los recorridos disponibles siguen siendo recto, Bézier, ortogonal y redondeado.
+
+## Recorridos y detalle · 2026-10-24
+
+Las conexiones conservan tres desplazamientos relativos `bends` (25/50/75 %
+del recorrido base). Se editan con arrastre o teclado y participan en undo/redo,
+guardado y recuperación. Invertir dirección invierte también su orden. No alteran
+la relación semántica ni el alojamiento. El servidor valida tres puntos finitos
+acotados y conserva los valores si un cliente anterior omite ese atributo.
+
+Cada icono abre directamente los valores canónicos de su sección. Comparar desde
+un recurso limita las filas a ese recurso y sus descendientes `hosts`; las
+conexiones de comunicación no incorporan otros recursos al conjunto. Cobertura
+global continúa incluyendo todo el diagrama. Los UUID completos se conservan en
+metadata: solo su representación visual usa el último segmento.
+
+El nuevo POST de PDF requiere sesión, permiso sobre el diagrama y revisión vigente.
+Recibe exclusivamente PNG, con límites de 9 MB de petición, 6,3 MB decodificados,
+8 millones de píxeles y 8000 píxeles por lado. No guarda la captura y serializa su
+procesamiento entre workers para limitar memoria. El cliente captura toda la
+escena, incluso fuera del viewport, con bordes, curvas, flechas, etiquetas,
+patrones, iconos y tonos actuales, excluyendo controles de edición.
+
+El PDF contiene una imagen de alta resolución sin pérdida, no vectores ni texto
+seleccionable. En diagramas muy grandes el límite de píxeles reduce la resolución;
+el GET legado aún usa el renderer básico. La paridad validada corresponde al
+botón PDF del editor y al contenido de la escena, no a los paneles de interfaz.

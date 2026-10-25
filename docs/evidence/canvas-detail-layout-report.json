@@ -1,0 +1,41 @@
+{
+  "synthetic_identity_only": true,
+  "layouts": [
+    {
+      "theme": "light",
+      "width": 1440,
+      "height": 900,
+      "toolbar_fits": true
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "height": 844,
+      "toolbar_fits": true
+    },
+    {
+      "theme": "light",
+      "width": 844,
+      "height": 390,
+      "toolbar_fits": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "height": 900,
+      "toolbar_fits": true
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "height": 844,
+      "toolbar_fits": true
+    },
+    {
+      "theme": "dark",
+      "width": 844,
+      "height": 390,
+      "toolbar_fits": true
+    }
+  ]
+}

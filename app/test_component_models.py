@@ -83,6 +83,23 @@ class ComponentModelsTests(unittest.TestCase):
   self.assertEqual(shared.status_code,201,shared.json);self.login(guest);self.assertEqual(self.call('get','/bienvenida/api/catalog/models/servers').status_code,403)
   saved=self.loaded(row);saved['document']['nodes'][0]['data']['server_instance']['identification'][fid]='Guest edit';self.assertEqual(self.save(saved,saved['document']).status_code,200)
   self.assertEqual(self.loaded(row)['document']['nodes'][0]['data']['server_instance']['identification'][fid],'Guest edit')
+ def test_bends_roundtrip_validation_and_legacy_preservation(self):
+  import copy
+  row=self.graph();doc=dict(name=row['name'],nodes=[dict(id=i,type='resource',position=dict(x=0,y=0),data=dict(kind='virtual',label=i)) for i in ['a','b']],edges=[dict(id='edge',source='a',target='b',type='default',bends=[dict(x=0,y=-60),dict(x=40,y=120),dict(x=5,y=-90)])])
+  self.assertEqual(self.save(row,doc).status_code,200);current=self.loaded(row);bends=copy.deepcopy(current['document']['edges'][0]['bends']);del current['document']['edges'][0]['bends'];self.assertEqual(self.save(current,current['document']).status_code,200);self.assertEqual(self.loaded(row)['document']['edges'][0]['bends'],bends)
+  for bad in [[dict(x=0,y=0)], [dict(x=0,y=0),dict(x=True,y=0),dict(x=0,y=0)], [dict(x=0,y=0),dict(x=0,y=10001),dict(x=0,y=0)]]:
+   current=self.loaded(row);current['document']['edges'][0]['bends']=bad;self.assertEqual(self.save(current,current['document']).status_code,400);self.assertEqual(self.loaded(row)['revision'],current['revision'])
+ def test_canvas_pdf_authorization_revision_and_image_validation(self):
+  import base64
+  from io import BytesIO
+  from PIL import Image
+  image=Image.new('RGB',(100,60),'#2f6557');out=BytesIO();image.save(out,format='PNG');png='data:image/png;base64,'+base64.b64encode(out.getvalue()).decode();row=self.graph();path='/bienvenida/api/diagrams/'+row['id']+'/pdf'
+  r=self.call('post',path,dict(revision=row['revision'],image=png));self.assertEqual(r.status_code,200);self.assertEqual(r.mimetype,'application/pdf');self.assertTrue(r.data.startswith(b'%PDF'))
+  big=BytesIO();Image.frombytes('RGB',(768,768),os.urandom(768*768*3)).save(big,format='PNG');large='data:image/png;base64,'+base64.b64encode(big.getvalue()).decode();self.assertGreater(len(large),1500000);self.assertEqual(self.call('post',path,dict(revision=row['revision'],image=large)).status_code,200)
+  r=self.call('post',path,dict(revision=0,image=png));self.assertEqual(r.status_code,409)
+  for bad in ['data:image/svg+xml;base64,PHN2Zy8+', 'data:image/png;base64,bad', 'https://example.invalid/image.png']:
+   r=self.call('post',path,dict(revision=row['revision'],image=bad));self.assertEqual(r.status_code,400,r.json);self.assertEqual(r.json['error_code'],'KOD-PDF-001')
+  self.login(self.other);self.assertEqual(self.call('post',path,dict(revision=row['revision'],image=png)).status_code,404)
  def test_auth_error_has_stable_code_and_unique_references(self):
   with self.client.session_transaction() as s:s.clear()
   a=self.call('get','/bienvenida/api/catalog/models/servers');b=self.call('get','/bienvenida/api/catalog/models/servers');self.assertEqual(a.status_code,401);self.assertEqual(a.json['error_code'],'KOD-AUTH-001');self.assertNotEqual(a.json['reference'],b.json['reference'])

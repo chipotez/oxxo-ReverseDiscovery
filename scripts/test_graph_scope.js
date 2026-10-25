@@ -1,0 +1,3 @@
+import assert from 'node:assert/strict';
+import {descendants,shortId} from '../app/frontend/src/graph-scope.js';
+const nodes=['parent','child','grandchild','unrelated'].map(id=>({id})),edges=[{source:'parent',target:'child',relation:'hosts'},{source:'child',target:'grandchild',relation:'hosts'},{source:'parent',target:'unrelated',relation:'connected'}];assert.deepEqual(descendants('parent',nodes,edges).map(n=>n.id),['parent','child','grandchild']);assert.deepEqual(descendants('child',nodes,edges).map(n=>n.id),['child','grandchild']);assert.equal(descendants(null,nodes,edges),nodes);assert.equal(shortId('519bdf5f-025f-4031-b405-df3282256a02'),'df3282256a02');console.log('PASS scoped recursive comparison and last UUID segment');

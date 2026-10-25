@@ -931,3 +931,38 @@ imagen activa y hashes públicos iguales al contenedor comprobados:
 
 - JS: `e2a61ec3523df559aeef3cb12c8a17b7f40c284f698debf0e9e24597985f47d8`.
 - CSS: `ea64ddeab5a27a8c8e9054697e9223afc70b4699e585664509c9474ae84fafcb`.
+
+## 2026-10-24 · Recorridos editables y exportación visual
+
+Imagen `localhost/koodaria-workspace:canvas-detail-20261024`, ID
+`70f5732937d3139e4a3b375bab1764d560b67df60052501ef354a908f1775b7d`.
+Tres puntos de ajuste por conexión, arrastre/teclado, restaurar recorrido y
+undo/redo persistidos. Invertir dirección conserva la geometría invirtiendo el
+orden de los puntos. UUID visual abreviado al último segmento; metadata intacta.
+Iconos abren directamente los valores canónicos de su bloque. Comparación local
+limitada al recurso elegido y sus descendientes; Cobertura permanece global.
+
+El botón PDF captura la escena completa renderizada y genera un PDF con PNG sin
+pérdida. Incluye estilos de línea, curvas, flechas, etiquetas, iconos y colores de
+anidación. No incluye controles de edición. Es raster de alta resolución con
+límite de 8 millones de píxeles; no vector ni texto seleccionable. El GET legado
+sigue disponible con el renderer básico. POST exige autorización y revisión actual;
+valida formato/tamaño y serializa procesamiento para limitar memoria.
+
+66 pruebas de servidor aprobadas, incluidos persistencia/validación de puntos,
+autorización/revisión PDF e imagen superior al límite JSON global anterior.
+Navegador: tres arrastres, recarga, undo/redo, cuatro recorridos, cada icono y sus
+valores, comparación local/global, UUID abreviados y descarga PDF. Imagen incrustada
+en PDF idéntica píxel a píxel a la captura y PDF renderizado revisado visualmente.
+Seis combinaciones de tamaño/tema para toolbar; teclado y restaurar recorrido.
+Evidencias: `canvas-detail-report.json`, `canvas-detail-layout-report.json`.
+
+Respaldo de base completado; unidad previa en
+`/home/mip/backups/koodaria-20261024/canvas-detail/`. Sin migración SQL ni cambios de
+identidad; reinicio solo del workspace. Una imagen anterior puede eliminar `bends`
+en guardados posteriores: preferir corrección hacia adelante, sin restaurar la
+base de usuarios para revertir interfaz. Salud 200 y hashes públicos iguales a los
+del contenedor comprobados:
+
+- JS: `513a06a91149e9fdfa6def9c03de29d0eb26a4bdeab2dcd9eb07f4d26b4397b3`.
+- CSS: `b92a35d1abdee762788ed6ba077b0b004a2b3551d468be06b548749bff50d1fd`.

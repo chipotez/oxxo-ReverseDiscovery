@@ -107,6 +107,9 @@ def validate(value,schemas=None,defer_instances=False):
             if field in e:
                 if e[field] not in options:raise InvalidDiagram('Revisa el estilo de la conexión.')
                 item[field]=e[field]
+        if 'bends' in e:
+            if not isinstance(e['bends'],list) or len(e['bends'])!=3 or not all(isinstance(v,dict) for v in e['bends']):raise InvalidDiagram('El recorrido necesita tres puntos de ajuste válidos.')
+            item['bends']=[dict(x=number(v.get('x'),-10000,10000),y=number(v.get('y'),-10000,10000)) for v in e['bends']]
         connections.append(item)
     hosting={};children={}
     for edge in connections:
@@ -311,7 +314,7 @@ def save(diagram_id):
         old_edges={e['id']:e for e in original['document']['edges']}
         for edge in value['edges']:
             old=old_edges.get(edge['id'],{})
-            for field in ['type','pattern','arrows','color']:
+            for field in ['type','pattern','arrows','color','bends']:
                 if field not in edge and field in old:edge[field]=old[field]
             incoming=next(e for e in body['document']['edges'] if e['id']==edge['id'])
             if 'relation' not in incoming and 'relation' in old and old.get('source')==edge['source'] and old.get('target')==edge['target']:edge['relation']=old['relation']
@@ -338,6 +341,19 @@ def delete(diagram_id):
         if not row:
             return jsonify(error='No se eliminó. El diagrama no existe o cambió; actualiza la lista.'),409
     return '',204
+
+@bp.post('/<diagram_id>/pdf')
+def canvas_pdf(diagram_id):
+    from faults import Fault
+    request.max_content_length=9000000
+    body=request.get_json()
+    if not isinstance(body,dict) or type(body.get('revision')) is not int:raise Fault('KOD-PDF-001')
+    with connection(subject()) as conn:row=fetch(conn,diagram_id)
+    if not row:return jsonify(error='Diagrama no encontrado.'),404
+    if body['revision']!=row['revision']:return jsonify(error='El diagrama cambió. Vuelve a abrir la versión guardada antes de exportar.',error_code='KOD-DIA-002'),409
+    from diagram_pdf import render_canvas_pdf
+    return send_file(render_canvas_pdf(row,body),mimetype='application/pdf',as_attachment=True,download_name='koodaria-diagrama.pdf',max_age=0)
+
 
 @bp.get('/<diagram_id>/pdf')
 def pdf(diagram_id):
