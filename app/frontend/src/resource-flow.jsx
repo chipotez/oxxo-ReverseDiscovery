@@ -8,6 +8,7 @@ import operating from './operating-standards.json';
 import serverModel from './server-standard-model.json';
 import ServerIdentityPanel from './server-identity-panel.jsx';
 import StandardsWorkspace from './standards-view.jsx';
+import DiscoveryWorkspace from './discovery-view.jsx';
 import {sectionsFor,documentation,instanceKey,nodeSummary} from './resource-documentation.js';
 import ArchitecturePanel,{relationLabels} from './architecture-panel.jsx';
 import HostedResources from './hosted-resources.jsx';
@@ -254,3 +255,5 @@ export function unmount(){if(activeRoot){activeRoot.unmount();activeRoot=null;}a
 export function hasUnsavedChanges(){return !!activeRoot&&(dirty||!!activeSaver?.isDirty());}
 
 export function requestLeave(){return leaveHandler?leaveHandler():Promise.resolve(!hasUnsavedChanges()||confirm('Todavía hay cambios sin guardar. ¿Salir del editor?'));}
+
+export function mountDiscovery(element){unmount();activeRoot=createRoot(element);activeRoot.render(<><ErrorCenter/><DiscoveryWorkspace onDirty={v=>{dirty=v;}} registerLeave={handler=>{leaveHandler=handler;}}/></>);}

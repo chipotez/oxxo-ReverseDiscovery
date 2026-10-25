@@ -5,13 +5,14 @@ Wants=network-online.target
 Requires=koodaria-diagrams-db.service
 
 [Container]
-Image=localhost/koodaria-workspace:canvas-detail-20261024
+Image=localhost/koodaria-workspace:discovery-20261025
 ContainerName=koodaria-workspace
 Network=themike-auth.network
 Network=koodaria-data.network
 EnvironmentFile=/home/mip/.config/koodaria/workspace.env
 EnvironmentFile=/home/mip/.config/koodaria/diagrams-app.env
 EnvironmentFile=/home/mip/.config/koodaria/invitation-service.env
+EnvironmentFile=/home/mip/.config/koodaria/discovery.env
 Volume=koodaria-workspace-sessions:/app/sessions:U,Z
 ReadOnly=true
 Tmpfs=/tmp:rw,size=32m

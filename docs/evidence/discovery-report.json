@@ -1,0 +1,46 @@
+{
+  "synthetic_identity_only": true,
+  "layouts": [
+    {
+      "theme": "light",
+      "width": 1440,
+      "height": 900,
+      "primary_visible": true
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "height": 844,
+      "primary_visible": true
+    },
+    {
+      "theme": "light",
+      "width": 844,
+      "height": 390,
+      "primary_visible": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "height": 900,
+      "primary_visible": true
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "height": 844,
+      "primary_visible": true
+    },
+    {
+      "theme": "dark",
+      "width": 844,
+      "height": 390,
+      "primary_visible": true
+    }
+  ],
+  "persisted": true,
+  "masked_keys": true,
+  "four_stages": true,
+  "failure_code": true,
+  "browser_errors": []
+}

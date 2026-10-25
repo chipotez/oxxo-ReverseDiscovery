@@ -82,5 +82,37 @@
   "KOD-PDF-001": {
     "message": "No se pudo preparar el PDF.",
     "action": "Guarda el diagrama y vuelve a solicitar la descarga."
+  },
+  "KOD-CON-001": {
+    "message": "No se pudo conectar con Datadog.",
+    "action": "Comprueba el sitio elegido y vuelve a intentar."
+  },
+  "KOD-CON-002": {
+    "message": "Datadog no aceptó las credenciales.",
+    "action": "Revisa la API Key y la Application Key."
+  },
+  "KOD-CON-003": {
+    "message": "La conexión no tiene permisos para consultar hosts.",
+    "action": "Asigna permisos de lectura de hosts a la Application Key."
+  },
+  "KOD-CON-004": {
+    "message": "Espera antes de volver a consultar.",
+    "action": "El proveedor limita las solicitudes. Intenta de nuevo en unos segundos."
+  },
+  "KOD-CON-005": {
+    "message": "La respuesta de Datadog no se pudo procesar.",
+    "action": "Vuelve a intentar o comparte la referencia con soporte."
+  },
+  "KOD-CON-006": {
+    "message": "Los datos de la conexión no son válidos.",
+    "action": "Revisa nombre, sitio y las dos claves."
+  },
+  "KOD-CON-007": {
+    "message": "El almacén de credenciales no está disponible.",
+    "action": "Solicita a un administrador revisar la configuración del cifrado."
+  },
+  "KOD-CON-008": {
+    "message": "La conexión cambió o la prueba ya terminó.",
+    "action": "Vuelve a abrir la conexión e inicia una prueba nueva."
   }
 }

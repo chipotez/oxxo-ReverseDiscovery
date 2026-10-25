@@ -1,0 +1,77 @@
+{
+  "synthetic_identity_only": true,
+  "layouts": [
+    {
+      "route": "catalogo",
+      "theme": "light",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "route": "catalogo",
+      "theme": "light",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "route": "catalogo",
+      "theme": "light",
+      "width": 844,
+      "height": 390
+    },
+    {
+      "route": "catalogo",
+      "theme": "dark",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "route": "catalogo",
+      "theme": "dark",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "route": "catalogo",
+      "theme": "dark",
+      "width": 844,
+      "height": 390
+    },
+    {
+      "route": "catalogo/observabilidad",
+      "theme": "light",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "route": "catalogo/observabilidad",
+      "theme": "light",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "route": "catalogo/observabilidad",
+      "theme": "light",
+      "width": 844,
+      "height": 390
+    },
+    {
+      "route": "catalogo/observabilidad",
+      "theme": "dark",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "route": "catalogo/observabilidad",
+      "theme": "dark",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "route": "catalogo/observabilidad",
+      "theme": "dark",
+      "width": 844,
+      "height": 390
+    }
+  ]
+}

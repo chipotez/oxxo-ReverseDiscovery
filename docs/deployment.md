@@ -966,3 +966,45 @@ del contenedor comprobados:
 
 - JS: `513a06a91149e9fdfa6def9c03de29d0eb26a4bdeab2dcd9eb07f4d26b4397b3`.
 - CSS: `b92a35d1abdee762788ed6ba077b0b004a2b3551d468be06b548749bff50d1fd`.
+
+## 2026-10-25 · Operación y descubrimiento Datadog
+
+Imagen `localhost/koodaria-workspace:discovery-20261025`, ID
+`39e174eccb74fb5461f254447de16286304af4e9bb4f444d9afd909b7dcfd415`.
+Inicio sin rótulo Catálogo, títulos junto a iconos, cards compactos y margen del
+editor de 10 px. Observabilidad abre Operación; capacitación y casos de uso quedan
+tras sus filtros. Gobierno, Descubrimiento y Topología están accesibles; las otras
+capacidades operativas se indican como próximas.
+
+Conector Datadog real de solo lectura: sitios oficiales, API Key/Application Key,
+prueba secuencial con avance real, muestra de hasta 25 hosts/etiquetas, persistencia
+y eliminación confirmada. Sin importación automática ni conciliación todavía.
+Detalles de API, aislamiento, límites y riesgos en `docs/discovery.md`.
+Migración aditiva `006_discovery_connections.sql` aplicada a QA y producción.
+RLS forzado por organización/identidad; invitados sin acceso. Claves cifradas con
+Fernet y clave dedicada persistente en archivo privado 600:
+`/home/mip/.config/koodaria/discovery.env`, agregado al Quadlet. Nunca regenerarlo
+al desplegar; conservarlo por separado de los respaldos SQL. No hay secretos
+nuevos en el repositorio ni en las respuestas al navegador.
+
+73 pruebas de servidor aprobadas: contratos previos, credenciales cifradas,
+CSRF, invitados, aislamiento y acceso compartido dentro de organización, etapas,
+confirmación, conflictos, fallos HTTP, límite de respuesta y normalización. QA de
+navegador con proveedor sintético externo a la imagen: creación, cuatro etapas,
+muestra, confirmación, recarga con claves ocultas, error KOD-CON-002, eliminación
+y seis combinaciones de tamaño/tema con botón principal visible. Otras doce
+combinaciones para catálogos verifican paginación y límites de cards.
+Evidencias: `discovery-report.json` y `operation-layout-report.json`.
+
+No se usaron claves reales del cliente. En producción se comprobó conectividad
+HTTPS sin credenciales a Datadog, cifrado disponible, salud 200 y API sin sesión
+401. La validación contra la cuenta del cliente queda disponible al introducir
+sus claves en la UI. Backups completados antes de migrar; unidad previa en
+`/home/mip/backups/koodaria-20261025/discovery/`. Solo se reinició workspace.
+Rollback de imagen puede conservar la tabla nueva sin usarla; no eliminar datos ni
+clave de cifrado para revertir una interfaz. Hashes públicos iguales al contenedor:
+
+- resource-flow JS: `8cc61ca5d766e592d0acd67caff7ddd3701ea7f56f6c3948c6bf154b25e822ec`.
+- resource-flow CSS: `eb50874b4a93cb322806bf18e3efc9dc377f4c74c3d37f69c7c870a3f17fae53`.
+- catalog JS: `2e531614fdd98f8cf38ef872f546ed5b20e5742f6cb26cabf381414f3994f09f`.
+- catalog CSS: `f359b831cd25799cafbc30d43d13e6d18e10087e67e218d6e16f814109572098`.
