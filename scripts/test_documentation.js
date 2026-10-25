@@ -27,3 +27,6 @@ const defaultName={...shortNode,data:{kind:'virtual',label:'Máquina virtual'}};
 check(resourceLayout([defaultName],[]).sizes.get('short').height===62,'no duplicate type caption or empty metadata reservation');
 check(resourceLayout([defaultName],[]).sizes.get('short').width===320,'narrower node width');
 console.log('PASS duplicate caption removal and narrow geometry');
+const typed={kind:'custom_service',resource_schema:{version:2,sections:[{id:'identification',fields:[{id:'zero',custom:true,required:true},{id:'no',custom:true,required:true},{id:'optional',custom:true,required:false}]}]},component_instance:{identification:{zero:0,no:false}}};
+check(documentation(typed,'identification','typed').filled===2&&documentation(typed,'identification','typed').total===2,'typed zero/false count and optional fields excluded');
+console.log('PASS versioned schema coverage for zero, false and optional fields');

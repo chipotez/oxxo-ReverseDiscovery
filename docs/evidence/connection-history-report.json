@@ -1,0 +1,11 @@
+{
+  "synthetic_identity_only": true,
+  "mouse_preview": true,
+  "right_to_right": true,
+  "editable_endpoints": true,
+  "short_id": true,
+  "connection_does_not_nest": true,
+  "undo_redo_persisted": true,
+  "save_reload": true,
+  "browser_errors": []
+}

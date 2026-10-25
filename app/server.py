@@ -29,6 +29,10 @@ from diagrams import bp as diagrams_blueprint
 app.register_blueprint(diagrams_blueprint)
 from standards import bp as standards_blueprint
 app.register_blueprint(standards_blueprint)
+from component_models import bp as component_models_blueprint
+app.register_blueprint(component_models_blueprint)
+from faults import decorate_error
+app.after_request(decorate_error)
 oauth = OAuth(app)
 oauth.register('keycloak', client_id='koodaria-web',
     client_secret=os.environ['OIDC_CLIENT_SECRET'],

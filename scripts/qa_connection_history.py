@@ -1,0 +1,28 @@
+"""Synthetic endpoint precision, scoped inspector and undo/redo roundtrip."""
+import json,time
+from pathlib import Path
+from playwright.sync_api import sync_playwright
+base='http://localhost:18179';report={'synthetic_identity_only':True}
+with sync_playwright() as p:
+ b=p.chromium.launch(executable_path='/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',headless=True);page=b.new_page(viewport={'width':1440,'height':900});errors=[];page.on('pageerror',lambda e:errors.append(str(e)));page.goto(base+'/__qa/session');page.goto(base+'/bienvenida/#/catalogo')
+ row=page.evaluate('''async()=>{const h={'Content-Type':'application/json','X-CSRF-Token':document.querySelector('meta[name=csrf-token]').content};const c=await(await fetch('/bienvenida/api/diagrams',{method:'POST',headers:h,body:JSON.stringify({name:'QA History '+Date.now(),template_id:'blank'})})).json();const r=await fetch('/bienvenida/api/diagrams/'+c.id,{method:'PUT',headers:h,body:JSON.stringify({revision:1,document:{name:c.name,nodes:['a','b','c'].map((id,i)=>({id,type:'resource',position:{x:i*470,y:i===2?220:0},data:{kind:'virtual',label:'QA '+id}})),edges:[]}})});if(!r.ok)throw Error(await r.text());return c}''')
+ page.goto(base+'/bienvenida/#/herramientas/diagramas');page.locator('button.diagram-open').filter(has=page.get_by_role('heading',name=row['name'],exact=True)).click();page.locator('.react-flow__node[data-id="a"]').wait_for();page.wait_for_timeout(450)
+ def saved():return page.request.get(base+'/bienvenida/api/diagrams/'+row['id']).json()['document']
+ def wait_save():page.wait_for_timeout(1400)
+ def point(node,side):
+  r=page.locator('.react-flow__node[data-id="'+node+'"] .resource-port[data-handleid="'+side+'"]').bounding_box();return r['x']+r['width']/2,r['y']+r['height']/2
+ page.locator('.react-flow__node[data-id="a"] header').click();sx,sy=point('a','east');page.mouse.move(sx,sy);page.mouse.down();mx,my=sx+90,sy+120;page.mouse.move(mx,my,steps=12);page.wait_for_timeout(100)
+ end=page.locator('.react-flow__connection-path').evaluate('(p)=>{const q=p.getPointAtLength(p.getTotalLength()),r=new DOMPoint(q.x,q.y).matrixTransform(p.getScreenCTM());return [r.x,r.y]}');assert abs(end[0]-mx)<3 and abs(end[1]-my)<3,(end,mx,my)
+ target=page.locator('.react-flow__node[data-id="b"]').bounding_box();page.mouse.move(target['x']+target['width']/2,target['y']+20,steps=12);page.wait_for_timeout(150);tx,ty=point('b','east');page.mouse.move(tx,ty,steps=8);page.mouse.up();wait_save();doc=saved();assert len(doc['edges'])==1,doc['edges'];line=doc['edges'][0];assert (line['sourceHandle'],line['targetHandle'],line['relation'])==('east','east','connected'),line
+ assert all('parentId' not in n for n in doc['nodes']);page.locator('.react-flow__node[data-id="b"] header').click();path_end=page.locator('.react-flow__edge-path').evaluate('(p)=>{const q=p.getPointAtLength(p.getTotalLength()),r=new DOMPoint(q.x,q.y).matrixTransform(p.getScreenCTM());return [r.x,r.y]}');tx,ty=point('b','east');assert abs(path_end[0]-tx)<15 and abs(path_end[1]-ty)<3,(path_end,tx,ty)
+ def select_line():
+  xy=page.locator('.react-flow__edge-path').evaluate('(p)=>{for(let f=.1;f<.95;f+=.05){const q=p.getPointAtLength(p.getTotalLength()*f),r=new DOMPoint(q.x,q.y).matrixTransform(p.getScreenCTM());if(document.elementFromPoint(r.x,r.y)?.closest(".react-flow__edge"))return [r.x,r.y]}throw Error("No exposed line segment")}');page.mouse.click(*xy);page.get_by_role('group',name='Estilo de conexión').wait_for()
+ def inspector():
+  select_line();page.get_by_role('button',name='Más propiedades de la conexión',exact=True).click();return page.get_by_role('complementary',name='Propiedades de la conexión')
+ panel=inspector();assert panel.get_by_text(line['id'].split('-')[0],exact=True).count()==1;assert panel.get_by_label('Relación de arquitectura',exact=True).count()==0;assert 'Texto que aparece' not in panel.inner_text();assert panel.get_by_label('Nombre del diagrama',exact=True).count()==0
+ panel.get_by_label('Origen de conexión',exact=True).select_option('c');wait_save();assert saved()['edges'][0]['source']=='c';panel.get_by_label('Destino de conexión',exact=True).select_option('a');wait_save();assert saved()['edges'][0]['target']=='a'
+ # The select retains focus: undo must apply to graph, not disappear into the inspector.
+ page.keyboard.press('Control+z');wait_save();assert saved()['edges'][0]['target']=='b';page.keyboard.press('Control+Shift+z');wait_save();assert saved()['edges'][0]['target']=='a';assert all('parentId' not in n for n in saved()['nodes'])
+ select_line();page.get_by_label('Línea',exact=True).select_option('dotted');wait_save();assert saved()['edges'][0]['pattern']=='dotted';page.keyboard.press('Control+z');wait_save();assert saved()['edges'][0].get('pattern','solid')=='solid';page.keyboard.press('Control+Shift+z');wait_save();assert saved()['edges'][0]['pattern']=='dotted'
+ page.screenshot(path='.artifacts/nesting/connection-history.png');page.reload();page.locator('button.diagram-open').filter(has=page.get_by_role('heading',name=row['name'],exact=True)).click();page.locator('.react-flow__node[data-id="a"]').wait_for();wait_save();final=saved();assert (final['edges'][0]['source'],final['edges'][0]['target'],final['edges'][0]['pattern'])==('c','a','dotted');assert not errors,errors
+ report.update(mouse_preview=True,right_to_right=True,editable_endpoints=True,short_id=True,connection_does_not_nest=True,undo_redo_persisted=True,save_reload=True,browser_errors=errors);Path('docs/evidence/connection-history-report.json').write_text(json.dumps(report,indent=2)+'\n');print('PASS mouse preview, right/right ports, editable endpoints, short ID, flat graph and persisted undo/redo');b.close()

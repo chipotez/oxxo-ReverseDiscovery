@@ -160,18 +160,22 @@ def instance(value,schema=None):
             if section=='controls':
                 if not isinstance(entry,dict) or entry.get('status') not in CATALOG['states']:raise InvalidDiagram()
                 result[section][fid]=dict(status=entry['status'],evidence=text(entry.get('evidence',''),500))
-            else:result[section][fid]=text(entry,500)
+            else:
+                from component_models import validate_scalar
+                field=next(f for s in schema['sections'] if s['id']==section for f in s['fields'] if f['id']==fid)
+                result[section][fid]=validate_scalar(entry,field)
     return result
 
-def bind(conn,doc,original=None):
+def bind(conn,doc,original=None,models=None):
     """Only owner-visible publications or snapshots already in this authorized map."""
     previous={n['id']:n for n in (original or {}).get('nodes',[])}
     snapshots={(n['data']['standard']['id'],n['data']['standard']['version']):n['data']['standard'] for n in previous.values() if n['data'].get('standard')}
     for node in doc['nodes']:
         data=node['data'];value=data.get('standard')
         if data['kind'] in ['servidor','virtual']:
-            if 'server_instance' in data:data['server_instance']=instance(data['server_instance'])
-            data['resource_schema']=dict(version=SERVER_MODEL.get('version',1),sections=SERVER_MODEL['sections'])
+            schema=(models or {}).get(node['id']) or dict(version=SERVER_MODEL.get('version',1),sections=SERVER_MODEL['sections'])
+            if 'server_instance' in data:data['server_instance']=instance(data['server_instance'],schema)
+            data['resource_schema']=schema
 
         if not value and data['kind'] in ['servidor','virtual']:
             existing=previous.get(node['id'],{}).get('data',{}).get('standard')
@@ -179,7 +183,7 @@ def bind(conn,doc,original=None):
                 data['standard']=json.loads(json.dumps(existing));continue
         if data['kind'] not in ['servidor','virtual']:
             from diagram_catalog import resource_model
-            schema=resource_model(data['kind'])
+            schema=(models or {}).get(node['id']) or resource_model(data['kind'])
             if schema:
                 data['resource_schema']=schema
                 if 'component_instance' in data:data['component_instance']=instance(data['component_instance'],schema)

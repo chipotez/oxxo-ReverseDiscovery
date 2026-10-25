@@ -1,0 +1,42 @@
+{
+  "synthetic_identity_only": true,
+  "states": [
+    {
+      "theme": "light",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "theme": "light",
+      "width": 844,
+      "height": 390
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "theme": "dark",
+      "width": 844,
+      "height": 390
+    }
+  ],
+  "browser_errors": [],
+  "nested_save_roundtrip": true,
+  "styles_roundtrip": true,
+  "centered_toolbar": true,
+  "isolated_inspectors": true,
+  "canonical_hostname_roundtrip": true,
+  "stable_ids": true
+}

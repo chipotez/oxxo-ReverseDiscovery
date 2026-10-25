@@ -1,0 +1,3 @@
+import assert from 'node:assert/strict';
+import {createHistory} from '../app/frontend/src/graph-history.js';
+const base={name:'QA',nodes:[],edges:[]},h=createHistory(base),withNode={...base,nodes:[{id:'a'}]};h.record(withNode);assert.deepEqual(h.undo(),base);assert.deepEqual(h.redo(),withNode);h.record({...withNode,name:'Q'},{group:'name',now:100});h.record({...withNode,name:'QA edit'},{group:'name',now:200});assert.equal(h.undo().name,'QA');assert.equal(h.redo().name,'QA edit');h.undo();h.record({...withNode,name:'Other'});assert.equal(h.redo(),null);console.log('PASS graph undo/redo, typing coalescing and branching');

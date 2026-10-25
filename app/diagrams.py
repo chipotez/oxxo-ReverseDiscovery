@@ -31,7 +31,7 @@ def number(value, low, high):
         raise InvalidDiagram()
     return value
 
-def validate(value):
+def validate(value,schemas=None,defer_instances=False):
     if not isinstance(value, dict): raise InvalidDiagram()
     name = text(value.get('name'), 100, True)
     nodes, edges = value.get('nodes'), value.get('edges')
@@ -52,15 +52,19 @@ def validate(value):
             if 'server_instance' in data:
                 from standards import instance
                 if data['kind'] not in ['servidor','virtual']:raise InvalidDiagram()
-                try:out['data']['server_instance']=instance(data['server_instance'])
+                try:out['data']['server_instance']=data['server_instance'] if defer_instances else instance(data['server_instance'],(schemas or {}).get(key))
                 except InvalidDiagram:raise InvalidDiagram('Los datos de un servidor no coinciden con los campos o formatos de su estándar. Revisa sus cuatro secciones.')
             if 'component_instance' in data:
                 from standards import instance
                 from diagram_catalog import resource_model
-                schema=resource_model(data['kind'])
+                schema=(schemas or {}).get(key) or resource_model(data['kind'])
                 if not schema or data['kind'] in ['servidor','virtual']:raise InvalidDiagram()
-                try:out['data']['component_instance']=instance(data['component_instance'],schema)
+                try:out['data']['component_instance']=data['component_instance'] if defer_instances else instance(data['component_instance'],schema)
                 except InvalidDiagram:raise InvalidDiagram('Los datos de un componente no coinciden con su estándar. Revisa sus cuatro secciones.')
+            if data.get('model_ref') is not None:
+                ref=data['model_ref']
+                if not isinstance(ref,dict) or type(ref.get('version')) is not int or not 1<=ref['version']<=1000:raise InvalidDiagram('La referencia del modelo no es válida.')
+                out['data']['model_ref']=dict(id=str(uuid.UUID(ref['id'])),version=ref['version'])
             if data.get('standard') is not None:
                 from standards import reference
                 out['data']['standard']=reference(data['standard'])
@@ -88,10 +92,13 @@ def validate(value):
         for field,node_id in [('sourceHandle',source),('targetHandle',target)]:
             handle=e.get(field)
             if handle is not None:
-                if handle not in ['north','south'] or ids[node_id]['data']['kind'] in ['grupo','nota','etiqueta']:raise InvalidDiagram('Una conexión usa un punto de unión no disponible para ese recurso.')
+                if handle not in ['north','south','east','west'] or (handle in ['north','south'] and ids[node_id]['data']['kind'] in ['grupo','nota','etiqueta']):raise InvalidDiagram('Una conexión usa un punto de unión no disponible para ese recurso.')
                 item[field]=handle
         if e.get('relation'):
-            if e['relation'] not in ['hosts','belongs','depends','connected','storage','managed','used']:raise InvalidDiagram()
+            if e['relation'] not in ['hosts','belongs','depends','connected','storage','managed','used']:
+                import re
+                if not re.fullmatch(r'custom_[0-9a-f]{32}',str(e['relation'])):raise InvalidDiagram()
+                if not defer_instances and e['relation'] not in {f['id'] for section in (schemas or {}).get(source,{}).get('sections',[]) if section['id']=='relationships' for f in section['fields']}:raise InvalidDiagram('La relación no pertenece al modelo del recurso de origen.')
             item['relation']=e['relation']
         if 'type' in e:
             if e['type'] not in ['straight','default','smoothstep','step']:raise InvalidDiagram()
@@ -132,7 +139,9 @@ def authorize():
 
 @bp.errorhandler(Exception)
 def failure(exc):
-    if isinstance(exc, InvitationUnavailable): return jsonify(error=str(exc)),503
+    from faults import Fault
+    if isinstance(exc,Fault):return jsonify(error=str(exc),error_code=exc.code),exc.status
+    if isinstance(exc, InvitationUnavailable): return jsonify(error=str(exc),error_code='KOD-MAIL-001'),503
     if isinstance(exc, psycopg.errors.UniqueViolation): return jsonify(error='Ya existe una carpeta con ese nombre.'),409
     if isinstance(exc, HTTPException): return jsonify(error='La solicitud no es válida.'),exc.code
     if isinstance(exc,InvalidDiagram) and str(exc):return jsonify(error=str(exc)),400
@@ -263,7 +272,10 @@ def create():
         if body.get('standard'):
             for node in value['nodes']:
                 if node['data']['kind'] in ['servidor','virtual']:node['data']['standard']=reference(body['standard'])
-        value=bind(conn,value)
+        from component_models import resolve
+        models=resolve(conn,value)
+        value=validate(value,models)
+        value=bind(conn,value,models=models)
         if folder_id and not visible_folder(conn,folder_id):return jsonify(error='Carpeta no encontrada.'),404
         row=conn.execute('INSERT INTO resource_diagrams(owner_sub,name,document,folder_id) VALUES (%s,%s,%s,%s) RETURNING id,name,document,revision,updated_at,folder_id',(subject(),value['name'],Jsonb(value),key(folder_id) if folder_id else None)).fetchone()
     return jsonify(serialize(row)),201
@@ -284,7 +296,7 @@ def save(diagram_id):
     if not isinstance(body,dict): raise InvalidDiagram()
     revision=body.get('revision')
     if type(revision)!=int or revision<1: raise InvalidDiagram()
-    value=validate(body.get('document'))
+    value=validate(body.get('document'),defer_instances=True)
     with connection(subject()) as conn:
         original=fetch(conn,diagram_id)
         if not original:return jsonify(error='Diagrama no encontrado.'),404
@@ -295,7 +307,7 @@ def save(diagram_id):
             if old and old.get('kind')!=node['data']['kind']:
                 raise InvalidDiagram('El tipo de un componente existente no se puede cambiar. Crea el componente correcto y vuelve a vincularlo; sus datos pertenecen a otro estándar.')
             for field in ['provider','technology','location','server_instance','component_instance']:
-                if field not in node['data'] and field in old and old.get('kind')==node['data']['kind']:node['data'][field]=old[field]
+                if field not in node['data'] and field in old and old.get('kind')==node['data']['kind'] and not (field in ['server_instance','component_instance'] and node['data'].get('model_ref') and node['data']['model_ref']!=old.get('model_ref')):node['data'][field]=old[field]
         old_edges={e['id']:e for e in original['document']['edges']}
         for edge in value['edges']:
             old=old_edges.get(edge['id'],{})
@@ -306,8 +318,10 @@ def save(diagram_id):
             for field,endpoint in [('sourceHandle','source'),('targetHandle','target')]:
                 incoming=next(e for e in body['document']['edges'] if e['id']==edge['id'])
                 if field not in incoming and old.get(endpoint)==edge[endpoint] and field in old and next(n for n in value['nodes'] if n['id']==edge[endpoint])['data']['kind'] in ['servidor','virtual']:edge[field]=old[field]
-        value=validate(value)
-        value=bind(conn,value,original['document'])
+        from component_models import resolve
+        models=resolve(conn,value,original['document'])
+        value=validate(value,models)
+        value=bind(conn,value,original['document'],models=models)
         row=conn.execute('UPDATE resource_diagrams SET name=%s,document=%s,revision=revision+1,updated_at=now() WHERE id=%s AND (owner_sub=%s OR diagram_granted(id)) AND revision=%s RETURNING id,name,revision,updated_at',(value['name'],Jsonb(value),key(diagram_id),subject(),revision)).fetchone()
         if not row:
             if not fetch(conn,diagram_id): return jsonify(error='Diagrama no encontrado.'),404

@@ -123,8 +123,8 @@ Se conserva el tamaño de la tipografía; no se usa zoom CSS para compactar.
 
 ## Revisión del contrato de datos y propiedades
 
-- El botón «Diagrama» edita el documento. La conexión edita etiqueta, relación
-  y representación. El doble clic en un recurso abre únicamente las secciones
+- El botón «Diagrama» edita el documento. La conexión edita extremos, etiqueta y representación. Las relaciones
+  de arquitectura se gestionan desde su sección explícita. El doble clic en un recurso abre únicamente las secciones
   de su esquema. Ya no hay un formulario paralelo de atributos ni selector de
   tipo sobre una instancia existente. El servidor también rechaza reutilizar
   un ID existente con otro tipo, evitando mezclar estándares o descartar datos.
@@ -140,15 +140,21 @@ Se conserva el tamaño de la tipografía; no se usa zoom CSS para compactar.
   dependencias admiten relaciones muchos-a-muchos. Los colores no alteran la
   semántica de esas relaciones ni representan salud operativa.
 - `resource_standards` y `resource_standard_versions` guardan políticas y
-  publicaciones. Los modelos base/taxonomía todavía son archivos compartidos
-  entre editor y servidor; `resource_schema` se reconstruye en el servidor,
+  publicaciones. La taxonomía y las bases iniciales siguen siendo archivos compartidos.
+  Los campos publicados viven ahora en `component_models` y
+  `component_model_versions`; `resource_schema` se resuelve en el servidor,
   nunca se confía en un esquema arbitrario enviado por el navegador.
-- La incorporación de campos de catálogo sigue siendo una vista previa no
-  persistente por el alcance anterior. Para convertirla en una función real
-  se necesita un registro de esquemas por organización, versiones inmutables,
-  tipos/reglas de campos, permisos de publicación y migración explícita de las
-  instancias. Crear solo una tabla sin cambiar lectura, validación y formularios
-  no resolvería ese requisito. No se presenta esta capacidad como implementada.
+- «Agregar campo» publica una versión inmutable del modelo en PostgreSQL.
+  El alcance se deriva de la organización del miembro autenticado (o su
+  cuenta si todavía no tiene organización). Los invitados no publican modelos.
+  Cada nodo conserva `model_ref.id/version`; actualizar campos es explícito,
+  conservando valores compatibles. El servidor rechaza campos desconocidos,
+  tipos incorrectos y cambiar un modelo existente por otro de distinto alcance.
+  Un editor invitado puede rellenar el modelo fijado del diagrama compartido.
+  Los campos opcionales no reducen el porcentaje de documentación; los obligatorios
+  sí. Un número cero o un valor «No» son respuestas documentadas.
+  Crear categorías/tipos nuevos o editar/eliminar campos publicados no está
+  incluido: este primer registro permite añadir campos a los tipos actuales.
 - No se crea una tabla por servidor o tipo. Si se decide reutilizar el mismo
   activo entre diagramas, hará falta un registro de recursos independiente y
   separar referencias al activo de su representación en cada diagrama. En la
@@ -168,3 +174,27 @@ consumían las 16 capacidades. El modelo autoritativo y el renderer ahora expand
 ese mismo catálogo; la metadata guardada refleja los campos realmente aceptados.
 Las políticas publicadas mantienen su versión y exigencias; no se inventa una
 nueva versión de política ni se sobrescriben estados declarados de controles.
+
+## Conexiones, alojamiento y recuperación
+
+Una línea dibujada representa «Conectado a». Editar su etiqueta, origen, destino
+o estilo no cambia el alojamiento. «Aloja / ejecuta» sigue siendo una relación
+explícita desde Relaciones de arquitectura o el botón de añadir dentro de un
+recurso. No se desanidan automáticamente relaciones históricas que podrían ser
+válidas; se pueden quitar desde esa sección. Los cuatro puertos tienen IDs
+norte/sur/este/oeste; el avance de arrastre sigue al puntero, y el grafo guarda
+los puertos elegidos, además de IDs y extremos de la conexión.
+
+Deshacer/Rehacer conserva hasta 50 estados del documento en la pestaña actual;
+Ctrl/⌘ Z, Ctrl/⌘ Shift Z y Ctrl Y. Los campos de texto conservan su deshacer nativo.
+La navegación/selección no crea pasos; un nuevo cambio después de deshacer abre
+una rama nueva. El resultado se guarda con el mismo control de revisión del grafo.
+No es un historial durable entre sesiones ni una resolución de conflictos multiusuario.
+
+El catálogo inicial de errores está en `app/frontend/src/error-catalog.json`,
+compartido con el servidor y consultable en `/bienvenida/api/catalog/errors` con
+sesión. Cada fallo API lleva `error_code`, `reference` y `action`; la misma
+referencia aparece en logs estructurados sin valores de campos, tokens ni correos.
+El diálogo permite copiar código/referencia y mantiene abierto el formulario.
+Un error de validación no sobrescribe el último documento válido. Conflictos de
+revisión requieren recuperar o guardar como copia; no se reintenta sobre datos ajenos.

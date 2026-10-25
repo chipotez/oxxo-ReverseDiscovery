@@ -1,0 +1,120 @@
+{
+  "synthetic_identity_only": true,
+  "states": [
+    {
+      "theme": "light",
+      "width": 1440,
+      "height": 900,
+      "step": 1
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "height": 900,
+      "step": 2
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "height": 900,
+      "step": 3
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "height": 844,
+      "step": 1
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "height": 844,
+      "step": 2
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "height": 844,
+      "step": 3
+    },
+    {
+      "theme": "light",
+      "width": 844,
+      "height": 390,
+      "step": 1
+    },
+    {
+      "theme": "light",
+      "width": 844,
+      "height": 390,
+      "step": 2
+    },
+    {
+      "theme": "light",
+      "width": 844,
+      "height": 390,
+      "step": 3
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "height": 900,
+      "step": 1
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "height": 900,
+      "step": 2
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "height": 900,
+      "step": 3
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "height": 844,
+      "step": 1
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "height": 844,
+      "step": 2
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "height": 844,
+      "step": 3
+    },
+    {
+      "theme": "dark",
+      "width": 844,
+      "height": 390,
+      "step": 1
+    },
+    {
+      "theme": "dark",
+      "width": 844,
+      "height": 390,
+      "step": 2
+    },
+    {
+      "theme": "dark",
+      "width": 844,
+      "height": 390,
+      "step": 3
+    }
+  ],
+  "version": 4,
+  "browser_errors": [],
+  "published_field": true,
+  "duplicate_modal": true,
+  "input_preserved": true,
+  "explicit_upgrade": true,
+  "typed_value_roundtrip": true
+}

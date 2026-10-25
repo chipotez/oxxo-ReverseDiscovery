@@ -838,3 +838,55 @@ Reportes `docs/evidence/scoped-inspectors-report.json` y
 Backup y unidad anterior en `/home/mip/backups/koodaria-20261024/scoped-inspectors/`.
 Solo se reinicia workspace; sin migración SQL, sin modificar secretos ni identidad.
 Reversión a `connection-tools-20261024`.
+
+## 2026-10-24 · Campos persistentes, diagnósticos y conexiones precisas
+
+Imagen `localhost/koodaria-workspace:versioned-fields-20261024`,
+ID `86083f020854992a01599816d83a886c3edff814c2c3a32d42bb72aff17e091f`.
+Migración aditiva `005_component_models.sql` aplicada después de respaldo.
+Tablas `component_models` y `component_model_versions` con RLS por organización
+(o cuenta sin organización), versiones inmutables y publicación concurrente
+serializada. «Agregar campo» guarda nombre, explicación, formato, opciones y
+obligatoriedad; los formularios y la validación consumen esa misma versión.
+Los nodos existentes quedan fijados; «Actualizar campos a vN» incorpora una
+versión posterior de forma explícita. Invitados editan las instancias compartidas,
+sin administrar el catálogo. Taxonomía y nuevos tipos siguen siendo catálogo base.
+
+Catálogo de errores compartido JSON y contrato API `error_code/reference/action`.
+Ventana accesible conserva formulario y permite copiar referencia; logs de
+correlación sin datos del documento, identidad o secretos. Primer alcance:
+sesión/CSRF, acceso, catálogo, validación/conflicto del diagrama, estándares,
+grupos, compartir/invitaciones, red, PDF y fallo de servicio. No es una tabla de
+incidencias ni un monitor de toda excepción posible del navegador.
+
+Editar una conexión no crea alojamiento: la nueva línea es «Conectado a»;
+alojamiento se gestiona desde su acción explícita. ID abreviado solo en pantalla,
+ID completo estable en metadata; origen/destino y puertos editables. Puertos
+este/oeste ahora tienen IDs diferentes, además de norte/sur. Vista previa de
+arrastre sigue al puntero, guardado conserva los puertos elegidos. Deshacer/Rehacer
+hasta 50 estados por pestaña, con Ctrl/⌘ Z, Shift Z y Ctrl Y; texto usa undo nativo.
+
+64 pruebas de servidor, pruebas JS de historia, cobertura tipada y geometría.
+Navegador: arrastre este→este y seguimiento del mouse, extremos editables,
+Ctrl Z/redo con guardado/reapertura, independencia de alojamiento, 18 pasos de
+formulario por tamaño/tema y seis estados de inspectores. Creación real de campo,
+error de duplicado con referencia y formulario conservado, actualización explícita
+de modelo y valor numérico recuperado desde PostgreSQL tras recarga.
+Evidencia: `versioned-fields-report.json`, `connection-history-report.json`,
+`versioned-inspectors-report.json` en `docs/evidence/`.
+
+Unidad anterior en `/home/mip/backups/koodaria-20261024/versioned-fields/`;
+respaldo de base completado mediante el script operativo. Solo se reinició
+workspace; sesión persistente, Keycloak y Caddy conservados. QA usó base desechable;
+`qa_component_models_seed.sql` nunca se aplica a producción. Salud 200 y API sin
+sesión 401 con `KOD-AUTH-001` y referencia comprobados. Hashes públicos iguales
+al contenedor:
+
+- JS: `1b128f3139207b733a5f103569666591f57e5eb9608b01ce8ad01d627b1fe821`.
+- CSS: `8beedb2907d5455a0722be521f459e0f66a9ed22f82b3b4107a0a45514e7a1fc`.
+
+Tras guardar campos personalizados, una imagen anterior no entiende ese contrato:
+priorizar corregir hacia adelante o modo de mantenimiento, conservando las tablas.
+No restaurar un backup ni volver ciegamente a una imagen previa después de nuevas
+escrituras. La exportación PDF y puntos de control manuales mantienen sus límites
+ya documentados; esta entrega no declara paridad nueva del PDF.

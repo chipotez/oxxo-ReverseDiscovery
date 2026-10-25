@@ -137,7 +137,9 @@ class DiagramIntegrationTests(unittest.TestCase):
         document=dict(name='Plataforma QA',nodes=[dict(id='server',type='resource',position=dict(x=0,y=0),data=dict(label='Servidor sintético',kind='servidor',address='192.0.2.10',port='443 / HTTPS'))],edges=[])
         path='/'+first['id'];r=self.send('put',path,dict(revision=1,document=document));self.assertEqual(r.status_code,200,r.data);self.assertEqual(r.json['revision'],2)
         from standards import SERVER_MODEL
-        expected=__import__('copy').deepcopy(document);expected['nodes'][0]['data']['resource_schema']=dict(version=SERVER_MODEL.get('version',1),sections=SERVER_MODEL['sections'])
+        expected=__import__('copy').deepcopy(document);expected['nodes'][0]['data']['resource_schema']=dict(version=1,sections=SERVER_MODEL['sections'])
+        expected['nodes'][0]['data']['model_ref']=self.send('get',path).json['document']['nodes'][0]['data']['model_ref']
+        self.assertEqual(expected['nodes'][0]['data']['model_ref']['version'],1)
         self.assertEqual(self.send('get',path).json['document'],expected)
         self.assertEqual(self.send('put',path,dict(revision=1,document=document)).status_code,409)
         pdf=self.send('get',path+'/pdf');self.assertEqual(pdf.status_code,200);self.assertTrue(pdf.data.startswith(b'%PDF-'));self.assertEqual(pdf.mimetype,'application/pdf');self.assertIn('attachment',pdf.headers['Content-Disposition']);self.assertEqual(pdf.headers['Cache-Control'],'no-store')

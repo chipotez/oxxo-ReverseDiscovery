@@ -1,0 +1,86 @@
+{
+  "KOD-AUTH-001": {
+    "message": "La sesión terminó.",
+    "action": "Inicia sesión y vuelve a intentar. Conserva abierta la pestaña con tus cambios."
+  },
+  "KOD-AUTH-002": {
+    "message": "No se pudo verificar la solicitud.",
+    "action": "Recupera tu sesión y vuelve a intentar la operación."
+  },
+  "KOD-ACCESS-001": {
+    "message": "No tienes permiso para esta operación.",
+    "action": "Solicita acceso al propietario del espacio o del diagrama."
+  },
+  "KOD-DIA-001": {
+    "message": "El diagrama contiene datos no válidos.",
+    "action": "Revisa el recurso o la relación indicada. Tus cambios siguen abiertos."
+  },
+  "KOD-DIA-002": {
+    "message": "Existe una versión más reciente del diagrama.",
+    "action": "Conserva tus cambios como copia o vuelve a abrir la versión guardada."
+  },
+  "KOD-ITEM-001": {
+    "message": "No se encontró el elemento.",
+    "action": "Vuelve al catálogo y comprueba que sigues teniendo acceso."
+  },
+  "KOD-CAT-001": {
+    "message": "La definición del campo no es válida.",
+    "action": "Revisa nombre, formato y opciones del campo."
+  },
+  "KOD-CAT-002": {
+    "message": "Ya existe un campo con ese nombre.",
+    "action": "Elige otro nombre o utiliza el campo existente."
+  },
+  "KOD-CAT-003": {
+    "message": "El catálogo cambió mientras lo editabas.",
+    "action": "Actualiza la vista y revisa la versión antes de volver a guardar."
+  },
+  "KOD-CAT-004": {
+    "message": "La versión del modelo no está disponible.",
+    "action": "Revisa el modelo seleccionado y los permisos de tu organización."
+  },
+  "KOD-STD-001": {
+    "message": "El estándar no es válido.",
+    "action": "Revisa los campos y requisitos indicados antes de publicar."
+  },
+  "KOD-STD-002": {
+    "message": "El estándar cambió en otra pestaña.",
+    "action": "Vuelve a abrir el borrador antes de publicar otra versión."
+  },
+  "KOD-MAIL-001": {
+    "message": "No se pudo completar la invitación.",
+    "action": "Conserva la referencia y vuelve a intentar desde Compartir."
+  },
+  "KOD-NET-001": {
+    "message": "No se pudo conectar con el servidor.",
+    "action": "Revisa tu conexión y vuelve a intentar. Conserva abierta esta pestaña."
+  },
+  "KOD-NET-002": {
+    "message": "La respuesta del servidor no se pudo interpretar.",
+    "action": "Vuelve a intentar. Si se repite, comparte el código y la referencia."
+  },
+  "KOD-REQ-001": {
+    "message": "La solicitud no se pudo procesar.",
+    "action": "Revisa los datos indicados y vuelve a intentar."
+  },
+  "KOD-SYS-001": {
+    "message": "El servicio no pudo completar la operación.",
+    "action": "Vuelve a intentar. Si se repite, comparte el código y la referencia."
+  },
+  "KOD-FOLDER-001": {
+    "message": "El grupo cambió o sus datos no son válidos.",
+    "action": "Revisa el nombre y actualiza la lista antes de volver a guardar."
+  },
+  "KOD-SHARE-001": {
+    "message": "No se pudo completar el acceso compartido.",
+    "action": "Revisa el correo y los permisos del diagrama."
+  },
+  "KOD-RATE-001": {
+    "message": "Se hicieron demasiadas solicitudes.",
+    "action": "Espera un momento antes de volver a intentar."
+  },
+  "KOD-PDF-001": {
+    "message": "No se pudo preparar el PDF.",
+    "action": "Guarda el diagrama y vuelve a solicitar la descarga."
+  }
+}
