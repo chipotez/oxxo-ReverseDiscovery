@@ -5,7 +5,7 @@ Wants=network-online.target
 Requires=koodaria-diagrams-db.service
 
 [Container]
-Image=localhost/koodaria-workspace:api-explorer-20261025
+Image=localhost/koodaria-workspace:global-datadog-catalog-20261025
 ContainerName=koodaria-workspace
 Network=themike-auth.network
 Network=koodaria-data.network

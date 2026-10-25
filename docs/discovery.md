@@ -138,3 +138,58 @@ conciliación automática en esta fase.
 
 Las propiedades del diagrama se abren con doble clic en su título, o Enter con
 el título enfocado. Los inspectores de recursos y conexiones conservan su alcance.
+
+## Catálogo global oficial de Datadog (sustituye la selección inicial de ocho)
+
+El registro precargado `app/datadog-api-catalog.json` se genera a partir de las
+especificaciones OpenAPI v1/v2 del repositorio oficial DataDog, fijadas a revisión
+`32a2d897ebc958ab96471b33eab58c2463675e50`. Incluye las 1.922 operaciones HTTP,
+1.217 rutas y 166 familias presentes en esas fuentes, incluidas las marcadas
+Preview/deprecated. Cada operación conserva método, ruta, familia, versión,
+parámetros, permisos declarados, enlace documental y clasificación de prueba.
+Los hashes SHA-256 y URLs exactas de las fuentes se guardan en el archivo.
+
+Este catálogo es global, versionado e idéntico para todos los clientes. No se
+copia ni se modifica al guardar una conexión. PostgreSQL conserva únicamente los
+resultados por conexión/organización en `discovery_capabilities`. Los resultados
+se aceptan solo si su revisión de catálogo coincide con la actual; una nueva
+revisión exige volver a comprobar, sin borrar las evidencias anteriores.
+
+En esta revisión:
+
+- 163 consultas GET se pueden comprobar automáticamente sin identificadores.
+- 240 consultas GET requieren parámetros; la ficha permite introducirlos y
+  comprobar la operación concreta. El permiso queda asociado a los valores
+  comprobados, no a todos los recursos posibles.
+- 1.105 operaciones de otros métodos quedan documentadas y no se ejecutan.
+  Incluye POST de búsqueda: no se asume que todo POST modifique datos, pero
+  requiere un adaptador de lectura explícito antes de habilitarlo.
+- 243 operaciones Preview, 112 sensibles o con autenticación incompatible y 59
+  con formatos/servidores especiales se catalogan sin probar automáticamente.
+  Nunca se confunden con accesos denegados por Datadog.
+
+El usuario puede buscar por ruta/nombre, filtrar familia, mostrar todo o solo
+consultas automáticas/confirmadas. El barrido aplica al filtro actual, es
+secuencial, cancelable, con pausa breve entre peticiones y detención ante 429.
+Los métodos de escritura se rechazan también en servidor; no basta ocultarlos
+en la interfaz. No se consultan gestores de claves, tokens, credenciales ni
+operaciones sensibles para inferir permisos. Los scopes publicados son una
+referencia y no se usan para declarar autorizado un endpoint sin comprobarlo.
+
+Los ocho adaptadores anteriores conservan sus IDs y búsqueda/paginación. Otros
+GET usan parámetros de paginación publicados y una representación JSON genérica
+para listas y objetos; el detalle conserva el registro devuelto. El límite de
+respuesta sigue siendo 1 MB. Contratos, errores o formatos no compatibles quedan
+sin confirmar, no como "sin permiso". No se promete ejecutar todas las operaciones
+publicadas ni inferir permisos de escritura sin invocarlas.
+
+Actualización reproducible, sin credenciales:
+
+```
+.artifacts/qa-env/bin/python scripts/update_datadog_catalog.py --revision <SHA oficial de 40 caracteres>
+```
+
+Requiere PyYAML 6.0.2 en el entorno de mantenimiento. El script usa el contenido
+cacheado solo si coincide la revisión y registra sus hashes. Revisar el diff y
+las clasificaciones antes de desplegar una nueva instantánea. No existe una
+actualización automática que cambie rutas de proveedores en producción.

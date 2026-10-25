@@ -100,7 +100,7 @@ class DiscoveryTests(unittest.TestCase):
   with connection(self.owner) as c:c.execute("UPDATE discovery_connections SET status='saved' WHERE id=%s",(row['id'],))
   return row
  def test_capability_probe_persists_scope_and_host_records(self):
-  row=self.verified();cid='/'+row['id'];listed=self.call('get',cid+'/capabilities');self.assertEqual(len(listed.json['items']),8)
+  row=self.verified();cid='/'+row['id'];listed=self.call('get',cid+'/capabilities');self.assertGreater(len(listed.json['items']),1000)
   def provider(site,path,keys,params,diagnostics=None,accept_list=False):
    diagnostics.update(http_status=200,endpoint=path)
    return dict(host_list=[dict(id=123,name='qa-complete-host',meta=dict(platform='Linux',cpuCores=8),tags_by_source={'agent':['env:qa']},apps=['postgres'])],total_matching=605)
@@ -109,7 +109,7 @@ class DiscoveryTests(unittest.TestCase):
    result=self.call('get',cid+'/resources/hosts?query=qa-host&page=2&limit=5');self.assertEqual(result.status_code,200,result.json)
    self.assertEqual(result.json['items'][0]['meta']['cpuCores'],8);self.assertEqual(result.json['total'],605);self.assertTrue(result.json['has_more'])
    self.assertEqual(remote.call_args.args[3]['start'],10);self.assertEqual(remote.call_args.args[3]['filter'],'qa-host')
-  self.assertEqual(self.call('get',cid+'/capabilities').json['items'][0]['status'],'available')
+  self.assertEqual(next(i for i in self.call('get',cid+'/capabilities').json['items'] if i['id']=='hosts')['status'],'available')
   self.login(self.other);self.assertEqual(self.call('get',cid+'/capabilities').status_code,404);self.assertEqual(self.call('get',cid+'/resources/hosts').status_code,404)
   self.login('qa-unknown-guest');self.assertEqual(self.call('get',cid+'/capabilities').status_code,403)
  def test_capability_denial_is_not_a_transport_failure(self):
@@ -143,3 +143,39 @@ class DiscoveryTests(unittest.TestCase):
    from psycopg.types.json import Jsonb
    c.execute("UPDATE discovery_connections SET status='failed',stages=%s WHERE id=%s",(Jsonb([{'status':'complete'},{'status':'complete'},{'status':'failed'}]),row['id']))
   with patch('discovery.call_provider',return_value={'data':[]}):self.assertEqual(self.call('post',cid+'/capabilities/apm/probe',{}).json['status'],'available')
+ def test_global_catalog_complete_and_read_guard(self):
+  from discovery import CATALOG,FAMILIES,catalog_request
+  [catalog_request(f) for f,v in FAMILIES.items() if v['policy']=='automatic'];self.assertEqual(len(CATALOG['operations']),1922);self.assertEqual(CATALOG['stats']['groups'],166)
+  self.assertEqual(len({(o['method'],o['path']) for o in CATALOG['operations']}),1922)
+  row=self.verified();cid='/'+row['id'];listed=self.call('get',cid+'/capabilities').json
+  self.assertEqual(listed['catalog']['revision'],CATALOG['revision']);self.assertEqual(len(listed['items']),1922)
+  for policy in ['write','restricted','preview','unsupported']:
+   f=next(f for f,v in FAMILIES.items() if v['policy']==policy)
+   with patch('discovery.call_provider') as remote:
+    self.assertEqual(self.call('post',cid+'/capabilities/'+f+'/probe',{}).status_code,400);remote.assert_not_called()
+ def test_parameterized_operation_must_validate_required_ids(self):
+  from discovery import FAMILIES,catalog_request
+  f=next(f for f,v in FAMILIES.items() if v['method']=='GET' and v['path']=='/api/v1/monitor/{monitor_id}')
+  with self.assertRaises(Fault):catalog_request(f,{})
+  path,params=catalog_request(f,{'monitor_id':123});self.assertEqual(path,'/api/v1/monitor/123')
+  with self.assertRaises(Fault):catalog_request(f,{'monitor_id':'../../api_keys'})
+  with self.assertRaises(Fault):catalog_request(f,{'monitor_id':123,'arbitrary_url':'http://127.0.0.1'})
+  row=self.verified();cid='/'+row['id']
+  with patch('discovery.call_provider',return_value={'id':123,'name':'qa-monitor'}) as remote:
+   r=self.call('post',cid+'/capabilities/'+f+'/probe',{'parameters':{'monitor_id':123}});self.assertEqual(r.json['status'],'available');self.assertEqual(r.json['diagnostics']['catalog_parameters'],{'monitor_id':123})
+   r=self.call('get',cid+'/resources/'+f+'?parameters=%7B%22monitor_id%22%3A123%7D');self.assertEqual(r.status_code,200);self.assertEqual(r.json['items'][0]['name'],'qa-monitor')
+ def test_generic_read_adapts_collection_without_cross_client_results(self):
+  from discovery import FAMILIES
+  f=next(f for f,v in FAMILIES.items() if v['policy']=='automatic' and v['collection']=='auto')
+  row=self.verified();cid='/'+row['id']
+  with patch('discovery.call_provider',return_value={'data':[{'id':'qa-a'},{'id':'qa-b'}]}):
+   self.assertEqual(self.call('post',cid+'/capabilities/'+f+'/probe',{}).json['status'],'available')
+   self.assertEqual(len(self.call('get',cid+'/resources/'+f).json['items']),2)
+  other=self.create();other_id='/'+other['id']
+  with connection(self.owner) as c:c.execute("UPDATE discovery_connections SET status='saved' WHERE id=%s",(other['id'],))
+  item=next(i for i in self.call('get',other_id+'/capabilities').json['items'] if i['id']==f);self.assertEqual(item['status'],'unchecked')
+ def test_old_catalog_checks_require_revalidation(self):
+  row=self.verified();cid='/'+row['id']
+  with patch('discovery.call_provider',return_value={'host_list':[]}):self.assertEqual(self.call('post',cid+'/capabilities/hosts/probe',{}).json['status'],'available')
+  with connection(self.owner) as c:c.execute("UPDATE discovery_capabilities SET diagnostics=jsonb_build_object('catalog_revision','previous') WHERE connection_id=%s",(row['id'],))
+  item=next(i for i in self.call('get',cid+'/capabilities').json['items'] if i['id']=='hosts');self.assertEqual(item['status'],'unchecked');self.assertEqual(self.call('get',cid+'/resources/hosts').status_code,403)

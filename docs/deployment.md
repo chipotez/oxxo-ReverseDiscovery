@@ -1076,3 +1076,31 @@ Production health HTTP 200, anonymous discovery HTTP 401. Public hashes match:
 
 - JS: `fb6503284a15b65da664ad67d6241ef0aaf2974300356ecc0b6844de8ec40a2f`
 - CSS: `10210cd36a722499c88439ec8067be92822392c3cc9ff55d03662e6c9d228e21`
+
+## Global Datadog API catalog — 2026-10-25
+
+Published `localhost/koodaria-workspace:global-datadog-catalog-20261025`, image
+`3e770819c71dacee841ccfc5126af3d9ba1b2ed2219474c9af4dc71007a0a8c4`.
+Global catalog generated from official OpenAPI v1/v2 revision
+`32a2d897ebc958ab96471b33eab58c2463675e50`: 166 families, 1,217 paths and 1,922
+HTTP operations. Source URLs and SHA-256 hashes are embedded in the JSON registry.
+163 automatic GET probes, 240 parameterized GET entries; other methods, sensitive,
+preview and special-format operations are documented without permission claims.
+
+The same registry is loaded for all clients. Per-connection checks stay in the
+existing RLS-protected capabilities table. No SQL migration or encryption-key
+change. Old checks without the current catalog revision require revalidation.
+Database backup completed; previous Quadlet saved under
+`/home/mip/backups/koodaria-20261025/global-datadog-catalog/`.
+
+Validation: 85 backend tests, including complete registry, dry-run construction
+of all 163 automatic probes, required IDs, method guards, version invalidation,
+parameterized reads and per-connection isolation. Synthetic browser checks cover
+global counts, family/search filtering, manual parameters, no execution of a POST
+entry, host browsing and six light/dark layouts plus three editor layouts.
+Evidence: `evidence/global-datadog-catalog-report.json`. No customer keys used in
+QA or live capability scan; the user initiates checks with their saved connection.
+Production health HTTP 200; deployed registry counts verified. Public hashes match:
+
+- JS: `92be1b40d785da1b7bb89c0a31a580217d34a83f6529e195cc19a576897477b1`
+- CSS: `a3368a6cdf34f19643df88fce519ffca360f0ad5342d8134afaf6380c7b87f8a`

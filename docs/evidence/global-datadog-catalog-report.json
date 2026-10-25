@@ -1,0 +1,49 @@
+{
+  "synthetic_identity_only": true,
+  "layouts": [
+    {
+      "theme": "light",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "theme": "light",
+      "width": 844,
+      "height": 390
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "height": 900
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "theme": "dark",
+      "width": 844,
+      "height": 390
+    }
+  ],
+  "global_operations": 1922,
+  "global_groups": 166,
+  "write_not_executed": true,
+  "manual_parameters": true,
+  "backend_tests": 85,
+  "persisted_capabilities": true,
+  "only_authorized_enabled": true,
+  "host_pagination": true,
+  "remote_search": true,
+  "full_host_record": true,
+  "diagram_entry": true,
+  "diagram_title_properties": true,
+  "no_diagram_mutation": true,
+  "browser_errors": []
+}
