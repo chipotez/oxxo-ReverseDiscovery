@@ -890,3 +890,44 @@ priorizar corregir hacia adelante o modo de mantenimiento, conservando las tabla
 No restaurar un backup ni volver ciegamente a una imagen previa después de nuevas
 escrituras. La exportación PDF y puntos de control manuales mantienen sus límites
 ya documentados; esta entrega no declara paridad nueva del PDF.
+
+## 2026-10-24 · Cancelación y reconexión de extremos
+
+Imagen `localhost/koodaria-workspace:reconnect-20261024`,
+ID `4d2f6c184103783045beb0d3affa106462057ecd0f2697370c29c220b7793fa6`.
+Escape cierra Recursos desde el buscador o fuera del panel, cancela el alojamiento
+pendiente y devuelve foco al botón que abrió la paleta.
+
+«Invertir dirección» intercambia extremos y puertos en una sola edición. Los
+selectores preparan cambios locales y «Aplicar extremos» confirma solo un par
+válido: la igualdad temporal no dispara un error modal ni llega a PostgreSQL.
+Inicialmente muestran los extremos actuales; «Buscar otro componente» consulta
+nombre/ID del grafo autorizado y agrega como máximo ocho coincidencias, conservando
+los seleccionados. No se aumenta el límite actual de 200 recursos / 500 conexiones.
+
+Seleccionar una línea habilita sus dos anclajes de reconexión; arrastrar cualquiera
+cambia el extremo y puerto con el mismo ID, relación, etiqueta y estilo. Cancelar
+sobre espacio vacío conserva el grafo anterior. La selección de un candidato no
+reemplaza la selección de la línea durante el arrastre. Todos los puertos son
+bidireccionales en modo loose: antes oeste era solo target y no podía renderizarse
+como origen tras invertir. Las conexiones antiguas sin puerto explícito conservan
+este→oeste como representación por defecto. La nueva dirección sigue el nodo desde
+el que se inicia el gesto. Referencia técnica: [React Flow · reconexión](https://reactflow.dev/examples/edges/reconnect-edge).
+
+64 pruebas de servidor sin cambios de contrato; JS de historia/identidades y
+pruebas navegador con inversión atómica/manual, arrastre de ambos extremos,
+cancelación, origen desde oeste, ID/estilos conservados, undo/redo persistido,
+lista inicial acotada y búsqueda con 28 recursos sintéticos. Seis tamaños/temas
+normales y seis con búsqueda expandida y aplicación pendiente, verificando alturas
+y ausencia de overflow interno. En pantalla baja el panel flota sobre la ventana y
+separa Extremos de Etiqueta y acciones, sin escalar ni recortar contenido.
+Evidencias `docs/evidence/reconnect-report.json` y `reconnect-layout-report.json`.
+
+Respaldo de base completado y unidad previa en
+`/home/mip/backups/koodaria-20261024/reconnect/`. Sin migración SQL; solo reinicio
+del workspace. Reversión de imagen a `versioned-fields-20261024` compatible con el
+mismo contrato de datos; no restaurar base para revertir esta interfaz. Salud 200,
+imagen activa y hashes públicos iguales al contenedor comprobados:
+
+- JS: `e2a61ec3523df559aeef3cb12c8a17b7f40c284f698debf0e9e24597985f47d8`.
+- CSS: `ea64ddeab5a27a8c8e9054697e9223afc70b4699e585664509c9474ae84fafcb`.

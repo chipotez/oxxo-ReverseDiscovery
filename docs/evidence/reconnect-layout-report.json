@@ -1,0 +1,48 @@
+{
+  "synthetic_identity_only": true,
+  "layouts": [
+    {
+      "theme": "light",
+      "width": 1440,
+      "height": 900,
+      "expanded_search": true,
+      "pending_apply": true
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "height": 844,
+      "expanded_search": true,
+      "pending_apply": true
+    },
+    {
+      "theme": "light",
+      "width": 844,
+      "height": 390,
+      "expanded_search": true,
+      "pending_apply": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "height": 900,
+      "expanded_search": true,
+      "pending_apply": true
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "height": 844,
+      "expanded_search": true,
+      "pending_apply": true
+    },
+    {
+      "theme": "dark",
+      "width": 844,
+      "height": 390,
+      "expanded_search": true,
+      "pending_apply": true
+    }
+  ],
+  "no_inner_overflow": true
+}

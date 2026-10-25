@@ -198,3 +198,11 @@ referencia aparece en logs estructurados sin valores de campos, tokens ni correo
 El diálogo permite copiar código/referencia y mantiene abierto el formulario.
 Un error de validación no sobrescribe el último documento válido. Conflictos de
 revisión requieren recuperar o guardar como copia; no se reintenta sobre datos ajenos.
+
+La edición manual de extremos ahora es un borrador local con aplicación atómica;
+invertir cambia origen/destino y sus puertos juntos. La búsqueda del inspector
+muestra los extremos actuales y hasta ocho coincidencias adicionales por nombre/ID.
+Los anclajes de la línea seleccionada permiten reconectar ambos extremos; cancelar
+el arrastre mantiene la conexión anterior. Se conservan ID, estilo y semántica.
+Esto permite cambiar los extremos, no dibujar puntos de control intermedios libres;
+los recorridos disponibles siguen siendo recto, Bézier, ortogonal y redondeado.
