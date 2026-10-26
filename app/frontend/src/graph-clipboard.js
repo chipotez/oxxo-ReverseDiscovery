@@ -8,3 +8,8 @@ export function pasteGraph(document,position){
  const value=copyGraph(structuredClone(document)),roots=value.nodes.filter(n=>!n.parentId),x=Math.min(...roots.map(n=>n.position.x)),y=Math.min(...roots.map(n=>n.position.y)),dx=position.x-x,dy=position.y-y;
  value.nodes=value.nodes.map(n=>({...n,selected:true,position:n.parentId?n.position:{x:n.position.x+dx,y:n.position.y+dy}}));value.edges=value.edges.map(e=>({...e,...(e.routePoints?{routePoints:e.routePoints.map(p=>({x:p.x+dx,y:p.y+dy}))}:{})}));return value;
 }
+
+// Last canvas pointer is kept in screen coordinates so pan/zoom are resolved at paste time.
+export function pastePosition(rect,last){
+ return last&&last.x>=rect.left&&last.x<=rect.right&&last.y>=rect.top&&last.y<=rect.bottom?last:{x:rect.left+rect.width/2,y:rect.top+rect.height/2};
+}

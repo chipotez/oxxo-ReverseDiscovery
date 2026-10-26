@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import {simplify,routeOrthogonal,moveSegment} from '../app/frontend/src/edge-routing.js';
-import {pasteGraph,extractGraph} from '../app/frontend/src/graph-clipboard.js';
+import {pasteGraph,extractGraph,pastePosition} from '../app/frontend/src/graph-clipboard.js';
 import {graphDelta} from '../app/frontend/src/graph-delta.js';
 assert.deepEqual(simplify([{x:0,y:0},{x:10,y:0},{x:10,y:0},{x:40,y:0}]),[{x:0,y:0},{x:40,y:0}]);
 const route=routeOrthogonal({x:0,y:0},{x:300,y:0},'right','left',[]);assert.equal(route.length,2);
@@ -11,3 +11,9 @@ const selected=extractGraph(doc,['a']);assert.equal(selected.nodes.length,2);ass
 const pasted=pasteGraph(selected,{x:10,y:20});assert.notEqual(pasted.nodes[0].id,'a');assert.equal(pasted.edges[0].source,pasted.nodes[0].id);assert.equal(pasted.edges[0].target,pasted.nodes[1].id);
 const next=structuredClone(doc);next.nodes[0].data.kind='database';const delta=graphDelta(doc,next);assert.deepEqual(delta[0].path,['data']);
 console.log('PASS collinear simplification, obstacle detour, segment endpoints, nested clipboard and atomic classification');
+
+const rect={left:10,top:20,right:410,bottom:220,width:400,height:200};
+assert.deepEqual(pastePosition(rect,{x:300,y:100}),{x:300,y:100});
+assert.deepEqual(pastePosition(rect,null),{x:210,y:120});
+assert.deepEqual(pastePosition(rect,{x:600,y:100}),{x:210,y:120});
+console.log('PASS last canvas pointer and keyboard-only fallback');

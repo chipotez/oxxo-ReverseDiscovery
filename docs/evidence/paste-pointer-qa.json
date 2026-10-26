@@ -1,0 +1,9 @@
+{
+  "synthetic_only": true,
+  "checks": [
+    "last canvas pointer persisted at initial zoom after moving over toolbar",
+    "last canvas pointer persisted at changed zoom after moving over toolbar"
+  ],
+  "deployed_image": "localhost/koodaria-workspace:paste-pointer-20261026",
+  "public_js_sha256": "bba6f88c7f36e490f7991a9f3823cea60f62ba173a5e88fe4b8400adee4d37f1"
+}

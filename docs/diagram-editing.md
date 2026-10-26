@@ -39,3 +39,7 @@ nativos. La definición de cada campo sigue gobernada por su estándar.
 Verificación: 81 pruebas de servidor, 9 recorridos de edición en navegador y
 9 recorridos de regresión colaborativa. Los recorridos usan exclusivamente datos
 sintéticos. Ver `docs/evidence/graph-editing-qa.json`.
+
+El pegado usa la última posición del puntero sobre el lienzo, convertida mediante
+el viewport actual (pan/zoom). Moverse a paneles o barras conserva ese punto. Sin
+puntero previo, o si quedó fuera del lienzo tras redimensionar, se usa el centro.
