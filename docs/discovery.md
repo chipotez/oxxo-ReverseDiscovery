@@ -206,3 +206,16 @@ record is modified and missing properties are not inferred.
 becomes inert. Results and selection remain in place without another API request.
 Mobile uses APIs / Results / Summary / JSON navigation. Reduced-motion preferences
 disable the slide. No schema, stored credential or authorization changes.
+
+Catalog entries are now single full-row buttons (including route/check details).
+Selection uses a single border and an inset keyboard focus indicator. Catalog
+pagination measures the space left below its filters; short landscape layouts
+collapse filters into an expandable section. Long summaries paginate fields.
+Original JSON uses smaller monospace text and a modal expand/restore action.
+
+Host enrichment displays provider-reported EC2 ID, cluster/node tags and detected
+Kubernetes/runtime applications when present. It does not classify a host as a
+container from its installed integrations, nor infer physical/virtual/hypervisor
+status from its name or CPU. Reference:
+https://docs.datadoghq.com/api/latest/hosts/get-all-hosts-for-your-organization/
+and https://docs.datadoghq.com/containers/kubernetes/tag/.

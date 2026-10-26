@@ -1122,3 +1122,22 @@ layouts and three diagram-entry layouts. Evidence:
 401. Public JS/CSS match container hashes:
 - JS: `b2d66d535436cbe5094b45b913edc841b1ff0b8b1f2c0ae2bbabdb2c5be40aaf`
 - CSS: `8c15aacb45c44e285f90c862273e35dbdcbe87823acc514209255244263c792c`
+
+### 2026-10-25 — Datadog explorer interaction and viewport refinements
+
+Deployed `localhost/koodaria-workspace:datadog-refinements-20261025`, image
+`436502af53fa7c959048d56ff5725351a7a1679e9429aefdbd7b038f2287f2cf`.
+Full-row API selection, single selection outline, viewport-sized catalog pages,
+compact JSON with expand/restore dialog, paginated long summaries and explicit
+host cloud/Kubernetes/runtime signals. No schema or credential changes.
+Backup completed and previous Quadlet saved under
+`/home/mip/backups/koodaria-20261025/datadog-refinements/`.
+
+Summary unit assertions and synthetic browser checks passed (eight light/dark
+layouts and four diagram entry layouts, including 1440×768). Checks include
+clicking the endpoint area of a catalog row, raw JSON expand/restore, original
+payload, reduced-motion support and catalog pagination visible inside viewport.
+Evidence: `evidence/datadog-refinements-report.json`. Health 200 and public hashes
+match the container:
+- JS: `b72f43fbcd786cd26a2474eff97bbb07b32f39d7b5d4d923e4b4f13f4cc8684f`
+- CSS: `f75c5591409e817f60fc69cbec8f1cddd8c8e80f68c242d3a94738bc2b875aba`
