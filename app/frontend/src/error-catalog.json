@@ -114,5 +114,21 @@
   "KOD-CON-008": {
     "message": "La conexión cambió o la prueba ya terminó.",
     "action": "Vuelve a abrir la conexión e inicia una prueba nueva."
+  },
+  "KOD-COL-001": {
+    "message": "Hay un conflicto de edición.",
+    "action": "Tus cambios siguen abiertos. Revisa la versión compartida antes de continuar."
+  },
+  "KOD-COL-002": {
+    "message": "La operación colaborativa no es válida.",
+    "action": "Conserva esta referencia y revisa los recursos afectados."
+  },
+  "KOD-COL-003": {
+    "message": "El acceso al diagrama cambió.",
+    "action": "Solicita acceso al propietario. No se enviarán más cambios."
+  },
+  "KOD-COL-004": {
+    "message": "Otro colaborador está editando el recurso.",
+    "action": "Espera a que termine o trabaja en otro componente."
   }
 }

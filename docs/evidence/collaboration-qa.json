@@ -1,0 +1,18 @@
+{
+  "synthetic_only": true,
+  "checks": [
+    "two users edit independent nodes and persist both",
+    "lease prevents concurrent same-resource edits",
+    "lost acknowledgment retries same operation without duplication",
+    "offline editing pauses and reconnect confirms persistence",
+    "same-account session recovery resumes existing editor",
+    "permission downgrade applies to already-open browser",
+    "revoked user stops receiving map updates",
+    "delete confirmation and persisted trash restore resource",
+    "collaboration dialog fits eight viewport/theme combinations"
+  ],
+  "server_tests_passed": 76,
+  "browser_checks_passed": 9,
+  "deployed_image": "localhost/koodaria-workspace:collaboration-20261026",
+  "public_js_sha256": "67e6f6c2d9c0e5609507aebe003ba51ed64227db189900c4c31aa52901a711d7"
+}

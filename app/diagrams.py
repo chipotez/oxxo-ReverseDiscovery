@@ -170,7 +170,7 @@ def owner_record(conn, diagram_id):
     return conn.execute('SELECT id,name,document,revision,updated_at,folder_id FROM resource_diagrams WHERE id=%s AND owner_sub=%s',(key(diagram_id),subject())).fetchone()
 
 def fetch(conn, diagram_id):
-    return conn.execute('SELECT id,name,document,revision,updated_at,folder_id FROM resource_diagrams WHERE id=%s AND (owner_sub=%s OR diagram_granted(id))',(key(diagram_id),subject())).fetchone()
+    return conn.execute('SELECT id,name,document,revision,updated_at,folder_id FROM resource_diagrams WHERE id=%s AND (owner_sub=%s OR diagram_visible(id))',(key(diagram_id),subject())).fetchone()
 
 def visible_folder(conn, folder_id):
     return conn.execute('SELECT id,name,revision,updated_at FROM diagram_folders WHERE id=%s AND owner_sub=%s',(key(folder_id),subject())).fetchone()
@@ -185,7 +185,7 @@ def listing():
     with connection(subject()) as conn:
         member=is_member(conn)
         if scope=='shared':
-            query="SELECT id,name,revision,updated_at,'diagram' AS kind,NULL::uuid AS folder_id,jsonb_array_length(document->'nodes') AS resources FROM resource_diagrams WHERE owner_sub<>%s AND diagram_granted(id)"
+            query="SELECT id,name,revision,updated_at,'diagram' AS kind,NULL::uuid AS folder_id,jsonb_array_length(document->'nodes') AS resources FROM resource_diagrams WHERE owner_sub<>%s AND diagram_visible(id)"
             params=(subject(),)
         elif not member:
             return jsonify(items=[],total=0,page=page,page_size=page_size)
@@ -257,6 +257,8 @@ def move():
     with connection(subject()) as conn:
         require_member(conn)
         if destination and not visible_folder(conn,destination):return jsonify(error='Carpeta no encontrada.'),404
+        from collaboration import lock_diagram
+        for did in sorted(ids,key=str):lock_diagram(conn,did)
         rows=conn.execute('SELECT id,revision FROM resource_diagrams WHERE owner_sub=%s AND id=ANY(%s) ORDER BY id FOR UPDATE',(subject(),ids)).fetchall()
         revisions={r['id']:r['revision'] for r in rows}
         if len(rows)!=len(items) or any(revisions.get(id)!=item['revision'] for id,item in zip(ids,items)):
@@ -288,10 +290,37 @@ def get(diagram_id):
     with connection(subject()) as conn:
         row=fetch(conn,diagram_id)
         owned=bool(owner_record(conn,diagram_id))
+        editable=conn.execute('SELECT diagram_granted(%s) AS allowed',(key(diagram_id),)).fetchone()['allowed']
     if not row: return jsonify(error='Diagrama no encontrado.'),404
-    row['access']='owner' if owned else 'editor'
+    row['access']='owner' if owned else 'editor' if editable else 'viewer'
     if not owned:row['folder_id']=None
     return jsonify(serialize(row))
+
+def prepare_document(conn,incoming_document,original):
+    value=validate(incoming_document,defer_instances=True)
+    from standards import bind
+    old_nodes={n['id']:n for n in original['document']['nodes']}
+    for node in value['nodes']:
+        old=old_nodes.get(node['id'],{}).get('data',{})
+        if old and old.get('kind')!=node['data']['kind']:
+            raise InvalidDiagram('El tipo de un componente existente no se puede cambiar. Crea el componente correcto y vuelve a vincularlo; sus datos pertenecen a otro estándar.')
+        for field in ['provider','technology','location','server_instance','component_instance']:
+            if field not in node['data'] and field in old and old.get('kind')==node['data']['kind'] and not (field in ['server_instance','component_instance'] and node['data'].get('model_ref') and node['data']['model_ref']!=old.get('model_ref')):node['data'][field]=old[field]
+    old_edges={e['id']:e for e in original['document']['edges']}
+    for edge in value['edges']:
+        old=old_edges.get(edge['id'],{})
+        for field in ['type','pattern','arrows','color','bends']:
+            if field not in edge and field in old:edge[field]=old[field]
+        incoming=next(e for e in incoming_document['edges'] if e['id']==edge['id'])
+        if 'relation' not in incoming and 'relation' in old and old.get('source')==edge['source'] and old.get('target')==edge['target']:edge['relation']=old['relation']
+        for field,endpoint in [('sourceHandle','source'),('targetHandle','target')]:
+            incoming=next(e for e in incoming_document['edges'] if e['id']==edge['id'])
+            if field not in incoming and old.get(endpoint)==edge[endpoint] and field in old and next(n for n in value['nodes'] if n['id']==edge[endpoint])['data']['kind'] in ['servidor','virtual']:edge[field]=old[field]
+    from component_models import resolve
+    models=resolve(conn,value,original['document'])
+    value=validate(value,models)
+    value=bind(conn,value,original['document'],models=models)
+    return value
 
 @bp.put('/<diagram_id>')
 def save(diagram_id):
@@ -301,30 +330,13 @@ def save(diagram_id):
     if type(revision)!=int or revision<1: raise InvalidDiagram()
     value=validate(body.get('document'),defer_instances=True)
     with connection(subject()) as conn:
+        from collaboration import lock_diagram, check_legacy_edit
+        lock_diagram(conn,diagram_id)
         original=fetch(conn,diagram_id)
         if not original:return jsonify(error='Diagrama no encontrado.'),404
-        from standards import bind
-        old_nodes={n['id']:n for n in original['document']['nodes']}
-        for node in value['nodes']:
-            old=old_nodes.get(node['id'],{}).get('data',{})
-            if old and old.get('kind')!=node['data']['kind']:
-                raise InvalidDiagram('El tipo de un componente existente no se puede cambiar. Crea el componente correcto y vuelve a vincularlo; sus datos pertenecen a otro estándar.')
-            for field in ['provider','technology','location','server_instance','component_instance']:
-                if field not in node['data'] and field in old and old.get('kind')==node['data']['kind'] and not (field in ['server_instance','component_instance'] and node['data'].get('model_ref') and node['data']['model_ref']!=old.get('model_ref')):node['data'][field]=old[field]
-        old_edges={e['id']:e for e in original['document']['edges']}
-        for edge in value['edges']:
-            old=old_edges.get(edge['id'],{})
-            for field in ['type','pattern','arrows','color','bends']:
-                if field not in edge and field in old:edge[field]=old[field]
-            incoming=next(e for e in body['document']['edges'] if e['id']==edge['id'])
-            if 'relation' not in incoming and 'relation' in old and old.get('source')==edge['source'] and old.get('target')==edge['target']:edge['relation']=old['relation']
-            for field,endpoint in [('sourceHandle','source'),('targetHandle','target')]:
-                incoming=next(e for e in body['document']['edges'] if e['id']==edge['id'])
-                if field not in incoming and old.get(endpoint)==edge[endpoint] and field in old and next(n for n in value['nodes'] if n['id']==edge[endpoint])['data']['kind'] in ['servidor','virtual']:edge[field]=old[field]
-        from component_models import resolve
-        models=resolve(conn,value,original['document'])
-        value=validate(value,models)
-        value=bind(conn,value,original['document'],models=models)
+        if not conn.execute('SELECT diagram_owned(%s) OR diagram_granted(%s) AS allowed',(key(diagram_id),key(diagram_id))).fetchone()['allowed']:abort(403)
+        check_legacy_edit(conn,diagram_id)
+        value=prepare_document(conn,body['document'],original)
         row=conn.execute('UPDATE resource_diagrams SET name=%s,document=%s,revision=revision+1,updated_at=now() WHERE id=%s AND (owner_sub=%s OR diagram_granted(id)) AND revision=%s RETURNING id,name,revision,updated_at',(value['name'],Jsonb(value),key(diagram_id),subject(),revision)).fetchone()
         if not row:
             if not fetch(conn,diagram_id): return jsonify(error='Diagrama no encontrado.'),404
@@ -337,6 +349,8 @@ def delete(diagram_id):
     revision=(request.get_json() or {}).get('revision')
     if type(revision)!=int: raise InvalidDiagram()
     with connection(subject()) as conn:
+        from collaboration import lock_diagram,check_legacy_edit
+        lock_diagram(conn,diagram_id);check_legacy_edit(conn,diagram_id)
         row=conn.execute('DELETE FROM resource_diagrams WHERE id=%s AND owner_sub=%s AND revision=%s RETURNING id',(key(diagram_id),subject(),revision)).fetchone()
         if not row:
             return jsonify(error='No se eliminó. El diagrama no existe o cambió; actualiza la lista.'),409
@@ -372,7 +386,7 @@ def get_capabilities():
 def shares(diagram_id):
     with connection(subject()) as conn:
         if not owner_record(conn,diagram_id):return jsonify(error='Diagrama no encontrado.'),404
-        rows=conn.execute('SELECT id,recipient_email,status,updated_at FROM diagram_shares WHERE diagram_id=%s AND owner_sub=%s ORDER BY updated_at DESC LIMIT 100',(key(diagram_id),subject())).fetchall()
+        rows=conn.execute('SELECT id,recipient_email,permission,status,updated_at FROM diagram_shares WHERE diagram_id=%s AND owner_sub=%s ORDER BY updated_at DESC LIMIT 100',(key(diagram_id),subject())).fetchall()
     return jsonify(items=[serialize(r) for r in rows])
 
 @bp.post('/<diagram_id>/shares')
@@ -382,6 +396,8 @@ def share(diagram_id):
     except ValueError:return jsonify(error='Introduce un correo electrónico válido.'),400
     provider=None;onboarding=False;notification=False
     with connection(subject()) as conn:
+        from collaboration import lock_diagram
+        lock_diagram(conn,diagram_id)
         require_member(conn)
         row=owner_record(conn,diagram_id)
         if not row:return jsonify(error='Diagrama no encontrado.'),404
@@ -414,8 +430,14 @@ def share(diagram_id):
 @bp.delete('/<diagram_id>/shares/<share_id>')
 def revoke_share(diagram_id,share_id):
     with connection(subject()) as conn:
+        from collaboration import lock_diagram
+        lock_diagram(conn,diagram_id)
         if not owner_record(conn,diagram_id):return jsonify(error='Diagrama no encontrado.'),404
-        row=conn.execute("UPDATE diagram_shares SET status='revoked',updated_at=now() WHERE id=%s AND diagram_id=%s AND owner_sub=%s RETURNING id",(key(share_id),key(diagram_id),subject())).fetchone()
+        row=conn.execute("UPDATE diagram_shares SET status='revoked',updated_at=now() WHERE id=%s AND diagram_id=%s AND owner_sub=%s RETURNING id,recipient_sub",(key(share_id),key(diagram_id),subject())).fetchone()
         if not row:return jsonify(error='Acceso no encontrado.'),404
+        conn.execute('DELETE FROM diagram_collaborators WHERE diagram_id=%s AND actor_sub=%s',(key(diagram_id),row['recipient_sub']))
         conn.execute("INSERT INTO diagram_audit(diagram_id,actor_sub,action) VALUES(%s,%s,'revoke')",(key(diagram_id),subject()))
     return '',204
+
+from collaboration import register as register_collaboration
+register_collaboration(bp)
