@@ -21,3 +21,6 @@ account actions, account management, dialogs, and future product screens.
   an inner panel has no overflow.
 - Use disposable accounts for identity QA. Never capture QR codes, OTP secrets,
   passwords, tokens, or real customer data in screenshots or evidence.
+- New hierarchical selection dialogs must reuse `app/frontend/src/selection-dialog.jsx`
+  and follow `docs/selection-dialog-spec.md` for dimensions, semantics, cascading
+  selection, responsive pagination, focus, and confirmation behavior.

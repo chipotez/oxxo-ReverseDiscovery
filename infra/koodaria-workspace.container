@@ -5,7 +5,7 @@ Wants=network-online.target
 Requires=koodaria-diagrams-db.service
 
 [Container]
-Image=localhost/koodaria-workspace:paste-pointer-20261026
+Image=localhost/koodaria-workspace:classification-selector-20261026
 ContainerName=koodaria-workspace
 Network=themike-auth.network
 Network=koodaria-data.network
