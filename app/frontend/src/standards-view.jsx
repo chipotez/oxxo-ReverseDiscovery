@@ -8,6 +8,12 @@ export default function StandardsWorkspace({api,Glyph,onDirty,SessionRecovery,re
  const [rows,setRows]=useState([]),[level,setLevel]=useState('categories'),[item,setItem]=useState(null),[doc,setDoc]=useState(null),[tab,setTab]=useState('definition'),[section,setSection]=useState('data'),[index,setIndex]=useState(0),[versions,setVersions]=useState([]),[preview,setPreview]=useState(0),[error,setError]=useState(''),[notice,setNotice]=useState(''),[busy,setBusy]=useState(false),[changed,setChanged]=useState(false),[reauth,setReauth]=useState(false),[page,setPage]=useState(0),[size,setSize]=useState(4),[creating,setCreating]=useState(null),[newName,setNewName]=useState('');
  const body=useRef(null),dialog=useRef(null),leaveDialog=useRef(null),leaveResolve=useRef(null);
  const [category,setCategory]=useState(null),[subcategory,setSubcategory]=useState(null),[leaving,setLeaving]=useState(false),[modelSection,setModelSection]=useState('identification'),[selectedType,setSelectedType]=useState(null),[query,setQuery]=useState(''),[provider,setProvider]=useState('');
+ useEffect(()=>{
+ const kind=new URLSearchParams(location.hash.split('?')[1]||'').get('kind');
+ const resource=resourcesByKind[kind];if(!resource||resource.legacy)return;
+ const family=taxonomy.find(c=>c.id===resource.category),type=family?.children.find(c=>c.id===resource.subcategory);
+ if(!type)return;setCategory(family);setSubcategory(type);setSelectedType(resource);setLevel(type.id==='servers'?'serverModel':'componentModel');
+ },[]);
  const requestLeave=()=>{if(!changed)return Promise.resolve(true);if(leaveResolve.current)return Promise.resolve(false);setLeaving(true);return new Promise(resolve=>{leaveResolve.current=resolve;});};
  const finishLeave=allow=>{if(allow){setChanged(false);onDirty(false);}leaveDialog.current?.close();setLeaving(false);const resolve=leaveResolve.current;leaveResolve.current=null;resolve?.(allow);};
  useEffect(()=>{registerLeave(requestLeave);return()=>registerLeave(null);},[changed]);

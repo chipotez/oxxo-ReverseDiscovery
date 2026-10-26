@@ -12,3 +12,10 @@ export function componentSections(resource){
  const sections=structuredClone(genericModel.sections);sections[0].fields=structuredClone(genericModel.identificationOverrides[resource.kind]||sections[0].fields);sections[1].fields=componentCatalog.categories.find(c=>c.id===resource.category).capabilities;return sections;
 }
 export default componentCatalog;
+
+export function resourceClassification(kind){
+ const resource=resourcesByKind[kind];
+ const family=taxonomy.find(c=>c.id===resource?.category);
+ const type=family?.children.find(c=>c.id===resource?.subcategory);
+ return resource&&family&&type?{family:family.label,type:type.label,subtype:resource.label,kind:resource.kind}:null;
+}
