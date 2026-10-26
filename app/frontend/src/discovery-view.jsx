@@ -1,3 +1,4 @@
+import {useEscapeLayer} from './escape-layer.js';
 import React,{useEffect,useRef,useState} from 'react';
 import {reportFault} from './error-center.jsx';
 import {discoveryApi as api} from './discovery-api.js';
@@ -16,6 +17,7 @@ export default function DiscoveryWorkspace({onDirty,registerLeave}){
  useEffect(()=>{if(leave)dialog.current?.showModal();},[leave]);
  const decide=v=>{dialog.current?.close();setLeave(false);resolver.current?.(v);resolver.current=null;};
  const reset=()=>{setView('connections');setCurrent(null);setDirty(false);setError('');setQuery('');setPage(1);};
+ useEscapeLayer(picker||view!=='connections',async()=>{if(picker){setPicker(false);return;}if(dirty||running){const allowed=await new Promise(resolve=>{resolver.current=resolve;setLeave(true);});if(!allowed)return;abort.current?.abort();}reset();},10);
  const edit=row=>{setCurrent(row);setForm({name:row?.name||'',site:row?.site||sites[0],api_key:'',app_key:''});setStep(0);setDirty(false);setError('');setView('form');};
  const changed=(k,v)=>{setForm(f=>({...f,[k]:v}));setDirty(true);};
  const remember=row=>{setCurrent(row);setItems(list=>[row,...list.filter(r=>r.id!==row.id)]);};

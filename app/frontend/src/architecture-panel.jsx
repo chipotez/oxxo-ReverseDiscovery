@@ -1,7 +1,9 @@
+import {useEscapeLayer} from './escape-layer.js';
 import React,{useState,useRef,useEffect} from 'react';
 import {sectionsFor,instanceKey,related} from './resource-documentation.js';
 export const relationLabels={hosts:'Aloja / ejecuta',belongs:'Forma parte de',depends:'Depende de',connected:'Conectado a',storage:'Consume almacenamiento',managed:'Administrado / protegido por',used:'Utilizado por'};
 export default function ArchitecturePanel({node,nodes,edges,onLink,onRemove,onChange,onClose,saveState,onLayout,onBack}){
+ useEscapeLayer(true,onBack||onClose,45);
  const panel=useRef(null),[step,setStep]=useState('links'),[size,setSize]=useState(innerHeight<600?1:3);
  useEffect(()=>{let frame;const el=panel.current;const measure=()=>{cancelAnimationFrame(frame);frame=requestAnimationFrame(()=>{setSize(innerHeight<600?1:3);if(innerWidth<=800){el.style.left='';el.style.right='';}onLayout(el.getBoundingClientRect(),el);});};const observer=new ResizeObserver(measure);observer.observe(el);observer.observe(el.parentElement);window.addEventListener('resize',measure);measure();return()=>{observer.disconnect();window.removeEventListener('resize',measure);cancelAnimationFrame(frame);};},[node.id,onLayout,step]);
  const [field,setField]=useState(sectionsFor(node.data).find(s=>s.id==='relationships').fields[0].id),[target,setTarget]=useState(''),[page,setPage]=useState(0);

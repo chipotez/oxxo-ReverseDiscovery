@@ -24,3 +24,6 @@ account actions, account management, dialogs, and future product screens.
 - New hierarchical selection dialogs must reuse `app/frontend/src/selection-dialog.jsx`
   and follow `docs/selection-dialog-spec.md` for dimensions, semantics, cascading
   selection, responsive pagination, focus, and confirmation behavior.
+- Floating interaction layers must register with `useEscapeLayer` so one Escape
+  closes only the foremost layer and restores focus. Use `confirmDialog` for
+  asynchronous branded confirmations, never browser `confirm`/`alert` dialogs.

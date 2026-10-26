@@ -1,12 +1,15 @@
+import {useEscapeLayer} from './escape-layer.js';
 import React,{useEffect,useRef,useState} from 'react';
 import StandardFieldInput from './standard-field-input.jsx';
 import model from './server-standard-model.json';
 import operating from './operating-standards.json';
 import {sectionsFor,instanceKey,serverKind} from './resource-documentation.js';
 export default function ServerInspector({node,section='identification',onChange,onClose,onSave,saveState,onLayout,Glyph,onBack}){
+ useEscapeLayer(true,onBack||onClose,45);
  const panel=useRef(null),body=useRef(null),[page,setPage]=useState(0),[size,setSize]=useState(8);
  const spec=sectionsFor(node.data).find(s=>s.id===section);const key=instanceKey(node.data);const fields=section==='controls'&&serverKind(node.data.kind)?[...(node.data.standard?.definition.requirements||operating.functions),...spec.fields.filter(f=>f.custom)]:spec.fields;
  const values=node.data[key]?.[section]||{};
+ useEffect(()=>{if(section==='identification'){const index=fields.findIndex(f=>f.id==='address');if(index>=0)setPage(Math.floor(index/size));}},[node.id,section,size]);
  useEffect(()=>{const previous=document.activeElement;panel.current.querySelector('input,select')?.focus({preventScroll:true});return()=>previous?.focus({preventScroll:true});},[]);
  useEffect(()=>{const el=panel.current;let frame;const measure=()=>{cancelAnimationFrame(frame);frame=requestAnimationFrame(()=>{const grid=body.current.querySelector('.identity-fields'),items=[...grid.children];if(!items.length)return;const cs=getComputedStyle(grid),ps=getComputedStyle(el),cols=cs.gridTemplateColumns.split(' ').length,gap=parseFloat(cs.rowGap)||0,row=Math.max(...items.map(e=>e.getBoundingClientRect().height));const base=el.querySelector('header').getBoundingClientRect().height+el.querySelector('footer').getBoundingClientRect().height+parseFloat(ps.paddingTop)+parseFloat(ps.paddingBottom)+2*(parseFloat(ps.rowGap)||0)+2;const fixed=ps.position==='fixed';const available=(fixed?window.innerHeight:el.parentElement.clientHeight)-24;const height=Math.min(available,base+Math.ceil(fields.length/cols)*(row+gap)-gap);el.style.height=height+'px';setSize(Math.min(fields.length,Math.max(cols,cols*Math.floor((height-base+gap)/(row+gap)))));if(window.innerWidth<=800){el.style.left='';el.style.right='';}onLayout(el.getBoundingClientRect(),el);});};const observer=new ResizeObserver(measure);observer.observe(el.parentElement);observer.observe(el);window.addEventListener('resize',measure);measure();return()=>{observer.disconnect();cancelAnimationFrame(frame);window.removeEventListener('resize',measure);};},[size,page,node.id,section,onLayout,saveState.message]);
  const pages=Math.max(1,Math.ceil(fields.length/size)),current=Math.min(page,pages-1),synced=saveState.state==='saved';

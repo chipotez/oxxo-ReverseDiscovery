@@ -1,5 +1,7 @@
+import {useEscapeLayer} from './escape-layer.js';
 import React,{useState,useEffect} from 'react';
 export default function CommentsPanel({diagramId,anchor,request,onClose,canEdit}){
+ useEscapeLayer(true,onClose,65);
  const [items,setItems]=useState([]),[people,setPeople]=useState([]),[body,setBody]=useState(''),[mentions,setMentions]=useState([]),[error,setError]=useState(''),[busy,setBusy]=useState(false),[page,setPage]=useState(0),[total,setTotal]=useState(0);
  const listPath='/'+diagramId+'/comments?page='+(page+1)+(anchor?'&anchor_type='+anchor.type+'&anchor_id='+encodeURIComponent(anchor.id):'');
  useEffect(()=>{let stopped=false;const load=()=>request(listPath).then(r=>{if(!stopped){setItems(r.items);setTotal(r.total);}}).catch(()=>{if(!stopped)setError('No se pudieron actualizar los comentarios.');});load();request('/'+diagramId+'/comment-people').then(r=>{if(!stopped)setPeople(r.items);}).catch(()=>{});const timer=setInterval(load,4000);return()=>{stopped=true;clearInterval(timer);};},[diagramId,page,anchor?.id,anchor?.type]);

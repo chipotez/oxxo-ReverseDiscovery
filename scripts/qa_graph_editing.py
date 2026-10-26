@@ -40,7 +40,7 @@ with sync_playwright() as pw:
  dlg.get_by_role('button',name='Revisar cambio').click();dlg.get_by_role('button',name='Confirmar clasificación').click();saved(p)
  result=call(p,'GET','/'+did)['data'];a=next(n for n in result['document']['nodes'] if n['id']=='a');assert a['data']['kind']==subs[0];assert result['document']['edges'][0]['source']=='a';checks.append('dependent classification preserves ID and connections')
  # Legacy displayed fields become versioned identity fields, not an ungoverned second form.
- p.on('dialog',lambda d:d.accept());summary=p.get_by_role('dialog',name='Resumen del recurso');summary.get_by_role('button',name='Editar datos visibles en Identidad').click();panel=p.locator('.inspector-identification');expect(panel).to_be_visible(timeout=15000);p.wait_for_timeout(1200);
+ summary=p.get_by_role('dialog',name='Resumen del recurso');summary.get_by_role('button',name='Editar IP y datos visibles').click();p.get_by_role('dialog',name='Editar IP y datos de identidad').get_by_role('button',name='Preparar edición').click();panel=p.locator('.inspector-identification');expect(panel).to_be_visible(timeout=15000);p.wait_for_timeout(1200);
  for _ in range(5):
   if panel.get_by_label('Dirección IP / DNS',exact=True).count():break
   panel.get_by_role('button',name='Campos siguientes',exact=True).click()
