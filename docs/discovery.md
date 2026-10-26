@@ -193,3 +193,16 @@ Requiere PyYAML 6.0.2 en el entorno de mantenimiento. El script usa el contenido
 cacheado solo si coincide la revisión y registra sus hashes. Revisar el diff y
 las clasificaciones antes de desplegar una nueva instantánea. No existe una
 actualización automática que cambie rutas de proveedores en producción.
+
+### Progressive result exploration
+
+The explorer presents a narrow official catalog, paginated results and a selected
+record summary. Host summaries use only returned identity, OS, CPU, agent, tags,
+applications and status fields; opaque metadata stays in the original JSON view.
+Other operations use common fields or a bounded scalar fallback. No provider
+record is modified and missing properties are not inferred.
+
+“Datos crudos” reveals a fourth pane while the catalog moves out of view and
+becomes inert. Results and selection remain in place without another API request.
+Mobile uses APIs / Results / Summary / JSON navigation. Reduced-motion preferences
+disable the slide. No schema, stored credential or authorization changes.

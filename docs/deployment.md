@@ -1104,3 +1104,21 @@ Production health HTTP 200; deployed registry counts verified. Public hashes mat
 
 - JS: `92be1b40d785da1b7bb89c0a31a580217d34a83f6529e195cc19a576897477b1`
 - CSS: `a3368a6cdf34f19643df88fce519ffca360f0ad5342d8134afaf6380c7b87f8a`
+
+### 2026-10-25 — Progressive Datadog explorer
+
+Deployed `localhost/koodaria-workspace:datadog-progressive-20261025`
+(`92199a98771fa351751e22b7e289d3e69aa488a0de0567819bcc004f455cb0ff`).
+Catalog, results and compact summary are separate panes; original JSON slides in
+without refetching. Mobile navigation and reduced-motion supported. No SQL or
+credential changes. Backup completed before workspace-only restart; Quadlet saved
+under `/home/mip/backups/koodaria-20261025/datadog-progressive/`.
+
+Validation: summary unit assertions (missing/scalar/zero/false values, tags,
+immutable original payload); synthetic browser flow including catalog guards,
+pagination/search, raw transition alignment, reduced motion, six light/dark
+layouts and three diagram-entry layouts. Evidence:
+`evidence/datadog-progressive-report.json`. Production health 200; anonymous API
+401. Public JS/CSS match container hashes:
+- JS: `b2d66d535436cbe5094b45b913edc841b1ff0b8b1f2c0ae2bbabdb2c5be40aaf`
+- CSS: `8c15aacb45c44e285f90c862273e35dbdcbe87823acc514209255244263c792c`
