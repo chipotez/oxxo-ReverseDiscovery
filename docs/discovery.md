@@ -219,3 +219,18 @@ container from its installed integrations, nor infer physical/virtual/hypervisor
 status from its name or CPU. Reference:
 https://docs.datadoghq.com/api/latest/hosts/get-all-hosts-for-your-organization/
 and https://docs.datadoghq.com/containers/kubernetes/tag/.
+
+### Workspace composition and measured pagination
+
+The explorer uses one context header for title/catalog counts, connection and
+scan/close controls. Until a record is selected, the workspace has two useful
+panes (catalog and results); selection reveals the summary. JSON keeps the
+existing results/summary/raw progression. Search input and action share a baseline.
+
+`explorer-layout.js` observes the actual list and viewport bounds. Each panel
+reserves its own controls and footer, then computes the rows that fit (results
+remain bounded by the API's 25-record maximum). Loading messages do not alter
+list geometry. Footers keep their height during requests to avoid oscillating
+capacity/refetch loops. Viewport changes may change the requested page size and
+reset pagination, but opening a record preserves its detail. Long technical
+content and accessibility zoom retain a scroll fallback rather than clipping.

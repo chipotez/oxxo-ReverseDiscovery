@@ -1141,3 +1141,25 @@ Evidence: `evidence/datadog-refinements-report.json`. Health 200 and public hash
 match the container:
 - JS: `b72f43fbcd786cd26a2474eff97bbb07b32f39d7b5d4d923e4b4f13f4cc8684f`
 - CSS: `f75c5591409e817f60fc69cbec8f1cddd8c8e80f68c242d3a94738bc2b875aba`
+
+### 2026-10-25 — Datadog workspace composition
+
+Deployed `localhost/koodaria-workspace:datadog-workspace-layout-20261025`, image
+`f5e8372d64137442ca7303675e7fa1ba2621be453d99827cbf350954d4fe46af`.
+A single context bar replaces the three-row heading. Filters share a row and
+catalog titles no longer inherit a narrow status-span width. Results use the
+summary's space until a record is selected. Measured list geometry determines
+pagination capacity; footers align with the workspace boundary. Stable loading
+geometry avoids feedback between page size and API requests. No database changes.
+
+Validation: capacity boundary unit assertions plus synthetic browser coverage of
+five sizes (1440×900, 1440×768, 1280×720, 390×844 and 844×390), light/dark, and
+the actual diagram overlay. Asserted row utilization, no list overflow, visible
+pagination/search, aligned search action, stable request count, raw-view slide,
+expand/restore and unchanged diagram data. First desktop page fits 10 hosts.
+Evidence: `evidence/datadog-workspace-layout-report.json`.
+Backup completed; previous Quadlet saved under
+`/home/mip/backups/koodaria-20261025/datadog-workspace-layout/`.
+Health 200; public assets match container:
+- JS: `1e9dca3882df3ea4eef7861814a03d0067e10e583031f327c35f3b5f6a602b67`
+- CSS: `20a1a457bf7256ee9b8ca0e38110e984340cc8613a80f9d512e744a621c1e26d`
