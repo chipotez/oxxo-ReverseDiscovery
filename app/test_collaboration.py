@@ -106,3 +106,23 @@ class CollaborationTests(unittest.TestCase):
  def test_legacy_writer_blocked_while_collaboration_active(self):
   self.sync(self.a)
   self.assertEqual(self.send('put','/'+self.did,dict(revision=self.row['revision'],document=self.row['document'])).status_code,409)
+
+@unittest.skipUnless(os.environ.get('DIAGRAM_TEST_DATABASE')=='disposable','Requires disposable database')
+class EditorToolsTests(unittest.TestCase):
+ setUp=CollaborationTests.setUp
+ tearDown=CollaborationTests.tearDown
+ login=CollaborationTests.login
+ send=CollaborationTests.send
+ sync=CollaborationTests.sync
+ op=CollaborationTests.op
+ def test_flags_roundtrip_and_lock(self):
+  r=self.op(self.a,[change('nodes','a',['data','positionLocked'],dict(exists=False),slot(True)),change('nodes','a',['data','collapsed'],dict(exists=False),slot(True))]);self.assertEqual(r.status_code,200,r.data)
+  n=r.json['document']['nodes'][0];self.assertTrue(n['data']['positionLocked']);self.assertTrue(n['data']['collapsed'])
+  r=self.op(self.a,[change('nodes','a',['position','x'],slot(0),slot(50))]);self.assertEqual(r.status_code,409,r.data)
+ def test_comments_mentions_resolve_and_revoke(self):
+  r=self.send('post','/'+self.did+'/comments',dict(anchor_type='node',anchor_id='a',body='Revisar backup',mentions=[self.guest]));self.assertEqual(r.status_code,201,r.data);comment=r.json['item']
+  self.login(self.guest);r=self.send('get','/'+self.did+'/comments');self.assertEqual(len(r.json['items']),1)
+  r=self.send('patch','/'+self.did+'/comments/'+comment['id'],dict(revision=1,resolved=True));self.assertEqual(r.status_code,200,r.data)
+  r=self.send('patch','/'+self.did+'/comments/'+comment['id'],dict(revision=1,resolved=False));self.assertEqual(r.status_code,409)
+  r=self.send('post','/'+self.did+'/comments',dict(anchor_type='edge',anchor_id='missing',body='Test',mentions=[]));self.assertEqual(r.status_code,400)
+  self.login(self.owner);self.send('delete','/'+self.did+'/shares/'+self.grant['id'],{});self.login(self.guest);r=self.send('get','/'+self.did+'/comments');self.assertIn(r.status_code,[403,404])

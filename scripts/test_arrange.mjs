@@ -1,0 +1,10 @@
+import assert from 'node:assert/strict';
+import {arrange,snapPosition} from '../app/frontend/src/arrange.js';
+const node=(id,x,y)=>({id,position:{x,y},selected:true,data:{},measured:{width:100,height:60}});
+const nodes=[node('a',0,0),node('b',160,80),node('c',400,160)];
+const result=arrange(nodes,'horizontal');assert.deepEqual(result.map(n=>n.position.x),[0,200,400]);assert.equal(nodes[1].position.x,160,'source remains immutable');
+assert.equal(arrange(nodes,'top')[2].position.y,0);
+const locked=structuredClone(nodes);locked[0].data.positionLocked=true;assert.equal(arrange(locked,'left')[0].position.x,0);
+assert.equal(snapPosition(node('d',4,4),[node('x',0,0)]).position.x,0);
+assert.throws(()=>arrange([nodes[0],{...nodes[1],parentId:'other'}],'left'));
+console.log('PASS: distribution, alignment, immutability, lock exclusion, snapping, container boundary');

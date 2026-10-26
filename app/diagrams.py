@@ -49,6 +49,10 @@ def validate(value,schemas=None,defer_instances=False):
             out = dict(id=key, type=kind, position=dict(x=number(pos.get('x'),-100000,100000),y=number(pos.get('y'),-100000,100000)), data=dict(label=text(data.get('label'),100,True),kind=data['kind'],address=text(data.get('address',''),120),port=text(data.get('port',''),40)))
             for field in ['provider','technology','location']:
                 if field in data:out['data'][field]=text(data[field],120)
+            for field in ['collapsed','positionLocked']:
+                if field in data:
+                    if type(data[field]) is not bool:raise InvalidDiagram()
+                    out['data'][field]=data[field]
             if 'server_instance' in data:
                 from standards import instance
                 if data['kind'] not in ['servidor','virtual']:raise InvalidDiagram()
@@ -71,7 +75,7 @@ def validate(value,schemas=None,defer_instances=False):
             if kind=='resourceGroup':
                 style=n.get('style',{})
                 if not isinstance(style,dict): raise InvalidDiagram()
-                out['style']=dict(width=number(style.get('width',380),260,3000),height=number(style.get('height',260),180,3000))
+                out['style']=dict(width=number(style.get('width',380),260,100000),height=number(style.get('height',260),180,100000))
             if n.get('parentId'):
                 out.update(parentId=text(n['parentId'],100,True),extent='parent')
             ids[key]=out
@@ -449,3 +453,6 @@ def revoke_share(diagram_id,share_id):
 
 from collaboration import register as register_collaboration
 register_collaboration(bp)
+
+from diagram_comments import register as register_comments
+register_comments(bp)

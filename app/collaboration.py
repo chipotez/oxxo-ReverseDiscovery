@@ -68,6 +68,11 @@ def apply_changes(document,changes):
         if actual!=before:conflict()
         if after['exists']:cursor[path[-1]]=copy.deepcopy(after['value'])
         else:cursor.pop(path[-1],None)
+    previous={n['id']:n for n in document['nodes']}
+    for n in value['nodes']:
+        old=previous.get(n['id'])
+        if old and old.get('data',{}).get('positionLocked') and n.get('data',{}).get('positionLocked') and n.get('position')!=old.get('position'):
+            raise Fault('KOD-COL-002','Desbloquea la posición antes de mover este componente.',status=409)
     return value,touched-{None}
 
 def register(bp):

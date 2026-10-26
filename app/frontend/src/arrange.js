@@ -1,0 +1,11 @@
+export function arrange(nodes,mode){
+ const selected=nodes.filter(n=>n.selected&&!n.data.positionLocked);const ids=new Set(selected.map(n=>n.id));
+ const top=selected.filter(n=>!ids.has(n.parentId));if(top.length<2)return nodes;
+ const parents=new Set(top.map(n=>n.parentId||''));if(parents.size!==1)throw Error('Selecciona componentes del mismo nivel para ordenarlos.');
+ const box=n=>({w:n.measured?.width||n.style?.width||320,h:n.measured?.height||n.style?.height||76});
+ const left=Math.min(...top.map(n=>n.position.x)),right=Math.max(...top.map(n=>n.position.x+box(n).w)),up=Math.min(...top.map(n=>n.position.y)),bottom=Math.max(...top.map(n=>n.position.y+box(n).h));const positions=new Map();
+ if(mode==='horizontal'||mode==='vertical'){const axis=mode==='horizontal'?'x':'y',dim=axis==='x'?'w':'h',ordered=[...top].sort((a,b)=>a.position[axis]-b.position[axis]);const span=(axis==='x'?right-left:bottom-up),gap=(span-ordered.reduce((s,n)=>s+box(n)[dim],0))/(top.length-1);if(gap<0)throw Error('Separa los extremos para distribuir sin superponer componentes.');let at=axis==='x'?left:up;for(const n of ordered){positions.set(n.id,{...n.position,[axis]:at});at+=box(n)[dim]+gap;}}
+ else for(const n of top){const b=box(n);positions.set(n.id,{x:mode==='left'?left:mode==='center'?(left+right-b.w)/2:mode==='right'?right-b.w:n.position.x,y:mode==='top'?up:mode==='middle'?(up+bottom-b.h)/2:mode==='bottom'?bottom-b.h:n.position.y});}
+ return nodes.map(n=>positions.has(n.id)?{...n,position:positions.get(n.id)}:n);
+}
+export function snapPosition(node,others,zoom=1){const tolerance=7/zoom;let position={...node.position},guides=[];for(const axis of ['x','y']){const dim=axis==='x'?'width':'height',size=node.measured?.[dim]||node.style?.[dim]||(axis==='x'?320:76);let best=tolerance;for(const other of others){if(other.id===node.id||other.parentId!==node.parentId||other.hidden)continue;const otherSize=other.measured?.[dim]||other.style?.[dim]||(axis==='x'?320:76);for(const offset of [0,.5,1])for(const target of [0,.5,1]){const line=other.position[axis]+otherSize*target,delta=line-(node.position[axis]+size*offset);if(Math.abs(delta)<best){best=Math.abs(delta);position[axis]=node.position[axis]+delta;guides=guides.filter(g=>g.axis!==axis);guides.push({axis,value:line});}}} }return {position,guides};}

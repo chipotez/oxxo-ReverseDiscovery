@@ -7,6 +7,12 @@ from server import app
 from diagrams import connection,validate,InvalidDiagram
 
 class DiagramValidationTests(unittest.TestCase):
+    def test_large_groups_and_boolean_presentation_metadata(self):
+        doc=dict(name='QA Wide',nodes=[dict(id='g',type='resourceGroup',position=dict(x=0,y=0),style=dict(width=8000,height=6000),data=dict(kind='grupo',label='Wide',collapsed=True,positionLocked=True))],edges=[])
+        result=validate(doc);self.assertEqual(result['nodes'][0]['style']['width'],8000);self.assertTrue(result['nodes'][0]['data']['positionLocked'])
+        doc['nodes'][0]['data']['positionLocked']='yes'
+        with self.assertRaises(InvalidDiagram):validate(doc)
+
     def test_shared_component_catalog_has_unique_complete_classification(self):
         from diagram_catalog import COMPONENTS,CATALOG
         kinds=[r['kind'] for r in COMPONENTS['resources']]
