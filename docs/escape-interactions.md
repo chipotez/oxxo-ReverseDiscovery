@@ -15,3 +15,10 @@ that text in the existing standard-defined `address` field. No parallel
 untyped metadata field is introduced.
 
 Regression: `scripts/qa_identity_escape.py` uses disposable diagrams only.
+
+Identity and control editors use one complete form, not pagination derived
+from the tallest field. Desktop forms use two columns; narrow/short viewports
+scroll the form body while preserving the heading and synchronization state.
+The `address` field displays as IPs and Ctrl/Command + Enter inserts a newline.
+Editor and resource forms rely on acknowledged autosave; recovery actions
+remain available when saving fails. Comment navigation centers its anchor.

@@ -42,9 +42,9 @@ with sync_playwright() as pw:
  # Legacy displayed fields become versioned identity fields, not an ungoverned second form.
  summary=p.get_by_role('dialog',name='Resumen del recurso');summary.get_by_role('button',name='Editar IP y datos visibles').click();p.get_by_role('dialog',name='Editar IP y datos de identidad').get_by_role('button',name='Preparar edición').click();panel=p.locator('.inspector-identification');expect(panel).to_be_visible(timeout=15000);p.wait_for_timeout(1200);
  for _ in range(5):
-  if panel.get_by_label('Dirección IP / DNS',exact=True).count():break
+  if panel.get_by_label('IPs',exact=True).count():break
   panel.get_by_role('button',name='Campos siguientes',exact=True).click()
- expect(panel.get_by_label('Dirección IP / DNS',exact=True)).to_be_visible();assert panel.get_by_label('Dirección IP / DNS',exact=True).input_value()=='192.0.2.10';panel.get_by_label('Dirección IP / DNS',exact=True).fill('192.0.2.20');saved(p);result=call(p,'GET','/'+did)['data'];a=next(n for n in result['document']['nodes'] if n['id']=='a');assert a['data']['component_instance']['identification']['address']=='192.0.2.20';assert a['data']['address']=='';checks.append('visible legacy data migrates to explicit versioned identity fields')
+ expect(panel.get_by_label('IPs',exact=True)).to_be_visible();assert panel.get_by_label('IPs',exact=True).input_value()=='192.0.2.10';panel.get_by_label('IPs',exact=True).fill('192.0.2.20');saved(p);result=call(p,'GET','/'+did)['data'];a=next(n for n in result['document']['nodes'] if n['id']=='a');assert a['data']['component_instance']['identification']['address']=='192.0.2.20';assert a['data']['address']=='';checks.append('visible legacy data migrates to explicit versioned identity fields')
  panel.get_by_role('button',name='Cerrar panel del servidor').click()
  # Paste into a distinct map and import the original as an independent grouped copy.
  second=name+' copy';row2=call(p,'POST','',{'name':second,'template_id':'blank'})['data'];opened(p,second);p.evaluate('''text=>{const d=new DataTransfer();d.setData('text/plain',text);window.dispatchEvent(new ClipboardEvent('paste',{clipboardData:d,bubbles:true,cancelable:true}));}''',payload);saved(p);checks.append('cross-diagram clipboard persists')

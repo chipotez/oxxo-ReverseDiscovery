@@ -25,7 +25,7 @@ const products=[
 {id:'salud',title:'Salud y cobertura',description:'Monitoreo, controles y datos pendientes.',type:'herramienta',icon:'observe'},
 {id:'eventos',title:'Eventos e incidentes',description:'Alertas e investigación.',type:'herramienta',icon:'sre'},
 {id:'acciones',title:'Acciones operativas',description:'Procedimientos y automatización.',type:'herramienta',icon:'automation'},
-{id:'gobierno',ready:true,title:'Gobierno',description:'Estándares, políticas y blueprints.',type:'herramienta',icon:'checklist',href:'#/catalogo/observabilidad/gobierno',outcome:'Diagramas guardados en línea, con plantillas y acceso compartido.'},
+{id:'gobierno',ready:true,title:'Gobierno',description:'Estándares y políticas de tu operación.',type:'herramienta',icon:'checklist',href:'#/catalogo/observabilidad/gobierno',outcome:'Diagramas guardados en línea, con plantillas y acceso compartido.'},
 {id:'fundamentos',title:'Fundamentos de observabilidad',description:'Métricas, registros y trazas.',type:'curso',level:1,icon:'book',outcome:'Reconocer las señales que permiten investigar un servicio.',topics:['Métricas y señales de salud','Registros y contexto de un evento','Trazas y recorrido de una solicitud']},
 {id:'investiga-servicios',title:'Investiga tus servicios',description:'De una señal a una causa probable.',type:'curso',level:2,icon:'observe',outcome:'Relacionar señales para construir un diagnóstico con evidencia.',topics:['Preguntas para empezar una investigación','Correlación de métricas, registros y trazas','Hipótesis y comprobación de causas']},
 {id:'observabilidad-avanzada',title:'Observabilidad avanzada',description:'Diseño, correlación y operación.',type:'curso',level:3,icon:'sre',outcome:'Diseñar una estrategia de observabilidad acorde con el servicio.',topics:['Indicadores y objetivos de servicio','Diseño de alertas y señales útiles','Contexto, costo y operación']},
@@ -35,8 +35,7 @@ const products=[
 products.sort((a,b)=>{const order=['gobierno','descubrimiento','topologia','salud','eventos','acciones'];return (order.includes(a.id)?order.indexOf(a.id):99)-(order.includes(b.id)?order.indexOf(b.id):99);});
 const governanceOptions=[
 {id:'estandares',title:'Estándares',description:'Define lo que deben cumplir tus recursos antes de incorporarlos al diagrama.',type:'herramienta',icon:'checklist',ready:true,href:'#/estandares',action:'Definir estándares'},
-{id:'diagramas',title:'Diagramas',description:'Crea, organiza y comparte tus diagramas con las definiciones de tu espacio.',type:'herramienta',icon:'map',ready:true,href:'#/herramientas/diagramas',action:'Mis diagramas'},
-{id:'blueprints',title:'Blueprints',description:'Modelos de referencia para diseñar y documentar tu infraestructura.',type:'herramienta',icon:'code',href:'#/catalogo/observabilidad/gobierno/blueprints',action:'Explorar blueprints'}];
+];
 const typeLabel=p=>p.type==='curso'?`Curso · Nivel ${p.level}`:p.type==='caso'?'Caso de uso':'Herramienta';
 let page=1,query='',filter='todo',currentItems=[],currentMode='catalog';
 const crumbs=parts=>parts.length?`<nav class="breadcrumbs" aria-label="Ruta de navegación"><a href="#/catalogo">Inicio</a>${parts.map(p=>`<span aria-hidden="true">/</span>${p.href?`<a href="${p.href}">${esc(p.label)}</a>`:`<span aria-current="page">${esc(p.label)}</span>`}`).join('')}</nav>`:'';
@@ -110,7 +109,7 @@ async function render(){
  document.querySelectorAll('[data-section]').forEach(b=>{if(b.dataset.section===(route.startsWith('/estandares')?'estandares':route.startsWith('/cursos')?'aprendizaje':route.startsWith('/herramientas')?'crear':route==='/catalogo'?'inicio':'aplicaciones'))b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');});
  const [path,params='']=route.split('?');const bits=path.split('/').filter(Boolean);
  if(path==='/catalogo/observabilidad/diagramas'){location.replace('#/catalogo/observabilidad/gobierno');return;}
- if(path==='/catalogo/observabilidad/gobierno'){listView('Gobierno','Define estándares, documenta tu operación y consulta modelos de referencia.',governanceOptions,'diagram-hub',[{label:'Observabilidad',href:'#/catalogo/observabilidad'},{label:'Gobierno'}]);return;}
+ if(path==='/catalogo/observabilidad/gobierno'){listView('Gobierno','Define los estándares de tu operación.',governanceOptions,'diagram-hub',[{label:'Observabilidad',href:'#/catalogo/observabilidad'},{label:'Gobierno'}]);return;}
  if(path==='/catalogo/observabilidad/gobierno/blueprints'&&!guest){listView('Blueprints','Modelos de referencia para tu infraestructura. Estamos preparando este catálogo.',[],'diagram-hub',[{label:'Observabilidad',href:'#/catalogo/observabilidad'},{label:'Gobierno',href:'#/catalogo/observabilidad/gobierno'},{label:'Blueprints'}]);return;}
  if(bits[0]==='descubrimiento'&&!guest){document.body.classList.add('discovery-open');main.className='workspace-main discovery-page-shell';main.removeAttribute('style');main.innerHTML='';window.KoodariaResourceFlow.mountDiscovery(main);return;}
  if(bits[0]==='estandares'&&!guest){document.body.classList.add('resource-tool-open');main.className='workspace-main resource-flow-page';main.removeAttribute('style');main.innerHTML='';window.KoodariaResourceFlow.mountStandards(main);return;}

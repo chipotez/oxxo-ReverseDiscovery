@@ -22,9 +22,9 @@ with sync_playwright() as pw:
  p.get_by_role('button',name='Editar en Identidad: 192.0.2.10 / 192.0.2.11 · 443',exact=True).click();d.get_by_role('button',name='Preparar edición').click()
  panel=p.locator('.inspector-identification');expect(panel).to_be_visible(timeout=20000)
  for _ in range(6):
-  if panel.get_by_label('Dirección IP / DNS',exact=True).count():break
+  if panel.get_by_label('IPs',exact=True).count():break
   panel.get_by_role('button',name='Campos siguientes',exact=True).click()
- field=panel.get_by_label('Dirección IP / DNS',exact=True);expect(field).to_be_visible();assert field.input_value()=='192.0.2.10 / 192.0.2.11'
+ field=panel.get_by_label('IPs',exact=True);expect(field).to_be_visible();assert field.input_value()=='192.0.2.10 / 192.0.2.11'
  field.fill('192.0.2.10\n192.0.2.11\n192.0.2.12');p.wait_for_timeout(1800)
  assert api('GET','/'+did)['document']['nodes'][0]['data']['server_instance']['identification']['address'].endswith('192.0.2.12')
  p.keyboard.press('Escape');expect(panel).to_have_count(0);expect(p.get_by_role('dialog',name='Resumen del recurso')).to_be_visible();p.keyboard.press('Escape');expect(p.get_by_role('dialog',name='Resumen del recurso')).to_have_count(0)
