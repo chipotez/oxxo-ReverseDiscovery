@@ -1,0 +1,19 @@
+{
+  "synthetic_only": true,
+  "checks": [
+    "copy/paste generates new persistent IDs",
+    "segment move persists and keeps endpoint IDs",
+    "pointer drag moves a complete route segment",
+    "curve style persists after manual orthogonal editing",
+    "dependent classification preserves ID and connections",
+    "visible legacy data migrates to explicit versioned identity fields",
+    "cross-diagram clipboard persists",
+    "insert diagram creates independent grouped graph",
+    "classification actions fit desktop tablet mobile short landscape light and dark"
+  ],
+  "server_tests_passed": 81,
+  "browser_checks_passed": 9,
+  "collaboration_regression_checks": 9,
+  "deployed_image": "localhost/koodaria-workspace:diagram-routing-20261026",
+  "public_js_sha256": "b21797864f5fbdcf2e58880a65258253d181463d20a5c8e210c74f6f1e328ffb"
+}

@@ -58,7 +58,7 @@ def apply_changes(document,changes):
                 elif target is not None:value[collection].remove(target)
                 continue
             if target is None:conflict('El componente o la conexión se eliminó. Conservamos tus cambios pendientes para que puedas revisarlos.')
-            if path[0] in ('id','type') or collection=='nodes' and path[:2]==['data','kind']:raise Fault('KOD-COL-002',status=400)
+            if path[0]=='id' or collection=='nodes' and (path[0]=='type' or path[:2]==['data','kind']):raise Fault('KOD-COL-002',status=400)
         cursor=target
         for part in path[:-1]:
             if part not in cursor:cursor[part]={}

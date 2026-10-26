@@ -94,7 +94,7 @@ def resolve(conn,doc,original=None):
         if model_key(kind) not in KEYS:continue
         old=previous.get(node['id'],{});ref=data.get('model_ref') or (old.get('model_ref') if old.get('kind')==kind else None)
         if ref:
-            if old.get('model_ref') and ref['id']!=old['model_ref']['id']:raise Fault('KOD-CAT-004',status=403)
+            if old.get('kind')==kind and old.get('model_ref') and ref['id']!=old['model_ref']['id']:raise Fault('KOD-CAT-004',status=403)
             if old.get('kind')==kind and ref==old.get('model_ref') and old.get('resource_schema'):
                 schema=old['resource_schema']
             elif (ref['id'],ref['version'],kind) in known:schema=known[(ref['id'],ref['version'],kind)]
@@ -130,3 +130,25 @@ def validate_scalar(value,field):
         if not re.fullmatch(r'\d{4}-\d{2}-\d{2}',value):raise InvalidDiagram('La fecha debe tener el formato AAAA-MM-DD.')
     if fmt=='select' and value not in field.get('options',[]):raise InvalidDiagram('El valor no pertenece a las opciones del campo.')
     return value
+
+@bp.post('/models/<kind>/display-fields')
+def display_fields(kind):
+    """Explicitly publish missing identity fields before moving legacy display data."""
+    body=request.get_json() or {};key=model_key(kind)
+    if key not in KEYS:raise Fault('KOD-CAT-004',status=404)
+    with connection(subject()) as conn:
+        require_member(conn)
+        scope=conn.execute('SELECT component_model_scope() AS scope').fetchone()['scope']
+        conn.execute('SELECT pg_advisory_xact_lock(hashtextextended(%s,0))',(scope+'|'+key,))
+        current=latest(conn,key,ensure=True)
+        if current['revision']!=body.get('revision'):raise Fault('KOD-CAT-003',status=409)
+        schema=copy.deepcopy(current['schema']);fields=schema['sections'][0]['fields'];changed=False
+        for fid,label,description in [('address','Dirección IP / DNS','Dirección o nombre de red del componente.'),('port','Puerto / protocolo','Puerto y protocolo publicados.'),('technology','Tecnología y versión','Producto y versión utilizados.'),('provider','Proveedor','Fabricante o proveedor de la plataforma.'),('location','Ubicación','Sede, datacenter o región.')]:
+            if not any(f['id']==fid for f in fields):
+                if len(fields)>=64:raise Fault('KOD-CAT-001','El bloque admite hasta 64 campos.')
+                fields.append(dict(id=fid,label=label,description=description,format='text',required=False));changed=True
+        if changed:
+            version=current['version']+1;schema['version']=version
+            conn.execute('INSERT INTO component_model_versions(model_id,version,schema,created_by) VALUES(%s,%s,%s,%s)',(current['id'],version,Jsonb(schema),subject()))
+            conn.execute('UPDATE component_models SET current_version=%s,revision=revision+1,updated_at=now() WHERE id=%s',(version,current['id']))
+        return jsonify(latest(conn,key))

@@ -70,7 +70,7 @@ def validate(value,schemas=None,defer_instances=False):
                 out['data']['standard']=reference(data['standard'])
             if kind=='resourceGroup':
                 style=n.get('style',{})
-                if not isinstance(style,dict) or n.get('parentId'): raise InvalidDiagram()
+                if not isinstance(style,dict): raise InvalidDiagram()
                 out['style']=dict(width=number(style.get('width',380),260,3000),height=number(style.get('height',260),180,3000))
             if n.get('parentId'):
                 out.update(parentId=text(n['parentId'],100,True),extent='parent')
@@ -80,6 +80,10 @@ def validate(value,schemas=None,defer_instances=False):
             raise InvalidDiagram(f'Recurso {index}: '+(str(exc) or 'revisa el tipo, los campos del estándar y los límites de sus valores.')) from None
     for n in clean:
         if n.get('parentId') and ids.get(n['parentId'],{}).get('type')!='resourceGroup': raise InvalidDiagram()
+        trail={n['id']};parent=n.get('parentId')
+        while parent:
+            if parent in trail:raise InvalidDiagram('Los grupos no pueden contenerse a sí mismos ni formar ciclos.')
+            trail.add(parent);parent=ids[parent].get('parentId')
     connections, seen = [], set()
     for e in edges:
         if not isinstance(e,dict): raise InvalidDiagram()
@@ -107,6 +111,9 @@ def validate(value,schemas=None,defer_instances=False):
             if field in e:
                 if e[field] not in options:raise InvalidDiagram('Revisa el estilo de la conexión.')
                 item[field]=e[field]
+        if 'routePoints' in e:
+            if not isinstance(e['routePoints'],list) or not (len(e['routePoints'])==0 or 2<=len(e['routePoints'])<=64):raise InvalidDiagram('El recorrido admite de 2 a 64 puntos.')
+            item['routePoints']=[dict(x=number(v.get('x'),-100000,100000),y=number(v.get('y'),-100000,100000)) for v in e['routePoints']]
         if 'bends' in e:
             if not isinstance(e['bends'],list) or len(e['bends'])!=3 or not all(isinstance(v,dict) for v in e['bends']):raise InvalidDiagram('El recorrido necesita tres puntos de ajuste válidos.')
             item['bends']=[dict(x=number(v.get('x'),-10000,10000),y=number(v.get('y'),-10000,10000)) for v in e['bends']]
@@ -303,13 +310,14 @@ def prepare_document(conn,incoming_document,original):
     for node in value['nodes']:
         old=old_nodes.get(node['id'],{}).get('data',{})
         if old and old.get('kind')!=node['data']['kind']:
-            raise InvalidDiagram('El tipo de un componente existente no se puede cambiar. Crea el componente correcto y vuelve a vincularlo; sus datos pertenecen a otro estándar.')
+            require_member(conn)
+            if not node['data'].get('model_ref'):raise InvalidDiagram('Selecciona un estándar publicado para reclasificar el componente.')
         for field in ['provider','technology','location','server_instance','component_instance']:
             if field not in node['data'] and field in old and old.get('kind')==node['data']['kind'] and not (field in ['server_instance','component_instance'] and node['data'].get('model_ref') and node['data']['model_ref']!=old.get('model_ref')):node['data'][field]=old[field]
     old_edges={e['id']:e for e in original['document']['edges']}
     for edge in value['edges']:
         old=old_edges.get(edge['id'],{})
-        for field in ['type','pattern','arrows','color','bends']:
+        for field in ['type','pattern','arrows','color','bends','routePoints']:
             if field not in edge and field in old:edge[field]=old[field]
         incoming=next(e for e in incoming_document['edges'] if e['id']==edge['id'])
         if 'relation' not in incoming and 'relation' in old and old.get('source')==edge['source'] and old.get('target')==edge['target']:edge['relation']=old['relation']

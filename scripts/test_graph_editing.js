@@ -1,0 +1,13 @@
+import assert from 'node:assert/strict';
+import {simplify,routeOrthogonal,moveSegment} from '../app/frontend/src/edge-routing.js';
+import {pasteGraph,extractGraph} from '../app/frontend/src/graph-clipboard.js';
+import {graphDelta} from '../app/frontend/src/graph-delta.js';
+assert.deepEqual(simplify([{x:0,y:0},{x:10,y:0},{x:10,y:0},{x:40,y:0}]),[{x:0,y:0},{x:40,y:0}]);
+const route=routeOrthogonal({x:0,y:0},{x:300,y:0},'right','left',[]);assert.equal(route.length,2);
+const detour=routeOrthogonal({x:0,y:0},{x:300,y:0},'right','left',[{x:100,y:-40,width:50,height:80}]);assert.ok(detour.some(p=>Math.abs(p.y)>40));
+const moved=simplify(moveSegment(route,0,{x:150,y:70}));assert.deepEqual(moved[0],route[0]);assert.deepEqual(moved.at(-1),route.at(-1));assert.equal(moved.length,4);
+const doc={name:'test',nodes:[{id:'a',position:{x:1,y:2},data:{kind:'virtual'}},{id:'b',position:{x:2,y:3},data:{kind:'database'}},{id:'c',position:{x:500,y:0},data:{kind:'virtual'}}],edges:[{id:'e',source:'a',target:'b',relation:'hosts'},{id:'f',source:'a',target:'c'}]};
+const selected=extractGraph(doc,['a']);assert.equal(selected.nodes.length,2);assert.equal(selected.edges.length,1);
+const pasted=pasteGraph(selected,{x:10,y:20});assert.notEqual(pasted.nodes[0].id,'a');assert.equal(pasted.edges[0].source,pasted.nodes[0].id);assert.equal(pasted.edges[0].target,pasted.nodes[1].id);
+const next=structuredClone(doc);next.nodes[0].data.kind='database';const delta=graphDelta(doc,next);assert.deepEqual(delta[0].path,['data']);
+console.log('PASS collinear simplification, obstacle detour, segment endpoints, nested clipboard and atomic classification');

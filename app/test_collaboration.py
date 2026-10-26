@@ -16,6 +16,11 @@ class DeltaTests(unittest.TestCase):
   result,_=apply_changes(d,[c]);self.assertEqual(result['nodes'][0]['data']['label'],'B');self.assertEqual(d['nodes'][0]['data']['label'],'A')
   with self.assertRaises(Exception):apply_changes(result,[c])
 
+ def test_edge_route_is_mutable_but_node_type_is_not(self):
+  d=dict(name='QA',nodes=[dict(id='n',type='resource')],edges=[dict(id='e',type='smoothstep')])
+  result,_=apply_changes(d,[change('edges','e',['type'],slot('smoothstep'),slot('default'))]);self.assertEqual(result['edges'][0]['type'],'default')
+  with self.assertRaises(Exception):apply_changes(d,[change('nodes','n',['type'],slot('resource'),slot('resourceGroup'))])
+
 @unittest.skipUnless(os.environ.get('DIAGRAM_TEST_DATABASE')=='disposable','Requires disposable database')
 class CollaborationTests(unittest.TestCase):
  def setUp(self):

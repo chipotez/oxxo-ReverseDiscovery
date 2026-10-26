@@ -103,3 +103,28 @@ class ComponentModelsTests(unittest.TestCase):
  def test_auth_error_has_stable_code_and_unique_references(self):
   with self.client.session_transaction() as s:s.clear()
   a=self.call('get','/bienvenida/api/catalog/models/servers');b=self.call('get','/bienvenida/api/catalog/models/servers');self.assertEqual(a.status_code,401);self.assertEqual(a.json['error_code'],'KOD-AUTH-001');self.assertNotEqual(a.json['reference'],b.json['reference'])
+
+ def test_explicit_reclassification_pins_matching_model(self):
+  import copy
+  row=self.graph();doc=dict(name=row['name'],nodes=[dict(id='qa',type='resource',position=dict(x=0,y=0),data=dict(kind='virtual',label='QA',server_instance={'identification':{'hostname':'qa.example'}}))],edges=[])
+  self.assertEqual(self.save(row,doc).status_code,200);saved=self.loaded(row);previous=copy.deepcopy(saved['document'])
+  from diagram_catalog import COMPONENTS
+  target=next(r['kind'] for r in COMPONENTS['resources'] if r['kind'] not in ['virtual','servidor'] and not r.get('legacy'))
+  m=self.model(target);saved['document']['nodes'][0]['data']=dict(kind=target,label='QA',model_ref=dict(id=m['id'],version=m['version']),component_instance={})
+  result=self.save(saved,saved['document']);self.assertEqual(result.status_code,200,result.json)
+  current=self.loaded(row);self.assertEqual(current['document']['nodes'][0]['data']['kind'],target)
+  self.assertEqual(self.save(current,previous).status_code,200)
+ def test_display_fields_publish_explicitly_and_idempotently(self):
+  m=self.model();path='/bienvenida/api/catalog/models/virtual/display-fields'
+  r=self.call('post',path,dict(revision=m['revision']));self.assertEqual(r.status_code,200,r.json);updated=r.json
+  self.assertTrue({'address','port','technology'}.issubset({f['id'] for f in updated['schema']['sections'][0]['fields']}))
+  self.assertEqual(self.call('post',path,dict(revision=updated['revision'])).json['version'],updated['version'])
+  self.assertEqual(self.call('post',path,dict(revision=0)).status_code,409)
+ def test_route_points_roundtrip_and_reset(self):
+  row=self.graph();doc=dict(name=row['name'],nodes=[dict(id=k,type='resource',position=dict(x=0,y=0),data=dict(kind='virtual',label=k)) for k in ['a','b']],edges=[dict(id='e',source='a',target='b',routePoints=[dict(x=0,y=0),dict(x=10,y=0)])])
+  r=self.save(row,doc);self.assertEqual(r.status_code,200,r.json);saved=self.loaded(row);self.assertEqual(len(saved['document']['edges'][0]['routePoints']),2)
+  saved['document']['edges'][0]['routePoints']=[];self.assertEqual(self.save(saved,saved['document']).status_code,200);self.assertEqual(self.loaded(row)['document']['edges'][0]['routePoints'],[])
+ def test_nested_visual_groups_and_cycle_rejection(self):
+  row=self.graph();groups=[dict(id=k,type='resourceGroup',position=dict(x=0,y=0),style=dict(width=380,height=260),data=dict(kind='grupo',label=k)) for k in ['outer','inner']];groups[1]['parentId']='outer'
+  doc=dict(name=row['name'],nodes=groups,edges=[]);self.assertEqual(self.save(row,doc).status_code,200);saved=self.loaded(row)
+  saved['document']['nodes'][0]['parentId']='inner';self.assertEqual(self.save(saved,saved['document']).status_code,400)
