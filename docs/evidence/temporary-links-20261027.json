@@ -1,0 +1,42 @@
+{
+  "automated_backend": {
+    "tests": 38,
+    "result": "passed",
+    "suites": [
+      "test_temporary_links",
+      "test_collaboration",
+      "test_sharing",
+      "test_server"
+    ]
+  },
+  "browser": {
+    "result": "passed",
+    "checks": [
+      "Home directory and sole active Home icon",
+      "duplicate Applications removed",
+      "five unimplemented icons disabled",
+      "owner creates password-protected link",
+      "anonymous visitor enters name and email",
+      "shared editor opens without Keycloak",
+      "owner sees visit",
+      "live revocation blocks editing",
+      "no browser exceptions",
+      "Visitor adds a VM and owner reads the persisted node",
+      "No horizontal overflow at desktop, tablet, mobile and short landscape sizes",
+      "Hover and single click do not open identity editing",
+      "Dragging from visible identity text moves the node",
+      "Double click migrates legacy IP/port without confirmation and preserves values",
+      "Single focus boundary",
+      "Partially clipped selection recenters at the current zoom"
+    ]
+  },
+  "environment": "isolated disposable QA database; synthetic records; no SMTP",
+  "deployment": {
+    "image": "localhost/koodaria-workspace:temporary-links-20261027",
+    "image_id": "4d4e3fb8b952f641883aa036dc2abc06e7f7fdce81277d94e49b91d55dd2f4ce",
+    "health": 200,
+    "migration": "010",
+    "public_assets": "hashes match tested build",
+    "backup": "/home/mip/backups/koodaria-20261027/temporary-links"
+  }
+}

@@ -6,7 +6,7 @@ from contextlib import contextmanager
 import psycopg
 from psycopg.rows import dict_row
 from psycopg.types.json import Jsonb
-from flask import Blueprint, jsonify, request, session, send_file, abort
+from flask import Blueprint, jsonify, request, session, send_file, abort, g
 from werkzeug.exceptions import HTTPException
 import secrets
 import time
@@ -143,7 +143,10 @@ def connection(subject):
 
 @bp.before_request
 def authorize():
-    if not session.get('identity',{}).get('sub') or session.get('expires_at',0)<=time.time():
+    from temporary_links import temporary_authorization
+    temporary=temporary_authorization()
+    if temporary is not None and temporary is not True:return temporary
+    if temporary is not True and (not session.get('identity',{}).get('sub') or session.get('expires_at',0)<=time.time()):
         return jsonify(error='La sesión venció. Vuelve a iniciar sesión.',code='session_expired'),401
     if request.method not in ('GET','HEAD','OPTIONS'):
         expected=session.get('csrf','')
@@ -163,7 +166,7 @@ def failure(exc):
     # No connection strings, diagram data or credentials in errors/logs.
     return jsonify(error='No se pudo acceder al guardado. Tus cambios siguen en esta pestaña; vuelve a intentarlo.'),503
 
-def subject(): return session['identity']['sub']
+def subject(): return (getattr(g,'diagram_identity',None) or session['identity'])['sub']
 def key(value):
     if not isinstance(value,str):raise InvalidDiagram()
     return uuid.UUID(value)
@@ -456,3 +459,6 @@ register_collaboration(bp)
 
 from diagram_comments import register as register_comments
 register_comments(bp)
+
+from temporary_links import register as register_temporary_links
+register_temporary_links(bp)

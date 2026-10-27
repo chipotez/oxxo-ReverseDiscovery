@@ -2,7 +2,10 @@
 No last-writer-wins: writes compare the exact field before applying an atomic batch.
 """
 import copy, uuid
-from flask import jsonify, request, session
+def current_identity():
+    from temporary_links import current_identity as identity
+    return identity()
+from flask import jsonify, request
 from psycopg.types.json import Jsonb
 from faults import Fault
 
@@ -102,7 +105,7 @@ def register(bp):
             if resource not in names or not can_edit(conn,did):resource=None
             other=next((p for p in peers(conn,did) if p['client_id']!=cid and p['resource_id']==resource and resource is not None),None)
             held=None if other else resource
-            identity=session.get('identity',{});display=str(identity.get('name') or identity.get('preferred_username') or 'Colaborador')[:80]
+            identity=current_identity();display=str(identity.get('name') or identity.get('preferred_username') or 'Colaborador')[:80]
             conn.execute("INSERT INTO diagram_collaborators(diagram_id,client_id,actor_sub,display_name,resource_id,expires_at) VALUES(%s,%s,%s,%s,%s,now()+interval '20 seconds') ON CONFLICT(diagram_id,client_id) DO UPDATE SET resource_id=excluded.resource_id,display_name=excluded.display_name,expires_at=excluded.expires_at",(did,cid,subject(),display,held))
             payload=packet(conn,row)
             if body.get('revision')==row['revision']:payload.pop('document',None)
@@ -142,7 +145,7 @@ def register(bp):
                             if p['client_id']!=cid and p['resource_id'] in descendant_ids(row['document'],{edge['target']}):raise Fault('KOD-COL-004','Hay una edición activa dentro del componente alojado.',status=409)
             value=prepare_document(conn,value,row)
             saved=conn.execute('UPDATE resource_diagrams SET name=%s,document=%s,revision=revision+1,updated_at=now() WHERE id=%s RETURNING id,name,document,revision,updated_at,folder_id',(value['name'],Jsonb(value),did)).fetchone()
-            conn.execute('INSERT INTO diagram_operations(diagram_id,operation_id,actor_sub,client_id,display_name,revision,changes) VALUES(%s,%s,%s,%s,%s,%s,%s)',(did,oid,subject(),cid,str(session['identity'].get('name') or 'Colaborador')[:80],saved['revision'],Jsonb(changes)))
+            conn.execute('INSERT INTO diagram_operations(diagram_id,operation_id,actor_sub,client_id,display_name,revision,changes) VALUES(%s,%s,%s,%s,%s,%s,%s)',(did,oid,subject(),cid,str(current_identity().get('name') or 'Colaborador')[:80],saved['revision'],Jsonb(changes)))
             if deleted:
                 removed=dict(nodes=[n for n in row['document']['nodes'] if n['id'] in deleted],edges=[e for e in row['document']['edges'] if e['source'] in deleted or e['target'] in deleted])
                 conn.execute('INSERT INTO diagram_trash(diagram_id,operation_id,actor_sub,resources) VALUES(%s,%s,%s,%s)',(did,oid,subject(),Jsonb(removed)))
@@ -179,7 +182,7 @@ def register(bp):
             conn.execute('UPDATE resource_diagrams SET document=%s,revision=revision+1,updated_at=now() WHERE id=%s',(Jsonb(value),did))
             conn.execute('UPDATE diagram_trash SET restored_at=now() WHERE id=%s',(key(trash_id),))
             changes=[dict(collection=col,id=r['id'],path=[],before=dict(exists=False),after=dict(exists=True,value=r)) for col in ['nodes','edges'] for r in value[col] if r['id'] not in {v['id'] for v in row['document'][col]}]
-            conn.execute('INSERT INTO diagram_operations(diagram_id,operation_id,actor_sub,client_id,display_name,revision,changes) VALUES(%s,%s,%s,%s,%s,%s,%s)',(did,uuid.uuid4(),subject(),uuid.uuid4(),str(session['identity'].get('name') or 'Colaborador')[:80],row['revision']+1,Jsonb(changes)))
+            conn.execute('INSERT INTO diagram_operations(diagram_id,operation_id,actor_sub,client_id,display_name,revision,changes) VALUES(%s,%s,%s,%s,%s,%s,%s)',(did,uuid.uuid4(),subject(),uuid.uuid4(),str(current_identity().get('name') or 'Colaborador')[:80],row['revision']+1,Jsonb(changes)))
             conn.execute("INSERT INTO diagram_audit(diagram_id,actor_sub,action) VALUES(%s,%s,'edit')",(did,subject()))
             return jsonify(restored=True)
 

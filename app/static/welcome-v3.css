@@ -56,3 +56,5 @@ main{margin-left:var(--rail-width);padding:0;min-height:0}.sr-only{position:abso
 @media(max-height:700px){.rail-account-menu{margin-top:3px}.rail-account-menu summary.rail-profile{width:30px;height:30px;min-height:30px;border-radius:10px}}
 @media(max-height:470px){.rail-account-menu{grid-column:1/-1;justify-self:center}}
 [data-theme=dark] .rail-account-menu summary.rail-profile{background:#345c4b;color:#e1eee5;border-color:#719683}
+
+.rail-button:disabled,.rail-button:disabled:hover{color:#929d97;background:transparent;border-color:transparent;box-shadow:none;cursor:not-allowed;opacity:.65}

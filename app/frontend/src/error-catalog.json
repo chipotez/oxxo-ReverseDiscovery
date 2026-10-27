@@ -130,5 +130,9 @@
   "KOD-COL-004": {
     "message": "Otro colaborador está editando el recurso.",
     "action": "Espera a que termine o trabaja en otro componente."
+  },
+  "KOD-LINK-001": {
+    "message": "El acceso temporal terminó o no permite esta operación.",
+    "action": "Solicita al propietario un enlace nuevo. Tus cambios pendientes siguen en esta pestaña."
   }
 }

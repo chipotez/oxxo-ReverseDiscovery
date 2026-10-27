@@ -1,10 +1,10 @@
 """Anchored discussion, separate from graph revisions; permissions on every request."""
 import uuid
-from flask import request,jsonify,abort,session
+from flask import request,jsonify,abort
 
 def register(bp):
     from diagrams import connection,subject,key,fetch,InvalidDiagram
-    from collaboration import lock_diagram
+    from collaboration import lock_diagram,current_identity
     def access(conn,diagram_id,edit=False):
         lock_diagram(conn,diagram_id)
         row=fetch(conn,diagram_id)
@@ -35,7 +35,7 @@ def register(bp):
             # Mentions only target people who already have access. Never invite implicitly.
             allowed=conn.execute('SELECT * FROM diagram_comment_people(%s)',(key(diagram_id),)).fetchall()
             if any(v not in {p['subject'] for p in allowed} for v in mentions):abort(403)
-            row=conn.execute('INSERT INTO diagram_comments(diagram_id,anchor_type,anchor_id,author_sub,author_name,body,mentions) VALUES(%s,%s,%s,%s,%s,%s,%s) RETURNING *',(key(diagram_id),kind,anchor,subject(),session['identity'].get('name','Colaborador')[:200],message,Jsonb(mentions))).fetchone()
+            row=conn.execute('INSERT INTO diagram_comments(diagram_id,anchor_type,anchor_id,author_sub,author_name,body,mentions) VALUES(%s,%s,%s,%s,%s,%s,%s) RETURNING *',(key(diagram_id),kind,anchor,subject(),current_identity().get('name','Colaborador')[:200],message,Jsonb(mentions))).fetchone()
         return jsonify(item=serialize(row)),201
     @bp.patch('/<diagram_id>/comments/<comment_id>')
     def comments_resolve(diagram_id,comment_id):

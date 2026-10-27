@@ -27,6 +27,8 @@ app.config.update(
 Session(app)
 from diagrams import bp as diagrams_blueprint
 app.register_blueprint(diagrams_blueprint)
+from temporary_links import public as temporary_blueprint
+app.register_blueprint(temporary_blueprint)
 from standards import bp as standards_blueprint
 app.register_blueprint(standards_blueprint)
 from component_models import bp as component_models_blueprint

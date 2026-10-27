@@ -1,3 +1,4 @@
+import {temporaryHeaders} from './temporary-session.js';
 import {reportFault} from './error-center.jsx';
 import {graphDelta,applyDelta,equal} from './graph-delta.js';
 export function collaborativeWriter(item,notify,onRemote,onPresence,normalize){
@@ -6,7 +7,7 @@ export function collaborativeWriter(item,notify,onRemote,onPresence,normalize){
  const report=(state,message)=>{if(!disposed)notify({state,message,revision,code:error?.code});};
  const state=()=>report(stopped?'revoked':error?'conflict':!online?'reconnecting':!equal(base,latest)?'pending':'saved',error?.message);
  const presence=()=>{if(!disposed)onPresence({online,canEdit,participants,blocked,resource_id:reserved,client_id:client});};
- async function request(path,body){const controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),7000);try{const r=await fetch(url+path,{method:'POST',credentials:'same-origin',cache:'no-store',headers:{'Content-Type':'application/json','X-CSRF-Token':document.querySelector('meta[name=csrf-token]')?.content||''},body:JSON.stringify({client_id:client,...body}),signal:controller.signal});const data=r.status===204?null:await r.json();if(!r.ok){const e=Error(data?.error||'No se pudo sincronizar.');e.status=r.status;e.code=data?.error_code;e.reference=data?.reference;e.auth=r.status===401||data?.code==='csrf_invalid';throw e;}return data;}finally{clearTimeout(timeout);}}
+ async function request(path,body){const controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),7000);try{const r=await fetch(url+path,{method:'POST',credentials:'same-origin',cache:'no-store',headers:{'Content-Type':'application/json',...temporaryHeaders(),'X-CSRF-Token':document.querySelector('meta[name=csrf-token]')?.content||''},body:JSON.stringify({client_id:client,...body}),signal:controller.signal});const data=r.status===204?null:await r.json();if(!r.ok){const e=Error(data?.error||'No se pudo sincronizar.');e.status=r.status;e.code=data?.error_code;e.reference=data?.reference;e.auth=r.status===401||data?.code==='csrf_invalid';throw e;}return data;}finally{clearTimeout(timeout);}}
  function accept(packet,sent=null){if(packet.revision<revision)return;canonical=structuredClone(packet.document);const nextBase=normalize(packet.document);let next=nextBase;const pending=graphDelta(sent||base,latest);try{next=applyDelta(nextBase,pending);}catch{error=Error('Hay cambios incompatibles. Tus valores pendientes siguen abiertos. Revisa la versión compartida.');error.code='KOD-COL-001';}
   base=nextBase;revision=packet.revision;participants=packet.participants||[];canEdit=packet.can_edit!==false;
   if(!error){latest=next;if(!disposed)onRemote(next);}online=true;presence();state();
