@@ -38,7 +38,7 @@ const governanceOptions=[
 ];
 const typeLabel=p=>p.type==='curso'?`Curso · Nivel ${p.level}`:p.type==='caso'?'Caso de uso':'Herramienta';
 let page=1,query='',filter='todo',currentItems=[],currentMode='catalog';
-const crumbs=parts=>parts.length?`<nav class="breadcrumbs" aria-label="Ruta de navegación"><a href="#/catalogo">Inicio</a>${parts.map(p=>`<span aria-hidden="true">/</span>${p.href?`<a href="${p.href}">${esc(p.label)}</a>`:`<span aria-current="page">${esc(p.label)}</span>`}`).join('')}</nav>`:'';
+const crumbs=parts=>parts.length?`<nav class="breadcrumbs" aria-label="Ruta de navegación"><a href="#/catalogo/observabilidad">Inicio</a>${parts.map(p=>`<span aria-hidden="true">/</span>${p.href?`<a href="${p.href}">${esc(p.label)}</a>`:`<span aria-current="page">${esc(p.label)}</span>`}`).join('')}</nav>`:'';
 const pagination=()=>`<nav class="catalog-pagination" aria-label="Páginas del catálogo"><span id="result-count" role="status"></span><div><button type="button" id="page-prev" aria-label="Página anterior">←</button><span id="page-count"></span><button type="button" id="page-next" aria-label="Página siguiente">→</button></div></nav>`;
 function listView(title,description,items,mode,parts=[],initialFilter='todo'){
  currentItems=items;currentMode=mode;page=1;query='';filter=['todo','herramienta','curso','caso'].includes(initialFilter)?initialFilter:'todo';
@@ -69,7 +69,7 @@ function paginate(){
  grid.style.setProperty('--columns',cols);
  grid.style.gridAutoRows='auto';
  grid.innerHTML=items.slice((page-1)*size,page*size).map(p=>{
-  const href=currentMode==='catalog'?`#/catalogo/${p.id}`:p.href||(p.id==='diagramas'?'#/catalogo/observabilidad/diagramas':`#/catalogo/observabilidad/${p.id}`);
+  const href=currentMode==='catalog'?`#/catalogo/${p.id}`:p.href||(p.id==='diagramas'?'#/catalogo/observabilidad/diagramas':`#/catalogo/observabilidad/${p.id}${location.hash.split('?')[0]==='#/cursos'?'?from=cursos':''}`);
   const unavailable=currentMode!=='catalog'&&p.type==='herramienta'&&!p.ready&&!p.href;
   const locked=unavailable||guest&&(currentMode==='catalog'?p.id!=='observabilidad':!['diagramas','gobierno','topologia'].includes(p.id));
   return `<${locked?'div':'a'} class="catalog-card ${currentMode==='catalog'?'discipline-card':'product-card'} ${p.id==='mapeo-servicios'?'card-featured':''} ${locked?'is-locked':''}" ${locked?'aria-label="'+esc(p.title)+', sin acceso"':'href="'+href+'"'}><div class="card-copy">${currentMode!=='catalog'?`<div class="card-tags"><span>${typeLabel(p)}</span>${p.ready?'<span class="available-tag">Disponible</span>':''}</div>`:''}<div class="card-title">${illustration(p.icon)}<h2>${esc(p.title)}</h2></div><p>${esc(p.description)}</p><span class="card-action">${unavailable?'Próximamente':locked?'Sin acceso':currentMode==='catalog'?'Explorar':p.action||(p.id==='diagramas'?'Explorar':'Ver detalle')} ${locked?'':icon('arrow')}</span></div></${locked?'div':'a'}>`;
@@ -91,46 +91,53 @@ function diagramSvg(project){
  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 ${canvasHeight}" role="img" aria-label="Diagrama de ${esc(project.name)}"><title>${esc(project.name)}</title><defs><marker id="diagram-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="m0 0 10 5-10 5Z" fill="#527c68"/></marker></defs>${lines}${nodes}</svg>`;
 }
 function detail(p){
+ const fromCourses=new URLSearchParams(location.hash.split('?')[1]||'').get('from')==='cursos',parent=fromCourses?'/cursos':'/catalogo/observabilidad';
  main.className='workspace-main detail-page';main.dataset.detailPanel='resumen';fitShell();
- main.innerHTML=`${crumbs([{label:'Observabilidad',href:'#/catalogo/observabilidad'},{label:p.title}])}<nav class="detail-mobile-tabs" aria-label="Vista del producto">${[['resumen','Resumen'],['incluye','Qué incluye'],['ejemplo','Vista previa']].map(([id,label])=>`<button type="button" data-detail-panel="${id}" aria-pressed="${id==='resumen'}">${label}</button>`).join('')}</nav><div class="detail-layout"><section class="detail-copy"><span class="type-pill">${typeLabel(p)}</span><h1 id="workspace-heading">${esc(p.title)}</h1><p class="detail-intro">${p.ready?'Documenta cómo funciona un servicio y qué componentes necesita.':esc(p.description)}</p>${p.ready?`<ul class="outcome-list"><li>${icon('resource')}<div><h2>Servicios y componentes</h2><p>Identifica los elementos que forman parte del servicio.</p></div></li><li>${icon('dependency')}<div><h2>Relaciones y dependencias</h2><p>Visualiza cómo se conectan sus componentes.</p></div></li><li>${icon('map')}<div><h2>Diagramas para compartir</h2><p>Exporta tu diagrama y conserva el proyecto.</p></div></li></ul><div class="detail-actions"><a class="primary-action" href="#/herramientas/mapeo-servicios">Abrir herramienta ${icon('arrow')}</a><a class="text-action" href="#/herramientas/mapeo-servicios/ejemplo">Ver ejemplo</a></div><details class="how-to" open><summary>Cómo empezar</summary><ul><li>Define el servicio</li><li>Añade sus componentes</li><li>Conecta las dependencias</li></ul></details>`:`<p class="pending-status">En preparación</p><div class="preparing"><span class="type-pill">En preparación</span><h2>${p.type==='curso'?'Lo que aprenderás':'Qué podrás desarrollar'}</h2><p>${esc(p.outcome)}</p><ul>${(p.topics||['Identificar los elementos relevantes','Documentar su contexto y relaciones','Compartir los resultados con tu equipo']).map(t=>`<li>${esc(t)}</li>`).join('')}</ul><p class="availability-note">${p.type==='curso'?'El curso todavía no está habilitado.':'Esta opción todavía no está habilitada.'}</p></div>`}<a class="back-link" href="#/catalogo/observabilidad">← Volver a Observabilidad</a></section><section class="diagram-preview" aria-label="Vista de ejemplo"><div class="preview-title"><div><h2>${p.ready?'Vista de ejemplo':esc(p.title)}</h2><p>${p.ready?'Servicio de pagos':'Contenido del catálogo'}</p></div>${icon(p.icon)}</div>${p.ready?`<div class="diagram-image">${diagramSvg(example)}</div><p class="preview-caption">Un punto de partida para documentar tu servicio.</p>`:`<div class="large-product-art">${illustration(p.icon)}</div>`}</section></div>`;
+ main.innerHTML=`${crumbs(fromCourses?[{label:'Capacitación',href:'#'+parent},{label:p.title}]:[{label:p.title}])}<nav class="detail-mobile-tabs" aria-label="Vista del producto">${[['resumen','Resumen'],['incluye','Qué incluye'],['ejemplo','Vista previa']].map(([id,label])=>`<button type="button" data-detail-panel="${id}" aria-pressed="${id==='resumen'}">${label}</button>`).join('')}</nav><div class="detail-layout"><section class="detail-copy"><span class="type-pill">${typeLabel(p)}</span><h1 id="workspace-heading">${esc(p.title)}</h1><p class="detail-intro">${p.ready?'Documenta cómo funciona un servicio y qué componentes necesita.':esc(p.description)}</p>${p.ready?`<ul class="outcome-list"><li>${icon('resource')}<div><h2>Servicios y componentes</h2><p>Identifica los elementos que forman parte del servicio.</p></div></li><li>${icon('dependency')}<div><h2>Relaciones y dependencias</h2><p>Visualiza cómo se conectan sus componentes.</p></div></li><li>${icon('map')}<div><h2>Diagramas para compartir</h2><p>Exporta tu diagrama y conserva el proyecto.</p></div></li></ul><div class="detail-actions"><a class="primary-action" href="#/herramientas/mapeo-servicios">Abrir herramienta ${icon('arrow')}</a><a class="text-action" href="#/herramientas/mapeo-servicios/ejemplo">Ver ejemplo</a></div><details class="how-to" open><summary>Cómo empezar</summary><ul><li>Define el servicio</li><li>Añade sus componentes</li><li>Conecta las dependencias</li></ul></details>`:`<p class="pending-status">En preparación</p><div class="preparing"><span class="type-pill">En preparación</span><h2>${p.type==='curso'?'Lo que aprenderás':'Qué podrás desarrollar'}</h2><p>${esc(p.outcome)}</p><ul>${(p.topics||['Identificar los elementos relevantes','Documentar su contexto y relaciones','Compartir los resultados con tu equipo']).map(t=>`<li>${esc(t)}</li>`).join('')}</ul><p class="availability-note">${p.type==='curso'?'El curso todavía no está habilitado.':'Esta opción todavía no está habilitada.'}</p></div>`}<a class="back-link" href="#${parent}">← Volver a ${fromCourses?'Capacitación':'Observabilidad'}</a></section><section class="diagram-preview" aria-label="Vista de ejemplo"><div class="preview-title"><div><h2>${p.ready?'Vista de ejemplo':esc(p.title)}</h2><p>${p.ready?'Servicio de pagos':'Contenido del catálogo'}</p></div>${icon(p.icon)}</div>${p.ready?`<div class="diagram-image">${diagramSvg(example)}</div><p class="preview-caption">Un punto de partida para documentar tu servicio.</p>`:`<div class="large-product-art">${illustration(p.icon)}</div>`}</section></div>`;
  main.querySelectorAll('[data-detail-panel]').forEach(b=>b.onclick=()=>{main.dataset.detailPanel=b.dataset.detailPanel;main.querySelectorAll('[data-detail-panel]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));});
  const how=main.querySelector('.how-to');if(how&&(innerWidth<=700||innerHeight<=730))how.open=false;
 
 }
-let lastRenderedHash=location.hash,restoringHash=false;
+const home='/catalogo/observabilidad';
+if(!location.hash||location.hash==='#/')history.replaceState(null,'','#'+home);
+let lastRenderedHash=location.hash,navigationTicket=0;
+window.addEventListener('koodaria:route-state',()=>{lastRenderedHash=location.hash;});
 async function render(){
- if(restoringHash){restoringHash=false;return;}
- if(window.KoodariaResourceFlow?.hasUnsavedChanges()&&!await window.KoodariaResourceFlow.requestLeave()){restoringHash=true;location.hash=lastRenderedHash;return;}
+ const ticket=++navigationTicket;const allowed=!window.KoodariaResourceFlow?.hasUnsavedChanges()||await window.KoodariaResourceFlow.requestLeave();
+ if(ticket!==navigationTicket)return;
+ if(!allowed){history.replaceState(null,'',lastRenderedHash);return;}
  lastRenderedHash=location.hash;
  accountMenu?.removeAttribute('open');
  window.KoodariaResourceFlow?.unmount();document.body.classList.remove('resource-tool-open','discovery-open');
- const route=location.hash.slice(1)||'/catalogo';
+ const route=location.hash.slice(1)||home;
  document.querySelectorAll('[data-view]').forEach(b=>b.setAttribute('aria-pressed',String((route.startsWith('/cursos')?'modulos':'servicios')===b.dataset.view)));
- document.querySelectorAll('[data-section]').forEach(b=>{if(b.dataset.section===(route.startsWith('/estandares')?'estandares':route.startsWith('/cursos')?'aprendizaje':route.startsWith('/herramientas')?'crear':route==='/catalogo'?'inicio':'aplicaciones'))b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');});
+ document.querySelectorAll('[data-section]').forEach(b=>{const path=route.split('?')[0],section=path===home?'inicio':path.startsWith('/estandares')?'estandares':path.startsWith('/cursos')?'aprendizaje':path.startsWith('/herramientas/diagramas')?'crear':'aplicaciones';if(b.dataset.section===section)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');});
  const [path,params='']=route.split('?');const bits=path.split('/').filter(Boolean);
- if(path==='/catalogo/observabilidad/diagramas'){location.replace('#/catalogo/observabilidad/gobierno');return;}
- if(path==='/catalogo/observabilidad/gobierno'){listView('Gobierno','Define los estándares de tu operación.',governanceOptions,'diagram-hub',[{label:'Observabilidad',href:'#/catalogo/observabilidad'},{label:'Gobierno'}]);return;}
+ if(path==='/catalogo/observabilidad/diagramas'){location.replace('#/herramientas/diagramas');return;}
+ if(path==='/catalogo/observabilidad/gobierno'){listView('Gobierno','Define los estándares de tu operación.',governanceOptions,'diagram-hub',[{label:'Gobierno'}]);return;}
  if(path==='/catalogo/observabilidad/gobierno/blueprints'&&!guest){listView('Blueprints','Modelos de referencia para tu infraestructura. Estamos preparando este catálogo.',[],'diagram-hub',[{label:'Observabilidad',href:'#/catalogo/observabilidad'},{label:'Gobierno',href:'#/catalogo/observabilidad/gobierno'},{label:'Blueprints'}]);return;}
  if(bits[0]==='descubrimiento'&&!guest){document.body.classList.add('discovery-open');main.className='workspace-main discovery-page-shell';main.removeAttribute('style');main.innerHTML='';window.KoodariaResourceFlow.mountDiscovery(main);return;}
  if(bits[0]==='estandares'&&!guest){document.body.classList.add('resource-tool-open');main.className='workspace-main resource-flow-page';main.removeAttribute('style');main.innerHTML='';window.KoodariaResourceFlow.mountStandards(main);return;}
  const diagramAliases=['diagramas','mapeo-recursos','mapeo-servicios','mapeo-dependencias'];
  if((bits[0]==='herramientas'&&diagramAliases.includes(bits[1]))||(bits[0]==='catalogo'&&bits[1]==='observabilidad'&&diagramAliases.includes(bits[2]))){if(path!=='/herramientas/diagramas'){location.replace('#/herramientas/diagramas');return;}document.body.classList.add('resource-tool-open');main.className='workspace-main resource-flow-page';main.removeAttribute('style');main.innerHTML='';window.KoodariaResourceFlow.mount(main);return;}
- if(guest&&!(bits[0]==='catalogo'&&(!bits[1]||(bits[1]==='observabilidad'&&!bits[2])))){location.hash='/catalogo';return;}
+ if(guest&&!(bits[0]==='catalogo'&&(!bits[1]||(bits[1]==='observabilidad'&&!bits[2])))){location.hash=home;return;}
  if(bits[0]==='cursos'){listView('Cursos','Aprende observabilidad, desde sus fundamentos hasta su aplicación en operación.',products.filter(p=>p.type==='curso'),'products',[{label:'Cursos'}],'curso');return;}
  if(bits[0]==='catalogo'&&bits[1]){
-  const discipline=disciplines.find(d=>d.id===bits[1]);if(!discipline){location.hash='/catalogo';return;}
+  const discipline=disciplines.find(d=>d.id===bits[1]);if(!discipline){location.hash=home;return;}
   if(bits[2]){const p=products.find(p=>p.id===bits[2]);if(discipline.id==='observabilidad'&&p){detail(p);return;}location.hash='/catalogo/'+discipline.id;return;}
-  listView(discipline.title,discipline.id==='observabilidad'?'Conoce y opera tus servicios.':'Estamos preparando las herramientas y contenidos de esta disciplina.',discipline.id==='observabilidad'?products:[],'products',[{label:discipline.title}],new URLSearchParams(params).get('tipo')||'herramienta');
+  listView(discipline.title,discipline.id==='observabilidad'?'Conoce y opera tus servicios.':'Estamos preparando las herramientas y contenidos de esta disciplina.',discipline.id==='observabilidad'?products:[],'products',discipline.id==='observabilidad'?[]:[{label:discipline.title}],new URLSearchParams(params).get('tipo')||'herramienta');
   if(discipline.id!=='observabilidad')main.querySelector('#catalog-grid').innerHTML='<div class="catalog-empty">Este catálogo estará disponible próximamente.<br><a href="#/catalogo">Volver al catálogo</a></div>';
   return;
  }
+ if(path!=='/catalogo'){location.replace('#'+home);return;}
  listView('Tu espacio de trabajo','Selecciona un área para comenzar.',disciplines,'catalog');
 }
-window.addEventListener('hashchange',render);
+let routeTimer;const scheduleRender=()=>{clearTimeout(routeTimer);routeTimer=setTimeout(render,0);};
+window.addEventListener('hashchange',scheduleRender);window.addEventListener('popstate',scheduleRender);
 let resizeFrame;const resize=()=>{cancelAnimationFrame(resizeFrame);resizeFrame=requestAnimationFrame(()=>{if(main.querySelector('#catalog-grid'))paginate();else fitShell();});};
 window.addEventListener('resize',resize);window.visualViewport?.addEventListener('resize',resize);
-document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>{location.hash=b.dataset.view==='modulos'?'/cursos':'/catalogo';}));
-document.querySelectorAll('[data-section]').forEach(b=>b.addEventListener('click',()=>{const route={inicio:'/catalogo',aplicaciones:'/catalogo',biblioteca:'/cursos',aprendizaje:'/cursos',crear:'/herramientas/diagramas',estandares:'/estandares'}[b.dataset.section];if(route)location.hash=route;}));
+document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>{location.hash=b.dataset.view==='modulos'?'/cursos':home;}));
+document.querySelectorAll('[data-section]').forEach(b=>b.addEventListener('click',()=>{const route={inicio:home,aplicaciones:'/catalogo',biblioteca:'/cursos',aprendizaje:'/cursos',crear:'/herramientas/diagramas',estandares:'/estandares'}[b.dataset.section];if(route)location.hash=route;}));
 for(const section of (guest?['asistente','favoritos','consola','crear','biblioteca','aprendizaje','estandares']:['asistente','favoritos','consola'])){const button=document.querySelector(`[data-section="${section}"]`);if(button){button.disabled=true;button.title=button.getAttribute('aria-label')+' · Próximamente';}}
 if(guest)document.querySelector('[data-view=modulos]')?.setAttribute('disabled','');
 render();

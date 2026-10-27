@@ -1,0 +1,18 @@
+{
+  "date": "2026-10-27",
+  "image": "localhost/koodaria-workspace:navigation-20261027",
+  "publicAssets": {
+    "resource-flow-v1.js": {
+      "sha256": "8b915d1b44ee25c85c82bd7e933da9b21e9173bba07fb26fccb1ff81fdc4e6ae",
+      "httpStatus": 200
+    },
+    "catalog-v1.js": {
+      "sha256": "55ac267c213770444de36c3b5f0c5bab91e7f7f55a8e4352d4784054cb4506ff",
+      "httpStatus": 200
+    },
+    "welcome-v2.js": {
+      "sha256": "74f992ed4e0be464dba09b1deed222fa48864a7727f78eceb065c1f563466034",
+      "httpStatus": 200
+    }
+  }
+}

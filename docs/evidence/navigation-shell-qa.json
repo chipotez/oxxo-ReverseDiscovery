@@ -1,0 +1,33 @@
+{
+  "date": "2026-10-27",
+  "environment": "disposable QA",
+  "checks": [
+    "area:Cloud",
+    "area:Automatización",
+    "area:Observabilidad",
+    "area:DevOps",
+    "area:SecOps",
+    "area:Infraestructura como código",
+    "area:SRE",
+    "course-parent-back-forward",
+    "alias:/catalogo/observabilidad/diagramas",
+    "alias:/herramientas/mapeo-recursos",
+    "alias:/herramientas/mapeo-servicios",
+    "alias:/herramientas/mapeo-dependencias",
+    "invalid-route:/does-not-exist",
+    "invalid-route:/catalogo/unknown",
+    "discovery-form-tabs-refresh-back-forward",
+    "editor-integrations-back-forward-refresh",
+    "navigation-flushes-pending-online-edit",
+    "home-rail:1440x900:light",
+    "home-rail:1440x900:dark",
+    "home-rail:1024x768:light",
+    "home-rail:1024x768:dark",
+    "home-rail:390x844:light",
+    "home-rail:390x844:dark",
+    "home-rail:844x390:light",
+    "home-rail:844x390:dark",
+    "guest-home"
+  ],
+  "javascriptErrors": []
+}
